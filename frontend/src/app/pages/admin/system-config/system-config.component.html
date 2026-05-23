@@ -1,0 +1,62 @@
+<div class="container-fluid min-vh-100 bg-light py-4" dir="rtl">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 style="color: var(--boc-primary); font-weight: 700;">
+      <i class="bi bi-gear-fill me-2 text-primary"></i> إعدادات النظام ومعاجم البيانات (System Config)
+    </h2>
+    <button class="btn btn-success px-4"><i class="bi bi-save ms-2"></i> حفظ التغييرات</button>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="card-industrial p-4 h-100">
+        <h5 class="text-secondary mb-4 border-bottom pb-2">متغيرات SLA الأساسية</h5>
+        
+        <div class="mb-3">
+          <label class="form-label">الحد الأقصى لتقييم البحث (أيام)</label>
+          <input type="number" class="form-control" value="10">
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">أيام التنبيه المبكر للباحثين</label>
+          <input type="number" class="form-control" value="3">
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">فترة الاحتفاظ بالملفات المؤقتة (ساعات)</label>
+          <input type="number" class="form-control" value="24">
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-8 mb-4">
+      <div class="card-industrial p-4 h-100">
+        <h5 class="text-secondary mb-4 border-bottom pb-2">إدارة قوائم النظام (Dictionaries)</h5>
+        
+        <ul class="nav nav-tabs mb-3" id="configTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active fw-bold" type="button">أقسام BOC المتخصصة</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link text-muted" type="button">معايير التقييم وأوزانها</button>
+          </li>
+        </ul>
+        
+        <div class="table-responsive">
+          <table class="table table-sm table-hover align-middle">
+            <tbody>
+              <tr>
+                <td class="w-75"><input type="text" class="form-control" value="قسم هندسة المكامن وتطوير الحقول"></td>
+                <td class="text-end"><button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button></td>
+              </tr>
+              <tr>
+                <td class="w-75"><input type="text" class="form-control" value="قسم الحفر والاستصلاح"></td>
+                <td class="text-end"><button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn btn-sm btn-outline-primary mt-2"><i class="bi bi-plus"></i> إضافة قسم جديد</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

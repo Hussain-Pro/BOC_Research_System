@@ -1,0 +1,56 @@
+<div class="container-fluid bg-light min-vh-100 py-4" dir="rtl">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      
+      <div class="card-industrial">
+        <div class="card-header bg-white p-4 border-bottom d-flex justify-content-between align-items-center">
+          <h3 class="mb-0" style="color: var(--boc-primary); font-weight: 700;">
+            <i class="bi bi-bell-fill me-2 text-warning"></i> مركز الإشعارات
+          </h3>
+          <button class="btn btn-outline-secondary btn-sm" (click)="markAllAsRead()">
+            تحديد الكل كمقروء
+          </button>
+        </div>
+        
+        <div class="list-group list-group-flush">
+          <!-- Empty State -->
+          <div *ngIf="notifications.length === 0" class="text-center p-5 text-muted">
+            <i class="bi bi-bell-slash mb-3 d-block" style="font-size: 3rem;"></i>
+            <h5>لا توجد إشعارات جديدة</h5>
+          </div>
+
+          <!-- Notification Items -->
+          <div *ngFor="let notif of notifications" 
+               class="list-group-item list-group-item-action p-4 d-flex gap-3 align-items-start"
+               [ngClass]="{'bg-light': !notif.isRead}">
+               
+            <div class="icon-circle d-flex justify-content-center align-items-center flex-shrink-0"
+                 [ngClass]="getIconClass(notif.type)"
+                 style="width: 48px; height: 48px; border-radius: 50%;">
+              <i [class]="getIcon(notif.type)" style="font-size: 1.5rem;"></i>
+            </div>
+            
+            <div class="w-100 text-end">
+              <div class="d-flex justify-content-between mb-1">
+                <h5 class="mb-0 fw-bold" [ngStyle]="{'color': !notif.isRead ? 'var(--boc-primary)' : 'var(--boc-secondary)'}">
+                  {{ notif.title }}
+                </h5>
+                <small class="text-muted">{{ notif.timestamp | date:'shortTime' }}</small>
+              </div>
+              <p class="mb-2 text-secondary">{{ notif.message }}</p>
+              
+              <button *ngIf="notif.actionUrl" class="btn btn-sm btn-primary-industrial mt-1" [routerLink]="notif.actionUrl">
+                عرض التفاصيل
+              </button>
+            </div>
+            
+            <div *ngIf="!notif.isRead" class="ms-auto mt-2">
+              <span class="badge bg-danger rounded-circle p-2"> </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

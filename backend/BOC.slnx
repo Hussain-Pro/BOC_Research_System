@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="BOC.Application/BOC.Application.csproj" />
+  <Project Path="BOC.Domain/BOC.Domain.csproj" />
+  <Project Path="BOC.Infrastructure/BOC.Infrastructure.csproj" />
+  <Project Path="BOC.WebAPI/BOC.WebAPI.csproj" />
+</Solution>

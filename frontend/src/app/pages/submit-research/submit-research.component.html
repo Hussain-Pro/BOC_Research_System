@@ -1,0 +1,112 @@
+<div class="submit-wrapper container fade-in">
+  <!-- Stepper Header -->
+  <div class="stepper-header card">
+    <div class="step-indicator" [class.active]="step() >= 1">
+      <div class="circle">1</div>
+      <span>تفاصيل البحث</span>
+    </div>
+    <div class="step-line" [class.active]="step() >= 2"></div>
+    <div class="step-indicator" [class.active]="step() >= 2">
+      <div class="circle">2</div>
+      <span>رفع الملف</span>
+    </div>
+    <div class="step-line" [class.active]="step() >= 3"></div>
+    <div class="step-indicator" [class.active]="step() >= 3">
+      <div class="circle">3</div>
+      <span>حالة التقديم</span>
+    </div>
+  </div>
+
+  <!-- Alert Error -->
+  <div *ngIf="error()" class="alert-box badge-danger fade-in">
+    {{ error() }}
+  </div>
+
+  <!-- STEP 1: RESEARCH DETAILS -->
+  <div *ngIf="step() === 1" class="card form-card fade-in">
+    <h2>تفاصيل البحث العلمي الجديد</h2>
+    <p class="description">يرجى ملء الحقول التالية بعناية. هذه البيانات ستستخدم في عمليات الفرز والتقييم.</p>
+
+    <div class="form-group">
+      <label for="title">عنوان البحث بالكامل</label>
+      <input 
+        type="text" 
+        id="title" 
+        class="form-control" 
+        [(ngModel)]="title" 
+        required 
+        placeholder="مثال: دراسة تحسين إنتاجية الآبار المشتركة في حقل الرميلة">
+    </div>
+
+    <div class="form-group">
+      <label for="abstract">المستخلص (Abstract)</label>
+      <textarea 
+        id="abstract" 
+        class="form-control" 
+        rows="6" 
+        [(ngModel)]="abstract" 
+        placeholder="اكتب مستخلص البحث هنا بالتفصيل (الأهداف، الطرق المستخدمة، والنتائج المتوقعة)..."></textarea>
+    </div>
+
+    <div class="form-group flex-row">
+      <input type="checkbox" id="submit-immediately" [(ngModel)]="submitImmediately">
+      <label for="submit-immediately" class="checkbox-label">إرسال للتدقيق فوراً (تخطي المسودة)</label>
+    </div>
+
+    <div class="button-row">
+      <button class="btn btn-primary" (click)="nextStep()" [disabled]="!title">التالي</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: FILE UPLOAD -->
+  <div *ngIf="step() === 2" class="card form-card fade-in">
+    <h2>رفع مستند البحث</h2>
+    <p class="description">يرجى رفع ملف البحث بصيغة PDF أو Word. الحد الأقصى لحجم الملف هو 50 ميجابايت.</p>
+
+    <div class="upload-zone" (click)="fileInput.click()">
+      <div class="upload-icon">📁</div>
+      <p class="upload-text" *ngIf="!selectedFile">اسحب الملف هنا أو انقر للتصفح</p>
+      <p class="file-name" *ngIf="selectedFile">تم اختيار: <strong>{{ selectedFile.name }}</strong> ({{ (selectedFile.size / 1024 / 1024) | number:'1.1-2' }} MB)</p>
+      <input 
+        type="file" 
+        #fileInput 
+        style="display: none;" 
+        (change)="onFileSelected($event)" 
+        accept=".pdf,.doc,.docx,.xlsx,.png,.jpg">
+    </div>
+
+    <div class="button-row justify-between">
+      <button class="btn btn-secondary" (click)="prevStep()">السابق</button>
+      <button class="btn btn-primary" (click)="onSubmit()" [disabled]="!selectedFile">إرسال البحث</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: SUCCESS & TIMELINE VIEW -->
+  <div *ngIf="step() === 3" class="card success-card fade-in">
+    <div class="success-icon">✓</div>
+    <h2>تم تقديم البحث بنجاح!</h2>
+    <p class="tracking-text">رقم التتبع الخاص بك هو: <strong dir="ltr">{{ trackingNumber() }}</strong></p>
+    <p class="description">يمكنك متابعة حالة البحث من خلال الخط الزمني أدناه:</p>
+
+    <!-- State Timeline Flowchart -->
+    <div class="timeline-container">
+      <div class="timeline-scroll">
+        <div class="timeline-track">
+          <div 
+            *ngFor="let state of statesList; let i = index" 
+            class="timeline-node"
+            [class.active]="state.name === currentState"
+            [class.completed]="i < 2"> <!-- Mock completed states -->
+            <div class="node-circle">{{ i + 1 }}</div>
+            <div class="node-label">{{ state.label }}</div>
+            <div class="node-line" *ngIf="i < statesList.length - 1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button class="btn btn-primary" (click)="router.navigate(['/dashboard'])">الذهاب للوحة التحكم</button>
+    </div>
+  </div>
+</div>

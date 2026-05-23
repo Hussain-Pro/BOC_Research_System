@@ -1,0 +1,40 @@
+- [x] Initialize ASP.NET Core Solution and Projects
+  - [x] Create Solution and Project Files (Domain, Application, Infrastructure, WebAPI)
+- [x] Implement Domain Layer (BOC.Domain)
+  - [x] Define Value Objects and Enums (ResearchState, AccountStatus, EvaluatorStatus, VoteValue)
+  - [x] Define Core Aggregates and Entities (AppUser, AppRole, ResearchPaper, Meeting, MeetingMinutes, TriageMapping, EvaluatorAssignment, Evaluation, ChairmanScore, AuditLog, OutboxMessage, etc.)
+  - [x] Implement Domain Exception Types (FrozenMinutesException, InvalidStateTransitionException)
+  - [x] Implement ResearchStateMachine (Transition Logic)
+  - [x] Implement ResearchScoringService (70/30 Scoring Engine)
+- [x] Implement Infrastructure Layer (BOC.Infrastructure)
+  - [x] Set up DbContext and Fluent API Mappings for all 35+ tables
+  - [x] Configure Always Encrypted mapping for NationalID & EmployeeID
+  - [x] Implement SaveChangesInterceptors (AuditLogInterceptor & OutboxInterceptor)
+  - [x] Implement Redis Distributed Cache provider
+  - [x] **Step 1** — appsettings.json (Development + Production) ✅
+  - [x] **Step 2** — Program.cs: Serilog, CORS, JWT, Rate Limiting, Health Checks ✅
+  - [x] **Step 3** — 5 Quartz Background Jobs (PlagiarismLockout, Session, DataRetention, MinistryBatch, Email) ✅
+  - [x] **Step 4** — EF Core Configurations: PermissionScope entity + Performance Indexes ✅
+- [x] Implement Application Layer (BOC.Application)
+  - [x] **Step 5** — CQRS Command/Query Handlers (MediatR) — Auth flow (Login, Register, Refresh, Change Password, Reset) ✅
+  - [x] Configure MediatR behaviors (ValidationBehavior, TransactionBehavior)
+  - [x] Define DTOs, AutoMapper mapping profiles, and FluentValidation rules
+  - [x] Implement CQRS Handlers (Auth, Research submission/correction, Triage mapping, Grading, RSVP, Minutes freeze)
+- [x] Implement WebAPI Layer (BOC.WebAPI)
+  - [x] **Step 6** — WebAPI Controllers (Auth, Research, Meeting, HRVerification, Profile, Notifications, FileProxy, Admin) ✅
+  - [x] Implement JWT + conditional 2FA Middleware with immediate enforcement
+  - [x] Implement SignalR Real-Time Hubs (NotificationHub, ChatHub)
+  - [x] Implement Global Exception Middleware (RFC 7807) & Rate Limiting
+- [ ] Implement Phase C (Angular Frontend)
+  - [ ] **Step 7** — Frontend Core Setup (Dependencies, Routing Architecture, Auth Guards, Interceptors)
+  - [ ] **Step 8** — Build Priority Screens (Auth Flow, Research Timeline, RSVP, Chat, Notifications)
+- [x] Setup Angular 17+ Frontend
+  - [x] Initialize Angular standalone workspace in frontend/
+  - [x] Set up SCSS Muted Industrial Design system & Tajawal RTL font settings
+  - [x] Build Authentication & 2FA Setup/Verification Screens
+  - [x] Build Research Submission Wizard & State Timeline Viewer
+  - [x] Build Incoming Triage Dashboard with tiered Workload Dropdown
+  - [x] Build Meeting Minutes Studio (5 BOC sections compiler) & Live Chat Box
+- [x] Verification and Testing
+  - [x] Run xUnit tests for scoring engine & state machine
+  - [x] Run integration tests for DB mappings & outbox dispatching

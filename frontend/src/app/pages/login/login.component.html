@@ -1,0 +1,33 @@
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light" dir="rtl">
+  <div class="row w-100 justify-content-center">
+    <div class="col-md-5 col-lg-4">
+      <div class="card-industrial p-4 text-center">
+        <h3 class="mb-4" style="color: var(--boc-primary); font-weight: 700;">
+          نظام تقييم البحوث - شركة نفط البصرة
+        </h3>
+        
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+          <div class="mb-3 text-end">
+            <label for="email" class="form-label">البريد الإلكتروني</label>
+            <input type="email" class="form-control" id="email" [(ngModel)]="credentials.email" name="email" required dir="ltr">
+          </div>
+          
+          <div class="mb-4 text-end">
+            <label for="password" class="form-label">كلمة المرور</label>
+            <input type="password" class="form-control" id="password" [(ngModel)]="credentials.password" name="password" required dir="ltr">
+          </div>
+          
+          <button type="submit" class="btn btn-primary-industrial w-100 mb-3" [disabled]="!loginForm.form.valid || isLoading">
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            تسجيل الدخول
+          </button>
+        </form>
+        
+        <div class="d-flex justify-content-between mt-2">
+          <a routerLink="/auth/forgot-password" class="text-decoration-none text-muted small">نسيت كلمة المرور؟</a>
+          <a routerLink="/auth/register" class="text-decoration-none small" style="color: var(--boc-secondary);">إنشاء حساب جديد</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

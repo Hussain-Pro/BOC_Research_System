@@ -1,0 +1,113 @@
+.login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--bg-off-white);
+  padding: 1.5rem;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 2.5rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 25px -5px rgba(15, 42, 56, 0.08), 0 8px 10px -6px rgba(15, 42, 56, 0.05);
+}
+
+.logo-area {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .emblem {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary-oil-blue);
+    color: var(--text-light);
+    font-size: 1.25rem;
+    font-weight: 800;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px rgba(15, 42, 56, 0.15);
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .subtitle {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+}
+
+.alert-box {
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.15rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: var(--primary-oil-blue);
+}
+
+.description {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.secret-key-box {
+  background-color: var(--bg-off-white);
+  border: 1px dashed var(--secondary-slate-gray);
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  text-align: center;
+  margin-bottom: 1.5rem;
+
+  code {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--primary-oil-blue-light);
+    letter-spacing: 0.05em;
+  }
+}
+
+.qr-code-placeholder {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+
+  .qr-box {
+    width: 150px;
+    height: 150px;
+    border: 2px solid var(--border-color);
+    background-color: var(--bg-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    border-radius: 4px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02);
+  }
+}

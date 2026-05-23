@@ -1,0 +1,57 @@
+<div class="container-fluid min-vh-100 bg-light py-4" dir="rtl">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 style="color: var(--boc-primary); font-weight: 700;">
+      <i class="bi bi-shield-lock me-2 text-primary"></i> سجل التدقيق الأمني (Audit Logs)
+    </h2>
+    <button class="btn btn-outline-secondary"><i class="bi bi-download ms-2"></i> تصدير السجل (CSV)</button>
+  </div>
+
+  <div class="card-industrial p-4">
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <input type="date" class="form-control">
+      </div>
+      <div class="col-md-4">
+        <select class="form-select">
+          <option selected>تصفية حسب نوع الإجراء...</option>
+          <option>تسجيل دخول</option>
+          <option>تعديل تقييم</option>
+          <option>حذف مستند</option>
+        </select>
+      </div>
+      <div class="col-md-4 text-end">
+        <button class="btn btn-primary-industrial w-100">تطبيق الفلاتر</button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-hover text-center align-middle" style="font-size: 0.9rem;">
+        <thead class="table-dark">
+          <tr>
+            <th>التاريخ والوقت</th>
+            <th>المستخدم (ID)</th>
+            <th>الإجراء (Action)</th>
+            <th>الكيان (Entity)</th>
+            <th>التفاصيل التقنية (JSON)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td dir="ltr">2026-05-23 09:12:44</td>
+            <td class="fw-bold">د. محمود (EMP-1192)</td>
+            <td><span class="badge bg-warning text-dark">UPDATE</span></td>
+            <td>ResearchPaper</td>
+            <td><button class="btn btn-sm btn-light border">عرض Diff</button></td>
+          </tr>
+          <tr>
+            <td dir="ltr">2026-05-23 08:05:11</td>
+            <td class="fw-bold">System Admin (EMP-0001)</td>
+            <td><span class="badge bg-primary">LOGIN</span></td>
+            <td>AppUser</td>
+            <td><button class="btn btn-sm btn-light border">عرض التفاصيل</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\obj\Debug\net10.0\BOC.Infrastructure.csproj.AssemblyReference.cache
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\obj\Debug\net10.0\BOC.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\obj\Debug\net10.0\BOC.Infrastructure.AssemblyInfoInputs.cache
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\obj\Debug\net10.0\BOC.Infrastructure.AssemblyInfo.cs
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\obj\Debug\net10.0\BOC.Infrastructure.csproj.CoreCompileInputs.cache
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\bin\Debug\net10.0\BOC.Infrastructure.deps.json
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\bin\Debug\net10.0\BOC.Infrastructure.dll
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\bin\Debug\net10.0\BOC.Infrastructure.pdb
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\bin\Debug\net10.0\BOC.Application.dll
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\bin\Debug\net10.0\BOC.Domain.dll
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\bin\Debug\net10.0\BOC.Application.pdb
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\bin\Debug\net10.0\BOC.Domain.pdb
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\obj\Debug\net10.0\BOC.Infr.D60BB9F6.Up2Date
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\obj\Debug\net10.0\BOC.Infrastructure.dll
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\obj\Debug\net10.0\refint\BOC.Infrastructure.dll
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\obj\Debug\net10.0\BOC.Infrastructure.pdb
+D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\obj\Debug\net10.0\ref\BOC.Infrastructure.dll

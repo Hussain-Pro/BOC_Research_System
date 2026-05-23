@@ -1,0 +1,246 @@
+.submit-wrapper {
+  margin-top: 2rem;
+}
+
+.stepper-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding: 1.25rem 2rem;
+
+  .step-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-muted);
+
+    .circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.875rem;
+      transition: all var(--transition-standard);
+    }
+
+    span {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    &.active {
+      color: var(--primary-oil-blue);
+      
+      .circle {
+        border-color: var(--primary-oil-blue);
+        background-color: var(--primary-oil-blue);
+        color: var(--text-light);
+      }
+    }
+  }
+
+  .step-line {
+    flex: 1;
+    height: 2px;
+    background-color: var(--border-color);
+    margin: 0 1.5rem;
+    transition: background-color var(--transition-standard);
+
+    &.active {
+      background-color: var(--primary-oil-blue-light);
+    }
+  }
+}
+
+.form-card {
+  margin-bottom: 2rem;
+}
+
+.flex-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.checkbox-label {
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+
+  &.justify-between {
+    justify-content: space-between;
+  }
+}
+
+.upload-zone {
+  border: 2px dashed var(--secondary-slate-gray);
+  border-radius: var(--border-radius);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  background-color: var(--bg-off-white);
+  cursor: pointer;
+  transition: all var(--transition-standard);
+
+  &:hover {
+    border-color: var(--primary-oil-blue-light);
+    background-color: rgba(22, 62, 84, 0.02);
+  }
+
+  .upload-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .upload-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+
+  .file-name {
+    font-size: 0.95rem;
+    color: var(--primary-oil-blue-light);
+  }
+}
+
+.success-card {
+  text-align: center;
+  padding: 3rem 2rem;
+
+  .success-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background-color: rgba(59, 122, 87, 0.1);
+    color: var(--success-emerald);
+    font-size: 2rem;
+    font-weight: 700;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+  }
+
+  .tracking-text {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+  }
+}
+
+/* Horizontal Timeline Flowchart Styles */
+.timeline-container {
+  margin: 2.5rem 0;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-off-white);
+  border-radius: var(--border-radius);
+  padding: 2rem 1.5rem;
+}
+
+.timeline-scroll {
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--text-muted);
+    border-radius: 3px;
+  }
+}
+
+.timeline-track {
+  display: flex;
+  align-items: center;
+  min-width: 1400px; /* Ensure nodes fit horizontally */
+  justify-content: space-between;
+}
+
+.timeline-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  text-align: center;
+
+  .node-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--bg-white);
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    z-index: 2;
+    transition: all var(--transition-standard);
+  }
+
+  .node-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 0.75rem;
+    color: var(--text-secondary);
+    transition: color var(--transition-standard);
+  }
+
+  .node-line {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: var(--border-color);
+    z-index: 1;
+    transition: background-color var(--transition-standard);
+  }
+
+  /* Node States mapping */
+  &.completed {
+    .node-circle {
+      border-color: var(--success-emerald);
+      background-color: var(--success-emerald);
+      color: var(--text-light);
+    }
+    
+    .node-label {
+      color: var(--success-emerald);
+    }
+
+    .node-line {
+      background-color: var(--success-emerald);
+    }
+  }
+
+  &.active {
+    .node-circle {
+      border-color: var(--primary-oil-blue-light);
+      background-color: var(--primary-oil-blue-light);
+      color: var(--text-light);
+      box-shadow: 0 0 0 4px rgba(22, 62, 84, 0.15);
+    }
+
+    .node-label {
+      color: var(--primary-oil-blue);
+      font-weight: 700;
+    }
+  }
+}

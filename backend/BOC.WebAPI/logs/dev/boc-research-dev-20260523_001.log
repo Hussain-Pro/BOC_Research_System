@@ -1,0 +1,953 @@
+2026-05-23 15:45:13.252 +03:00 [INF]     Connecting to Redis endpoints: localhost:6379. Using Server Name: DESKTOP-SUIT5JA_980006ccf2b940b581f0ac4bfc4f9961
+2026-05-23 15:45:13.342 +03:00 [INF]     Connecting to Redis endpoints: localhost:6379. Using Server Name: DESKTOP-SUIT5JA_738178fff93442e3ba66b81147f4d8ea
+2026-05-23 15:45:13.392 +03:00 [INF]     BOC Research System started successfully. Environment: Development
+2026-05-23 15:45:13.488 +03:00 [INF]     User profile is available. Using 'C:\Users\pc\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-05-23 15:45:13.556 +03:00 [DBG]     TaskSchedulingThreadPool configured with max concurrency of 10 and TaskScheduler ThreadPoolTaskScheduler.
+2026-05-23 15:45:13.568 +03:00 [INF]     Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl
+2026-05-23 15:45:13.570 +03:00 [INF]     Quartz Scheduler created
+2026-05-23 15:45:13.577 +03:00 [INF]     JobFactory set to: Quartz.Simpl.MicrosoftDependencyInjectionJobFactory
+2026-05-23 15:45:13.581 +03:00 [INF]     RAMJobStore initialized.
+2026-05-23 15:45:13.585 +03:00 [INF]     Quartz Scheduler 3.18.1.0 - 'QuartzScheduler' with instanceId 'NON_CLUSTERED' initialized
+2026-05-23 15:45:13.588 +03:00 [INF]     Using thread pool 'Quartz.Simpl.DefaultThreadPool', size: 10
+2026-05-23 15:45:13.593 +03:00 [INF]     Using job store 'Quartz.Simpl.RAMJobStore', supports persistence: False, clustered: False
+2026-05-23 15:45:13.632 +03:00 [INF]     Adding 8 jobs, 8 triggers.
+2026-05-23 15:45:13.639 +03:00 [INF]     Adding job: DEFAULT.OutboxDispatcherJob
+2026-05-23 15:45:13.651 +03:00 [INF]     Adding job: DEFAULT.SLABreachScannerJob
+2026-05-23 15:45:13.655 +03:00 [INF]     Adding job: DEFAULT.RetirementAgeScannerJob
+2026-05-23 15:45:13.662 +03:00 [INF]     Adding job: DEFAULT.PlagiarismLockoutExpiryJob
+2026-05-23 15:45:13.666 +03:00 [INF]     Adding job: DEFAULT.SessionCleanupJob
+2026-05-23 15:45:13.670 +03:00 [INF]     Adding job: DEFAULT.DataRetentionJob
+2026-05-23 15:45:13.677 +03:00 [INF]     Adding job: DEFAULT.MinistryBatchPollerJob
+2026-05-23 15:45:13.680 +03:00 [INF]     Adding job: DEFAULT.EmailDispatcherJob
+2026-05-23 15:45:13.686 +03:00 [DBG]     Scheduling job: DEFAULT.OutboxDispatcherJob with trigger: DEFAULT.OutboxDispatcherJob-trigger
+2026-05-23 15:45:13.703 +03:00 [DBG]     Scheduling job: DEFAULT.SLABreachScannerJob with trigger: DEFAULT.SLABreachScannerJob-trigger
+2026-05-23 15:45:13.708 +03:00 [DBG]     Scheduling job: DEFAULT.RetirementAgeScannerJob with trigger: DEFAULT.RetirementAgeScannerJob-trigger
+2026-05-23 15:45:13.726 +03:00 [DBG]     Scheduling job: DEFAULT.PlagiarismLockoutExpiryJob with trigger: DEFAULT.PlagiarismLockoutExpiryJob-trigger
+2026-05-23 15:45:13.730 +03:00 [DBG]     Scheduling job: DEFAULT.SessionCleanupJob with trigger: DEFAULT.SessionCleanupJob-trigger
+2026-05-23 15:45:13.734 +03:00 [DBG]     Scheduling job: DEFAULT.DataRetentionJob with trigger: DEFAULT.DataRetentionJob-trigger
+2026-05-23 15:45:13.738 +03:00 [DBG]     Scheduling job: DEFAULT.MinistryBatchPollerJob with trigger: DEFAULT.MinistryBatchPollerJob-trigger
+2026-05-23 15:45:13.741 +03:00 [DBG]     Scheduling job: DEFAULT.EmailDispatcherJob with trigger: DEFAULT.EmailDispatcherJob-trigger
+2026-05-23 15:45:13.852 +03:00 [WRN]     The WebRootPath was not found: D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\wwwroot. Static files may be unavailable.
+2026-05-23 15:45:13.902 +03:00 [ERR]     Hosting failed to start
+System.IO.IOException: Failed to bind to address http://127.0.0.1:5058: address already in use.
+ ---> Microsoft.AspNetCore.Connections.AddressInUseException: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+ ---> System.Net.Sockets.SocketException (10048): Only one usage of each socket address (protocol/network address/port) is normally permitted.
+   at System.Net.Sockets.Socket.UpdateStatusAfterSocketErrorAndThrowException(SocketError error, Boolean disconnectOnFailure, String callerName)
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportOptions.CreateDefaultBoundListenSocket(EndPoint endpoint)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportFactory.BindAsync(EndPoint endpoint, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.TransportManager.BindAsync(EndPoint endPoint, ConnectionDelegate connectionDelegate, EndpointConfig endpointConfig, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.<>c__DisplayClass28_0`1.<<StartAsync>g__OnBind|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.LocalhostListenOptions.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.BindAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+2026-05-23 15:45:13.957 +03:00 [FTL]     BOC Research System terminated unexpectedly.
+System.IO.IOException: Failed to bind to address http://127.0.0.1:5058: address already in use.
+ ---> Microsoft.AspNetCore.Connections.AddressInUseException: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+ ---> System.Net.Sockets.SocketException (10048): Only one usage of each socket address (protocol/network address/port) is normally permitted.
+   at System.Net.Sockets.Socket.UpdateStatusAfterSocketErrorAndThrowException(SocketError error, Boolean disconnectOnFailure, String callerName)
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportOptions.CreateDefaultBoundListenSocket(EndPoint endpoint)
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketConnectionListener.Bind()
+   at Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.SocketTransportFactory.BindAsync(EndPoint endpoint, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure.TransportManager.BindAsync(EndPoint endPoint, ConnectionDelegate connectionDelegate, EndpointConfig endpointConfig, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.<>c__DisplayClass28_0`1.<<StartAsync>g__OnBind|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindEndpointAsync(ListenOptions endpoint, AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.LocalhostListenOptions.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.BindAsync(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerImpl.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.<StartAsync>b__14_1(IHostedService service, CancellationToken token)
+   at Microsoft.Extensions.Hosting.Internal.Host.ForeachService[T](IEnumerable`1 services, CancellationToken token, Boolean concurrent, Boolean abortOnFirstException, List`1 exceptions, Func`3 operation)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at Program.<Main>$(String[] args) in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Program.cs:line 320
+2026-05-23 15:48:58.329 +03:00 [INF]     Connecting to Redis endpoints: localhost:6379. Using Server Name: DESKTOP-SUIT5JA_275a4d091a7d4debad297037ff5f8ab4
+2026-05-23 15:48:58.414 +03:00 [INF]     Connecting to Redis endpoints: localhost:6379. Using Server Name: DESKTOP-SUIT5JA_1f3eb2eb637341838a479e999ef660d8
+2026-05-23 15:48:58.459 +03:00 [INF]     BOC Research System started successfully. Environment: Development
+2026-05-23 15:48:58.536 +03:00 [INF]     User profile is available. Using 'C:\Users\pc\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-05-23 15:48:58.595 +03:00 [DBG]     TaskSchedulingThreadPool configured with max concurrency of 10 and TaskScheduler ThreadPoolTaskScheduler.
+2026-05-23 15:48:58.605 +03:00 [INF]     Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl
+2026-05-23 15:48:58.606 +03:00 [INF]     Quartz Scheduler created
+2026-05-23 15:48:58.608 +03:00 [INF]     JobFactory set to: Quartz.Simpl.MicrosoftDependencyInjectionJobFactory
+2026-05-23 15:48:58.609 +03:00 [INF]     RAMJobStore initialized.
+2026-05-23 15:48:58.610 +03:00 [INF]     Quartz Scheduler 3.18.1.0 - 'QuartzScheduler' with instanceId 'NON_CLUSTERED' initialized
+2026-05-23 15:48:58.611 +03:00 [INF]     Using thread pool 'Quartz.Simpl.DefaultThreadPool', size: 10
+2026-05-23 15:48:58.611 +03:00 [INF]     Using job store 'Quartz.Simpl.RAMJobStore', supports persistence: False, clustered: False
+2026-05-23 15:48:58.640 +03:00 [INF]     Adding 8 jobs, 8 triggers.
+2026-05-23 15:48:58.644 +03:00 [INF]     Adding job: DEFAULT.OutboxDispatcherJob
+2026-05-23 15:48:58.652 +03:00 [INF]     Adding job: DEFAULT.SLABreachScannerJob
+2026-05-23 15:48:58.652 +03:00 [INF]     Adding job: DEFAULT.RetirementAgeScannerJob
+2026-05-23 15:48:58.653 +03:00 [INF]     Adding job: DEFAULT.PlagiarismLockoutExpiryJob
+2026-05-23 15:48:58.653 +03:00 [INF]     Adding job: DEFAULT.SessionCleanupJob
+2026-05-23 15:48:58.653 +03:00 [INF]     Adding job: DEFAULT.DataRetentionJob
+2026-05-23 15:48:58.653 +03:00 [INF]     Adding job: DEFAULT.MinistryBatchPollerJob
+2026-05-23 15:48:58.653 +03:00 [INF]     Adding job: DEFAULT.EmailDispatcherJob
+2026-05-23 15:48:58.656 +03:00 [DBG]     Scheduling job: DEFAULT.OutboxDispatcherJob with trigger: DEFAULT.OutboxDispatcherJob-trigger
+2026-05-23 15:48:58.667 +03:00 [DBG]     Scheduling job: DEFAULT.SLABreachScannerJob with trigger: DEFAULT.SLABreachScannerJob-trigger
+2026-05-23 15:48:58.668 +03:00 [DBG]     Scheduling job: DEFAULT.RetirementAgeScannerJob with trigger: DEFAULT.RetirementAgeScannerJob-trigger
+2026-05-23 15:48:58.681 +03:00 [DBG]     Scheduling job: DEFAULT.PlagiarismLockoutExpiryJob with trigger: DEFAULT.PlagiarismLockoutExpiryJob-trigger
+2026-05-23 15:48:58.682 +03:00 [DBG]     Scheduling job: DEFAULT.SessionCleanupJob with trigger: DEFAULT.SessionCleanupJob-trigger
+2026-05-23 15:48:58.682 +03:00 [DBG]     Scheduling job: DEFAULT.DataRetentionJob with trigger: DEFAULT.DataRetentionJob-trigger
+2026-05-23 15:48:58.682 +03:00 [DBG]     Scheduling job: DEFAULT.MinistryBatchPollerJob with trigger: DEFAULT.MinistryBatchPollerJob-trigger
+2026-05-23 15:48:58.683 +03:00 [DBG]     Scheduling job: DEFAULT.EmailDispatcherJob with trigger: DEFAULT.EmailDispatcherJob-trigger
+2026-05-23 15:48:58.789 +03:00 [WRN]     The WebRootPath was not found: D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\wwwroot. Static files may be unavailable.
+2026-05-23 15:48:58.826 +03:00 [INF]     Now listening on: http://localhost:5058
+2026-05-23 15:48:58.826 +03:00 [INF]     Application started. Press Ctrl+C to shut down.
+2026-05-23 15:48:58.827 +03:00 [INF]     Hosting environment: Development
+2026-05-23 15:48:58.827 +03:00 [INF]     Content root path: D:\WebApps\BOC_Research_System\backend\BOC.WebAPI
+2026-05-23 15:48:58.835 +03:00 [INF]     Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+2026-05-23 15:48:58.845 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 15:48:58.859 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 15:48:58.859 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 15:48:58.860 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 15:48:58.860 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 15:48:59.172 +03:00 [DBG]     Calling Execute on job DEFAULT.SLABreachScannerJob
+2026-05-23 15:48:59.172 +03:00 [DBG]     Calling Execute on job DEFAULT.EmailDispatcherJob
+2026-05-23 15:48:59.172 +03:00 [DBG]     Calling Execute on job DEFAULT.MinistryBatchPollerJob
+2026-05-23 15:48:59.180 +03:00 [WRN]     You do not have a valid license key for the Lucky Penny software MediatR. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-05-23 15:48:59.180 +03:00 [INF]     SLA Breach Scanner job started...
+2026-05-23 15:48:59.182 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 15:48:59.182 +03:00 [INF]     [MinistryBatchPollerJob] Polling ministry batches for responses...
+2026-05-23 15:48:59.186 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 15:48:59.188 +03:00 [INF]     [EmailDispatcherJob] Starting email dispatch run...
+2026-05-23 15:49:02.855 +03:00 [INF]     Executed DbCommand (76ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[BatchNumber], [m].[CreatedAt], [m].[MinistryResponseJson], [m].[ModifiedAt], [m].[SentDate], [m].[Status], [s].[Id], [s].[BatchId], [s].[CreatedAt], [s].[MinistryDecision], [s].[ResearchId], [s].[Id0], [s].[Abstract], [s].[CategoryId], [s].[CreatedAt0], [s].[DepartmentId], [s].[DirectorateId], [s].[FinalScore], [s].[IsArchived], [s].[MeetingId], [s].[MeetingMinutesId], [s].[ModifiedAt], [s].[ReplacedResearchId], [s].[ResearcherId], [s].[RowVersion], [s].[State], [s].[SubmissionDate], [s].[Title], [s].[TrackingNumber]
+FROM [MinistryBatches] AS [m]
+LEFT JOIN (
+    SELECT [b].[Id], [b].[BatchId], [b].[CreatedAt], [b].[MinistryDecision], [b].[ResearchId], [r].[Id] AS [Id0], [r].[Abstract], [r].[CategoryId], [r].[CreatedAt] AS [CreatedAt0], [r].[DepartmentId], [r].[DirectorateId], [r].[FinalScore], [r].[IsArchived], [r].[MeetingId], [r].[MeetingMinutesId], [r].[ModifiedAt], [r].[ReplacedResearchId], [r].[ResearcherId], [r].[RowVersion], [r].[State], [r].[SubmissionDate], [r].[Title], [r].[TrackingNumber]
+    FROM [BatchItems] AS [b]
+    INNER JOIN [ResearchPapers] AS [r] ON [b].[ResearchId] = [r].[Id]
+) AS [s] ON [m].[Id] = [s].[BatchId]
+WHERE [m].[Status] = N'Pending' AND [m].[MinistryResponseJson] IS NOT NULL
+ORDER BY [m].[Id], [s].[Id]
+2026-05-23 15:49:02.883 +03:00 [INF]     Executed DbCommand (103ms) [Parameters=[@now='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[AssignedById], [e].[AssignedDate], [e].[CreatedAt], [e].[DueDate], [e].[EvaluatorId], [e].[IsSLABreached], [e].[ModifiedAt], [e].[ReminderCount], [e].[ResearchId], [e].[RowVersion], [e].[Status], [e].[SubmittedDate]
+FROM [EvaluatorAssignments] AS [e]
+WHERE [e].[Status] = N'Active' AND [e].[SubmittedDate] IS NULL AND [e].[DueDate] < @now AND [e].[IsSLABreached] = CAST(0 AS bit)
+2026-05-23 15:49:02.883 +03:00 [INF]     Executed DbCommand (101ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 15:49:02.883 +03:00 [INF]     Executed DbCommand (101ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [e].[Id], [e].[CreatedAt], [e].[DeliveryStatus], [e].[ErrorMessage], [e].[RecipientEmail], [e].[SentAt], [e].[Subject], [e].[TemplateType]
+FROM [EmailLogs] AS [e]
+WHERE [e].[DeliveryStatus] = N'Pending'
+ORDER BY [e].[CreatedAt]
+2026-05-23 15:49:02.902 +03:00 [INF]     [MinistryBatchPollerJob] No pending ministry batch responses found.
+2026-05-23 15:49:02.902 +03:00 [INF]     No new SLA breaches found.
+2026-05-23 15:49:02.905 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 15:49:02.905 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 15:49:02.915 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 15:49:02.950 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 15:49:02.950 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 15:49:02.950 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 15:49:02.992 +03:00 [INF]     Executed DbCommand (21ms) [Parameters=[@warningWindowStart='?' (DbType = DateTime2), @warningWindowEnd='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[AssignedById], [e].[AssignedDate], [e].[CreatedAt], [e].[DueDate], [e].[EvaluatorId], [e].[IsSLABreached], [e].[ModifiedAt], [e].[ReminderCount], [e].[ResearchId], [e].[RowVersion], [e].[Status], [e].[SubmittedDate], [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[BirthDate], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[DepartmentId], [a].[DeviceFingerprint], [a].[DirectorateId], [a].[Email], [a].[EmployeeID], [a].[EvaluatorStatus], [a].[FullName], [a].[IsEmailConfirmed], [a].[LastLoginAt], [a].[LockoutEnd], [a].[ModifiedAt], [a].[NationalID], [a].[NormalizedEmail], [a].[PasswordHash], [a].[PhoneNumber], [a].[RefreshTokenExpires], [a].[RefreshTokenHash], [a].[RoleId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[TwoFactorSecret], [r].[Id], [r].[Abstract], [r].[CategoryId], [r].[CreatedAt], [r].[DepartmentId], [r].[DirectorateId], [r].[FinalScore], [r].[IsArchived], [r].[MeetingId], [r].[MeetingMinutesId], [r].[ModifiedAt], [r].[ReplacedResearchId], [r].[ResearcherId], [r].[RowVersion], [r].[State], [r].[SubmissionDate], [r].[Title], [r].[TrackingNumber]
+FROM [EvaluatorAssignments] AS [e]
+INNER JOIN [AppUsers] AS [a] ON [e].[EvaluatorId] = [a].[Id]
+INNER JOIN [ResearchPapers] AS [r] ON [e].[ResearchId] = [r].[Id]
+WHERE [e].[Status] = N'Active' AND [e].[SubmittedDate] IS NULL AND [e].[IsSLABreached] = CAST(0 AS bit) AND [e].[ReminderCount] < 3 AND [e].[DueDate] >= @warningWindowStart AND [e].[DueDate] <= @warningWindowEnd
+2026-05-23 15:49:02.993 +03:00 [INF]     [EmailDispatcherJob] Completed. Sent: 0, Failed: 0.
+2026-05-23 15:49:02.993 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 15:49:02.995 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 15:49:06.690 +03:00 [ERR]     Not connected to Redis.
+2026-05-23 15:49:06.690 +03:00 [ERR]     Not connected to Redis.
+2026-05-23 15:49:28.672 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 15:49:28.680 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 15:49:28.680 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 15:49:28.765 +03:00 [INF]     Executed DbCommand (3ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 15:49:28.766 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 15:49:28.766 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 15:49:28.766 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 15:56:28.045 +03:00 [INF]     No migrations were found in assembly 'BOC.Infrastructure'. A migration needs to be added before the database can be updated.
+2026-05-23 15:56:28.296 +03:00 [INF]     Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-05-23 15:56:28.313 +03:00 [INF]     Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-05-23 15:56:28.357 +03:00 [INF]     Executed DbCommand (38ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-05-23 15:56:28.529 +03:00 [INF]     Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-05-23 15:56:28.554 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-05-23 15:56:28.556 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-05-23 15:56:28.571 +03:00 [INF]     Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-05-23 15:56:28.588 +03:00 [INF]     No migrations were applied. The database is already up to date.
+2026-05-23 15:56:28.600 +03:00 [INF]     Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-05-23 15:56:28.907 +03:00 [INF]     Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AppRoles] AS [a]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-05-23 15:56:28.924 +03:00 [INF]     Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AppUsers] AS [a]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-05-23 15:56:29.022 +03:00 [INF]     Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[CreatedAt], [a].[Description], [a].[IsActive], [a].[Name], [a].[NormalizedName], [a].[PermissionsJson]
+FROM [AppRoles] AS [a]
+WHERE [a].[NormalizedName] = N'ADMIN'
+2026-05-23 15:56:29.104 +03:00 [INF]     Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[CreatedAt], [a].[Description], [a].[IsActive], [a].[Name], [a].[NormalizedName], [a].[PermissionsJson]
+FROM [AppRoles] AS [a]
+WHERE [a].[NormalizedName] = N'RESEARCHERS'
+2026-05-23 15:56:29.114 +03:00 [INF]     Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[CreatedAt], [a].[Description], [a].[IsActive], [a].[Name], [a].[NormalizedName], [a].[PermissionsJson]
+FROM [AppRoles] AS [a]
+WHERE [a].[NormalizedName] = N'EXTERNAL EVALUATORS'
+2026-05-23 15:56:30.228 +03:00 [INF]     Executed DbCommand (146ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?' (Size = 50), @p3='?' (DbType = Date), @p4='?' (Size = 500), @p5='?' (DbType = DateTime2), @p6='?' (DbType = Guid), @p7='?' (Size = 500), @p8='?' (DbType = Guid), @p9='?' (Size = 200), @p10='?' (Size = 50), @p11='?' (Size = 200), @p12='?' (DbType = Boolean), @p13='?' (DbType = DateTime2), @p14='?' (DbType = DateTime2), @p15='?' (DbType = DateTime2), @p16='?' (Size = 50), @p17='?' (Size = 200), @p18='?' (Size = 500), @p19='?' (Size = 50), @p20='?' (DbType = DateTime2), @p21='?' (Size = 500), @p22='?' (DbType = Guid), @p23='?' (Size = 500), @p24='?' (DbType = Boolean), @p25='?' (Size = 500), @p26='?' (DbType = Guid), @p27='?' (DbType = Int32), @p28='?' (Size = 50), @p29='?' (DbType = Date), @p30='?' (Size = 500), @p31='?' (DbType = DateTime2), @p32='?' (DbType = Guid), @p33='?' (Size = 500), @p34='?' (DbType = Guid), @p35='?' (Size = 200), @p36='?' (Size = 50), @p37='?' (Size = 200), @p38='?' (DbType = Boolean), @p39='?' (DbType = DateTime2), @p40='?' (DbType = DateTime2), @p41='?' (DbType = DateTime2), @p42='?' (Size = 50), @p43='?' (Size = 200), @p44='?' (Size = 500), @p45='?' (Size = 50), @p46='?' (DbType = DateTime2), @p47='?' (Size = 500), @p48='?' (DbType = Guid), @p49='?' (Size = 500), @p50='?' (DbType = Boolean), @p51='?' (Size = 500), @p52='?' (DbType = Guid), @p53='?' (DbType = Int32), @p54='?' (Size = 50), @p55='?' (DbType = Date), @p56='?' (Size = 500), @p57='?' (DbType = DateTime2), @p58='?' (DbType = Guid), @p59='?' (Size = 500), @p60='?' (DbType = Guid), @p61='?' (Size = 200), @p62='?' (Size = 50), @p63='?' (Size = 200), @p64='?' (DbType = Boolean), @p65='?' (DbType = DateTime2), @p66='?' (DbType = DateTime2), @p67='?' (DbType = DateTime2), @p68='?' (Size = 50), @p69='?' (Size = 200), @p70='?' (Size = 500), @p71='?' (Size = 50), @p72='?' (DbType = DateTime2), @p73='?' (Size = 500), @p74='?' (DbType = Guid), @p75='?' (Size = 500), @p76='?' (DbType = Boolean), @p77='?' (Size = 500), @p78='?' (DbType = Guid), @p79='?' (Size = 50), @p80='?' (Size = 50), @p81='?' (Size = 4000), @p82='?' (Size = 4000), @p83='?' (Size = 50), @p84='?' (Size = 100), @p85='?' (Size = 100), @p86='?' (DbType = DateTime2), @p87='?' (Size = 500), @p88='?' (DbType = Guid), @p89='?' (Size = 50), @p90='?' (Size = 50), @p91='?' (Size = 4000), @p92='?' (Size = 4000), @p93='?' (Size = 50), @p94='?' (Size = 100), @p95='?' (Size = 100), @p96='?' (DbType = DateTime2), @p97='?' (Size = 500), @p98='?' (DbType = Guid), @p99='?' (Size = 50), @p100='?' (Size = 50), @p101='?' (Size = 4000), @p102='?' (Size = 4000), @p103='?' (Size = 50), @p104='?' (Size = 100), @p105='?' (Size = 100), @p106='?' (DbType = DateTime2), @p107='?' (Size = 500)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+MERGE [AppUsers] USING (
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24, @p25, 0),
+(@p26, @p27, @p28, @p29, @p30, @p31, @p32, @p33, @p34, @p35, @p36, @p37, @p38, @p39, @p40, @p41, @p42, @p43, @p44, @p45, @p46, @p47, @p48, @p49, @p50, @p51, 1),
+(@p52, @p53, @p54, @p55, @p56, @p57, @p58, @p59, @p60, @p61, @p62, @p63, @p64, @p65, @p66, @p67, @p68, @p69, @p70, @p71, @p72, @p73, @p74, @p75, @p76, @p77, 2)) AS i ([Id], [AccessFailedCount], [AccountStatus], [BirthDate], [ConcurrencyStamp], [CreatedAt], [DepartmentId], [DeviceFingerprint], [DirectorateId], [Email], [EmployeeID], [FullName], [IsEmailConfirmed], [LastLoginAt], [LockoutEnd], [ModifiedAt], [NationalID], [NormalizedEmail], [PasswordHash], [PhoneNumber], [RefreshTokenExpires], [RefreshTokenHash], [RoleId], [SecurityStamp], [TwoFactorEnabled], [TwoFactorSecret], _Position) ON 1=0
+WHEN NOT MATCHED THEN
+INSERT ([Id], [AccessFailedCount], [AccountStatus], [BirthDate], [ConcurrencyStamp], [CreatedAt], [DepartmentId], [DeviceFingerprint], [DirectorateId], [Email], [EmployeeID], [FullName], [IsEmailConfirmed], [LastLoginAt], [LockoutEnd], [ModifiedAt], [NationalID], [NormalizedEmail], [PasswordHash], [PhoneNumber], [RefreshTokenExpires], [RefreshTokenHash], [RoleId], [SecurityStamp], [TwoFactorEnabled], [TwoFactorSecret])
+VALUES (i.[Id], i.[AccessFailedCount], i.[AccountStatus], i.[BirthDate], i.[ConcurrencyStamp], i.[CreatedAt], i.[DepartmentId], i.[DeviceFingerprint], i.[DirectorateId], i.[Email], i.[EmployeeID], i.[FullName], i.[IsEmailConfirmed], i.[LastLoginAt], i.[LockoutEnd], i.[ModifiedAt], i.[NationalID], i.[NormalizedEmail], i.[PasswordHash], i.[PhoneNumber], i.[RefreshTokenExpires], i.[RefreshTokenHash], i.[RoleId], i.[SecurityStamp], i.[TwoFactorEnabled], i.[TwoFactorSecret])
+OUTPUT INSERTED.[EvaluatorStatus], i._Position;
+INSERT INTO [AuditLogs] ([Id], [ActionType], [IpAddress], [NewValueJSON], [OldValueJSON], [OperatorEmployeeID], [RecordID], [TableName], [Timestamp], [UserAgent])
+VALUES (@p78, @p79, @p80, @p81, @p82, @p83, @p84, @p85, @p86, @p87),
+(@p88, @p89, @p90, @p91, @p92, @p93, @p94, @p95, @p96, @p97),
+(@p98, @p99, @p100, @p101, @p102, @p103, @p104, @p105, @p106, @p107);
+2026-05-23 15:56:30.305 +03:00 [INF]     Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [ResearchCategories] AS [r]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-05-23 15:56:30.505 +03:00 [INF]     Executed DbCommand (17ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 50), @p2='?' (Size = 50), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 50), @p6='?' (Size = 100), @p7='?' (Size = 100), @p8='?' (DbType = DateTime2), @p9='?' (Size = 500), @p10='?' (DbType = Guid), @p11='?' (Size = 50), @p12='?' (Size = 50), @p13='?' (Size = 4000), @p14='?' (Size = 4000), @p15='?' (Size = 50), @p16='?' (Size = 100), @p17='?' (Size = 100), @p18='?' (DbType = DateTime2), @p19='?' (Size = 500), @p20='?' (DbType = Guid), @p21='?' (Size = 50), @p22='?' (Size = 50), @p23='?' (Size = 4000), @p24='?' (Size = 4000), @p25='?' (Size = 50), @p26='?' (Size = 100), @p27='?' (Size = 100), @p28='?' (DbType = DateTime2), @p29='?' (Size = 500), @p30='?' (DbType = Guid), @p31='?' (Size = 50), @p32='?' (DbType = DateTime2), @p33='?' (DbType = Boolean), @p34='?' (Size = 200), @p35='?' (DbType = Guid), @p36='?' (Size = 50), @p37='?' (DbType = DateTime2), @p38='?' (Size = 500), @p39='?' (DbType = Boolean), @p40='?' (Size = 200), @p41='?' (DbType = Guid), @p42='?' (Size = 50), @p43='?' (DbType = DateTime2), @p44='?' (DbType = Guid), @p45='?' (DbType = Boolean), @p46='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [AuditLogs] ([Id], [ActionType], [IpAddress], [NewValueJSON], [OldValueJSON], [OperatorEmployeeID], [RecordID], [TableName], [Timestamp], [UserAgent])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9),
+(@p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19),
+(@p20, @p21, @p22, @p23, @p24, @p25, @p26, @p27, @p28, @p29);
+INSERT INTO [Directorates] ([Id], [Code], [CreatedAt], [IsActive], [Name])
+VALUES (@p30, @p31, @p32, @p33, @p34);
+INSERT INTO [Specializations] ([Id], [Code], [CreatedAt], [Description], [IsActive], [Name])
+VALUES (@p35, @p36, @p37, @p38, @p39, @p40);
+INSERT INTO [Departments] ([Id], [Code], [CreatedAt], [DirectorateId], [IsActive], [Name])
+VALUES (@p41, @p42, @p43, @p44, @p45, @p46);
+2026-05-23 15:56:30.564 +03:00 [INF]     Executed DbCommand (8ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 50), @p2='?' (Size = 50), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 50), @p6='?' (Size = 100), @p7='?' (Size = 100), @p8='?' (DbType = DateTime2), @p9='?' (Size = 500), @p10='?' (DbType = Guid), @p11='?' (DbType = DateTime2), @p12='?' (DbType = Boolean), @p13='?' (Size = 200), @p14='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [AuditLogs] ([Id], [ActionType], [IpAddress], [NewValueJSON], [OldValueJSON], [OperatorEmployeeID], [RecordID], [TableName], [Timestamp], [UserAgent])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9);
+INSERT INTO [ResearchCategories] ([Id], [CreatedAt], [IsActive], [Name], [SpecializationId])
+VALUES (@p10, @p11, @p12, @p13, @p14);
+2026-05-23 15:56:30.603 +03:00 [INF]     Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[BirthDate], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[DepartmentId], [a].[DeviceFingerprint], [a].[DirectorateId], [a].[Email], [a].[EmployeeID], [a].[EvaluatorStatus], [a].[FullName], [a].[IsEmailConfirmed], [a].[LastLoginAt], [a].[LockoutEnd], [a].[ModifiedAt], [a].[NationalID], [a].[NormalizedEmail], [a].[PasswordHash], [a].[PhoneNumber], [a].[RefreshTokenExpires], [a].[RefreshTokenHash], [a].[RoleId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[TwoFactorSecret]
+FROM [AppUsers] AS [a]
+WHERE [a].[Email] = N'researcher@boc.oil.gov.iq'
+2026-05-23 15:56:30.908 +03:00 [INF]     Executed DbCommand (53ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 50), @p2='?' (Size = 50), @p3='?' (Size = 4000), @p4='?' (Size = 4000), @p5='?' (Size = 50), @p6='?' (Size = 100), @p7='?' (Size = 100), @p8='?' (DbType = DateTime2), @p9='?' (Size = 500), @p10='?' (DbType = Guid), @p11='?' (Size = 4000), @p12='?' (DbType = Guid), @p13='?' (DbType = DateTime2), @p14='?' (DbType = Guid), @p15='?' (DbType = Guid), @p16='?' (Precision = 5) (Scale = 2) (DbType = Decimal), @p17='?' (DbType = Guid), @p18='?' (DbType = Guid), @p19='?' (DbType = DateTime2), @p20='?' (DbType = Guid), @p21='?' (DbType = Guid), @p22='?' (Size = 50), @p23='?' (DbType = DateTime2), @p24='?' (Size = 500), @p25='?' (Size = 100)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [AuditLogs] ([Id], [ActionType], [IpAddress], [NewValueJSON], [OldValueJSON], [OperatorEmployeeID], [RecordID], [TableName], [Timestamp], [UserAgent])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9);
+INSERT INTO [ResearchPapers] ([Id], [Abstract], [CategoryId], [CreatedAt], [DepartmentId], [DirectorateId], [FinalScore], [MeetingId], [MeetingMinutesId], [ModifiedAt], [ReplacedResearchId], [ResearcherId], [State], [SubmissionDate], [Title], [TrackingNumber])
+OUTPUT INSERTED.[IsArchived], INSERTED.[RowVersion]
+VALUES (@p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18, @p19, @p20, @p21, @p22, @p23, @p24, @p25);
+2026-05-23 15:56:31.124 +03:00 [INF]     Connecting to Redis endpoints: localhost:6379. Using Server Name: DESKTOP-SUIT5JA_69db049d9d26406fa17331fe23c28bd9
+2026-05-23 15:56:31.169 +03:00 [INF]     Connecting to Redis endpoints: localhost:6379. Using Server Name: DESKTOP-SUIT5JA_34313ac5fb174ae89a16c1a95102eaa9
+2026-05-23 15:56:31.215 +03:00 [INF]     BOC Research System started successfully. Environment: Development
+2026-05-23 15:56:31.299 +03:00 [INF]     User profile is available. Using 'C:\Users\pc\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-05-23 15:56:31.377 +03:00 [DBG]     TaskSchedulingThreadPool configured with max concurrency of 10 and TaskScheduler ThreadPoolTaskScheduler.
+2026-05-23 15:56:31.388 +03:00 [INF]     Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl
+2026-05-23 15:56:31.389 +03:00 [INF]     Quartz Scheduler created
+2026-05-23 15:56:31.393 +03:00 [INF]     JobFactory set to: Quartz.Simpl.MicrosoftDependencyInjectionJobFactory
+2026-05-23 15:56:31.394 +03:00 [INF]     RAMJobStore initialized.
+2026-05-23 15:56:31.395 +03:00 [INF]     Quartz Scheduler 3.18.1.0 - 'QuartzScheduler' with instanceId 'NON_CLUSTERED' initialized
+2026-05-23 15:56:31.396 +03:00 [INF]     Using thread pool 'Quartz.Simpl.DefaultThreadPool', size: 10
+2026-05-23 15:56:31.397 +03:00 [INF]     Using job store 'Quartz.Simpl.RAMJobStore', supports persistence: False, clustered: False
+2026-05-23 15:56:31.435 +03:00 [INF]     Adding 8 jobs, 8 triggers.
+2026-05-23 15:56:31.442 +03:00 [INF]     Adding job: DEFAULT.OutboxDispatcherJob
+2026-05-23 15:56:31.454 +03:00 [INF]     Adding job: DEFAULT.SLABreachScannerJob
+2026-05-23 15:56:31.455 +03:00 [INF]     Adding job: DEFAULT.RetirementAgeScannerJob
+2026-05-23 15:56:31.455 +03:00 [INF]     Adding job: DEFAULT.PlagiarismLockoutExpiryJob
+2026-05-23 15:56:31.455 +03:00 [INF]     Adding job: DEFAULT.SessionCleanupJob
+2026-05-23 15:56:31.455 +03:00 [INF]     Adding job: DEFAULT.DataRetentionJob
+2026-05-23 15:56:31.455 +03:00 [INF]     Adding job: DEFAULT.MinistryBatchPollerJob
+2026-05-23 15:56:31.456 +03:00 [INF]     Adding job: DEFAULT.EmailDispatcherJob
+2026-05-23 15:56:31.459 +03:00 [DBG]     Scheduling job: DEFAULT.OutboxDispatcherJob with trigger: DEFAULT.OutboxDispatcherJob-trigger
+2026-05-23 15:56:31.476 +03:00 [DBG]     Scheduling job: DEFAULT.SLABreachScannerJob with trigger: DEFAULT.SLABreachScannerJob-trigger
+2026-05-23 15:56:31.479 +03:00 [DBG]     Scheduling job: DEFAULT.RetirementAgeScannerJob with trigger: DEFAULT.RetirementAgeScannerJob-trigger
+2026-05-23 15:56:31.495 +03:00 [DBG]     Scheduling job: DEFAULT.PlagiarismLockoutExpiryJob with trigger: DEFAULT.PlagiarismLockoutExpiryJob-trigger
+2026-05-23 15:56:31.495 +03:00 [DBG]     Scheduling job: DEFAULT.SessionCleanupJob with trigger: DEFAULT.SessionCleanupJob-trigger
+2026-05-23 15:56:31.496 +03:00 [DBG]     Scheduling job: DEFAULT.DataRetentionJob with trigger: DEFAULT.DataRetentionJob-trigger
+2026-05-23 15:56:31.496 +03:00 [DBG]     Scheduling job: DEFAULT.MinistryBatchPollerJob with trigger: DEFAULT.MinistryBatchPollerJob-trigger
+2026-05-23 15:56:31.496 +03:00 [DBG]     Scheduling job: DEFAULT.EmailDispatcherJob with trigger: DEFAULT.EmailDispatcherJob-trigger
+2026-05-23 15:56:31.592 +03:00 [WRN]     The WebRootPath was not found: D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\wwwroot. Static files may be unavailable.
+2026-05-23 15:56:31.640 +03:00 [INF]     Now listening on: http://localhost:5058
+2026-05-23 15:56:31.641 +03:00 [INF]     Application started. Press Ctrl+C to shut down.
+2026-05-23 15:56:31.641 +03:00 [INF]     Hosting environment: Development
+2026-05-23 15:56:31.642 +03:00 [INF]     Content root path: D:\WebApps\BOC_Research_System\backend\BOC.WebAPI
+2026-05-23 15:56:31.654 +03:00 [INF]     Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+2026-05-23 15:56:31.665 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 15:56:31.673 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 15:56:31.674 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 15:56:31.675 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 15:56:31.675 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 15:56:31.713 +03:00 [WRN]     You do not have a valid license key for the Lucky Penny software MediatR. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-05-23 15:56:31.722 +03:00 [DBG]     Calling Execute on job DEFAULT.SLABreachScannerJob
+2026-05-23 15:56:31.722 +03:00 [DBG]     Calling Execute on job DEFAULT.EmailDispatcherJob
+2026-05-23 15:56:31.722 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 15:56:31.722 +03:00 [DBG]     Calling Execute on job DEFAULT.MinistryBatchPollerJob
+2026-05-23 15:56:31.729 +03:00 [INF]     SLA Breach Scanner job started...
+2026-05-23 15:56:31.729 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 15:56:31.730 +03:00 [INF]     [MinistryBatchPollerJob] Polling ministry batches for responses...
+2026-05-23 15:56:31.734 +03:00 [INF]     [EmailDispatcherJob] Starting email dispatch run...
+2026-05-23 15:56:31.843 +03:00 [INF]     Executed DbCommand (8ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [e].[Id], [e].[CreatedAt], [e].[DeliveryStatus], [e].[ErrorMessage], [e].[RecipientEmail], [e].[SentAt], [e].[Subject], [e].[TemplateType]
+FROM [EmailLogs] AS [e]
+WHERE [e].[DeliveryStatus] = N'Pending'
+ORDER BY [e].[CreatedAt]
+2026-05-23 15:56:31.853 +03:00 [INF]     Executed DbCommand (12ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 15:56:31.854 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 15:56:31.859 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 15:56:31.862 +03:00 [INF]     Executed DbCommand (14ms) [Parameters=[@now='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[AssignedById], [e].[AssignedDate], [e].[CreatedAt], [e].[DueDate], [e].[EvaluatorId], [e].[IsSLABreached], [e].[ModifiedAt], [e].[ReminderCount], [e].[ResearchId], [e].[RowVersion], [e].[Status], [e].[SubmittedDate]
+FROM [EvaluatorAssignments] AS [e]
+WHERE [e].[Status] = N'Active' AND [e].[SubmittedDate] IS NULL AND [e].[DueDate] < @now AND [e].[IsSLABreached] = CAST(0 AS bit)
+2026-05-23 15:56:31.863 +03:00 [INF]     No new SLA breaches found.
+2026-05-23 15:56:31.863 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 15:56:31.870 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 15:56:32.033 +03:00 [INF]     Executed DbCommand (29ms) [Parameters=[@warningWindowStart='?' (DbType = DateTime2), @warningWindowEnd='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[AssignedById], [e].[AssignedDate], [e].[CreatedAt], [e].[DueDate], [e].[EvaluatorId], [e].[IsSLABreached], [e].[ModifiedAt], [e].[ReminderCount], [e].[ResearchId], [e].[RowVersion], [e].[Status], [e].[SubmittedDate], [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[BirthDate], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[DepartmentId], [a].[DeviceFingerprint], [a].[DirectorateId], [a].[Email], [a].[EmployeeID], [a].[EvaluatorStatus], [a].[FullName], [a].[IsEmailConfirmed], [a].[LastLoginAt], [a].[LockoutEnd], [a].[ModifiedAt], [a].[NationalID], [a].[NormalizedEmail], [a].[PasswordHash], [a].[PhoneNumber], [a].[RefreshTokenExpires], [a].[RefreshTokenHash], [a].[RoleId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[TwoFactorSecret], [r].[Id], [r].[Abstract], [r].[CategoryId], [r].[CreatedAt], [r].[DepartmentId], [r].[DirectorateId], [r].[FinalScore], [r].[IsArchived], [r].[MeetingId], [r].[MeetingMinutesId], [r].[ModifiedAt], [r].[ReplacedResearchId], [r].[ResearcherId], [r].[RowVersion], [r].[State], [r].[SubmissionDate], [r].[Title], [r].[TrackingNumber]
+FROM [EvaluatorAssignments] AS [e]
+INNER JOIN [AppUsers] AS [a] ON [e].[EvaluatorId] = [a].[Id]
+INNER JOIN [ResearchPapers] AS [r] ON [e].[ResearchId] = [r].[Id]
+WHERE [e].[Status] = N'Active' AND [e].[SubmittedDate] IS NULL AND [e].[IsSLABreached] = CAST(0 AS bit) AND [e].[ReminderCount] < 3 AND [e].[DueDate] >= @warningWindowStart AND [e].[DueDate] <= @warningWindowEnd
+2026-05-23 15:56:32.033 +03:00 [INF]     [EmailDispatcherJob] Completed. Sent: 0, Failed: 0.
+2026-05-23 15:56:32.033 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 15:56:32.037 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 15:56:32.066 +03:00 [INF]     Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[BatchNumber], [m].[CreatedAt], [m].[MinistryResponseJson], [m].[ModifiedAt], [m].[SentDate], [m].[Status], [s].[Id], [s].[BatchId], [s].[CreatedAt], [s].[MinistryDecision], [s].[ResearchId], [s].[Id0], [s].[Abstract], [s].[CategoryId], [s].[CreatedAt0], [s].[DepartmentId], [s].[DirectorateId], [s].[FinalScore], [s].[IsArchived], [s].[MeetingId], [s].[MeetingMinutesId], [s].[ModifiedAt], [s].[ReplacedResearchId], [s].[ResearcherId], [s].[RowVersion], [s].[State], [s].[SubmissionDate], [s].[Title], [s].[TrackingNumber]
+FROM [MinistryBatches] AS [m]
+LEFT JOIN (
+    SELECT [b].[Id], [b].[BatchId], [b].[CreatedAt], [b].[MinistryDecision], [b].[ResearchId], [r].[Id] AS [Id0], [r].[Abstract], [r].[CategoryId], [r].[CreatedAt] AS [CreatedAt0], [r].[DepartmentId], [r].[DirectorateId], [r].[FinalScore], [r].[IsArchived], [r].[MeetingId], [r].[MeetingMinutesId], [r].[ModifiedAt], [r].[ReplacedResearchId], [r].[ResearcherId], [r].[RowVersion], [r].[State], [r].[SubmissionDate], [r].[Title], [r].[TrackingNumber]
+    FROM [BatchItems] AS [b]
+    INNER JOIN [ResearchPapers] AS [r] ON [b].[ResearchId] = [r].[Id]
+) AS [s] ON [m].[Id] = [s].[BatchId]
+WHERE [m].[Status] = N'Pending' AND [m].[MinistryResponseJson] IS NOT NULL
+ORDER BY [m].[Id], [s].[Id]
+2026-05-23 15:56:32.067 +03:00 [INF]     [MinistryBatchPollerJob] No pending ministry batch responses found.
+2026-05-23 15:56:32.067 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 15:56:32.068 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 15:56:39.263 +03:00 [ERR]     Not connected to Redis.
+2026-05-23 15:56:43.391 +03:00 [ERR]     Not connected to Redis.
+2026-05-23 16:12:20.794 +03:00 [INF]     No migrations were found in assembly 'BOC.Infrastructure'. A migration needs to be added before the database can be updated.
+2026-05-23 16:12:21.251 +03:00 [INF]     Executed DbCommand (57ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-05-23 16:12:21.281 +03:00 [INF]     Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-05-23 16:12:21.364 +03:00 [INF]     Executed DbCommand (72ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-05-23 16:12:21.657 +03:00 [INF]     Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-05-23 16:12:21.695 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-05-23 16:12:21.699 +03:00 [INF]     Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-05-23 16:12:21.711 +03:00 [INF]     Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-05-23 16:12:21.733 +03:00 [INF]     No migrations were applied. The database is already up to date.
+2026-05-23 16:12:21.747 +03:00 [INF]     Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-05-23 16:12:22.193 +03:00 [INF]     Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AppRoles] AS [a]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-05-23 16:12:22.216 +03:00 [INF]     Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AppUsers] AS [a]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-05-23 16:12:22.228 +03:00 [INF]     Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [ResearchCategories] AS [r]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-05-23 16:12:22.460 +03:00 [INF]     Connecting to Redis endpoints: localhost:6379. Using Server Name: DESKTOP-SUIT5JA_9c0ae51a7a96473b902b25b802b5b0df
+2026-05-23 16:12:22.505 +03:00 [INF]     Connecting to Redis endpoints: localhost:6379. Using Server Name: DESKTOP-SUIT5JA_651c2e173f3446ba88184a3ceb502962
+2026-05-23 16:12:22.545 +03:00 [INF]     BOC Research System started successfully. Environment: Development
+2026-05-23 16:12:22.614 +03:00 [INF]     User profile is available. Using 'C:\Users\pc\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-05-23 16:12:22.671 +03:00 [DBG]     TaskSchedulingThreadPool configured with max concurrency of 10 and TaskScheduler ThreadPoolTaskScheduler.
+2026-05-23 16:12:22.683 +03:00 [INF]     Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl
+2026-05-23 16:12:22.684 +03:00 [INF]     Quartz Scheduler created
+2026-05-23 16:12:22.686 +03:00 [INF]     JobFactory set to: Quartz.Simpl.MicrosoftDependencyInjectionJobFactory
+2026-05-23 16:12:22.687 +03:00 [INF]     RAMJobStore initialized.
+2026-05-23 16:12:22.689 +03:00 [INF]     Quartz Scheduler 3.18.1.0 - 'QuartzScheduler' with instanceId 'NON_CLUSTERED' initialized
+2026-05-23 16:12:22.689 +03:00 [INF]     Using thread pool 'Quartz.Simpl.DefaultThreadPool', size: 10
+2026-05-23 16:12:22.690 +03:00 [INF]     Using job store 'Quartz.Simpl.RAMJobStore', supports persistence: False, clustered: False
+2026-05-23 16:12:22.724 +03:00 [INF]     Adding 8 jobs, 8 triggers.
+2026-05-23 16:12:22.727 +03:00 [INF]     Adding job: DEFAULT.OutboxDispatcherJob
+2026-05-23 16:12:22.738 +03:00 [INF]     Adding job: DEFAULT.SLABreachScannerJob
+2026-05-23 16:12:22.738 +03:00 [INF]     Adding job: DEFAULT.RetirementAgeScannerJob
+2026-05-23 16:12:22.739 +03:00 [INF]     Adding job: DEFAULT.PlagiarismLockoutExpiryJob
+2026-05-23 16:12:22.739 +03:00 [INF]     Adding job: DEFAULT.SessionCleanupJob
+2026-05-23 16:12:22.739 +03:00 [INF]     Adding job: DEFAULT.DataRetentionJob
+2026-05-23 16:12:22.739 +03:00 [INF]     Adding job: DEFAULT.MinistryBatchPollerJob
+2026-05-23 16:12:22.739 +03:00 [INF]     Adding job: DEFAULT.EmailDispatcherJob
+2026-05-23 16:12:22.741 +03:00 [DBG]     Scheduling job: DEFAULT.OutboxDispatcherJob with trigger: DEFAULT.OutboxDispatcherJob-trigger
+2026-05-23 16:12:22.752 +03:00 [DBG]     Scheduling job: DEFAULT.SLABreachScannerJob with trigger: DEFAULT.SLABreachScannerJob-trigger
+2026-05-23 16:12:22.754 +03:00 [DBG]     Scheduling job: DEFAULT.RetirementAgeScannerJob with trigger: DEFAULT.RetirementAgeScannerJob-trigger
+2026-05-23 16:12:22.767 +03:00 [DBG]     Scheduling job: DEFAULT.PlagiarismLockoutExpiryJob with trigger: DEFAULT.PlagiarismLockoutExpiryJob-trigger
+2026-05-23 16:12:22.768 +03:00 [DBG]     Scheduling job: DEFAULT.SessionCleanupJob with trigger: DEFAULT.SessionCleanupJob-trigger
+2026-05-23 16:12:22.769 +03:00 [DBG]     Scheduling job: DEFAULT.DataRetentionJob with trigger: DEFAULT.DataRetentionJob-trigger
+2026-05-23 16:12:22.769 +03:00 [DBG]     Scheduling job: DEFAULT.MinistryBatchPollerJob with trigger: DEFAULT.MinistryBatchPollerJob-trigger
+2026-05-23 16:12:22.769 +03:00 [DBG]     Scheduling job: DEFAULT.EmailDispatcherJob with trigger: DEFAULT.EmailDispatcherJob-trigger
+2026-05-23 16:12:22.897 +03:00 [WRN]     The WebRootPath was not found: D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\wwwroot. Static files may be unavailable.
+2026-05-23 16:12:22.944 +03:00 [INF]     Now listening on: http://localhost:5058
+2026-05-23 16:12:22.945 +03:00 [INF]     Application started. Press Ctrl+C to shut down.
+2026-05-23 16:12:22.945 +03:00 [INF]     Hosting environment: Development
+2026-05-23 16:12:22.946 +03:00 [INF]     Content root path: D:\WebApps\BOC_Research_System\backend\BOC.WebAPI
+2026-05-23 16:12:22.955 +03:00 [INF]     Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+2026-05-23 16:12:22.965 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:12:22.973 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:12:22.974 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:12:22.974 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:12:22.974 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:12:23.009 +03:00 [WRN]     You do not have a valid license key for the Lucky Penny software MediatR. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-05-23 16:12:23.014 +03:00 [DBG]     Calling Execute on job DEFAULT.MinistryBatchPollerJob
+2026-05-23 16:12:23.014 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:12:23.014 +03:00 [DBG]     Calling Execute on job DEFAULT.SLABreachScannerJob
+2026-05-23 16:12:23.014 +03:00 [DBG]     Calling Execute on job DEFAULT.EmailDispatcherJob
+2026-05-23 16:12:23.020 +03:00 [INF]     SLA Breach Scanner job started...
+2026-05-23 16:12:23.020 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:12:23.022 +03:00 [INF]     [MinistryBatchPollerJob] Polling ministry batches for responses...
+2026-05-23 16:12:23.024 +03:00 [INF]     [EmailDispatcherJob] Starting email dispatch run...
+2026-05-23 16:12:23.390 +03:00 [INF]     Executed DbCommand (77ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [e].[Id], [e].[CreatedAt], [e].[DeliveryStatus], [e].[ErrorMessage], [e].[RecipientEmail], [e].[SentAt], [e].[Subject], [e].[TemplateType]
+FROM [EmailLogs] AS [e]
+WHERE [e].[DeliveryStatus] = N'Pending'
+ORDER BY [e].[CreatedAt]
+2026-05-23 16:12:23.390 +03:00 [INF]     Executed DbCommand (75ms) [Parameters=[@now='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[AssignedById], [e].[AssignedDate], [e].[CreatedAt], [e].[DueDate], [e].[EvaluatorId], [e].[IsSLABreached], [e].[ModifiedAt], [e].[ReminderCount], [e].[ResearchId], [e].[RowVersion], [e].[Status], [e].[SubmittedDate]
+FROM [EvaluatorAssignments] AS [e]
+WHERE [e].[Status] = N'Active' AND [e].[SubmittedDate] IS NULL AND [e].[DueDate] < @now AND [e].[IsSLABreached] = CAST(0 AS bit)
+2026-05-23 16:12:23.390 +03:00 [INF]     Executed DbCommand (74ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:12:23.400 +03:00 [INF]     No new SLA breaches found.
+2026-05-23 16:12:23.405 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:12:23.416 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:12:23.453 +03:00 [INF]     Executed DbCommand (31ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[BatchNumber], [m].[CreatedAt], [m].[MinistryResponseJson], [m].[ModifiedAt], [m].[SentDate], [m].[Status], [s].[Id], [s].[BatchId], [s].[CreatedAt], [s].[MinistryDecision], [s].[ResearchId], [s].[Id0], [s].[Abstract], [s].[CategoryId], [s].[CreatedAt0], [s].[DepartmentId], [s].[DirectorateId], [s].[FinalScore], [s].[IsArchived], [s].[MeetingId], [s].[MeetingMinutesId], [s].[ModifiedAt], [s].[ReplacedResearchId], [s].[ResearcherId], [s].[RowVersion], [s].[State], [s].[SubmissionDate], [s].[Title], [s].[TrackingNumber]
+FROM [MinistryBatches] AS [m]
+LEFT JOIN (
+    SELECT [b].[Id], [b].[BatchId], [b].[CreatedAt], [b].[MinistryDecision], [b].[ResearchId], [r].[Id] AS [Id0], [r].[Abstract], [r].[CategoryId], [r].[CreatedAt] AS [CreatedAt0], [r].[DepartmentId], [r].[DirectorateId], [r].[FinalScore], [r].[IsArchived], [r].[MeetingId], [r].[MeetingMinutesId], [r].[ModifiedAt], [r].[ReplacedResearchId], [r].[ResearcherId], [r].[RowVersion], [r].[State], [r].[SubmissionDate], [r].[Title], [r].[TrackingNumber]
+    FROM [BatchItems] AS [b]
+    INNER JOIN [ResearchPapers] AS [r] ON [b].[ResearchId] = [r].[Id]
+) AS [s] ON [m].[Id] = [s].[BatchId]
+WHERE [m].[Status] = N'Pending' AND [m].[MinistryResponseJson] IS NOT NULL
+ORDER BY [m].[Id], [s].[Id]
+2026-05-23 16:12:23.455 +03:00 [INF]     [MinistryBatchPollerJob] No pending ministry batch responses found.
+2026-05-23 16:12:23.455 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:12:23.455 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:12:23.459 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:12:23.459 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:12:23.459 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:12:23.505 +03:00 [INF]     Executed DbCommand (28ms) [Parameters=[@warningWindowStart='?' (DbType = DateTime2), @warningWindowEnd='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[AssignedById], [e].[AssignedDate], [e].[CreatedAt], [e].[DueDate], [e].[EvaluatorId], [e].[IsSLABreached], [e].[ModifiedAt], [e].[ReminderCount], [e].[ResearchId], [e].[RowVersion], [e].[Status], [e].[SubmittedDate], [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[BirthDate], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[DepartmentId], [a].[DeviceFingerprint], [a].[DirectorateId], [a].[Email], [a].[EmployeeID], [a].[EvaluatorStatus], [a].[FullName], [a].[IsEmailConfirmed], [a].[LastLoginAt], [a].[LockoutEnd], [a].[ModifiedAt], [a].[NationalID], [a].[NormalizedEmail], [a].[PasswordHash], [a].[PhoneNumber], [a].[RefreshTokenExpires], [a].[RefreshTokenHash], [a].[RoleId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[TwoFactorSecret], [r].[Id], [r].[Abstract], [r].[CategoryId], [r].[CreatedAt], [r].[DepartmentId], [r].[DirectorateId], [r].[FinalScore], [r].[IsArchived], [r].[MeetingId], [r].[MeetingMinutesId], [r].[ModifiedAt], [r].[ReplacedResearchId], [r].[ResearcherId], [r].[RowVersion], [r].[State], [r].[SubmissionDate], [r].[Title], [r].[TrackingNumber]
+FROM [EvaluatorAssignments] AS [e]
+INNER JOIN [AppUsers] AS [a] ON [e].[EvaluatorId] = [a].[Id]
+INNER JOIN [ResearchPapers] AS [r] ON [e].[ResearchId] = [r].[Id]
+WHERE [e].[Status] = N'Active' AND [e].[SubmittedDate] IS NULL AND [e].[IsSLABreached] = CAST(0 AS bit) AND [e].[ReminderCount] < 3 AND [e].[DueDate] >= @warningWindowStart AND [e].[DueDate] <= @warningWindowEnd
+2026-05-23 16:12:23.506 +03:00 [INF]     [EmailDispatcherJob] Completed. Sent: 0, Failed: 0.
+2026-05-23 16:12:23.507 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:12:23.510 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:12:30.654 +03:00 [ERR]     Not connected to Redis.
+2026-05-23 16:12:34.774 +03:00 [ERR]     Not connected to Redis.
+2026-05-23 16:12:52.753 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:12:52.767 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:12:52.768 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:12:52.864 +03:00 [INF]     Executed DbCommand (6ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:12:52.864 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:12:52.864 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:12:52.864 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:13:22.750 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:13:22.760 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:13:22.760 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:13:22.771 +03:00 [INF]     Executed DbCommand (2ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:13:22.772 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:13:22.772 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:13:22.772 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:13:52.750 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:13:52.751 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:13:52.751 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:13:52.759 +03:00 [INF]     Executed DbCommand (7ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:13:52.760 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:13:52.760 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:13:52.760 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:14:22.747 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:14:22.748 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:14:22.748 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:14:22.751 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:14:22.751 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:14:22.751 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:14:22.752 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:14:52.758 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:14:52.759 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:14:52.759 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:14:52.776 +03:00 [INF]     Executed DbCommand (13ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:14:52.776 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:14:52.776 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:14:52.776 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:15:22.750 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:15:22.751 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:15:22.751 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:15:22.758 +03:00 [INF]     Executed DbCommand (5ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:15:22.759 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:15:22.759 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:15:22.759 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:15:52.759 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:15:52.760 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:15:52.760 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:15:52.765 +03:00 [INF]     Executed DbCommand (2ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:15:52.766 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:15:52.766 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:15:52.766 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:16:22.757 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:16:22.757 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:16:22.757 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:16:22.770 +03:00 [INF]     Executed DbCommand (10ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:16:22.770 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:16:22.771 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:16:22.771 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:16:52.757 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:16:52.758 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:16:52.758 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:16:52.763 +03:00 [INF]     Executed DbCommand (2ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:16:52.764 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:16:52.764 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:16:52.765 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:17:22.756 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:17:22.758 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:17:22.758 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:17:22.777 +03:00 [INF]     Executed DbCommand (16ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:17:22.778 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:17:22.779 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:17:22.779 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:17:22.779 +03:00 [DBG]     Calling Execute on job DEFAULT.EmailDispatcherJob
+2026-05-23 16:17:22.780 +03:00 [INF]     [EmailDispatcherJob] Starting email dispatch run...
+2026-05-23 16:17:22.786 +03:00 [INF]     Executed DbCommand (5ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [e].[Id], [e].[CreatedAt], [e].[DeliveryStatus], [e].[ErrorMessage], [e].[RecipientEmail], [e].[SentAt], [e].[Subject], [e].[TemplateType]
+FROM [EmailLogs] AS [e]
+WHERE [e].[DeliveryStatus] = N'Pending'
+ORDER BY [e].[CreatedAt]
+2026-05-23 16:17:22.799 +03:00 [INF]     Executed DbCommand (12ms) [Parameters=[@warningWindowStart='?' (DbType = DateTime2), @warningWindowEnd='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[AssignedById], [e].[AssignedDate], [e].[CreatedAt], [e].[DueDate], [e].[EvaluatorId], [e].[IsSLABreached], [e].[ModifiedAt], [e].[ReminderCount], [e].[ResearchId], [e].[RowVersion], [e].[Status], [e].[SubmittedDate], [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[BirthDate], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[DepartmentId], [a].[DeviceFingerprint], [a].[DirectorateId], [a].[Email], [a].[EmployeeID], [a].[EvaluatorStatus], [a].[FullName], [a].[IsEmailConfirmed], [a].[LastLoginAt], [a].[LockoutEnd], [a].[ModifiedAt], [a].[NationalID], [a].[NormalizedEmail], [a].[PasswordHash], [a].[PhoneNumber], [a].[RefreshTokenExpires], [a].[RefreshTokenHash], [a].[RoleId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[TwoFactorSecret], [r].[Id], [r].[Abstract], [r].[CategoryId], [r].[CreatedAt], [r].[DepartmentId], [r].[DirectorateId], [r].[FinalScore], [r].[IsArchived], [r].[MeetingId], [r].[MeetingMinutesId], [r].[ModifiedAt], [r].[ReplacedResearchId], [r].[ResearcherId], [r].[RowVersion], [r].[State], [r].[SubmissionDate], [r].[Title], [r].[TrackingNumber]
+FROM [EvaluatorAssignments] AS [e]
+INNER JOIN [AppUsers] AS [a] ON [e].[EvaluatorId] = [a].[Id]
+INNER JOIN [ResearchPapers] AS [r] ON [e].[ResearchId] = [r].[Id]
+WHERE [e].[Status] = N'Active' AND [e].[SubmittedDate] IS NULL AND [e].[IsSLABreached] = CAST(0 AS bit) AND [e].[ReminderCount] < 3 AND [e].[DueDate] >= @warningWindowStart AND [e].[DueDate] <= @warningWindowEnd
+2026-05-23 16:17:22.799 +03:00 [INF]     [EmailDispatcherJob] Completed. Sent: 0, Failed: 0.
+2026-05-23 16:17:22.799 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:17:22.800 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:17:52.760 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:17:52.761 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:17:52.761 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:17:52.765 +03:00 [INF]     Executed DbCommand (2ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:17:52.765 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:17:52.765 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:17:52.766 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:18:22.756 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:18:22.757 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:18:22.757 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:18:22.775 +03:00 [INF]     Executed DbCommand (15ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:18:22.776 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:18:22.776 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:18:22.777 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:18:52.747 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:18:52.748 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:18:52.748 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:18:52.751 +03:00 [INF]     Executed DbCommand (2ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:18:52.752 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:18:52.752 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:18:52.752 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:19:22.758 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:19:22.759 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:19:22.759 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:19:22.782 +03:00 [INF]     Executed DbCommand (20ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:19:22.783 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:19:22.783 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:19:22.783 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:19:52.748 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:19:52.748 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:19:52.748 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:19:52.750 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:19:52.751 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:19:52.751 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:19:52.751 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:23:17.646 +03:00 [INF]     No migrations were found in assembly 'BOC.Infrastructure'. A migration needs to be added before the database can be updated.
+2026-05-23 16:23:18.219 +03:00 [INF]     Executed DbCommand (63ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-05-23 16:23:18.263 +03:00 [INF]     Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-05-23 16:23:18.353 +03:00 [INF]     Executed DbCommand (76ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-05-23 16:23:18.683 +03:00 [INF]     Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-05-23 16:23:18.731 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-05-23 16:23:18.740 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-05-23 16:23:18.760 +03:00 [INF]     Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-05-23 16:23:18.795 +03:00 [INF]     No migrations were applied. The database is already up to date.
+2026-05-23 16:23:18.813 +03:00 [INF]     Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-05-23 16:23:19.308 +03:00 [INF]     Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AppRoles] AS [a]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-05-23 16:23:19.337 +03:00 [INF]     Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AppUsers] AS [a]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-05-23 16:23:19.356 +03:00 [INF]     Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [ResearchCategories] AS [r]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-05-23 16:23:19.595 +03:00 [INF]     Connecting to Redis endpoints: localhost:6379. Using Server Name: DESKTOP-SUIT5JA_c9ef866b8866422f99532097a082a4a4
+2026-05-23 16:23:19.639 +03:00 [INF]     Connecting to Redis endpoints: localhost:6379. Using Server Name: DESKTOP-SUIT5JA_0e06314bfe9e457094d7518e27265a52
+2026-05-23 16:23:19.695 +03:00 [INF]     BOC Research System started successfully. Environment: Development
+2026-05-23 16:23:19.785 +03:00 [INF]     User profile is available. Using 'C:\Users\pc\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-05-23 16:23:19.851 +03:00 [DBG]     TaskSchedulingThreadPool configured with max concurrency of 10 and TaskScheduler ThreadPoolTaskScheduler.
+2026-05-23 16:23:19.863 +03:00 [INF]     Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl
+2026-05-23 16:23:19.867 +03:00 [INF]     Quartz Scheduler created
+2026-05-23 16:23:19.873 +03:00 [INF]     JobFactory set to: Quartz.Simpl.MicrosoftDependencyInjectionJobFactory
+2026-05-23 16:23:19.876 +03:00 [INF]     RAMJobStore initialized.
+2026-05-23 16:23:19.879 +03:00 [INF]     Quartz Scheduler 3.18.1.0 - 'QuartzScheduler' with instanceId 'NON_CLUSTERED' initialized
+2026-05-23 16:23:19.882 +03:00 [INF]     Using thread pool 'Quartz.Simpl.DefaultThreadPool', size: 10
+2026-05-23 16:23:19.885 +03:00 [INF]     Using job store 'Quartz.Simpl.RAMJobStore', supports persistence: False, clustered: False
+2026-05-23 16:23:19.910 +03:00 [INF]     Adding 8 jobs, 8 triggers.
+2026-05-23 16:23:19.917 +03:00 [INF]     Adding job: DEFAULT.OutboxDispatcherJob
+2026-05-23 16:23:19.930 +03:00 [INF]     Adding job: DEFAULT.SLABreachScannerJob
+2026-05-23 16:23:19.934 +03:00 [INF]     Adding job: DEFAULT.RetirementAgeScannerJob
+2026-05-23 16:23:19.937 +03:00 [INF]     Adding job: DEFAULT.PlagiarismLockoutExpiryJob
+2026-05-23 16:23:19.940 +03:00 [INF]     Adding job: DEFAULT.SessionCleanupJob
+2026-05-23 16:23:19.942 +03:00 [INF]     Adding job: DEFAULT.DataRetentionJob
+2026-05-23 16:23:19.944 +03:00 [INF]     Adding job: DEFAULT.MinistryBatchPollerJob
+2026-05-23 16:23:19.947 +03:00 [INF]     Adding job: DEFAULT.EmailDispatcherJob
+2026-05-23 16:23:19.952 +03:00 [DBG]     Scheduling job: DEFAULT.OutboxDispatcherJob with trigger: DEFAULT.OutboxDispatcherJob-trigger
+2026-05-23 16:23:19.969 +03:00 [DBG]     Scheduling job: DEFAULT.SLABreachScannerJob with trigger: DEFAULT.SLABreachScannerJob-trigger
+2026-05-23 16:23:19.974 +03:00 [DBG]     Scheduling job: DEFAULT.RetirementAgeScannerJob with trigger: DEFAULT.RetirementAgeScannerJob-trigger
+2026-05-23 16:23:19.990 +03:00 [DBG]     Scheduling job: DEFAULT.PlagiarismLockoutExpiryJob with trigger: DEFAULT.PlagiarismLockoutExpiryJob-trigger
+2026-05-23 16:23:19.995 +03:00 [DBG]     Scheduling job: DEFAULT.SessionCleanupJob with trigger: DEFAULT.SessionCleanupJob-trigger
+2026-05-23 16:23:20.002 +03:00 [DBG]     Scheduling job: DEFAULT.DataRetentionJob with trigger: DEFAULT.DataRetentionJob-trigger
+2026-05-23 16:23:20.007 +03:00 [DBG]     Scheduling job: DEFAULT.MinistryBatchPollerJob with trigger: DEFAULT.MinistryBatchPollerJob-trigger
+2026-05-23 16:23:20.014 +03:00 [DBG]     Scheduling job: DEFAULT.EmailDispatcherJob with trigger: DEFAULT.EmailDispatcherJob-trigger
+2026-05-23 16:23:20.161 +03:00 [WRN]     The WebRootPath was not found: D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\wwwroot. Static files may be unavailable.
+2026-05-23 16:23:20.211 +03:00 [INF]     Now listening on: http://localhost:5058
+2026-05-23 16:23:20.218 +03:00 [INF]     Application started. Press Ctrl+C to shut down.
+2026-05-23 16:23:20.221 +03:00 [INF]     Hosting environment: Development
+2026-05-23 16:23:20.224 +03:00 [INF]     Content root path: D:\WebApps\BOC_Research_System\backend\BOC.WebAPI
+2026-05-23 16:23:20.229 +03:00 [INF]     Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+2026-05-23 16:23:20.240 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:23:20.256 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:23:20.260 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:23:20.264 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:23:20.268 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:23:20.307 +03:00 [WRN]     You do not have a valid license key for the Lucky Penny software MediatR. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-05-23 16:23:20.315 +03:00 [DBG]     Calling Execute on job DEFAULT.MinistryBatchPollerJob
+2026-05-23 16:23:20.315 +03:00 [DBG]     Calling Execute on job DEFAULT.SLABreachScannerJob
+2026-05-23 16:23:20.315 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:23:20.316 +03:00 [DBG]     Calling Execute on job DEFAULT.EmailDispatcherJob
+2026-05-23 16:23:20.328 +03:00 [INF]     SLA Breach Scanner job started...
+2026-05-23 16:23:20.328 +03:00 [INF]     [MinistryBatchPollerJob] Polling ministry batches for responses...
+2026-05-23 16:23:20.331 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:23:20.343 +03:00 [INF]     [EmailDispatcherJob] Starting email dispatch run...
+2026-05-23 16:23:20.710 +03:00 [INF]     Executed DbCommand (67ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [e].[Id], [e].[CreatedAt], [e].[DeliveryStatus], [e].[ErrorMessage], [e].[RecipientEmail], [e].[SentAt], [e].[Subject], [e].[TemplateType]
+FROM [EmailLogs] AS [e]
+WHERE [e].[DeliveryStatus] = N'Pending'
+ORDER BY [e].[CreatedAt]
+2026-05-23 16:23:20.713 +03:00 [INF]     Executed DbCommand (77ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:23:20.718 +03:00 [INF]     Executed DbCommand (81ms) [Parameters=[@now='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[AssignedById], [e].[AssignedDate], [e].[CreatedAt], [e].[DueDate], [e].[EvaluatorId], [e].[IsSLABreached], [e].[ModifiedAt], [e].[ReminderCount], [e].[ResearchId], [e].[RowVersion], [e].[Status], [e].[SubmittedDate]
+FROM [EvaluatorAssignments] AS [e]
+WHERE [e].[Status] = N'Active' AND [e].[SubmittedDate] IS NULL AND [e].[DueDate] < @now AND [e].[IsSLABreached] = CAST(0 AS bit)
+2026-05-23 16:23:20.742 +03:00 [INF]     No new SLA breaches found.
+2026-05-23 16:23:20.760 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:23:20.777 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:23:20.779 +03:00 [INF]     Executed DbCommand (41ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[BatchNumber], [m].[CreatedAt], [m].[MinistryResponseJson], [m].[ModifiedAt], [m].[SentDate], [m].[Status], [s].[Id], [s].[BatchId], [s].[CreatedAt], [s].[MinistryDecision], [s].[ResearchId], [s].[Id0], [s].[Abstract], [s].[CategoryId], [s].[CreatedAt0], [s].[DepartmentId], [s].[DirectorateId], [s].[FinalScore], [s].[IsArchived], [s].[MeetingId], [s].[MeetingMinutesId], [s].[ModifiedAt], [s].[ReplacedResearchId], [s].[ResearcherId], [s].[RowVersion], [s].[State], [s].[SubmissionDate], [s].[Title], [s].[TrackingNumber]
+FROM [MinistryBatches] AS [m]
+LEFT JOIN (
+    SELECT [b].[Id], [b].[BatchId], [b].[CreatedAt], [b].[MinistryDecision], [b].[ResearchId], [r].[Id] AS [Id0], [r].[Abstract], [r].[CategoryId], [r].[CreatedAt] AS [CreatedAt0], [r].[DepartmentId], [r].[DirectorateId], [r].[FinalScore], [r].[IsArchived], [r].[MeetingId], [r].[MeetingMinutesId], [r].[ModifiedAt], [r].[ReplacedResearchId], [r].[ResearcherId], [r].[RowVersion], [r].[State], [r].[SubmissionDate], [r].[Title], [r].[TrackingNumber]
+    FROM [BatchItems] AS [b]
+    INNER JOIN [ResearchPapers] AS [r] ON [b].[ResearchId] = [r].[Id]
+) AS [s] ON [m].[Id] = [s].[BatchId]
+WHERE [m].[Status] = N'Pending' AND [m].[MinistryResponseJson] IS NOT NULL
+ORDER BY [m].[Id], [s].[Id]
+2026-05-23 16:23:20.785 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:23:20.794 +03:00 [INF]     [MinistryBatchPollerJob] No pending ministry batch responses found.
+2026-05-23 16:23:20.796 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:23:20.800 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:23:20.803 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:23:20.814 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:23:20.830 +03:00 [INF]     Executed DbCommand (25ms) [Parameters=[@warningWindowStart='?' (DbType = DateTime2), @warningWindowEnd='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[AssignedById], [e].[AssignedDate], [e].[CreatedAt], [e].[DueDate], [e].[EvaluatorId], [e].[IsSLABreached], [e].[ModifiedAt], [e].[ReminderCount], [e].[ResearchId], [e].[RowVersion], [e].[Status], [e].[SubmittedDate], [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[BirthDate], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[DepartmentId], [a].[DeviceFingerprint], [a].[DirectorateId], [a].[Email], [a].[EmployeeID], [a].[EvaluatorStatus], [a].[FullName], [a].[IsEmailConfirmed], [a].[LastLoginAt], [a].[LockoutEnd], [a].[ModifiedAt], [a].[NationalID], [a].[NormalizedEmail], [a].[PasswordHash], [a].[PhoneNumber], [a].[RefreshTokenExpires], [a].[RefreshTokenHash], [a].[RoleId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[TwoFactorSecret], [r].[Id], [r].[Abstract], [r].[CategoryId], [r].[CreatedAt], [r].[DepartmentId], [r].[DirectorateId], [r].[FinalScore], [r].[IsArchived], [r].[MeetingId], [r].[MeetingMinutesId], [r].[ModifiedAt], [r].[ReplacedResearchId], [r].[ResearcherId], [r].[RowVersion], [r].[State], [r].[SubmissionDate], [r].[Title], [r].[TrackingNumber]
+FROM [EvaluatorAssignments] AS [e]
+INNER JOIN [AppUsers] AS [a] ON [e].[EvaluatorId] = [a].[Id]
+INNER JOIN [ResearchPapers] AS [r] ON [e].[ResearchId] = [r].[Id]
+WHERE [e].[Status] = N'Active' AND [e].[SubmittedDate] IS NULL AND [e].[IsSLABreached] = CAST(0 AS bit) AND [e].[ReminderCount] < 3 AND [e].[DueDate] >= @warningWindowStart AND [e].[DueDate] <= @warningWindowEnd
+2026-05-23 16:23:20.842 +03:00 [INF]     [EmailDispatcherJob] Completed. Sent: 0, Failed: 0.
+2026-05-23 16:23:20.847 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:23:20.850 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:23:27.613 +03:00 [INF]     Request starting HTTP/1.1 GET http://localhost:5058/ - null null
+2026-05-23 16:23:27.694 +03:00 [WRN]     Failed to determine the https port for redirect.
+2026-05-23 16:23:27.737 +03:00 [INF]     HTTP GET / responded 404 in 76.0651ms
+2026-05-23 16:23:27.748 +03:00 [INF]     Request finished HTTP/1.1 GET http://localhost:5058/ - 404 0 null 135.9747ms
+2026-05-23 16:23:27.756 +03:00 [INF]     Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5058/, Response status code: 404
+2026-05-23 16:23:31.911 +03:00 [INF]     Request starting HTTP/1.1 GET http://localhost:5058/swagger - null null
+2026-05-23 16:23:31.923 +03:00 [INF]     HTTP GET /swagger responded 404 in 4.5185ms
+2026-05-23 16:23:31.928 +03:00 [INF]     Request finished HTTP/1.1 GET http://localhost:5058/swagger - 404 0 null 16.804ms
+2026-05-23 16:23:31.936 +03:00 [INF]     Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5058/swagger, Response status code: 404
+2026-05-23 16:23:31.952 +03:00 [ERR]     Not connected to Redis.
+2026-05-23 16:23:32.758 +03:00 [ERR]     Not connected to Redis.
+2026-05-23 16:23:49.965 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:23:49.966 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:23:49.970 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:23:50.029 +03:00 [INF]     Executed DbCommand (6ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:23:50.034 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:23:50.035 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:23:50.037 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:24:19.967 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:24:19.970 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:24:19.973 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:24:19.976 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:24:19.981 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:24:19.982 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:24:19.983 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:24:49.967 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:24:49.968 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:24:49.987 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:24:50.005 +03:00 [INF]     Executed DbCommand (6ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:24:50.010 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:24:50.011 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:24:50.013 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:25:19.987 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:25:19.988 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:25:20.006 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:25:20.022 +03:00 [INF]     Executed DbCommand (2ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:25:20.028 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:25:20.029 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:25:20.030 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:25:49.963 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:25:49.964 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:25:49.970 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:25:49.976 +03:00 [INF]     Executed DbCommand (3ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:25:49.982 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:25:49.983 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:25:49.985 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:26:15.703 +03:00 [INF]     Request starting HTTP/1.1 GET http://localhost:5058/swagger - null null
+2026-05-23 16:26:15.730 +03:00 [INF]     HTTP GET /swagger responded 404 in 11.6817ms
+2026-05-23 16:26:15.734 +03:00 [INF]     Request finished HTTP/1.1 GET http://localhost:5058/swagger - 404 0 null 31.4806ms
+2026-05-23 16:26:15.743 +03:00 [INF]     Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5058/swagger, Response status code: 404
+2026-05-23 16:26:19.975 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:26:19.975 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:26:19.980 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:26:19.985 +03:00 [INF]     Executed DbCommand (3ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:26:19.990 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:26:19.991 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:26:19.992 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:26:49.965 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-23 16:26:49.967 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-23 16:26:49.983 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-23 16:26:49.993 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-23 16:26:50.003 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-23 16:26:50.005 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-23 16:26:50.009 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-23 16:26:57.431 +03:00 [INF]     Application is shutting down...
+2026-05-23 16:26:57.444 +03:00 [INF]     Scheduler QuartzScheduler_$_NON_CLUSTERED shutting down.
+2026-05-23 16:26:57.447 +03:00 [INF]     Scheduler QuartzScheduler_$_NON_CLUSTERED paused.
+2026-05-23 16:26:57.451 +03:00 [DBG]     Shutting down threadpool...
+2026-05-23 16:26:57.452 +03:00 [DBG]     Waiting for 0 threads to complete.
+2026-05-23 16:26:57.453 +03:00 [DBG]     No executing jobs remaining, all threads stopped.
+2026-05-23 16:26:57.454 +03:00 [DBG]     Shutdown of threadpool complete.
+2026-05-23 16:26:57.458 +03:00 [INF]     Scheduler QuartzScheduler_$_NON_CLUSTERED Shutdown complete.

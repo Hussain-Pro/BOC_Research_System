@@ -1,0 +1,276 @@
+<div class="meeting-container container fade-in" dir="rtl">
+  <!-- Live SignalR Notification -->
+  <div *ngIf="infoMessage()" class="live-alert-banner fade-in">
+    <span class="live-dot"></span>
+    <span class="message-text">{{ infoMessage() }}</span>
+  </div>
+
+  <div class="header-section">
+    <h1>استوديو صياغة محاضر الاجتماعات (Committee Meeting Studio)</h1>
+    <p class="subtitle">إدارة الجلسات الحية، رصد الحضور والتصويت، رصد درجات رئيس اللجنة، وصياغة وتجميد المحاضر الرسمية.</p>
+  </div>
+
+  <div class="meeting-meta-bar card">
+    <div class="meta-item">
+      <strong>رقم الاجتماع:</strong>
+      <span>{{ meetingDetails()?.meetingNumber }}</span>
+    </div>
+    <div class="meta-item">
+      <strong>عنوان الجلسة:</strong>
+      <span>{{ meetingDetails()?.title }}</span>
+    </div>
+    <div class="meta-item">
+      <strong>التاريخ والوقت:</strong>
+      <span dir="ltr">{{ meetingDetails()?.scheduledDate | date:'yyyy-MM-dd HH:mm' }}</span>
+    </div>
+    <div class="meta-item">
+      <strong>الموقع:</strong>
+      <span>{{ meetingDetails()?.location }}</span>
+    </div>
+    <div class="meta-item">
+      <strong>حالة المحضر:</strong>
+      <span 
+        class="badge" 
+        [class.badge-success]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'" 
+        [class.badge-warning]="meetingDetails()?.minutesStatus === 'Draft'"
+        [class.badge-danger]="meetingDetails()?.minutesStatus === 'None'">
+        {{ meetingDetails()?.minutesStatus === 'Minutes_Frozen' ? 'مجمد ومغلق' : (meetingDetails()?.minutesStatus === 'Draft' ? 'مسودة نشطة' : 'لا يوجد محضر') }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Feedback messages -->
+  <div *ngIf="success()" class="alert alert-success fade-in">✓ تم حفظ العملية بنجاح.</div>
+  <div *ngIf="error()" class="alert alert-danger fade-in">⚠ {{ error() }}</div>
+
+  <div class="meeting-grid">
+    <!-- Papers List & Attendance -->
+    <div class="sidebar-column">
+      <!-- Attendance Card -->
+      <div class="card attendance-card">
+        <h3>الحضور والغياب للأعضاء</h3>
+        <div class="attendees-list">
+          <div *ngFor="let member of meetingDetails()?.attendees" class="attendee-item">
+            <span class="member-name">{{ member.fullName }}</span>
+            <span class="member-role">{{ member.roleName }}</span>
+            <span class="attendance-badge" [class.present]="member.attended" [class.absent]="!member.attended">
+              {{ member.attended ? 'حاضر' : 'غائب' }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Research Papers Grid -->
+      <div class="card papers-card">
+        <h3>البحوث المدرجة في جدول الأعمال ({{ meetingDetails()?.papers?.length || 0 }})</h3>
+        <div class="papers-list">
+          <div 
+            *ngFor="let paper of meetingDetails()?.papers" 
+            class="paper-item" 
+            [class.selected]="activePaper()?.id === paper.id"
+            (click)="selectPaper(paper)">
+            <div class="paper-title">{{ paper.title }}</div>
+            <div class="paper-info">
+              <span>الباحث: {{ paper.researcherName }}</span>
+              <span>الحالة: {{ paper.state }}</span>
+            </div>
+            <!-- Dynamic final score badge -->
+            <div class="paper-score-info" *ngIf="paper.finalScore">
+              <span class="score-badge">الدرجة النهائية: {{ paper.finalScore }} / 100</span>
+            </div>
+            <!-- Live vote counts -->
+            <div class="vote-counts">
+              <span class="vote-up">موافق: {{ getVoteCount(paper.id, 'Approve') }}</span>
+              <span class="vote-down">رافض: {{ getVoteCount(paper.id, 'Reject') }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Paper workspace and Minutes Studio -->
+    <div class="main-content-column">
+      
+      <!-- Active Paper Workspace (Grading & Voting) -->
+      <div class="card active-paper-card" *ngIf="activePaper()">
+        <div class="card-header">
+          <h2>إجراءات وتقييم البحث: {{ activePaper()?.title }}</h2>
+          <span class="tracking-no">{{ activePaper()?.trackingNumber }}</span>
+        </div>
+
+        <div class="evaluations-summary">
+          <h4>تقييمات المقيمين الخارجيين (وزن 70%):</h4>
+          <div class="scores-row">
+            <div *ngFor="let sc of activePaper()?.evaluatorScores; let i = index" class="score-box">
+              <span class="score-label">مقيم {{ i + 1 }}</span>
+              <span class="score-value">{{ sc }} / 100</span>
+            </div>
+            <div *ngIf="activePaper()?.evaluatorScores?.length === 0" class="no-evaluators">
+              لا توجد درجات مقيمين خارجيين بعد.
+            </div>
+          </div>
+        </div>
+
+        <div class="action-forms-grid">
+          <!-- Chairman Score Form -->
+          <div class="form-section">
+            <h4>1. درجة رئيس اللجنة (وزن 30%):</h4>
+            <div class="form-group">
+              <label for="chairman-score">الدرجة (من 0 إلى 30)</label>
+              <input 
+                type="number" 
+                id="chairman-score" 
+                class="form-control" 
+                min="0" 
+                max="30" 
+                [(ngModel)]="chairmanScore"
+                [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
+            </div>
+            <div class="form-group">
+              <label for="chairman-comments">ملاحظات رئيس اللجنة وتوصياته</label>
+              <textarea 
+                id="chairman-comments" 
+                class="form-control" 
+                rows="3" 
+                [(ngModel)]="chairmanComments"
+                [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
+            </div>
+            <button 
+              class="btn btn-primary" 
+              (click)="onSubmitGrade()" 
+              [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
+              تأكيد وحساب التقييم النهائي 70/30
+            </button>
+          </div>
+
+          <!-- Live Voting Panel -->
+          <div class="form-section">
+            <h4>2. تصويت أعضاء اللجنة الحاضرين:</h4>
+            <div class="form-group">
+              <label for="voting-member">العضو المصوت</label>
+              <select 
+                id="voting-member" 
+                class="form-control" 
+                [(ngModel)]="votingMemberId"
+                [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
+                <option value="">-- اختر عضو لجنة --</option>
+                <option *ngFor="let member of meetingDetails()?.attendees" [value]="member.memberId">
+                  {{ member.fullName }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="vote-value">رأي العضو</label>
+              <select 
+                id="vote-value" 
+                class="form-control" 
+                [(ngModel)]="votingValue"
+                [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
+                <option value="Approve">موافق (مستوف)</option>
+                <option value="Reject">غير موافق (مرفوض)</option>
+                <option value="Abstain">امتناع</option>
+              </select>
+            </div>
+            <button 
+              class="btn btn-secondary" 
+              (click)="onCastVote()" 
+              [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
+              تسجيل التصويت بشكل رسمي
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 BOC Sections Minutes Studio Compiler -->
+      <div class="card minutes-compiler-card">
+        <h2>استوديو صياغة المحضر النهائي (5 BOC Sections)</h2>
+        <p class="description">قم بتحرير الأقسام الخمسة التفصيلية للمحضر، ثم انقر على توليد المحضر المدمج.</p>
+
+        <div class="compiler-sections">
+          <div class="form-group">
+            <label>القسم الأول: افتتاح الجلسة وإعلان الحضور (Session Opening)</label>
+            <textarea class="form-control" rows="2" [(ngModel)]="section1" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
+          </div>
+          <div class="form-group">
+            <label>القسم الثاني: خلاصة تقارير المقيمين للبحوث (Research Review & Reports)</label>
+            <textarea class="form-control" rows="2" [(ngModel)]="section2" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
+          </div>
+          <div class="form-group">
+            <label>القسم الثالث: محضر المناقشات التفصيلي ومداولات اللجنة (Discussion & Deliberation)</label>
+            <textarea class="form-control" rows="2" [(ngModel)]="section3" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
+          </div>
+          <div class="form-group">
+            <label>القسم الرابع: نتائج التصويت ودرجات رئيس اللجنة (Voting & Grading)</label>
+            <textarea class="form-control" rows="2" [(ngModel)]="section4" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
+          </div>
+          <div class="form-group">
+            <label>القسم الخامس: القرار النهائي والتوقيعات الرسمية (Final Decision)</label>
+            <textarea class="form-control" rows="2" [(ngModel)]="section5" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
+          </div>
+        </div>
+
+        <div class="action-bar">
+          <button 
+            class="btn btn-secondary" 
+            (click)="compileMinutes()" 
+            [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
+            توليد ودمج محضر الاجتماع
+          </button>
+        </div>
+
+        <div class="compiled-result" *ngIf="compiledContent">
+          <h4>المحضر الكامل المدمج (قابل للتعديل):</h4>
+          <textarea 
+            class="form-control compiled-textarea" 
+            rows="8" 
+            [(ngModel)]="compiledContent"
+            [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
+        </div>
+
+        <!-- Freeze Minutes Action -->
+        <div class="freeze-action-section" *ngIf="meetingDetails()?.minutesStatus !== 'Minutes_Frozen'">
+          <div class="warning-alert">
+            🚨 تجميد المحضر هو خطوة أمنية نهائية. بمجرد التجميد، لن يتمكن أحد (بمن فيهم رئيس اللجنة) من تعديل الدرجات أو التصويت أو تغيير المحضر.
+          </div>
+          <button class="btn btn-primary btn-large btn-danger" (click)="onFreezeMinutes()">
+            تجميد واعتماد محضر الاجتماع النهائي (Freeze Minutes)
+          </button>
+        </div>
+
+        <div class="frozen-badge-alert" *ngIf="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
+          🔒 هذا المحضر مجمد ومقفل بالكامل ولا يسمح بإجراء أي تعديلات عليه.
+        </div>
+      </div>
+
+      <!-- Live Committee Chat Box (SignalR) -->
+      <div class="card chat-card">
+        <h3>قناة المحادثة والتنسيق الحي لأعضاء اللجنة (Real-Time Committee Chat)</h3>
+        <p class="description">تواصل حي ومؤمن مع أعضاء اللجنة والمسؤولين لمناقشة بنود جدول الأعمال.</p>
+        
+        <div class="chat-messages-box">
+          <div *ngFor="let msg of chatMessages" class="chat-message">
+            <div class="message-meta">
+              <strong>عضو:</strong>
+              <span dir="ltr">{{ msg.senderId }}</span>
+            </div>
+            <div class="message-content">{{ msg.content }}</div>
+          </div>
+          <div *ngIf="chatMessages.length === 0" class="empty-chat">
+            لا توجد رسائل سابقة في هذه الجلسة.
+          </div>
+        </div>
+
+        <div class="chat-input-bar">
+          <input 
+            type="text" 
+            class="form-control" 
+            placeholder="اكتب رسالتك للمناقشة هنا..." 
+            [(ngModel)]="newMessage" 
+            (keyup.enter)="sendChatMessage()">
+          <button class="btn btn-primary" (click)="sendChatMessage()">إرسال</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

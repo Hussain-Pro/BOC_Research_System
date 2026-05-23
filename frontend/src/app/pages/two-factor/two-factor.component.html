@@ -1,0 +1,42 @@
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light" dir="rtl">
+  <div class="row w-100 justify-content-center">
+    <div class="col-md-5 col-lg-4">
+      <div class="card-industrial p-4 text-center">
+        <h3 class="mb-4" style="color: var(--boc-primary); font-weight: 700;">
+          المصادقة الثنائية (2FA)
+        </h3>
+        
+        <div *ngIf="requiresSetup" class="mb-4 text-center">
+          <div class="alert alert-info small text-end">
+            هذه هي المرة الأولى التي تسجل فيها الدخول. يرجى إعداد تطبيق المصادقة (مثل Google Authenticator).
+          </div>
+          <img [src]="qrCodeUrl" alt="QR Code" class="img-fluid mb-2 border rounded p-2" style="max-width: 200px;">
+          <p class="small text-muted mb-0">أو أدخل هذا الرمز يدوياً:</p>
+          <code class="user-select-all fs-6">{{ secret }}</code>
+        </div>
+
+        <p class="text-muted small mb-4 text-end" *ngIf="!requiresSetup">
+          يرجى إدخال الرمز المكون من 6 أرقام من تطبيق المصادقة الخاص بك.
+        </p>
+        
+        <form (ngSubmit)="onSubmit()" #tfaForm="ngForm">
+          <div class="mb-4">
+            <input type="text" class="form-control form-control-lg text-center fw-bold text-tracking-widest" 
+                   id="code" [(ngModel)]="code" name="code" 
+                   required minlength="6" maxlength="6" 
+                   placeholder="000000" dir="ltr" autocomplete="one-time-code">
+          </div>
+          
+          <button type="submit" class="btn btn-primary-industrial w-100 mb-3" [disabled]="!tfaForm.form.valid || isLoading">
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            تأكيد
+          </button>
+        </form>
+        
+        <div class="mt-2">
+          <a routerLink="/auth/login" class="text-decoration-none text-muted small">العودة لتسجيل الدخول</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

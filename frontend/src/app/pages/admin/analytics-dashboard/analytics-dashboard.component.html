@@ -1,0 +1,94 @@
+<div class="container-fluid min-vh-100 bg-light py-4" dir="rtl">
+  <h2 class="mb-4" style="color: var(--boc-primary); font-weight: 700;">
+    <i class="bi bi-graph-up-arrow me-2 text-primary"></i> لوحة البيانات التنفيذية (Executive Analytics)
+  </h2>
+
+  <!-- Key Metrics Row -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card-industrial p-4 text-center border-start border-4 border-primary">
+        <h6 class="text-muted mb-2">إجمالي البحوث المستلمة</h6>
+        <h2 class="mb-0 fw-bold">142</h2>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card-industrial p-4 text-center border-start border-4 border-warning">
+        <h6 class="text-muted mb-2">قيد التقييم</h6>
+        <h2 class="mb-0 fw-bold">38</h2>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card-industrial p-4 text-center border-start border-4 border-success">
+        <h6 class="text-muted mb-2">مكتملة ومُصدقة</h6>
+        <h2 class="mb-0 fw-bold">94</h2>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card-industrial p-4 text-center border-start border-4 border-danger">
+        <h6 class="text-muted mb-2">مخالفات المدة (SLA Breaches)</h6>
+        <h2 class="mb-0 fw-bold text-danger">10</h2>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row -->
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <div class="card-industrial p-4 h-100">
+        <h5 class="mb-4 text-secondary">حالة تقديم البحوث على مدار العام</h5>
+        <!-- Placeholder for ApexCharts -->
+        <div id="submissionsChart" style="min-height: 300px;" class="d-flex justify-content-center align-items-center bg-light border rounded text-muted">
+          <i class="bi bi-bar-chart-line" style="font-size: 3rem;"></i>
+          <span class="ms-3">مخطط بياني (ApexCharts)</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card-industrial p-4 h-100">
+        <h5 class="mb-4 text-secondary">البحوث حسب التخصص</h5>
+        <!-- Placeholder for ApexCharts Pie -->
+        <div id="specialtiesChart" style="min-height: 300px;" class="d-flex justify-content-center align-items-center bg-light border rounded text-muted">
+          <i class="bi bi-pie-chart" style="font-size: 3rem;"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Table -->
+  <div class="card-industrial p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h5 class="text-secondary mb-0">أحدث المحاضر المنجزة</h5>
+      <button class="btn btn-sm btn-outline-primary"><i class="bi bi-file-earmark-arrow-down ms-2"></i>تصدير التقرير (Excel)</button>
+    </div>
+    
+    <div class="table-responsive">
+      <table class="table table-hover text-center align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>الرقم المرجعي</th>
+            <th>عنوان البحث</th>
+            <th>التقييم النهائي</th>
+            <th>تاريخ الإنجاز</th>
+            <th>الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>BOC-RES-2026-112</td>
+            <td class="text-start">تأثير حقن المياه على مكامن الرميلة</td>
+            <td><span class="badge bg-success p-2">91% (ممتاز)</span></td>
+            <td>2026/05/20</td>
+            <td><button class="btn btn-sm btn-primary-industrial">عرض المحضر</button></td>
+          </tr>
+          <tr>
+            <td>BOC-RES-2026-110</td>
+            <td class="text-start">المعالجات الكيميائية للنفط الثقيل</td>
+            <td><span class="badge bg-warning text-dark p-2">65% (مقبول)</span></td>
+            <td>2026/05/18</td>
+            <td><button class="btn btn-sm btn-primary-industrial">عرض المحضر</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+<div class="container-fluid min-vh-100 bg-light py-4" dir="rtl">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 style="color: var(--boc-primary); font-weight: 700;">
+      <i class="bi bi-people-fill me-2 text-primary"></i> سجل المقيمين وأحمال التقييم (Evaluator Roster)
+    </h2>
+    <div>
+      <button class="btn btn-primary-industrial ms-2"><i class="bi bi-person-plus ms-2"></i>إضافة مقيم جديد</button>
+    </div>
+  </div>
+
+  <div class="card-industrial p-4">
+    
+    <!-- Filter Row -->
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="بحث بالاسم أو التخصص...">
+      </div>
+      <div class="col-md-3">
+        <select class="form-select">
+          <option value="" selected>جميع التخصصات</option>
+          <option value="drilling">هندسة حفر</option>
+          <option value="reservoir">هندسة مكامن</option>
+          <option value="chemical">معالجة كيميائية</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select class="form-select">
+          <option value="" selected>ترتيب حسب الحمل (أقل إلى أعلى)</option>
+          <option value="1">ترتيب أبجدي</option>
+          <option value="2">ترتيب حسب التقييمات المنجزة</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Tiered Roster Table -->
+    <div class="table-responsive">
+      <table class="table table-hover text-center align-middle border">
+        <thead class="table-light">
+          <tr>
+            <th>المقيم (الاسم والدرجة)</th>
+            <th>التخصص</th>
+            <th>حالة التوفر (Tier)</th>
+            <th>البحوث قيد التقييم (Active Load)</th>
+            <th>البحوث المنجزة (History)</th>
+            <th>مخالفات SLA</th>
+            <th>إجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Tier 1: Never Assigned -->
+          <tr class="table-success opacity-75">
+            <td class="text-start fw-bold">د. حسن إبراهيم (م. أقدم)</td>
+            <td>هندسة مكامن</td>
+            <td><span class="badge bg-success">Tier 1 (متاح جداً)</span></td>
+            <td><h5 class="mb-0">0</h5></td>
+            <td>0</td>
+            <td>0</td>
+            <td><button class="btn btn-sm btn-outline-primary">عرض السجل</button></td>
+          </tr>
+          <!-- Tier 2: Zero Active Load -->
+          <tr>
+            <td class="text-start fw-bold">د. فاطمة الزهراء (خبير)</td>
+            <td>معالجة كيميائية</td>
+            <td><span class="badge bg-primary">Tier 2 (متاح)</span></td>
+            <td><h5 class="mb-0 text-primary">0</h5></td>
+            <td>12</td>
+            <td>0</td>
+            <td><button class="btn btn-sm btn-outline-primary">عرض السجل</button></td>
+          </tr>
+          <!-- Tier 3: High Active Load -->
+          <tr>
+            <td class="text-start fw-bold">أ. خالد منصور (ر. مهندسين)</td>
+            <td>هندسة حفر</td>
+            <td><span class="badge bg-warning text-dark">Tier 3 (مشغول)</span></td>
+            <td><h5 class="mb-0 text-danger fw-bold">3</h5></td>
+            <td>45</td>
+            <td><span class="badge bg-danger rounded-pill">1</span></td>
+            <td><button class="btn btn-sm btn-outline-primary">عرض السجل</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+</div>
