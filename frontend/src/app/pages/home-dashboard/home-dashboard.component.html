@@ -1,196 +1,76 @@
-<div class="container-fluid py-4 dashboard-bg min-vh-100" dir="rtl">
-  
-  <!-- Welcome Banner -->
+<div class="container-fluid py-4 dashboard-bg min-vh-100" dir="rtl" id="home-dashboard">
+  <div class="row mb-4 g-3">
+    <div class="col-md-3"><boc-stat-card label="البحوث النشطة" value="12" icon="bi-journal-text" trend="+3 هذا الشهر" [trendUp]="true"></boc-stat-card></div>
+    <div class="col-md-3"><boc-stat-card label="بانتظار المراجعة" value="5" icon="bi-hourglass-split" iconBg="rgba(255,193,7,0.15)" iconColor="#856404"></boc-stat-card></div>
+    <div class="col-md-3"><boc-stat-card label="تم اعتمادها" value="28" icon="bi-check-circle" iconBg="rgba(40,167,69,0.12)" iconColor="var(--boc-success)" trend="+8%" [trendUp]="true"></boc-stat-card></div>
+    <div class="col-md-3"><boc-stat-card label="إشعارات جديدة" value="3" icon="bi-bell" iconBg="rgba(220,53,69,0.12)" iconColor="var(--boc-danger)"></boc-stat-card></div>
+  </div>
+
   <div class="row mb-4">
     <div class="col-12">
-      <div class="card glass-card border-0 shadow-sm rounded-4 overflow-hidden position-relative">
-        <div class="card-body p-4 p-md-5 z-index-1">
-          <div class="row align-items-center">
-            <div class="col-lg-8">
-              <span class="badge bg-primary bg-opacity-10 text-primary mb-2 px-3 py-2 rounded-pill fw-bold">مرحباً بك مجدداً</span>
-              <h2 class="fw-bold mb-2 text-dark">نظام إدارة البحوث - شركة نفط البصرة</h2>
-              <p class="text-muted fs-5 mb-0">
-                أهلاً بك، <span class="fw-bold text-primary">{{ userName }}</span> 
-                <span class="badge bg-secondary ms-2" *ngIf="userRole">{{ userRole }}</span>
-              </p>
-            </div>
-            <div class="col-lg-4 text-start d-none d-lg-block">
-              <img src="assets/boc_logo.png" alt="BOC Logo" height="100" class="opacity-75" onerror="this.style.display='none'">
+      <boc-glass-card>
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <span class="badge bg-primary bg-opacity-10 text-primary mb-2 px-3 py-2 rounded-pill fw-bold">مرحباً بك مجدداً</span>
+            <h2 class="fw-bold mb-2 hero-title">نظام إدارة البحوث - شركة نفط البصرة</h2>
+            <p class="text-muted fs-5 mb-3">
+              أهلاً بك، <span class="fw-bold text-primary">{{ userName }}</span>
+              <span class="badge bg-secondary ms-2" *ngIf="userRole">{{ userRole }}</span>
+            </p>
+            <div class="d-flex gap-2 flex-wrap">
+              <a routerLink="/research/submit" class="btn btn-primary-industrial btn-sm"><i class="bi bi-file-earmark-plus me-1"></i>تقديم بحث</a>
+              <a routerLink="/research/history" class="btn btn-outline-secondary btn-sm rounded-pill"><i class="bi bi-clock-history me-1"></i>متابعة</a>
+              <a routerLink="/profile" class="btn btn-outline-secondary btn-sm rounded-pill"><i class="bi bi-person me-1"></i>الملف الشخصي</a>
+              <button type="button" class="btn btn-outline-primary btn-sm rounded-pill" (click)="startTour()"><i class="bi bi-compass me-1"></i>ابدأ الجولة التعريفية</button>
             </div>
           </div>
+          <div class="col-lg-4 text-start d-none d-lg-block">
+            <img src="assets/boc_logo.png" alt="BOC Logo" height="100" class="opacity-75">
+          </div>
         </div>
-        <div class="position-absolute top-0 end-0 h-100 w-50" style="background: linear-gradient(270deg, rgba(15,42,56,0.03) 0%, rgba(255,255,255,0) 100%); z-index: 0;"></div>
-      </div>
+      </boc-glass-card>
     </div>
   </div>
 
-  <!-- Main Content Area -->
   <div class="row mb-4">
-    <!-- Chart Column -->
     <div class="col-lg-8 mb-4">
-      <div class="card glass-card border-0 shadow-sm rounded-4 h-100">
-        <div class="card-header bg-transparent border-0 pt-4 pb-0 px-4">
-          <h5 class="fw-bold mb-0 text-dark">نشاط تقديم البحوث</h5>
-        </div>
-        <div class="card-body px-2 pb-4 pt-0">
-          <apx-chart
-            [series]="submissionsChartOptions.series"
-            [chart]="submissionsChartOptions.chart"
-            [xaxis]="submissionsChartOptions.xaxis"
-            [dataLabels]="submissionsChartOptions.dataLabels"
-            [grid]="submissionsChartOptions.grid"
-            [stroke]="submissionsChartOptions.stroke"
-            [title]="submissionsChartOptions.title"
-            [colors]="submissionsChartOptions.colors">
-          </apx-chart>
-        </div>
-      </div>
+      <boc-glass-card title="نشاط تقديم البحوث">
+        <apx-chart
+          [series]="$any(submissionsChartOptions['series'])"
+          [chart]="$any(submissionsChartOptions['chart'])"
+          [xaxis]="$any(submissionsChartOptions['xaxis'])"
+          [dataLabels]="$any(submissionsChartOptions['dataLabels'])"
+          [grid]="$any(submissionsChartOptions['grid'])"
+          [stroke]="$any(submissionsChartOptions['stroke'])"
+          [colors]="$any(submissionsChartOptions['colors'])">
+        </apx-chart>
+      </boc-glass-card>
     </div>
-
-    <!-- Quick Actions Column -->
     <div class="col-lg-4 mb-4">
-      <div class="card glass-card border-0 shadow-sm rounded-4 h-100">
-        <div class="card-header bg-transparent border-0 pt-4 pb-2 px-4">
-          <h5 class="fw-bold mb-0 text-dark">إجراءات سريعة</h5>
-        </div>
-        <div class="card-body p-4">
-          
-          <a routerLink="/research/submit" class="btn btn-primary w-100 mb-3 py-3 rounded-3 text-start d-flex align-items-center justify-content-between action-btn shadow-sm" *ngIf="userRole !== 'Admin' || userRole === 'Admin'">
-            <div>
-              <i class="bi bi-file-earmark-plus me-2 ms-2 fs-5"></i>
-              <span class="fw-bold fs-6">تقديم بحث جديد</span>
-            </div>
+      <boc-glass-card title="إجراءات سريعة">
+        <ng-container *ngFor="let action of visibleActions()">
+          <a [routerLink]="action.route"
+             class="btn w-100 mb-3 py-3 rounded-3 text-start d-flex align-items-center justify-content-between action-btn shadow-sm text-white"
+             [class]="action.class || ''"
+             [style.background-color]="action.style || null">
+            <div><i class="bi me-2 ms-2 fs-5" [ngClass]="action.icon"></i><span class="fw-bold fs-6">{{ action.label }}</span></div>
             <i class="bi bi-chevron-left"></i>
           </a>
-
-          <a routerLink="/research/timeline" class="btn btn-danger text-white w-100 mb-3 py-3 rounded-3 text-start d-flex align-items-center justify-content-between action-btn shadow-sm" *ngIf="userRole !== 'Admin' || userRole === 'Admin'">
-            <div>
-              <i class="bi bi-clock-history me-2 ms-2 fs-5"></i>
-              <span class="fw-bold fs-6">متابعة مسار البحث</span>
-            </div>
-            <i class="bi bi-chevron-left"></i>
-          </a>
-
-          <a routerLink="/triage" class="btn text-white w-100 mb-3 py-3 rounded-3 text-start d-flex align-items-center justify-content-between action-btn shadow-sm" style="background-color: #E37400;" *ngIf="['Chairman', 'Supervisor', 'Admin'].includes(userRole)">
-            <div>
-              <i class="bi bi-funnel me-2 ms-2 fs-5"></i>
-              <span class="fw-bold fs-6">فرز الأبحاث الواردة</span>
-            </div>
-            <i class="bi bi-chevron-left"></i>
-          </a>
-
-          <a routerLink="/committee/workspace" class="btn text-white w-100 mb-3 py-3 rounded-3 text-start d-flex align-items-center justify-content-between action-btn shadow-sm" style="background-color: #8430CE;" *ngIf="['Evaluator', 'Member', 'Chairman', 'Admin'].includes(userRole)">
-            <div>
-              <i class="bi bi-clipboard-check me-2 ms-2 fs-5"></i>
-              <span class="fw-bold fs-6">مساحة عمل المقيم</span>
-            </div>
-            <i class="bi bi-chevron-left"></i>
-          </a>
-
-          <a routerLink="/meetings/studio" class="btn text-white w-100 mb-3 py-3 rounded-3 text-start d-flex align-items-center justify-content-between action-btn shadow-sm" style="background-color: #0d6efd;" *ngIf="['Secretary', 'Chairman', 'Admin'].includes(userRole)">
-            <div>
-              <i class="bi bi-journal-text me-2 ms-2 fs-5"></i>
-              <span class="fw-bold fs-6">إدارة محاضر الاجتماعات</span>
-            </div>
-            <i class="bi bi-chevron-left"></i>
-          </a>
-          
-          <a routerLink="/profile" class="btn btn-light w-100 py-3 rounded-3 text-start d-flex align-items-center justify-content-between action-btn border">
-            <div>
-              <i class="bi bi-person me-2 ms-2 fs-5 text-dark"></i>
-              <span class="fw-bold fs-6 text-dark">تحديث الملف الشخصي</span>
-            </div>
-            <i class="bi bi-chevron-left text-muted"></i>
-          </a>
-
-        </div>
-      </div>
+        </ng-container>
+      </boc-glass-card>
     </div>
   </div>
 
-  <!-- Admin Super Control Panel -->
   <div *ngIf="userRole === 'Admin'">
-    <h4 class="fw-bold text-dark border-bottom pb-3 mb-4"><i class="bi bi-shield-lock text-danger me-2"></i> الإدارة الشاملة للنظام (Super Admin)</h4>
-    
+    <h4 class="fw-bold hero-title border-bottom pb-3 mb-4"><i class="bi bi-shield-lock text-danger me-2"></i>الإدارة الشاملة للنظام</h4>
     <div class="row g-4">
-      
-      <!-- Global Search -->
-      <div class="col-md-3">
-        <div class="card h-100 glass-card border-0 shadow-sm rounded-4 hover-card">
-          <div class="card-body p-4">
-            <i class="bi bi-search display-6 text-primary mb-3"></i>
-            <h6 class="fw-bold">محرك البحث الشامل</h6>
-            <a routerLink="/admin/global-search" class="text-decoration-none small text-primary fw-bold">الذهاب للبحث <i class="bi bi-arrow-left"></i></a>
-          </div>
+      <div class="col-md-3" *ngFor="let card of adminCards">
+        <div class="glass-card p-4 h-100 hover-card">
+          <i class="bi display-6 mb-3 d-block" [ngClass]="card.icon" [style.color]="card.color"></i>
+          <h6 class="fw-bold">{{ card.title }}</h6>
+          <a [routerLink]="card.route" class="text-decoration-none small fw-bold" [style.color]="card.color">{{ card.link }} <i class="bi bi-arrow-left"></i></a>
         </div>
       </div>
-
-      <!-- Export Hub -->
-      <div class="col-md-3">
-        <div class="card h-100 glass-card border-0 shadow-sm rounded-4 hover-card">
-          <div class="card-body p-4">
-            <i class="bi bi-file-earmark-arrow-down display-6 text-warning mb-3"></i>
-            <h6 class="fw-bold">مركز تصدير التقارير</h6>
-            <a routerLink="/admin/export" class="text-decoration-none small text-warning fw-bold">تصدير الآن <i class="bi bi-arrow-left"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- SLA Violations -->
-      <div class="col-md-3">
-        <div class="card h-100 glass-card border-0 shadow-sm rounded-4 hover-card">
-          <div class="card-body p-4">
-            <i class="bi bi-alarm display-6 text-danger mb-3"></i>
-            <h6 class="fw-bold">لوحة الأبحاث المتأخرة (SLA)</h6>
-            <a routerLink="/admin/sla-violations" class="text-decoration-none small text-danger fw-bold">عرض المخالفات <i class="bi bi-arrow-left"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Plagiarism Override -->
-      <div class="col-md-3">
-        <div class="card h-100 glass-card border-0 shadow-sm rounded-4 hover-card">
-          <div class="card-body p-4">
-            <i class="bi bi-shield-exclamation display-6" style="color: #6f42c1;"></i>
-            <h6 class="fw-bold mt-3">تجاوز حظر الانتحال</h6>
-            <a routerLink="/admin/plagiarism-override" class="text-decoration-none small fw-bold" style="color: #6f42c1;">مراجعة الحظر <i class="bi bi-arrow-left"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Evaluator Roster -->
-      <div class="col-md-3">
-        <div class="card h-100 glass-card border-0 shadow-sm rounded-4 hover-card">
-          <div class="card-body p-4">
-            <i class="bi bi-people display-6 text-info mb-3"></i>
-            <h6 class="fw-bold">سجل المقيمين (Roster)</h6>
-            <a routerLink="/admin/roster" class="text-decoration-none small text-info fw-bold">إدارة المقيمين <i class="bi bi-arrow-left"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Ministry Gateway -->
-      <div class="col-md-3">
-        <div class="card h-100 glass-card border-0 shadow-sm rounded-4 hover-card">
-          <div class="card-body p-4">
-            <i class="bi bi-bank display-6 text-success mb-3"></i>
-            <h6 class="fw-bold">بوابة تصدير الوزارة</h6>
-            <a routerLink="/admin/ministry" class="text-decoration-none small text-success fw-bold">فتح البوابة <i class="bi bi-arrow-left"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- System Config -->
-      <div class="col-md-3">
-        <div class="card h-100 glass-card border-0 shadow-sm rounded-4 hover-card">
-          <div class="card-body p-4">
-            <i class="bi bi-gear display-6 text-secondary mb-3"></i>
-            <h6 class="fw-bold">إعدادات النظام العامة</h6>
-            <a routerLink="/admin/config" class="text-decoration-none small text-secondary fw-bold">الذهاب للإعدادات <i class="bi bi-arrow-left"></i></a>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </div>

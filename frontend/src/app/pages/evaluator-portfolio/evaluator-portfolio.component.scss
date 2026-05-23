@@ -1,1 +1,11 @@
-/* Standard table styles applied globally */
+:host ::ng-deep .page-hero {
+  border-inline-start-color: var(--boc-accent-evaluator);
+}
+
+:host ::ng-deep .btn-primary-industrial {
+  background-color: var(--boc-accent-evaluator);
+
+  &:hover {
+    background-color: color-mix(in srgb, var(--boc-accent-evaluator) 85%, black);
+  }
+}

@@ -1,67 +1,74 @@
-<div class="container-fluid min-vh-100 bg-light py-5" dir="rtl">
-  <div class="container">
-    
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-5 p-4 rounded bg-white shadow-sm border-start border-4" style="border-color: var(--boc-primary) !important;">
-      <div>
-        <h2 class="fw-bold mb-1" style="color: var(--boc-primary);">تاريخ الأبحاث الشخصي (Portfolio)</h2>
-        <p class="text-muted mb-0">سجل بجميع الأبحاث التي قمت بتقديمها ونتائج التقييم النهائية.</p>
-      </div>
-      <a routerLink="/research/submit" class="btn btn-primary-industrial px-4">
+<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
+  <div class="container-lg">
+
+    <boc-page-hero
+      title="تاريخ الأبحاث الشخصي"
+      subtitle="سجل بجميع الأبحاث التي قمت بتقديمها ونتائج التقييم النهائية.">
+      <a heroActions routerLink="/research/submit" class="btn btn-primary-industrial">
         <i class="bi bi-plus-circle me-2"></i> تقديم بحث جديد
       </a>
-    </div>
+    </boc-page-hero>
 
-    <!-- Data Grid -->
-    <div class="card shadow-sm border-0">
-      <div class="card-body p-0">
-        <div class="table-responsive">
-          <table class="table table-hover align-middle mb-0">
-            <thead class="bg-light text-muted">
-              <tr>
-                <th class="ps-4 py-3">رقم التتبع</th>
-                <th class="py-3">عنوان البحث</th>
-                <th class="py-3">التخصص / الفئة</th>
-                <th class="py-3">تاريخ التقديم</th>
-                <th class="py-3">الحالة النهائية</th>
-                <th class="py-3">الدرجة</th>
-                <th class="pe-4 py-3 text-end">الإجراءات</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let record of historyRecords">
-                <td class="ps-4 fw-bold text-muted">{{ record.id }}</td>
-                <td>
-                  <div class="fw-bold text-dark" style="max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" [title]="record.title">
-                    {{ record.title }}
-                  </div>
-                </td>
-                <td><span class="badge bg-light text-dark border">{{ record.category }}</span></td>
-                <td>{{ record.submittedAt | date:'yyyy/MM/dd' }}</td>
-                <td>
-                  <span class="badge" [ngClass]="getStatusBadge(record.status).class">
-                    {{ getStatusBadge(record.status).label }}
-                  </span>
-                </td>
-                <td>
-                  <span class="fw-bold" [ngClass]="{'text-success': record.score !== null && record.score >= 60, 'text-danger': record.score !== null && record.score < 60, 'text-muted': record.score === null}">
-                    {{ record.score !== null ? record.score + '%' : '--' }}
-                  </span>
-                </td>
-                <td class="pe-4 text-end">
-                  <a *ngIf="record.status === 'Non_Compliant_Returned'" [routerLink]="['/research/corrections', record.id]" class="btn btn-sm btn-outline-warning" title="رفع التعديلات">
-                    <i class="bi bi-pencil-square"></i> تعديل
-                  </a>
-                  <a *ngIf="record.status !== 'Non_Compliant_Returned'" [routerLink]="['/research/timeline']" [queryParams]="{id: record.id}" class="btn btn-sm btn-outline-primary" title="عرض المسار">
-                    <i class="bi bi-eye"></i>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+    <boc-empty-state
+      *ngIf="historyRecords.length === 0"
+      icon="bi-journal-x"
+      title="لا توجد أبحاث مقدمة"
+      message="لم تقم بتقديم أي بحث بعد. ابدأ بتقديم بحثك الأول الآن."
+      actionLabel="تقديم بحث جديد"
+      actionRoute="/research/submit">
+    </boc-empty-state>
+
+    <boc-data-table
+      *ngIf="historyRecords.length > 0"
+      [columns]="tableColumns"
+      [columnLabels]="columnLabels"
+      [data]="historyRecords"
+      [pageSize]="10">
+
+      <ng-template bocTableCellDef="title" let-row>
+        <div class="title-cell" [title]="$any(row).title">{{ $any(row).title }}</div>
+      </ng-template>
+
+      <ng-template bocTableCellDef="category" let-row>
+        <span class="badge bg-light text-dark border">{{ $any(row).category }}</span>
+      </ng-template>
+
+      <ng-template bocTableCellDef="submittedAt" let-row>
+        {{ $any(row).submittedAt | date:'yyyy/MM/dd' }}
+      </ng-template>
+
+      <ng-template bocTableCellDef="status" let-row>
+        <boc-status-chip [status]="getStatusChip($any(row).status).type">
+          {{ getStatusChip($any(row).status).label }}
+        </boc-status-chip>
+      </ng-template>
+
+      <ng-template bocTableCellDef="score" let-row>
+        <span class="fw-bold"
+              [class.text-success]="$any(row).score !== null && $any(row).score >= 60"
+              [class.text-danger]="$any(row).score !== null && $any(row).score < 60"
+              [class.text-muted]="$any(row).score === null">
+          {{ $any(row).score !== null ? $any(row).score + '%' : '--' }}
+        </span>
+      </ng-template>
+
+      <ng-template bocTableCellDef="actions" let-row>
+        <a *ngIf="$any(row).status === 'Non_Compliant_Returned'"
+           [routerLink]="['/research/corrections', $any(row).id]"
+           class="btn btn-sm btn-outline-warning"
+           title="رفع التعديلات">
+          <i class="bi bi-pencil-square"></i> تعديل
+        </a>
+        <a *ngIf="$any(row).status !== 'Non_Compliant_Returned'"
+           [routerLink]="['/research/timeline']"
+           [queryParams]="{ id: $any(row).id }"
+           class="btn btn-sm btn-outline-primary"
+           title="عرض المسار">
+          <i class="bi bi-eye"></i>
+        </a>
+      </ng-template>
+
+    </boc-data-table>
 
   </div>
 </div>

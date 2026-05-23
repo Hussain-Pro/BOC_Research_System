@@ -1,51 +1,67 @@
-import { Component, OnInit, OnDestroy, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MeetingService, MeetingDetails, MeetingPaper } from '../../services/meeting.service';
 import { SignalRService, ChatMessage } from '../../services/signalr.service';
 import { AuthService } from '../../services/auth.service';
+import { BocLayoutService } from '../../services/boc-layout.service';
 import { Subscription } from 'rxjs';
+import {
+  BocPageHeroComponent,
+  BocGlassCardComponent,
+  BocStatCardComponent,
+  BocEmptyStateComponent
+} from '../../shared';
 
 @Component({
   selector: 'app-meeting-studio',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    BocPageHeroComponent,
+    BocGlassCardComponent,
+    BocStatCardComponent,
+    BocEmptyStateComponent
+  ],
   templateUrl: './meeting-studio.component.html',
   styleUrl: './meeting-studio.component.scss'
 })
 export class MeetingStudioComponent implements OnInit, OnDestroy {
-  meetingId = signal<string>('6B2A9B10-8D7C-6B5A-4928-1029384756AF'); // Fallback meeting ID
+  private layoutService = inject(BocLayoutService);
+
+  meetingId = signal<string>('6B2A9B10-8D7C-6B5A-4928-1029384756AF');
   meetingDetails = signal<MeetingDetails | null>(null);
   activePaper = signal<MeetingPaper | null>(null);
 
-  // Chat box state
   chatMessages: ChatMessage[] = [];
   newMessage = '';
-  committeeChannelId = '12345678-1234-1234-1234-123456789abc'; // Static ID for committee channel
+  committeeChannelId = '12345678-1234-1234-1234-123456789abc';
 
-  // 5 BOC Sections compiler fields
   section1 = 'افتتاح الجلسة وإعلان الحضور: عقدت لجنة دراسة وتقييم البحوث برئاسة السيد رئيس اللجنة، وبحضور السادة أعضاء اللجنة الموقرين للتباحث في البحوث المرفوعة.';
   section2 = 'مراجعة البحوث وخلاصة تقارير المقيمين: تم استعراض تقارير المقيمين الخارجيين الخاصة بالبحوث العلمية المطروحة ودرجات التقييم.';
   section3 = 'محضر مناقشات ومداولات اللجنة: جرت مناقشات مستفيضة بين أعضاء اللجنة حول الجدوى الفنية والتطبيقية للبحوث داخل شركة نفط البصرة.';
   section4 = 'نتائج التصويت وتقييم رئيس اللجنة: جرى التصويت على البحوث بشكل قانوني وسجلت درجات رئيس اللجنة.';
   section5 = 'القرار النهائي والتوقيعات: بناءً على ما تقدم، نوصي بالموافقة على البحوث المستوفية وإرسالها لمديرية الموارد البشرية.';
-  
+
   compiledContent = '';
 
-  // Chairman grading form
   chairmanScore = 0;
   chairmanComments = '';
 
-  // Voting form
   votingMemberId = '';
   votingValue = 'Approve';
 
-  // Feedback notifications
   success = signal<boolean>(false);
   error = signal<string | null>(null);
   infoMessage = signal<string | null>(null);
   isLoading = signal<boolean>(false);
+
+  breadcrumbs = [
+    { label: 'الرئيسية', route: '/home' },
+    { label: 'استوديو محاضر الاجتماعات' }
+  ];
 
   private subscriptions = new Subscription();
 
@@ -57,7 +73,7 @@ export class MeetingStudioComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // 1. Get meeting ID from routing parameters if present
+    this.layoutService.setPage('استوديو محاضر الاجتماعات');
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.meetingId.set(idParam);
@@ -65,7 +81,6 @@ export class MeetingStudioComponent implements OnInit, OnDestroy {
 
     this.loadMeetingDetails();
 
-    // 2. Setup SignalR Chat
     const token = this.authService.token();
     if (token) {
       this.signalRService.startConnections(token);
@@ -80,7 +95,6 @@ export class MeetingStudioComponent implements OnInit, OnDestroy {
       })
     );
 
-    // 3. Setup SignalR Notifications
     this.subscriptions.add(
       this.signalRService.notifications$.subscribe((notif) => {
         this.infoMessage.set(`إشعار عاجل: ${notif.title} - ${notif.message}`);
@@ -103,7 +117,7 @@ export class MeetingStudioComponent implements OnInit, OnDestroy {
         this.isLoading.set(false);
         this.prepopulateCompiler(details);
       },
-      error: (err) => {
+      error: () => {
         this.error.set('فشل تحميل تفاصيل الاجتماع والمحاضر.');
         this.isLoading.set(false);
       }
@@ -111,7 +125,6 @@ export class MeetingStudioComponent implements OnInit, OnDestroy {
   }
 
   prepopulateCompiler(details: MeetingDetails) {
-    // Dynamically adjust templates using meeting data
     this.section1 = `افتتاح الجلسة وإعلان الحضور: عقدت لجنة دراسة وتقييم البحوث برئاسة السيد رئيس اللجنة، وبحضور السادة أعضاء اللجنة الموقرين للتباحث في اجتماع اللجنة رقم (${details.meetingNumber}) في موقع (${details.location}) بتاريخ (${new Date(details.scheduledDate).toLocaleDateString('ar-EG')}).`;
     this.compileMinutes();
   }
@@ -166,7 +179,7 @@ export class MeetingStudioComponent implements OnInit, OnDestroy {
     this.success.set(false);
 
     const currentUser = this.authService.currentUser();
-    const chairmanId = currentUser?.nameid || 'D2A9B10E-8D7C-6B5A-4928-1029384756AE'; // Fallback
+    const chairmanId = currentUser?.nameid || 'D2A9B10E-8D7C-6B5A-4928-1029384756AE';
 
     this.meetingService.submitGrade(paper.id, chairmanId, details.minutesId, this.chairmanScore, this.chairmanComments).subscribe({
       next: () => {
@@ -191,7 +204,7 @@ export class MeetingStudioComponent implements OnInit, OnDestroy {
     this.success.set(false);
 
     const currentUser = this.authService.currentUser();
-    const frozenById = currentUser?.nameid || 'D2A9B10E-8D7C-6B5A-4928-1029384756AE'; // Fallback
+    const frozenById = currentUser?.nameid || 'D2A9B10E-8D7C-6B5A-4928-1029384756AE';
 
     this.meetingService.freezeMinutes(details.minutesId, frozenById).subscribe({
       next: () => {
@@ -207,19 +220,27 @@ export class MeetingStudioComponent implements OnInit, OnDestroy {
   sendChatMessage() {
     if (!this.newMessage.trim()) return;
 
-    const currentUser = this.authService.currentUser();
-    const senderName = currentUser?.FullName || 'عضو لجنة';
-
     this.signalRService.sendMessage(this.committeeChannelId, null, this.newMessage)
       .then(() => {
         this.newMessage = '';
       })
-      .catch(err => {
+      .catch(() => {
         this.error.set('خطأ أثناء إرسال الرسالة إلى Hub.');
       });
   }
 
   getVoteCount(paperId: string, value: string): number {
     return this.meetingDetails()?.votes.filter(v => v.researchId === paperId && v.voteValue === value).length || 0;
+  }
+
+  get minutesStatusLabel(): string {
+    const status = this.meetingDetails()?.minutesStatus;
+    if (status === 'Minutes_Frozen') return 'مجمد ومغلق';
+    if (status === 'Draft') return 'مسودة نشطة';
+    return 'لا يوجد محضر';
+  }
+
+  get attendedCount(): number {
+    return this.meetingDetails()?.attendees?.filter(a => a.attended).length || 0;
   }
 }

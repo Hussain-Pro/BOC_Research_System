@@ -4796,8 +4796,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "d:\\WebApps\\BOC_Research_System\\backend\\BOC.Infrastructure\\BOC.Infrastructure.csproj": {
-              "projectPath": "d:\\WebApps\\BOC_Research_System\\backend\\BOC.Infrastructure\\BOC.Infrastructure.csproj"
+            "D:\\WebApps\\BOC_Research_System\\backend\\BOC.Infrastructure\\BOC.Infrastructure.csproj": {
+              "projectPath": "D:\\WebApps\\BOC_Research_System\\backend\\BOC.Infrastructure\\BOC.Infrastructure.csproj"
             }
           }
         }

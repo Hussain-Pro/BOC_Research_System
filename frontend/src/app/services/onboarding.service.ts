@@ -9,10 +9,9 @@ export class OnboardingService {
 
   constructor() { }
 
-  startHomeTour(userRole: string) {
-    // Check if the user has already seen the tour
+  startHomeTour(userRole: string, force = false) {
     const tourKey = `boc_tour_home_${userRole}`;
-    if (localStorage.getItem(tourKey)) {
+    if (!force && localStorage.getItem(tourKey)) {
       return;
     }
 
@@ -53,8 +52,8 @@ export class OnboardingService {
     if (role === 'Researcher' || role === '') {
       return [
         ...commonSteps,
-        { element: '.bi-file-earmark-plus', popover: { title: 'تقديم بحث جديد', description: 'ابدأ من هنا لرفع بحثك للجنة. ستحتاج لتعبئة نموذج إلكتروني ورفع الملفات.', side: 'bottom' } },
-        { element: '.bi-clock-history', popover: { title: 'تتبع مسار البحث', description: 'بعد التقديم، يمكنك متابعة حالة بحثك والمراحل التي وصل إليها من هنا.', side: 'bottom' } }
+        { element: '#home-dashboard .bi-file-earmark-plus', popover: { title: 'تقديم بحث جديد', description: 'ابدأ من هنا لرفع بحثك للجنة.', side: 'bottom' } },
+        { element: '#home-dashboard .bi-clock-history', popover: { title: 'تتبع مسار البحث', description: 'تابع حالة بحثك والمراحل التي وصل إليها.', side: 'bottom' } }
       ];
     }
 

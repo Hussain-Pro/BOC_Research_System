@@ -14,14 +14,22 @@ export const routes: Routes = [
   },
   {
     path: 'profile',
+    canActivate: [authGuard],
     loadComponent: () => import('./pages/user-profile/user-profile.component').then(m => m.UserProfileComponent)
   },
   {
     path: 'home',
+    canActivate: [authGuard],
     loadComponent: () => import('./pages/home-dashboard/home-dashboard.component').then(m => m.HomeDashboardComponent)
   },
   {
+    path: 'triage',
+    canActivate: [authGuard],
+    loadComponent: () => import('./pages/triage-dashboard/triage-dashboard.component').then(m => m.TriageDashboardComponent)
+  },
+  {
     path: 'research',
+    canActivate: [authGuard],
     children: [
       { path: 'timeline/:id', loadComponent: () => import('./pages/research-timeline/research-timeline.component').then(m => m.ResearchTimelineComponent) },
       { path: 'submit', loadComponent: () => import('./pages/submit-research/submit-research.component').then(m => m.SubmitResearchComponent) },
@@ -31,6 +39,7 @@ export const routes: Routes = [
   },
   {
     path: 'committee',
+    canActivate: [authGuard],
     children: [
       { path: 'workspace', loadComponent: () => import('./pages/committee-workspace/committee-workspace.component').then(m => m.CommitteeWorkspaceComponent) },
       { path: 'scheduler', loadComponent: () => import('./pages/meeting-scheduler/meeting-scheduler.component').then(m => m.MeetingSchedulerComponent) },
@@ -40,12 +49,14 @@ export const routes: Routes = [
   },
   {
     path: 'evaluator',
+    canActivate: [authGuard],
     children: [
       { path: 'portfolio', loadComponent: () => import('./pages/evaluator-portfolio/evaluator-portfolio.component').then(m => m.EvaluatorPortfolioComponent) }
     ]
   },
   {
     path: 'admin',
+    canActivate: [authGuard],
     children: [
       { path: 'notifications', loadComponent: () => import('./pages/notifications/notifications.component').then(m => m.NotificationsComponent) },
       { path: 'chat', loadComponent: () => import('./pages/chat/chat.component').then(m => m.ChatComponent) },

@@ -1,1 +1,54 @@
-/* navbar styles */
+.navbar-boc {
+  background: rgba(15, 42, 56, 0.92) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.navbar-subtitle {
+  font-size: 0.75rem;
+}
+
+.nav-link-boc {
+  color: rgba(255, 255, 255, 0.85) !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: var(--boc-radius-pill);
+  transition: all var(--boc-transition);
+  position: relative;
+
+  &:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  &.active {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.15);
+    font-weight: 600;
+  }
+}
+
+.avatar-circle {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: var(--boc-surface);
+  color: var(--boc-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.notification-badge {
+  font-size: 0.6rem;
+  padding: 0.25em 0.45em;
+}
+
+.glass-dropdown {
+  background: var(--boc-glass-bg);
+  backdrop-filter: blur(var(--boc-glass-blur));
+  border-radius: var(--boc-radius-lg) !important;
+  min-width: 250px;
+}

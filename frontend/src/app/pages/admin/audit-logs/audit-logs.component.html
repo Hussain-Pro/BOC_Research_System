@@ -1,64 +1,51 @@
-<div class="container-fluid min-vh-100 bg-light py-5" dir="rtl">
+<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
   <div class="container">
-    
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-5 p-4 rounded bg-white shadow-sm border-start border-4" style="border-color: var(--boc-primary) !important;">
-      <div>
-        <h2 class="fw-bold mb-1" style="color: var(--boc-primary);">سجل التدقيق الأمني (Audit Logs)</h2>
-        <p class="text-muted mb-0">سجل شامل يعرض كل حركة وتغيير تم في النظام.</p>
-      </div>
-      <button class="btn btn-outline-secondary px-4">
-        <i class="bi bi-download me-2"></i> تصدير السجل (CSV)
+    <boc-page-hero
+      title="سجل التدقيق الأمني"
+      subtitle="سجل شامل يعرض كل حركة وتغيير تم في النظام."
+      [breadcrumbs]="[{ label: 'الرئيسية', route: '/home' }, { label: 'سجل التدقيق' }]">
+      <button heroActions type="button" class="btn btn-outline-secondary btn-sm rounded-pill">
+        <i class="bi bi-download me-1"></i> تصدير السجل (CSV)
       </button>
+    </boc-page-hero>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <boc-stat-card label="إجمالي السجلات" [value]="logs.length" icon="bi-journal-text"></boc-stat-card>
+      </div>
+      <div class="col-md-4">
+        <boc-stat-card label="عمليات التعديل" [value]="1" icon="bi-pencil-square"
+                       iconBg="rgba(255, 193, 7, 0.15)" iconColor="var(--boc-warning)"></boc-stat-card>
+      </div>
+      <div class="col-md-4">
+        <boc-stat-card label="تسجيلات الدخول" [value]="1" icon="bi-box-arrow-in-left"
+                       iconBg="rgba(23, 162, 184, 0.12)" iconColor="var(--boc-info)"></boc-stat-card>
+      </div>
     </div>
 
-    <div class="card shadow-sm border-0 p-4">
-      <!-- Filters -->
+    <boc-glass-card title="سجل الأحداث">
       <div class="row g-3 mb-4">
         <div class="col-md-4">
-          <input type="date" class="form-control form-control-lg">
+          <input type="date" class="form-control">
         </div>
         <div class="col-md-4">
-          <select class="form-select form-select-lg">
+          <select class="form-select">
             <option selected>تصفية حسب نوع الإجراء...</option>
             <option>تسجيل دخول</option>
             <option>تعديل تقييم</option>
             <option>حذف مستند</option>
           </select>
         </div>
-        <div class="col-md-4 text-end">
-          <button class="btn btn-primary-industrial btn-lg w-100">تطبيق الفلاتر</button>
+        <div class="col-md-4">
+          <button type="button" class="btn btn-primary-industrial w-100">تطبيق الفلاتر</button>
         </div>
       </div>
 
-      <!-- Table -->
-      <div class="table-responsive">
-        <table class="table table-hover text-center align-middle mb-0">
-          <thead class="bg-dark text-white">
-            <tr>
-              <th class="py-3">التاريخ والوقت</th>
-              <th class="py-3">المستخدم (ID)</th>
-              <th class="py-3">الإجراء (Action)</th>
-              <th class="py-3">الكيان (Entity)</th>
-              <th class="py-3">التفاصيل التقنية (JSON)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let log of logs">
-              <td dir="ltr">{{ log.date }}</td>
-              <td class="fw-bold">{{ log.user }}</td>
-              <td>
-                <span class="badge" [ngClass]="log.action === 'UPDATE' ? 'bg-warning text-dark' : 'bg-primary'">
-                  {{ log.action }}
-                </span>
-              </td>
-              <td>{{ log.entity }}</td>
-              <td><button class="btn btn-sm btn-light border">عرض التفاصيل</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
+      <boc-data-table
+        [columns]="tableColumns"
+        [columnLabels]="columnLabels"
+        [data]="logs">
+      </boc-data-table>
+    </boc-glass-card>
   </div>
 </div>

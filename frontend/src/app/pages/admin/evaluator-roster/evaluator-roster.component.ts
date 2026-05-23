@@ -1,21 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ToastService } from '../../../services/toast.service';
+import { BocLayoutService } from '../../../services/boc-layout.service';
+import { BocPageHeroComponent } from '../../../shared/boc-page-hero/boc-page-hero.component';
+import { BocStatCardComponent } from '../../../shared/boc-stat-card/boc-stat-card.component';
+import { BocGlassCardComponent } from '../../../shared/boc-glass-card/boc-glass-card.component';
+import { BocEmptyStateComponent } from '../../../shared/boc-empty-state/boc-empty-state.component';
 
 @Component({
   selector: 'app-evaluator-roster',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    BocPageHeroComponent,
+    BocStatCardComponent,
+    BocGlassCardComponent,
+    BocEmptyStateComponent
+  ],
   templateUrl: './evaluator-roster.component.html',
   styleUrls: ['./evaluator-roster.component.scss']
 })
 export class EvaluatorRosterComponent implements OnInit {
+  private layoutService = inject(BocLayoutService);
 
   searchQuery = '';
   selectedSpecialty = '';
-  
+
   roster = [
     {
       name: 'د. حسن إبراهيم (م. أقدم)',
@@ -46,6 +60,10 @@ export class EvaluatorRosterComponent implements OnInit {
   constructor(private toastService: ToastService) { }
 
   ngOnInit(): void {
+    this.layoutService.setPage('سجل المقيمين', [
+      { label: 'الرئيسية', route: '/home' },
+      { label: 'سجل المقيمين' }
+    ]);
   }
 
   getTierClass(tier: string) {
@@ -60,5 +78,13 @@ export class EvaluatorRosterComponent implements OnInit {
       const matchSpecialty = this.selectedSpecialty ? r.specialty.includes(this.selectedSpecialty) : true;
       return matchSearch && matchSpecialty;
     });
+  }
+
+  get totalActiveLoad(): number {
+    return this.roster.reduce((sum, r) => sum + r.activeLoad, 0);
+  }
+
+  get totalCompleted(): number {
+    return this.roster.reduce((sum, r) => sum + r.completed, 0);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -12,6 +12,11 @@ import {
   ApexGrid,
   ApexNonAxisChartSeries
 } from 'ng-apexcharts';
+import { BocPageHeroComponent } from '../../../shared/boc-page-hero/boc-page-hero.component';
+import { BocStatCardComponent } from '../../../shared/boc-stat-card/boc-stat-card.component';
+import { BocGlassCardComponent } from '../../../shared/boc-glass-card/boc-glass-card.component';
+import { BocDataTableComponent } from '../../../shared/boc-data-table/boc-data-table.component';
+import { BocLayoutService } from '../../../services/boc-layout.service';
 
 export type AreaChartOptions = {
   series: ApexAxisChartSeries;
@@ -36,17 +41,39 @@ export type DonutChartOptions = {
 @Component({
   selector: 'app-analytics-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgApexchartsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    NgApexchartsModule,
+    BocPageHeroComponent,
+    BocStatCardComponent,
+    BocGlassCardComponent,
+    BocDataTableComponent
+  ],
   templateUrl: './analytics-dashboard.component.html',
   styleUrl: './analytics-dashboard.component.scss'
 })
 export class AnalyticsDashboardComponent implements OnInit {
+  private layoutService = inject(BocLayoutService);
 
   metrics = {
     totalReceived: 142,
     underEvaluation: 38,
     completed: 94,
     slaBreaches: 10
+  };
+
+  recentReports = [
+    { refId: 'BOC-RES-2026-112', title: 'تأثير حقن المياه على مكامن الرميلة', score: '91% (ممتاز)', completedDate: '2026/05/20' },
+    { refId: 'BOC-RES-2026-110', title: 'المعالجات الكيميائية للنفط الثقيل', score: '65% (مقبول)', completedDate: '2026/05/18' }
+  ];
+
+  reportColumns = ['refId', 'title', 'score', 'completedDate'];
+  reportColumnLabels: Record<string, string> = {
+    refId: 'الرقم المرجعي',
+    title: 'عنوان البحث',
+    score: 'التقييم النهائي',
+    completedDate: 'تاريخ الإنجاز'
   };
 
   public areaChartOptions: Partial<AreaChartOptions> | any;
@@ -64,16 +91,17 @@ export class AnalyticsDashboardComponent implements OnInit {
         fontFamily: 'Tajawal, sans-serif',
         toolbar: { show: false }
       },
-      colors: ['#0d6efd'],
+      colors: ['#0F2A38'],
       dataLabels: { enabled: false },
       stroke: { curve: 'smooth' },
+      grid: { borderColor: 'rgba(74, 96, 122, 0.15)' },
       xaxis: {
         categories: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو']
       },
       title: {
         text: 'معدل إنجاز البحوث',
         align: 'right',
-        style: { fontSize: '16px', color: '#263238', fontWeight: 'bold' }
+        style: { fontSize: '16px', color: '#0F2A38', fontWeight: 'bold' }
       }
     };
 
@@ -85,15 +113,19 @@ export class AnalyticsDashboardComponent implements OnInit {
         fontFamily: 'Tajawal, sans-serif',
       },
       labels: ['قيد التقييم', 'مكتملة', 'متأخرة'],
-      colors: ['#ffc107', '#198754', '#dc3545'],
+      colors: ['#4A607A', '#0F2A38', '#dc3545'],
       title: {
         text: 'حالة البحوث الكلية',
         align: 'right',
-        style: { fontSize: '16px', color: '#263238', fontWeight: 'bold' }
+        style: { fontSize: '16px', color: '#0F2A38', fontWeight: 'bold' }
       }
     };
   }
 
   ngOnInit(): void {
+    this.layoutService.setPage('لوحة البيانات التنفيذية', [
+      { label: 'الرئيسية', route: '/home' },
+      { label: 'التحليلات' }
+    ]);
   }
 }

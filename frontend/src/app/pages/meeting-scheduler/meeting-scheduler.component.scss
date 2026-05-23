@@ -1,19 +1,11 @@
-.btn-primary-industrial {
-  background-color: var(--boc-primary);
-  border-color: var(--boc-primary);
-  color: white;
-}
-.btn-primary-industrial:hover {
-  background-color: var(--boc-primary-light);
-  border-color: var(--boc-primary-light);
-  color: white;
+:host ::ng-deep .page-hero {
+  border-inline-start-color: var(--boc-accent-committee);
 }
 
-.list-group-item {
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  
+.agenda-item {
+  transition: background-color var(--boc-transition);
+
   &:hover {
-    background-color: #f8f9fa;
+    background-color: rgba(13, 110, 253, 0.04);
   }
 }

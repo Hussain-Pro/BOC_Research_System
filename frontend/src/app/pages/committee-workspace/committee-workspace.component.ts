@@ -5,39 +5,59 @@ import { RouterModule } from '@angular/router';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
+import { BocLayoutService } from '../../services/boc-layout.service';
+import {
+  BocPageHeroComponent,
+  BocGlassCardComponent,
+  BocStatCardComponent,
+  BocEmptyStateComponent
+} from '../../shared';
 
 @Component({
   selector: 'app-committee-workspace',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, PdfViewerModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    PdfViewerModule,
+    BocPageHeroComponent,
+    BocGlassCardComponent,
+    BocStatCardComponent,
+    BocEmptyStateComponent
+  ],
   templateUrl: './committee-workspace.component.html',
   styleUrls: ['./committee-workspace.component.scss']
 })
 export class CommitteeWorkspaceComponent implements OnInit {
   authService = inject(AuthService);
   toastService = inject(ToastService);
+  private layoutService = inject(BocLayoutService);
 
-  userRole: string = '';
-  
-  // Mock Active Assignments
+  userRole = '';
+
   assignments = [
     { id: 'A-1001', researchId: 'R-10045', title: 'تأثير الضخ العميق في الآبار', assignedDate: '2026-05-20', dueDate: '2026-06-03', status: 'Active' },
     { id: 'A-1002', researchId: 'R-09950', title: 'تحليل البيانات السيزمية', assignedDate: '2026-05-15', dueDate: '2026-05-29', status: 'Active' }
   ];
 
   selectedAssignment: any = null;
-  
-  // Evaluation form state
+
   evaluationScore: number | null = null;
-  evaluationComments: string = '';
+  evaluationComments = '';
   isSubmitting = false;
 
-  // PDF Viewer State
-  pdfSrc = 'assets/mock-research.pdf'; // In real app: proxy URL with FileAccessToken
+  pdfSrc = 'assets/mock-research.pdf';
   zoom = 1.0;
   pdfLoading = false;
 
+  breadcrumbs = [
+    { label: 'الرئيسية', route: '/home' },
+    { label: 'مساحة عمل اللجان' }
+  ];
+
   ngOnInit() {
+    this.layoutService.setPage('مساحة عمل اللجان');
     this.userRole = this.authService.getRole();
   }
 
@@ -46,8 +66,6 @@ export class CommitteeWorkspaceComponent implements OnInit {
     this.evaluationScore = null;
     this.evaluationComments = '';
     this.pdfLoading = true;
-    
-    // Reset zoom
     this.zoom = 1.0;
   }
 
@@ -62,7 +80,6 @@ export class CommitteeWorkspaceComponent implements OnInit {
   downloadPdf() {
     const allowedRoles = ['Evaluator', 'Member', 'Chairman', 'Secretary', 'Admin', 'Deputy'];
     if (allowedRoles.includes(this.userRole)) {
-      // Create a dummy link to trigger download
       const link = document.createElement('a');
       link.href = this.pdfSrc;
       link.download = `Research_${this.selectedAssignment.researchId}.pdf`;
@@ -88,8 +105,6 @@ export class CommitteeWorkspaceComponent implements OnInit {
     setTimeout(() => {
       this.isSubmitting = false;
       this.toastService.success('تم حفظ التقييم بنجاح وإرساله للجنة.');
-      
-      // Remove from active queue
       this.assignments = this.assignments.filter(a => a.id !== this.selectedAssignment.id);
       this.selectedAssignment = null;
     }, 1500);
@@ -100,5 +115,9 @@ export class CommitteeWorkspaceComponent implements OnInit {
     const due = new Date(dueDate);
     const diffTime = Math.abs(due.getTime() - today.getTime());
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  }
+
+  get zoomLabel(): string {
+    return `${Math.round(this.zoom * 100)}%`;
   }
 }

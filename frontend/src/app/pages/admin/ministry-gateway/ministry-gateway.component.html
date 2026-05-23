@@ -1,61 +1,47 @@
-<div class="container-fluid min-vh-100 bg-light py-5" dir="rtl">
+<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
   <div class="container">
-    
-    <div class="d-flex justify-content-between align-items-center mb-5 p-4 rounded bg-white shadow-sm border-start border-4" style="border-color: #198754 !important;">
-      <div>
-        <h2 class="fw-bold mb-1 text-success">بوابة الوزارة (Ministry Gateway - API Integration)</h2>
-        <p class="text-muted mb-0">تصدير الأبحاث المقبولة نهائياً بمحاضر اللجنة وتوثيقها رسمياً لدى الوزارة.</p>
-      </div>
-      <div>
-        <button class="btn btn-success btn-lg px-4 me-2" [disabled]="isSending" (click)="sendNewBatch()">
-          <span *ngIf="!isSending"><i class="bi bi-send-check me-2"></i> إرسال دفعة جديدة (Sync)</span>
-          <span *ngIf="isSending"><span class="spinner-border spinner-border-sm me-2"></span> جاري المزامنة...</span>
+    <boc-page-hero
+      title="بوابة الوزارة"
+      subtitle="تصدير الأبحاث المقبولة نهائياً بمحاضر اللجنة وتوثيقها رسمياً لدى الوزارة."
+      [breadcrumbs]="[{ label: 'الرئيسية', route: '/home' }, { label: 'بوابة الوزارة' }]">
+      <div heroActions class="d-flex gap-2 flex-wrap">
+        <button type="button" class="btn btn-success btn-sm rounded-pill" [disabled]="isSending" (click)="sendNewBatch()">
+          <span *ngIf="!isSending"><i class="bi bi-send-check me-1"></i> إرسال دفعة جديدة</span>
+          <span *ngIf="isSending"><span class="spinner-border spinner-border-sm me-1"></span> جاري المزامنة...</span>
         </button>
-        <a routerLink="/home" class="btn btn-outline-secondary btn-lg">
-          <i class="bi bi-arrow-right me-2"></i> العودة
+        <a routerLink="/home" class="btn btn-outline-secondary btn-sm rounded-pill">
+          <i class="bi bi-arrow-right me-1"></i> العودة
         </a>
       </div>
-    </div>
+    </boc-page-hero>
 
-    <div class="card shadow-sm border-0">
-      <div class="card-header bg-white border-bottom p-4">
-        <h5 class="fw-bold mb-0 text-dark">سجل الدفعات المرسلة (Export History)</h5>
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <boc-stat-card label="إجمالي الدفعات" [value]="batches.length" icon="bi-bank"
+                       iconBg="rgba(25, 135, 84, 0.12)" iconColor="var(--boc-accent-ministry)"></boc-stat-card>
       </div>
-      <div class="card-body p-0">
-        <div class="table-responsive">
-          <table class="table table-hover align-middle mb-0 text-center">
-            <thead class="bg-light text-muted">
-              <tr>
-                <th class="py-3">رقم الدفعة (Batch ID)</th>
-                <th class="py-3">تاريخ ووقت الإرسال</th>
-                <th class="py-3">عدد الأبحاث المضمنة</th>
-                <th class="py-3">حالة الاستلام بالوزارة</th>
-                <th class="py-3">إجراءات</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let batch of batches">
-                <td class="fw-bold text-dark">{{ batch.id }}</td>
-                <td>{{ batch.sentDate | date:'yyyy/MM/dd hh:mm a' }}</td>
-                <td><span class="badge bg-secondary rounded-pill px-3 fs-6">{{ batch.count }}</span></td>
-                <td>
-                  <span class="badge" [ngClass]="batch.status === 'Received_Success' ? 'bg-success' : 'bg-warning text-dark'">
-                    <i class="bi" [ngClass]="batch.status === 'Received_Success' ? 'bi-check-circle' : 'bi-hourglass-split'"></i>
-                    {{ batch.status === 'Received_Success' ? 'تم الاستلام بنجاح' : 'قيد المعالجة بالوزارة' }}
-                  </span>
-                </td>
-                <td>
-                  <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i> التفاصيل (JSON)</button>
-                </td>
-              </tr>
-              <tr *ngIf="batches.length === 0">
-                <td colspan="5" class="text-center p-5 text-muted">لا توجد دفعات مرسلة بعد.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="col-md-4">
+        <boc-stat-card label="تم الاستلام بنجاح" [value]="successCount" icon="bi-check-circle"
+                       iconBg="rgba(40, 167, 69, 0.12)" iconColor="var(--boc-success)"></boc-stat-card>
+      </div>
+      <div class="col-md-4">
+        <boc-stat-card label="قيد المعالجة" [value]="pendingCount" icon="bi-hourglass-split"
+                       iconBg="rgba(255, 193, 7, 0.15)" iconColor="var(--boc-warning)"></boc-stat-card>
       </div>
     </div>
 
+    <boc-glass-card title="سجل الدفعات المرسلة" subtitle="Export History">
+      <boc-empty-state *ngIf="batches.length === 0"
+                       icon="bi-inbox"
+                       title="لا توجد دفعات مرسلة"
+                       message="لم يتم إرسال أي دفعة للوزارة بعد.">
+      </boc-empty-state>
+
+      <boc-data-table *ngIf="batches.length"
+                      [columns]="tableColumns"
+                      [columnLabels]="columnLabels"
+                      [data]="tableData">
+      </boc-data-table>
+    </boc-glass-card>
   </div>
 </div>

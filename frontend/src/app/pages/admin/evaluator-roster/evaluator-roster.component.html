@@ -1,25 +1,35 @@
-<div class="container-fluid min-vh-100 bg-light py-5" dir="rtl">
+<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
   <div class="container">
-    
-    <div class="d-flex justify-content-between align-items-center mb-5 p-4 rounded bg-white shadow-sm border-start border-4" style="border-color: var(--boc-primary) !important;">
-      <div>
-        <h2 class="fw-bold mb-1" style="color: var(--boc-primary);">سجل المقيمين وأحمال التقييم (Evaluator Roster)</h2>
-        <p class="text-muted mb-0">مراقبة توفر المقيمين (Tiers) وتوزيع الأبحاث بشكل عادل ومدروس.</p>
-      </div>
-      <a routerLink="/home" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-right me-2"></i> العودة للرئيسية
+    <boc-page-hero
+      title="سجل المقيمين وأحمال التقييم"
+      subtitle="مراقبة توفر المقيمين (Tiers) وتوزيع الأبحاث بشكل عادل ومدروس."
+      [breadcrumbs]="[{ label: 'الرئيسية', route: '/home' }, { label: 'سجل المقيمين' }]">
+      <a heroActions routerLink="/home" class="btn btn-outline-secondary btn-sm rounded-pill">
+        <i class="bi bi-arrow-right me-1"></i> العودة للرئيسية
       </a>
+    </boc-page-hero>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <boc-stat-card label="إجمالي المقيمين" [value]="roster.length" icon="bi-people"></boc-stat-card>
+      </div>
+      <div class="col-md-4">
+        <boc-stat-card label="البحوث قيد التقييم" [value]="totalActiveLoad" icon="bi-journal-text"
+                       iconBg="rgba(255, 193, 7, 0.15)" iconColor="var(--boc-warning)"></boc-stat-card>
+      </div>
+      <div class="col-md-4">
+        <boc-stat-card label="البحوث المنجزة" [value]="totalCompleted" icon="bi-check-circle"
+                       iconBg="rgba(40, 167, 69, 0.12)" iconColor="var(--boc-success)"></boc-stat-card>
+      </div>
     </div>
 
-    <div class="card shadow-sm border-0 p-4">
-      
-      <!-- Filter Row -->
+    <boc-glass-card title="قائمة المقيمين">
       <div class="row g-3 mb-4">
         <div class="col-md-5">
-          <input type="text" class="form-control form-control-lg" placeholder="بحث بالاسم أو التخصص..." [(ngModel)]="searchQuery">
+          <input type="text" class="form-control" placeholder="بحث بالاسم أو التخصص..." [(ngModel)]="searchQuery">
         </div>
         <div class="col-md-4">
-          <select class="form-select form-select-lg" [(ngModel)]="selectedSpecialty">
+          <select class="form-select" [(ngModel)]="selectedSpecialty">
             <option value="">جميع التخصصات</option>
             <option value="حفر">هندسة حفر</option>
             <option value="مكامن">هندسة مكامن</option>
@@ -27,51 +37,56 @@
           </select>
         </div>
         <div class="col-md-3">
-          <button class="btn btn-primary-industrial btn-lg w-100">
-            <i class="bi bi-person-plus me-2"></i> إضافة مقيّم جديد
+          <button type="button" class="btn btn-primary-industrial w-100">
+            <i class="bi bi-person-plus me-1"></i> إضافة مقيّم جديد
           </button>
         </div>
       </div>
 
-      <!-- Tiered Roster Table -->
-      <div class="table-responsive">
+      <boc-empty-state *ngIf="filteredRoster.length === 0"
+                       icon="bi-search"
+                       title="لا يوجد مقيمين مطابقين"
+                       message="جرّب تعديل معايير البحث أو التخصص.">
+      </boc-empty-state>
+
+      <div class="table-responsive admin-table" *ngIf="filteredRoster.length">
         <table class="table table-hover align-middle mb-0">
-          <thead class="bg-light text-muted">
+          <thead>
             <tr>
-              <th class="ps-4 py-3">المقيّم (الاسم والدرجة)</th>
-              <th class="py-3">التخصص</th>
-              <th class="py-3 text-center">حالة التوفر (Tier)</th>
-              <th class="py-3 text-center">البحوث قيد التقييم</th>
-              <th class="py-3 text-center">البحوث المنجزة</th>
-              <th class="py-3 text-center">مخالفات SLA</th>
-              <th class="pe-4 py-3 text-end">إجراءات</th>
+              <th class="ps-3">المقيّم (الاسم والدرجة)</th>
+              <th>التخصص</th>
+              <th class="text-center">حالة التوفر (Tier)</th>
+              <th class="text-center">البحوث قيد التقييم</th>
+              <th class="text-center">البحوث المنجزة</th>
+              <th class="text-center">مخالفات SLA</th>
+              <th class="pe-3 text-end">إجراءات</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let r of filteredRoster" [ngClass]="{'bg-success bg-opacity-10': r.tier.includes('1')}">
-              <td class="ps-4 fw-bold text-dark">{{ r.name }}</td>
+            <tr *ngFor="let r of filteredRoster" [class.tier-highlight]="r.tier.includes('1')">
+              <td class="ps-3 fw-bold">{{ r.name }}</td>
               <td><span class="badge bg-light text-dark border">{{ r.specialty }}</span></td>
               <td class="text-center">
                 <span class="badge" [ngClass]="getTierClass(r.tier)">{{ r.tier }}</span>
               </td>
               <td class="text-center">
-                <h5 class="mb-0 fw-bold" [ngClass]="{'text-danger': r.activeLoad >= 3, 'text-primary': r.activeLoad > 0 && r.activeLoad < 3}">{{ r.activeLoad }}</h5>
+                <span class="fw-bold load-value"
+                      [class.text-danger]="r.activeLoad >= 3"
+                      [class.text-primary]="r.activeLoad > 0 && r.activeLoad < 3">{{ r.activeLoad }}</span>
               </td>
               <td class="text-center text-muted">{{ r.completed }}</td>
               <td class="text-center">
                 <span class="badge rounded-pill" [ngClass]="r.slaViolations > 0 ? 'bg-danger' : 'bg-success'">{{ r.slaViolations }}</span>
               </td>
-              <td class="pe-4 text-end">
-                <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye me-1"></i> عرض السجل</button>
+              <td class="pe-3 text-end">
+                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill">
+                  <i class="bi bi-eye me-1"></i> عرض السجل
+                </button>
               </td>
-            </tr>
-            <tr *ngIf="filteredRoster.length === 0">
-              <td colspan="7" class="text-center p-5 text-muted">لا يوجد مقيمين مطابقين للبحث.</td>
             </tr>
           </tbody>
         </table>
       </div>
-      
-    </div>
+    </boc-glass-card>
   </div>
 </div>

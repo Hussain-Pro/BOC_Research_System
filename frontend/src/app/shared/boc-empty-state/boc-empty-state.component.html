@@ -1,0 +1,8 @@
+<div class="boc-empty-state">
+  <div class="empty-icon"><i class="bi" [ngClass]="icon"></i></div>
+  <h5 class="fw-bold text-dark">{{ title }}</h5>
+  <p class="text-muted">{{ message }}</p>
+  <a *ngIf="actionLabel && actionRoute" [routerLink]="actionRoute" class="btn btn-primary-industrial mt-2">
+    {{ actionLabel }}
+  </a>
+</div>

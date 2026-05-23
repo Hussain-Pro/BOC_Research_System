@@ -1,12 +1,22 @@
-/* Landing Page Styles */
 .hero-section {
   min-height: 100vh;
   background-color: var(--boc-primary);
 }
 
-.bg-gradient-dark {
-  background: linear-gradient(135deg, rgba(15,42,56,0.9) 0%, rgba(15,42,56,0.7) 100%);
+.hero-bg-img {
+  opacity: 0.55;
 }
+
+.hero-overlay {
+  background: linear-gradient(180deg, rgba(15, 42, 56, 0.75) 0%, rgba(15, 42, 56, 0.95) 100%);
+}
+
+.hero-title {
+  color: var(--boc-primary);
+}
+
+.z-index-1 { z-index: 1; }
+.z-index-2 { z-index: 2; }
 
 .slide-up-anim {
   animation: slideUp 0.8s ease-out forwards;
@@ -27,10 +37,7 @@
 }
 
 @keyframes slideUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .btn-primary-glass {
@@ -38,7 +45,7 @@
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
-  transition: all 0.3s ease;
+  transition: all var(--boc-transition);
 }
 
 .btn-primary-glass:hover {
@@ -51,11 +58,27 @@
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.5);
   color: white;
-  transition: all 0.3s ease;
+  transition: all var(--boc-transition);
 }
 
 .btn-outline-light-glass:hover {
   background: white;
   color: var(--boc-primary);
   transform: translateY(-2px);
+}
+
+.step-number {
+  position: absolute;
+  top: 1rem;
+  inset-inline-start: 1rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--boc-primary);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

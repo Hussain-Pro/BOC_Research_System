@@ -1,61 +1,48 @@
-<nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: var(--boc-primary);">
+<nav class="navbar navbar-expand-lg navbar-dark navbar-boc shadow-sm sticky-top">
   <div class="container-fluid px-4">
-    <!-- Brand/Logo -->
-    <a class="navbar-brand d-flex align-items-center" routerLink="/">
-      <img src="assets/boc_logo.png" alt="BOC Logo" height="40" class="me-2" onerror="this.style.display='none'">
+    <a class="navbar-brand d-flex align-items-center" routerLink="/home">
+      <img src="assets/boc_logo.png" alt="BOC Logo" height="40" width="40" class="me-2 rounded-circle">
       <div class="d-flex flex-column lh-1 ms-2">
         <span class="fw-bold fs-5 text-white">نظام إدارة البحوث والدراسات</span>
-        <small class="text-white-50" style="font-size: 0.75rem;">شركة نفط البصرة (BOC)</small>
+        <small class="text-white-50 navbar-subtitle">شركة نفط البصرة (BOC)</small>
       </div>
     </a>
 
-    <!-- Mobile Toggle -->
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+            aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Navigation Items -->
     <div class="collapse navbar-collapse" id="navbarMain">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-        
-        <!-- Authenticated Links -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
         <ng-container *ngIf="isLoggedIn; else guestLinks">
           <li class="nav-item">
-            <a class="nav-link text-white px-3" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a class="nav-link nav-link-boc" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
               <i class="bi bi-house-door me-1"></i> الرئيسية
             </a>
           </li>
-          
           <li class="nav-item" *ngIf="userRole !== 'Admin'">
-            <a class="nav-link text-white px-3" routerLink="/research/history" routerLinkActive="active">
+            <a class="nav-link nav-link-boc" routerLink="/research/history" routerLinkActive="active">
               <i class="bi bi-journal-text me-1"></i> أبحاثي
             </a>
           </li>
-
-          <!-- Notifications Dropdown -->
           <li class="nav-item dropdown mx-2">
-            <a class="nav-link text-white position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link nav-link-boc position-relative" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="bi bi-bell fs-5"></i>
-              <span class="position-absolute top-25 start-75 translate-middle p-1 bg-danger border border-light rounded-circle">
-                <span class="visually-hidden">New alerts</span>
-              </span>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notification-badge">3</span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="min-width: 250px;">
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0 glass-dropdown">
               <li><h6 class="dropdown-header">التنبيهات الأخيرة</h6></li>
-              <li><a class="dropdown-item small text-wrap py-2 border-bottom" href="#"><i class="bi bi-info-circle text-primary me-2"></i> لا توجد تنبيهات جديدة حالياً.</a></li>
+              <li><a class="dropdown-item small py-2 border-bottom" routerLink="/admin/notifications"><i class="bi bi-info-circle text-primary me-2"></i>لا توجد تنبيهات جديدة حالياً.</a></li>
               <li><a class="dropdown-item text-center small text-primary py-2 fw-bold" routerLink="/admin/notifications">عرض كل التنبيهات</a></li>
             </ul>
           </li>
-
-          <!-- Profile Dropdown -->
           <li class="nav-item dropdown ms-2">
-            <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <div class="rounded-circle bg-light text-primary d-flex justify-content-center align-items-center me-2 fw-bold" style="width: 35px; height: 35px;">
-                {{ userName.charAt(0) }}
-              </div>
+            <a class="nav-link dropdown-toggle nav-link-boc d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="avatar-circle me-2">{{ userName.charAt(0) }}</div>
               <span class="d-none d-lg-inline">{{ userName }}</span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0 glass-dropdown">
               <li><a class="dropdown-item py-2" routerLink="/profile"><i class="bi bi-person me-2 text-muted"></i> الملف الشخصي</a></li>
               <li *ngIf="userRole === 'Admin'"><a class="dropdown-item py-2" routerLink="/admin/config"><i class="bi bi-gear me-2 text-muted"></i> إعدادات النظام</a></li>
               <li><hr class="dropdown-divider"></li>
@@ -63,19 +50,10 @@
             </ul>
           </li>
         </ng-container>
-
-        <!-- Guest Links -->
         <ng-template #guestLinks>
-          <li class="nav-item">
-            <a class="nav-link text-white px-3" routerLink="/landing" routerLinkActive="active">
-              <i class="bi bi-info-circle me-1"></i> عن النظام
-            </a>
-          </li>
-          <li class="nav-item ms-2">
-            <a class="btn btn-outline-light px-4 rounded-pill" routerLink="/auth/login">تسجيل الدخول</a>
-          </li>
+          <li class="nav-item"><a class="nav-link nav-link-boc" routerLink="/landing" routerLinkActive="active"><i class="bi bi-info-circle me-1"></i> عن النظام</a></li>
+          <li class="nav-item ms-2"><a class="btn btn-outline-light px-4 rounded-pill" routerLink="/auth/login">تسجيل الدخول</a></li>
         </ng-template>
-
       </ul>
     </div>
   </div>

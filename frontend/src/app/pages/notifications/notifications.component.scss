@@ -1,0 +1,18 @@
+.notification-item.unread {
+  background: rgba(15, 42, 56, 0.03);
+}
+
+.notif-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+
+  &.urgent { background: var(--boc-danger); color: white; }
+  &.success { background: var(--boc-success); color: white; }
+  &.warning { background: var(--boc-warning); color: #333; }
+  &.info { background: var(--boc-info); color: white; }
+}

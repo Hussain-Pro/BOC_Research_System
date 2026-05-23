@@ -1,112 +1,114 @@
-<div class="submit-wrapper container fade-in">
-  <!-- Stepper Header -->
-  <div class="stepper-header card">
-    <div class="step-indicator" [class.active]="step() >= 1">
-      <div class="circle">1</div>
-      <span>تفاصيل البحث</span>
-    </div>
-    <div class="step-line" [class.active]="step() >= 2"></div>
-    <div class="step-indicator" [class.active]="step() >= 2">
-      <div class="circle">2</div>
-      <span>رفع الملف</span>
-    </div>
-    <div class="step-line" [class.active]="step() >= 3"></div>
-    <div class="step-indicator" [class.active]="step() >= 3">
-      <div class="circle">3</div>
-      <span>حالة التقديم</span>
-    </div>
-  </div>
+<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
+  <div class="container-lg">
 
-  <!-- Alert Error -->
-  <div *ngIf="error()" class="alert-box badge-danger fade-in">
-    {{ error() }}
-  </div>
+    <boc-page-hero
+      title="تقديم بحث علمي جديد"
+      subtitle="أكمل الخطوات التالية لتقديم بحثك للمراجعة والتقييم.">
+    </boc-page-hero>
 
-  <!-- STEP 1: RESEARCH DETAILS -->
-  <div *ngIf="step() === 1" class="card form-card fade-in">
-    <h2>تفاصيل البحث العلمي الجديد</h2>
-    <p class="description">يرجى ملء الحقول التالية بعناية. هذه البيانات ستستخدم في عمليات الفرز والتقييم.</p>
-
-    <div class="form-group">
-      <label for="title">عنوان البحث بالكامل</label>
-      <input 
-        type="text" 
-        id="title" 
-        class="form-control" 
-        [(ngModel)]="title" 
-        required 
-        placeholder="مثال: دراسة تحسين إنتاجية الآبار المشتركة في حقل الرميلة">
+    <div *ngIf="error()" class="alert alert-danger d-flex align-items-center gap-2 mb-4" role="alert">
+      <i class="bi bi-exclamation-circle"></i>
+      {{ error() }}
     </div>
 
-    <div class="form-group">
-      <label for="abstract">المستخلص (Abstract)</label>
-      <textarea 
-        id="abstract" 
-        class="form-control" 
-        rows="6" 
-        [(ngModel)]="abstract" 
-        placeholder="اكتب مستخلص البحث هنا بالتفصيل (الأهداف، الطرق المستخدمة، والنتائج المتوقعة)..."></textarea>
-    </div>
+    <boc-glass-card [noPadding]="true" extraClass="stepper-card">
+      <mat-stepper linear #stepper class="boc-stepper" labelPosition="bottom">
 
-    <div class="form-group flex-row">
-      <input type="checkbox" id="submit-immediately" [(ngModel)]="submitImmediately">
-      <label for="submit-immediately" class="checkbox-label">إرسال للتدقيق فوراً (تخطي المسودة)</label>
-    </div>
+        <!-- Step 1: Research Details -->
+        <mat-step [stepControl]="detailsForm" label="تفاصيل البحث">
+          <form [formGroup]="detailsForm" class="step-content">
+            <p class="text-muted mb-4">يرجى ملء الحقول التالية بعناية. هذه البيانات ستستخدم في عمليات الفرز والتقييم.</p>
 
-    <div class="button-row">
-      <button class="btn btn-primary" (click)="nextStep()" [disabled]="!title">التالي</button>
-    </div>
-  </div>
+            <boc-form-field
+              label="عنوان البحث بالكامل"
+              icon="bi-journal-text"
+              placeholder="مثال: دراسة تحسين إنتاجية الآبار المشتركة في حقل الرميلة"
+              formControlName="title">
+            </boc-form-field>
 
-  <!-- STEP 2: FILE UPLOAD -->
-  <div *ngIf="step() === 2" class="card form-card fade-in">
-    <h2>رفع مستند البحث</h2>
-    <p class="description">يرجى رفع ملف البحث بصيغة PDF أو Word. الحد الأقصى لحجم الملف هو 50 ميجابايت.</p>
+            <mat-form-field appearance="outline" class="w-100 mb-3">
+              <mat-label>المستخلص (Abstract)</mat-label>
+              <textarea
+                matInput
+                rows="6"
+                formControlName="abstract"
+                placeholder="اكتب مستخلص البحث هنا بالتفصيل (الأهداف، الطرق المستخدمة، والنتائج المتوقعة)...">
+              </textarea>
+            </mat-form-field>
 
-    <div class="upload-zone" (click)="fileInput.click()">
-      <div class="upload-icon">📁</div>
-      <p class="upload-text" *ngIf="!selectedFile">اسحب الملف هنا أو انقر للتصفح</p>
-      <p class="file-name" *ngIf="selectedFile">تم اختيار: <strong>{{ selectedFile.name }}</strong> ({{ (selectedFile.size / 1024 / 1024) | number:'1.1-2' }} MB)</p>
-      <input 
-        type="file" 
-        #fileInput 
-        style="display: none;" 
-        (change)="onFileSelected($event)" 
-        accept=".pdf,.doc,.docx,.xlsx,.png,.jpg">
-    </div>
+            <mat-checkbox formControlName="submitImmediately" color="primary">
+              إرسال للتدقيق فوراً (تخطي المسودة)
+            </mat-checkbox>
 
-    <div class="button-row justify-between">
-      <button class="btn btn-secondary" (click)="prevStep()">السابق</button>
-      <button class="btn btn-primary" (click)="onSubmit()" [disabled]="!selectedFile">إرسال البحث</button>
-    </div>
-  </div>
+            <div class="step-actions">
+              <button type="button" mat-stroked-button color="primary" matStepperNext [disabled]="detailsForm.invalid">
+                التالي <i class="bi bi-arrow-left ms-1"></i>
+              </button>
+            </div>
+          </form>
+        </mat-step>
 
-  <!-- STEP 3: SUCCESS & TIMELINE VIEW -->
-  <div *ngIf="step() === 3" class="card success-card fade-in">
-    <div class="success-icon">✓</div>
-    <h2>تم تقديم البحث بنجاح!</h2>
-    <p class="tracking-text">رقم التتبع الخاص بك هو: <strong dir="ltr">{{ trackingNumber() }}</strong></p>
-    <p class="description">يمكنك متابعة حالة البحث من خلال الخط الزمني أدناه:</p>
+        <!-- Step 2: File Upload -->
+        <mat-step label="رفع الملف">
+          <div class="step-content">
+            <p class="text-muted mb-4">يرجى رفع ملف البحث بصيغة PDF أو Word. الحد الأقصى لحجم الملف هو 50 ميجابايت.</p>
 
-    <!-- State Timeline Flowchart -->
-    <div class="timeline-container">
-      <div class="timeline-scroll">
-        <div class="timeline-track">
-          <div 
-            *ngFor="let state of statesList; let i = index" 
-            class="timeline-node"
-            [class.active]="state.name === currentState"
-            [class.completed]="i < 2"> <!-- Mock completed states -->
-            <div class="node-circle">{{ i + 1 }}</div>
-            <div class="node-label">{{ state.label }}</div>
-            <div class="node-line" *ngIf="i < statesList.length - 1"></div>
+            <div class="upload-zone" (click)="fileInput.click()" role="button" tabindex="0">
+              <i class="bi bi-cloud-arrow-up upload-icon"></i>
+              <p class="upload-text mb-1" *ngIf="!selectedFile">اسحب الملف هنا أو انقر للتصفح</p>
+              <p class="file-name mb-0" *ngIf="selectedFile">
+                تم اختيار: <strong>{{ selectedFile.name }}</strong>
+                ({{ (selectedFile.size / 1024 / 1024) | number:'1.1-2' }} MB)
+              </p>
+              <input
+                type="file"
+                #fileInput
+                hidden
+                (change)="onFileSelected($event)"
+                accept=".pdf,.doc,.docx,.xlsx,.png,.jpg">
+            </div>
+
+            <div class="step-actions">
+              <button type="button" mat-stroked-button matStepperPrevious>
+                <i class="bi bi-arrow-right me-1"></i> السابق
+              </button>
+              <button type="button" class="btn btn-primary-industrial" (click)="onSubmit()" [disabled]="!selectedFile">
+                <i class="bi bi-send me-1"></i> إرسال البحث
+              </button>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </mat-step>
 
-    <div class="button-row">
-      <button class="btn btn-primary" (click)="router.navigate(['/dashboard'])">الذهاب للوحة التحكم</button>
-    </div>
+        <!-- Step 3: Success -->
+        <mat-step label="حالة التقديم" [editable]="false">
+          <div class="step-content success-step text-center">
+            <div class="success-icon">
+              <i class="bi bi-check-lg"></i>
+            </div>
+            <h3 class="fw-bold mb-2" style="color: var(--boc-primary);">تم تقديم البحث بنجاح!</h3>
+            <p class="tracking-text mb-4">
+              رقم التتبع الخاص بك هو:
+              <strong dir="ltr">{{ trackingNumber() }}</strong>
+            </p>
+            <p class="text-muted mb-4">يمكنك متابعة حالة البحث من خلال الخط الزمني أدناه:</p>
+
+            <div class="timeline-panel text-start">
+              <boc-vertical-timeline [steps]="successTimelineSteps"></boc-vertical-timeline>
+            </div>
+
+            <div class="step-actions justify-content-center mt-4">
+              <button type="button" class="btn btn-primary-industrial" (click)="router.navigate(['/home'])">
+                <i class="bi bi-house me-1"></i> الذهاب للوحة التحكم
+              </button>
+              <button type="button" mat-stroked-button (click)="router.navigate(['/research/history'])">
+                <i class="bi bi-clock-history me-1"></i> متابعة الأبحاث
+              </button>
+            </div>
+          </div>
+        </mat-step>
+
+      </mat-stepper>
+    </boc-glass-card>
+
   </div>
 </div>

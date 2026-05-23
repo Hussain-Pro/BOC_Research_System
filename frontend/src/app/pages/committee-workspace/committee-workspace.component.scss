@@ -1,29 +1,57 @@
-.list-group-item {
-  border-left: 4px solid transparent;
-  transition: all 0.2s ease;
-  
+:host ::ng-deep .page-hero {
+  border-inline-start-color: var(--boc-accent-evaluator);
+}
+
+.workspace-page {
+  min-height: 100vh;
+}
+
+.assignment-item {
+  border-inline-start: 4px solid transparent;
+  transition: all var(--boc-transition);
+  background: transparent;
+
   &:hover {
-    background-color: #f8f9fa;
+    background-color: rgba(132, 48, 206, 0.04);
   }
 }
 
 .active-assignment {
-  background-color: #f0f7ff !important;
-  border-left-color: var(--boc-primary) !important;
+  background-color: rgba(132, 48, 206, 0.08) !important;
+  border-inline-start-color: var(--boc-accent-evaluator) !important;
 }
 
-.btn-primary-industrial {
-  background-color: var(--boc-primary);
-  border-color: var(--boc-primary);
-  color: white;
-}
-.btn-primary-industrial:hover {
-  background-color: var(--boc-primary-light);
-  border-color: var(--boc-primary-light);
-  color: white;
+.viewer-card {
+  min-height: 520px;
 }
 
-/* Ensure pdf viewer canvas container takes up the space */
+.viewer-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.pdf-viewer-area {
+  position: relative;
+  min-height: 460px;
+  padding: 1rem;
+  background: rgba(74, 96, 122, 0.06);
+}
+
+.pdf-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.meta-snippet {
+  border-inline-start: 3px solid var(--boc-accent-evaluator);
+}
+
 pdf-viewer {
   --pdf-canvas-background-color: transparent !important;
 }

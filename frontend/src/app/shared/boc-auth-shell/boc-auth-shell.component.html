@@ -1,0 +1,22 @@
+<div class="auth-shell d-flex min-vh-100" dir="rtl">
+  <div class="auth-form-side auth-glass-panel d-flex flex-column justify-content-center align-items-center p-4 p-md-5"
+       [class.col-lg-5]="showVisual" [class.w-100]="!showVisual">
+    <div class="w-100" [style.max-width]="maxWidth">
+      <div class="text-center mb-4 mb-md-5">
+        <img src="assets/boc_logo.png" alt="BOC Logo" width="64" height="64" class="mb-3 rounded-circle shadow-sm">
+        <h3 class="fw-bold text-dark mb-2">{{ title }}</h3>
+        <p class="text-muted mb-0" *ngIf="subtitle">{{ subtitle }}</p>
+      </div>
+      <ng-content></ng-content>
+    </div>
+  </div>
+
+  <div class="auth-visual-panel d-none d-lg-flex flex-grow-1 auth-visual-panel position-relative" *ngIf="showVisual">
+    <img src="assets/boc_login_bg.png" alt="" class="position-absolute top-0 start-0 w-100 h-100">
+    <div class="auth-visual-overlay"></div>
+    <div class="auth-visual-badge z-index-1">
+      <h4>{{ visualTitle }}</h4>
+      <p>{{ visualSubtitle }}</p>
+    </div>
+  </div>
+</div>

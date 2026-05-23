@@ -1,0 +1,53 @@
+body.dark-mode {
+  --boc-background: #0a1520;
+  --boc-surface: #122230;
+  --boc-primary: #e8eef1;
+  --boc-primary-light: #c5d4db;
+  --boc-secondary: #96a7bd;
+  --boc-glass-bg: rgba(18, 34, 48, 0.9);
+  --boc-glass-border: rgba(255, 255, 255, 0.08);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --text-primary: #e8eef1;
+  --text-secondary: #96a7bd;
+  --text-muted: rgba(150, 167, 189, 0.75);
+
+  background-color: var(--boc-background);
+  color: var(--text-primary);
+
+  .card-industrial,
+  .glass-card,
+  .stat-card,
+  .page-hero {
+    background: var(--boc-surface);
+    color: var(--text-primary);
+  }
+
+  .dashboard-bg {
+    background: linear-gradient(135deg, #0a1520 0%, #122230 100%);
+  }
+
+  .bg-white,
+  .bg-light {
+    background-color: var(--boc-surface) !important;
+  }
+
+  .text-dark {
+    color: var(--text-primary) !important;
+  }
+
+  .text-muted {
+    color: var(--text-muted) !important;
+  }
+
+  .navbar {
+    background-color: #081923 !important;
+  }
+
+  .mat-mdc-table {
+    background: var(--boc-surface);
+  }
+
+  .mat-mdc-row:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+}

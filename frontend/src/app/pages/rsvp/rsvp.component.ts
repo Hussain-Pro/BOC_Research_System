@@ -1,27 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BocLayoutService } from '../../services/boc-layout.service';
+import { BocPageHeroComponent, BocGlassCardComponent } from '../../shared';
 
 @Component({
   selector: 'app-rsvp',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BocPageHeroComponent, BocGlassCardComponent],
   templateUrl: './rsvp.component.html',
   styleUrl: './rsvp.component.scss'
 })
 export class RsvpComponent implements OnInit {
+  private layoutService = inject(BocLayoutService);
+
   evaluatorName = 'د. أحمد المحمداوي';
   researchTitle = 'دراسة تأثير التآكل على أنابيب النقل في حقل مجنون';
   referenceNumber = 'BOC-RES-2026-0092';
-  
+
   hasResponded = false;
   isAccepted = false;
 
+  breadcrumbs = [
+    { label: 'الرئيسية', route: '/home' },
+    { label: 'دعوة التقييم' }
+  ];
+
   ngOnInit(): void {
-    // Check router params or API to see if already responded
+    this.layoutService.setPage('دعوة التقييم');
   }
 
   respond(accept: boolean) {
-    // API Call to Triage Controller to update Assignment State
     this.isAccepted = accept;
     this.hasResponded = true;
   }

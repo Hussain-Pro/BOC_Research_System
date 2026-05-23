@@ -1,16 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { BocLayoutService } from '../../../services/boc-layout.service';
+import { BocPageHeroComponent } from '../../../shared/boc-page-hero/boc-page-hero.component';
+import { BocGlassCardComponent } from '../../../shared/boc-glass-card/boc-glass-card.component';
+import { BocEmptyStateComponent } from '../../../shared/boc-empty-state/boc-empty-state.component';
 
 @Component({
   selector: 'app-global-search',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    BocPageHeroComponent,
+    BocGlassCardComponent,
+    BocEmptyStateComponent
+  ],
   templateUrl: './global-search.component.html',
   styleUrls: ['./global-search.component.scss']
 })
 export class GlobalSearchComponent implements OnInit {
+  private layoutService = inject(BocLayoutService);
 
   searchQuery = '';
   selectedFilter = 'all';
@@ -24,9 +36,40 @@ export class GlobalSearchComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.layoutService.setPage('محرك البحث الشامل', [
+      { label: 'الرئيسية', route: '/home' },
+      { label: 'البحث الشامل' }
+    ]);
   }
 
   performSearch() {
     // In a real app, this would hit an API endpoint with query and filter
+  }
+
+  getTypeLabel(type: string): string {
+    switch (type) {
+      case 'Research': return 'بحث';
+      case 'Evaluator': return 'مقيّم';
+      case 'Meeting': return 'محضر اجتماع';
+      default: return type;
+    }
+  }
+
+  getTypeIcon(type: string): string {
+    switch (type) {
+      case 'Research': return 'bi-file-earmark-text';
+      case 'Evaluator': return 'bi-person-badge';
+      case 'Meeting': return 'bi-journal-text';
+      default: return 'bi-search';
+    }
+  }
+
+  getTypeBadgeClass(type: string): string {
+    switch (type) {
+      case 'Research': return 'badge-research';
+      case 'Evaluator': return 'badge-evaluator';
+      case 'Meeting': return 'badge-meeting';
+      default: return 'bg-secondary';
+    }
   }
 }

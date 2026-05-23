@@ -1,59 +1,45 @@
-<div class="container-fluid min-vh-100 bg-light py-5" dir="rtl">
+<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
   <div class="container">
-    
-    <div class="d-flex justify-content-between align-items-center mb-5 p-4 rounded bg-white shadow-sm border-start border-4" style="border-color: #fd7e14 !important;">
-      <div>
-        <h2 class="fw-bold mb-1" style="color: #fd7e14;">مركز تصدير التقارير (Export & Reporting Hub)</h2>
-        <p class="text-muted mb-0">استخراج تقارير الأداء، الكشوفات المالية، وسجلات الأبحاث بصيغ متعددة.</p>
-      </div>
-      <a routerLink="/home" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-right me-2"></i> العودة للرئيسية
+    <boc-page-hero
+      title="مركز تصدير التقارير"
+      subtitle="استخراج تقارير الأداء، الكشوفات المالية، وسجلات الأبحاث بصيغ متعددة."
+      [breadcrumbs]="[{ label: 'الرئيسية', route: '/home' }, { label: 'مركز التصدير' }]">
+      <a heroActions routerLink="/home" class="btn btn-outline-secondary btn-sm rounded-pill">
+        <i class="bi bi-arrow-right me-1"></i> العودة للرئيسية
       </a>
-    </div>
+    </boc-page-hero>
 
-    <!-- Stats Row -->
-    <div class="row g-4 mb-5">
+    <div class="row g-3 mb-4">
       <div class="col-md-4">
-        <div class="card shadow-sm border-0 text-center p-4">
-          <i class="bi bi-cloud-download display-4 text-primary mb-3"></i>
-          <h3 class="fw-bold text-dark">1,245</h3>
-          <p class="text-muted mb-0">تقرير مُستخرج (العام الحالي)</p>
-        </div>
+        <boc-stat-card label="تقرير مُستخرج (العام الحالي)" value="1,245" icon="bi-cloud-download"
+                       iconBg="rgba(253, 126, 20, 0.12)" iconColor="var(--boc-accent-export)"></boc-stat-card>
       </div>
       <div class="col-md-4">
-        <div class="card shadow-sm border-0 text-center p-4">
-          <i class="bi bi-file-earmark-check display-4 text-success mb-3"></i>
-          <h3 class="fw-bold text-dark">15</h3>
-          <p class="text-muted mb-0">قوالب تقارير جاهزة للاستخدام</p>
-        </div>
+        <boc-stat-card label="قوالب تقارير جاهزة" value="15" icon="bi-file-earmark-check"
+                       iconBg="rgba(40, 167, 69, 0.12)" iconColor="var(--boc-success)"></boc-stat-card>
       </div>
       <div class="col-md-4">
-        <div class="card shadow-sm border-0 text-center p-4">
-          <i class="bi bi-envelope-paper display-4 text-warning mb-3"></i>
-          <h3 class="fw-bold text-dark">54</h3>
-          <p class="text-muted mb-0">تقرير مُرسل تلقائياً للإدارة العليا</p>
-        </div>
+        <boc-stat-card label="تقرير مُرسل للإدارة العليا" value="54" icon="bi-envelope-paper"
+                       iconBg="rgba(255, 193, 7, 0.15)" iconColor="var(--boc-warning)"></boc-stat-card>
       </div>
     </div>
 
-    <!-- Reports Grid -->
-    <h5 class="fw-bold mb-4 text-dark"><i class="bi bi-grid me-2"></i> القوالب الأكثر استخداماً</h5>
-    <div class="row g-4">
-      <div class="col-md-6 col-lg-3" *ngFor="let report of reports">
-        <div class="card h-100 shadow-sm border-0 report-card">
-          <div class="card-body text-center p-4">
-            <i class="bi {{ report.icon }} display-1 {{ report.color }} opacity-75 mb-3 d-block"></i>
-            <h6 class="fw-bold text-dark">{{ report.title }}</h6>
-            <span class="badge bg-light text-dark border mt-2">صيغة: {{ report.type }}</span>
-          </div>
-          <div class="card-footer bg-white border-top p-3">
-            <button class="btn btn-outline-secondary w-100" [disabled]="isExporting" (click)="generateReport(report)">
+    <boc-glass-card title="القوالب الأكثر استخداماً" subtitle="اختر قالباً لتصديره فوراً">
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3" *ngFor="let report of reports">
+          <div class="report-card glass-card p-4 h-100 d-flex flex-column">
+            <div class="text-center flex-grow-1">
+              <i class="bi report-icon mb-3 d-block" [ngClass]="[report.icon, report.colorClass]"></i>
+              <h6 class="fw-bold mb-2">{{ report.title }}</h6>
+              <span class="badge bg-light text-dark border">صيغة: {{ report.type }}</span>
+            </div>
+            <button type="button" class="btn btn-outline-secondary w-100 mt-3 rounded-pill"
+                    [disabled]="isExporting" (click)="generateReport(report)">
               <i class="bi bi-download me-1"></i> تصدير الآن
             </button>
           </div>
         </div>
       </div>
-    </div>
-
+    </boc-glass-card>
   </div>
 </div>

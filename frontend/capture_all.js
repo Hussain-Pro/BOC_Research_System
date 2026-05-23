@@ -8,45 +8,47 @@ if (!fs.existsSync(outDir)) {
 }
 
 const routes = [
-  '/',
+  '/landing',
   '/auth/login',
   '/auth/register',
-  '/auth/two-factor',
+  '/auth/2fa',
   '/auth/forgot-password',
   '/auth/reset-password',
   '/home',
   '/profile',
   '/research/submit',
-  '/research/timeline',
+  '/research/history',
   '/research/timeline/123',
   '/research/corrections/123',
-  '/research/history',
+  '/triage',
   '/committee/workspace',
-  '/meetings/scheduler',
-  '/meetings/studio/123',
-  '/meetings/rsvp',
+  '/committee/scheduler',
+  '/committee/studio/123',
+  '/committee/rsvp',
   '/evaluator/portfolio',
-  '/notifications',
-  '/chat',
+  '/admin/notifications',
+  '/admin/chat',
   '/admin/analytics',
   '/admin/roster',
   '/admin/ministry',
-  '/admin/sla-violations',
-  '/admin/plagiarism-override',
-  '/admin/global-search',
+  '/admin/audit',
+  '/admin/violations',
+  '/admin/plagiarism',
+  '/admin/search',
   '/admin/export',
   '/admin/config',
-  '/admin/audit-logs'
+  '/errors/not-found',
+  '/errors/access-denied'
 ];
 
 (async () => {
-  const browser = await puppeteer.launch({ 
-    headless: "new",
+  const browser = await puppeteer.launch({
+    headless: 'new',
     defaultViewport: { width: 1440, height: 900 }
   });
-  
+
   const page = await browser.newPage();
-  console.log("Started capturing screenshots...");
+  console.log('Started capturing screenshots...');
 
   for (let i = 0; i < routes.length; i++) {
     const route = routes[i];
@@ -54,20 +56,17 @@ const routes = [
     try {
       console.log(`Navigating to ${url}...`);
       await page.goto(url, { waitUntil: 'networkidle2', timeout: 15000 });
-      
-      // small delay for animations
       await new Promise(r => setTimeout(r, 2000));
-      
-      let safeName = route === '/' ? 'landing' : route.replace(/\//g, '_').replace(/^_/, '');
-      const filepath = path.join(outDir, `${i.toString().padStart(2, '0')}_${safeName}.png`);
-      
+
+      const filename = route.replace(/\//g, '_').replace(/^_/, '') || 'landing';
+      const filepath = path.join(outDir, `${filename}.png`);
       await page.screenshot({ path: filepath, fullPage: true });
-      console.log(`Captured: ${filepath}`);
-    } catch (e) {
-      console.error(`Failed to capture ${route}:`, e.message);
+      console.log(`Saved: ${filepath}`);
+    } catch (err) {
+      console.error(`Failed to capture ${route}:`, err.message);
     }
   }
 
   await browser.close();
-  console.log("Done!");
+  console.log('Screenshot capture complete.');
 })();

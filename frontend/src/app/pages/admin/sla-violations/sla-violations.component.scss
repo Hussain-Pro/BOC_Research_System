@@ -1,1 +1,16 @@
-/* SLA Violations Custom Styles */
+.admin-table thead {
+  background: rgba(15, 42, 56, 0.04);
+}
+
+.admin-table th {
+  color: var(--boc-secondary);
+  font-weight: 600;
+}
+
+.row-critical {
+  background: rgba(220, 53, 69, 0.08);
+}
+
+.title-cell {
+  max-width: 200px;
+}

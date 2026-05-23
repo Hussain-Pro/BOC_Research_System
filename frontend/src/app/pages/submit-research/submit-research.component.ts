@@ -1,94 +1,112 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ResearchService } from '../../services/research.service';
+import { BocLayoutService } from '../../services/boc-layout.service';
+import { BocPageHeroComponent } from '../../shared/boc-page-hero/boc-page-hero.component';
+import { BocGlassCardComponent } from '../../shared/boc-glass-card/boc-glass-card.component';
+import { BocFormFieldComponent } from '../../shared/boc-form-field/boc-form-field.component';
+import { BocVerticalTimelineComponent, BocTimelineStep } from '../../shared/boc-vertical-timeline/boc-vertical-timeline.component';
 
 @Component({
   selector: 'app-submit-research',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    BocPageHeroComponent,
+    BocGlassCardComponent,
+    BocFormFieldComponent,
+    BocVerticalTimelineComponent
+  ],
   templateUrl: './submit-research.component.html',
   styleUrl: './submit-research.component.scss'
 })
-export class SubmitResearchComponent {
-  title = '';
-  abstract = '';
-  categoryId = '';
-  departmentId = '3F2B1A9E-8D7C-6B5A-4928-1029384756AD'; // Mock Department ID
-  directorateId = '1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D'; // Mock Directorate ID
-  researcherId = '9F8E7D6C-5B4A-3F2E-1D0C-9B8A7F6E5D4C'; // Mock Researcher ID
-  submitImmediately = true;
-  selectedFile: File | null = null;
+export class SubmitResearchComponent implements OnInit, OnDestroy {
+  @ViewChild('stepper') stepper!: MatStepper;
 
-  step = signal<number>(1);
+  private fb = inject(FormBuilder);
+  private layoutService = inject(BocLayoutService);
+  researchService = inject(ResearchService);
+  router = inject(Router);
+
+  departmentId = '3F2B1A9E-8D7C-6B5A-4928-1029384756AD';
+  directorateId = '1A2B3C4D-5E6F-7A8B-9C0D-1E2F3A4B5C6D';
+  researcherId = '9F8E7D6C-5B4A-3F2E-1D0C-9B8A7F6E5D4C';
+
+  detailsForm = this.fb.group({
+    title: ['', Validators.required],
+    abstract: [''],
+    submitImmediately: [true]
+  });
+
+  selectedFile: File | null = null;
   error = signal<string | null>(null);
   success = signal<boolean>(false);
   trackingNumber = signal<string>('');
 
-  // 14 Operational States for Timeline representation
-  statesList = [
-    { label: 'مسودة', name: 'Draft' },
-    { label: 'تدقيق السكرتير', name: 'Pending_Secretary_Screening' },
-    { label: 'غير مطابق', name: 'Non_Compliant_Returned' },
-    { label: 'قيد الفرز', name: 'Incoming_Triage_Queue' },
-    { label: 'مرسل للمقيمين', name: 'Dispatched_To_Evaluators' },
-    { label: 'درجة رئيس اللجنة', name: 'Pending_Chairman_Grading' },
-    { label: 'مستبدل', name: 'Substituted' },
-    { label: 'موقوف انتحال', name: 'Suspended_Plagiarism_Lockout' },
-    { label: 'احالة تقاعد', name: 'Force_Majeure_Retired' },
-    { label: 'وفاة الباحث', name: 'Force_Majeure_Deceased' },
-    { label: 'وجبة الوزارة', name: 'Ministry_Batch_Transit' },
-    { label: 'ناجح مستوف', name: 'Pass_Approved' },
-    { label: 'غير ناجح', name: 'Fail_Rejected' },
-    { label: 'مؤرشف', name: 'Archived' }
+  successTimelineSteps: BocTimelineStep[] = [
+    { title: 'مسودة', description: 'تم حفظ البحث كمسودة.', isCompleted: true, isActive: false, date: new Date() },
+    { title: 'تدقيق السكرتير', description: 'الباحث في انتظار التدقيق المبدئي من السكرتير.', isCompleted: false, isActive: true },
+    { title: 'قيد الفرز', description: 'سيتم إرسال البحث لفرز اللجنة بعد اجتياز التدقيق.', isCompleted: false, isActive: false },
+    { title: 'التقييم والاعتماد', description: 'مرحلة التقييم العلمي وإصدار المحضر النهائي.', isCompleted: false, isActive: false }
   ];
 
-  currentState = 'Pending_Secretary_Screening';
+  ngOnInit(): void {
+    this.layoutService.setPage('تقديم بحث جديد', [
+      { label: 'الرئيسية', route: '/home' },
+      { label: 'تقديم بحث' }
+    ]);
+  }
 
-  constructor(public researchService: ResearchService, public router: Router) {}
+  ngOnDestroy(): void {
+    this.layoutService.clearPage();
+  }
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
+  onFileSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
       this.selectedFile = file;
     }
   }
 
-  nextStep() {
-    if (this.step() < 2) {
-      this.step.update(s => s + 1);
-    }
-  }
-
-  prevStep() {
-    if (this.step() > 1) {
-      this.step.update(s => s - 1);
-    }
-  }
-
-  onSubmit() {
+  onSubmit(): void {
     if (!this.selectedFile) {
       this.error.set('يرجى اختيار ملف البحث.');
       return;
     }
 
     this.error.set(null);
+    const { title, abstract, submitImmediately } = this.detailsForm.getRawValue();
     const formData = new FormData();
-    formData.append('title', this.title);
-    formData.append('abstract', this.abstract);
-    formData.append('categoryId', this.categoryId);
+    formData.append('title', title ?? '');
+    formData.append('abstract', abstract ?? '');
+    formData.append('categoryId', '');
     formData.append('researcherId', this.researcherId);
     formData.append('departmentId', this.departmentId);
     formData.append('directorateId', this.directorateId);
-    formData.append('submitImmediately', this.submitImmediately.toString());
+    formData.append('submitImmediately', String(submitImmediately));
     formData.append('file', this.selectedFile, this.selectedFile.name);
 
     this.researchService.submitResearch(formData).subscribe({
-      next: (res: any) => {
+      next: (res) => {
         this.success.set(true);
-        this.trackingNumber.set(res?.trackingNumber || 'BOC-RES-2026-SUCCESS');
-        this.step.set(3);
+        const tracking = typeof res === 'string'
+          ? res
+          : (res as { trackingNumber?: string })?.trackingNumber;
+        this.trackingNumber.set(tracking || 'BOC-RES-2026-SUCCESS');
+        this.stepper.next();
       },
       error: (err) => {
         this.error.set(err.error?.detail || 'حدث خطأ أثناء رفع البحث. يرجى التأكد من اتصال الشبكة وصلاحية الملف.');

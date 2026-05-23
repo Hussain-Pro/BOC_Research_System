@@ -1,36 +1,47 @@
-import { Component, OnInit, OnDestroy, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TriageService, TriagePaper, EligibleEvaluator } from '../../services/triage.service';
 import { SignalRService } from '../../services/signalr.service';
 import { AuthService } from '../../services/auth.service';
+import { BocLayoutService } from '../../services/boc-layout.service';
 import { Subscription } from 'rxjs';
-
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import {
+  BocPageHeroComponent,
+  BocGlassCardComponent,
+  BocStatCardComponent,
+  BocEmptyStateComponent
+} from '../../shared';
 
 @Component({
   selector: 'app-triage-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, BocPageHeroComponent, BocGlassCardComponent, BocStatCardComponent, BocEmptyStateComponent],
   templateUrl: './triage-dashboard.component.html',
   styleUrl: './triage-dashboard.component.scss'
 })
 export class TriageDashboardComponent implements OnInit, OnDestroy {
+  private layoutService = inject(BocLayoutService);
+
   triagePapers = signal<TriagePaper[]>([]);
   selectedPaper = signal<TriagePaper | null>(null);
   eligibleEvaluators = signal<EligibleEvaluator[]>([]);
   safeDocumentUrl: SafeResourceUrl | null = null;
-  
-  // Selection models
+
   selectedEvaluatorIds: string[] = [];
   selectedMemberIds: string[] = [];
 
-  // Feedback notifications
   success = signal<boolean>(false);
   error = signal<string | null>(null);
   infoMessage = signal<string | null>(null);
   isLoading = signal<boolean>(false);
   isLoadingEvaluators = signal<boolean>(false);
+
+  breadcrumbs = [
+    { label: 'الرئيسية', route: '/home' },
+    { label: 'فرز الأبحاث الواردة' }
+  ];
 
   private subscriptions = new Subscription();
 
@@ -42,6 +53,7 @@ export class TriageDashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.layoutService.setPage('فرز الأبحاث الواردة');
     this.loadPapers();
     this.setupRealTimeListeners();
   }
@@ -57,7 +69,7 @@ export class TriageDashboardComponent implements OnInit, OnDestroy {
         this.triagePapers.set(papers);
         this.isLoading.set(false);
       },
-      error: (err) => {
+      error: () => {
         this.error.set('فشل تحميل قائمة البحوث قيد الفرز.');
         this.isLoading.set(false);
       }
@@ -65,7 +77,6 @@ export class TriageDashboardComponent implements OnInit, OnDestroy {
   }
 
   setupRealTimeListeners() {
-    // Listen for SignalR state change events
     this.subscriptions.add(
       this.signalRService.paperStatusUpdates$.subscribe((update) => {
         if (update.newState === 'Incoming_Triage_Queue') {
@@ -76,7 +87,6 @@ export class TriageDashboardComponent implements OnInit, OnDestroy {
       })
     );
 
-    // Listen for other real-time notifications
     this.subscriptions.add(
       this.signalRService.notifications$.subscribe((notif) => {
         this.infoMessage.set(`إشعار: ${notif.title} - ${notif.message}`);
@@ -102,7 +112,7 @@ export class TriageDashboardComponent implements OnInit, OnDestroy {
         this.eligibleEvaluators.set(evaluators);
         this.isLoadingEvaluators.set(false);
       },
-      error: (err) => {
+      error: () => {
         this.error.set('خطأ أثناء تحميل المقيمين المؤهلين.');
         this.isLoadingEvaluators.set(false);
       }
@@ -140,7 +150,7 @@ export class TriageDashboardComponent implements OnInit, OnDestroy {
     this.success.set(false);
 
     const currentUser = this.authService.currentUser();
-    const mappedById = currentUser?.nameid || 'D2A9B10E-8D7C-6B5A-4928-1029384756AE'; // Fallback for dev
+    const mappedById = currentUser?.nameid || 'D2A9B10E-8D7C-6B5A-4928-1029384756AE';
 
     const payload = {
       researchId: paper.id,
@@ -150,7 +160,7 @@ export class TriageDashboardComponent implements OnInit, OnDestroy {
     };
 
     this.triageService.assignEvaluators(payload).subscribe({
-      next: (res) => {
+      next: () => {
         this.success.set(true);
         this.selectedPaper.set(null);
         this.loadPapers();
@@ -161,7 +171,6 @@ export class TriageDashboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Secure FTP Stream URL provider
   getDocumentUrl(paperId: string): string {
     return `https://localhost:7139/api/research/${paperId}/document`;
   }

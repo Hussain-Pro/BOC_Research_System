@@ -1,0 +1,62 @@
+:root {
+  /* Muted Industrial — Core Colors (unchanged) */
+  --boc-primary: #0F2A38;
+  --boc-primary-light: #163E54;
+  --boc-secondary: #4A607A;
+  --boc-background: #F4F6F9;
+  --boc-surface: #FFFFFF;
+  --boc-success: #28a745;
+  --boc-warning: #ffc107;
+  --boc-danger: #dc3545;
+  --boc-info: #17a2b8;
+
+  /* Role accent tokens */
+  --boc-accent-triage: #E37400;
+  --boc-accent-evaluator: #8430CE;
+  --boc-accent-committee: #0d6efd;
+  --boc-accent-ministry: #198754;
+  --boc-accent-export: #fd7e14;
+  --boc-accent-plagiarism: #6f42c1;
+
+  /* Typography */
+  --font-family-arabic: 'Tajawal', sans-serif;
+  --font-family-english: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  /* Spacing & Shape */
+  --boc-radius-sm: 4px;
+  --boc-radius-md: 6px;
+  --boc-radius-lg: 8px;
+  --boc-radius-xl: 12px;
+  --boc-radius-pill: 999px;
+
+  /* Elevation */
+  --boc-shadow-sm: 0 1px 3px rgba(15, 42, 56, 0.08);
+  --boc-shadow-md: 0 4px 12px rgba(15, 42, 56, 0.12);
+  --boc-shadow-lg: 0 8px 24px rgba(15, 42, 56, 0.16);
+
+  /* Glass */
+  --boc-glass-bg: rgba(255, 255, 255, 0.85);
+  --boc-glass-border: rgba(255, 255, 255, 0.4);
+  --boc-glass-blur: 12px;
+
+  /* Motion */
+  --boc-transition: 0.2s ease-in-out;
+
+  /* Text aliases */
+  --text-primary: var(--boc-primary);
+  --text-secondary: var(--boc-secondary);
+  --text-muted: rgba(74, 96, 122, 0.75);
+  --text-light: rgba(255, 255, 255, 0.85);
+
+  /* Background aliases */
+  --bg-off-white: var(--boc-background);
+  --bg-white: var(--boc-surface);
+  --border-color: rgba(74, 96, 122, 0.25);
+
+  /* Legacy aliases */
+  --primary-oil-blue: var(--boc-primary);
+  --primary-oil-blue-light: var(--boc-primary-light);
+  --border-radius: var(--boc-radius-md);
+  --transition-standard: var(--boc-transition);
+  --accent-gold: var(--boc-warning);
+}

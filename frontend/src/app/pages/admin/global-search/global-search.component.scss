@@ -1,6 +1,27 @@
-.list-group-item {
-  transition: background-color 0.2s ease;
-  &:hover {
-    background-color: #f8f9fa;
-  }
+.search-result-item {
+  border-color: var(--border-color);
+  transition: background var(--boc-transition);
+}
+
+.search-result-item:hover {
+  background: rgba(15, 42, 56, 0.03);
+}
+
+.type-badge {
+  padding: 0.35rem 0.65rem;
+}
+
+.badge-research {
+  background: rgba(15, 42, 56, 0.12);
+  color: var(--boc-primary);
+}
+
+.badge-evaluator {
+  background: rgba(40, 167, 69, 0.12);
+  color: var(--boc-success);
+}
+
+.badge-meeting {
+  background: rgba(255, 193, 7, 0.15);
+  color: #856404;
 }

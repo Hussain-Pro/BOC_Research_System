@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fhgQIStSDm0=",
+  "dgSpecHash": "Xh918yHV7W0=",
   "success": true,
-  "projectFilePath": "d:\\WebApps\\BOC_Research_System\\backend\\BOC.Application\\BOC.Application.csproj",
+  "projectFilePath": "D:\\WebApps\\BOC_Research_System\\backend\\BOC.Application\\BOC.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pc\\.nuget\\packages\\automapper\\16.1.1\\automapper.16.1.1.nupkg.sha512",
     "C:\\Users\\pc\\.nuget\\packages\\fluentvalidation\\12.1.1\\fluentvalidation.12.1.1.nupkg.sha512",

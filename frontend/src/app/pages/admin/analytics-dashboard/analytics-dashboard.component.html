@@ -1,49 +1,35 @@
-<div class="container-fluid min-vh-100 bg-light py-5" dir="rtl">
+<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
   <div class="container">
-    
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-5 p-4 rounded bg-white shadow-sm border-start border-4" style="border-color: var(--boc-primary) !important;">
-      <div>
-        <h2 class="fw-bold mb-1" style="color: var(--boc-primary);">لوحة البيانات التنفيذية (Executive Analytics)</h2>
-        <p class="text-muted mb-0">إحصائيات متقدمة تعكس واقع إنجاز الدراسات والبحوث.</p>
-      </div>
-      <a routerLink="/home" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-right me-2"></i> العودة للرئيسية
+    <boc-page-hero
+      title="لوحة البيانات التنفيذية"
+      subtitle="إحصائيات متقدمة تعكس واقع إنجاز الدراسات والبحوث."
+      [breadcrumbs]="[{ label: 'الرئيسية', route: '/home' }, { label: 'التحليلات' }]">
+      <a heroActions routerLink="/home" class="btn btn-outline-secondary btn-sm rounded-pill">
+        <i class="bi bi-arrow-right me-1"></i> العودة للرئيسية
       </a>
-    </div>
+    </boc-page-hero>
 
-    <!-- Key Metrics Row -->
-    <div class="row g-4 mb-5">
+    <div class="row g-3 mb-4">
       <div class="col-md-3">
-        <div class="card shadow-sm border-0 p-4 text-center border-bottom border-4 border-primary">
-          <h6 class="text-muted mb-2">إجمالي البحوث المستلمة</h6>
-          <h2 class="mb-0 fw-bold">{{ metrics.totalReceived }}</h2>
-        </div>
+        <boc-stat-card label="إجمالي البحوث المستلمة" [value]="metrics.totalReceived" icon="bi-inbox"></boc-stat-card>
       </div>
       <div class="col-md-3">
-        <div class="card shadow-sm border-0 p-4 text-center border-bottom border-4 border-warning">
-          <h6 class="text-muted mb-2">قيد التقييم</h6>
-          <h2 class="mb-0 fw-bold">{{ metrics.underEvaluation }}</h2>
-        </div>
+        <boc-stat-card label="قيد التقييم" [value]="metrics.underEvaluation" icon="bi-hourglass-split"
+                       iconBg="rgba(255, 193, 7, 0.15)" iconColor="var(--boc-warning)"></boc-stat-card>
       </div>
       <div class="col-md-3">
-        <div class="card shadow-sm border-0 p-4 text-center border-bottom border-4 border-success">
-          <h6 class="text-muted mb-2">مكتملة ومُصدقة</h6>
-          <h2 class="mb-0 fw-bold">{{ metrics.completed }}</h2>
-        </div>
+        <boc-stat-card label="مكتملة ومُصدقة" [value]="metrics.completed" icon="bi-check-circle"
+                       iconBg="rgba(40, 167, 69, 0.12)" iconColor="var(--boc-success)"></boc-stat-card>
       </div>
       <div class="col-md-3">
-        <div class="card shadow-sm border-0 p-4 text-center border-bottom border-4 border-danger">
-          <h6 class="text-muted mb-2">مخالفات المدة (SLA)</h6>
-          <h2 class="mb-0 fw-bold text-danger">{{ metrics.slaBreaches }}</h2>
-        </div>
+        <boc-stat-card label="مخالفات المدة (SLA)" [value]="metrics.slaBreaches" icon="bi-alarm"
+                       iconBg="rgba(220, 53, 69, 0.12)" iconColor="var(--boc-danger)"></boc-stat-card>
       </div>
     </div>
 
-    <!-- Charts Row -->
-    <div class="row g-4 mb-5">
+    <div class="row g-4 mb-4">
       <div class="col-md-8">
-        <div class="card shadow-sm border-0 p-4 h-100 rounded-4">
+        <boc-glass-card title="معدل إنجاز البحوث">
           <apx-chart
             [series]="areaChartOptions.series"
             [chart]="areaChartOptions.chart"
@@ -54,10 +40,10 @@
             [title]="areaChartOptions.title"
             [colors]="areaChartOptions.colors">
           </apx-chart>
-        </div>
+        </boc-glass-card>
       </div>
       <div class="col-md-4">
-        <div class="card shadow-sm border-0 p-4 h-100 rounded-4">
+        <boc-glass-card title="حالة البحوث الكلية">
           <apx-chart
             [series]="donutChartOptions.series"
             [chart]="donutChartOptions.chart"
@@ -66,48 +52,21 @@
             [title]="donutChartOptions.title"
             [colors]="donutChartOptions.colors">
           </apx-chart>
-        </div>
+        </boc-glass-card>
       </div>
     </div>
 
-    <!-- Detailed Table -->
-    <div class="card shadow-sm border-0">
-      <div class="card-header bg-white border-bottom p-4 d-flex justify-content-between align-items-center">
-        <h5 class="fw-bold text-dark mb-0">أحدث المحاضر المنجزة</h5>
-        <button class="btn btn-sm btn-outline-primary"><i class="bi bi-file-earmark-excel me-2"></i>تصدير التقرير</button>
+    <boc-glass-card title="أحدث المحاضر المنجزة" subtitle="آخر التقارير المعتمدة من اللجان">
+      <div class="d-flex justify-content-end mb-3">
+        <button type="button" class="btn btn-sm btn-outline-primary rounded-pill">
+          <i class="bi bi-file-earmark-excel me-1"></i> تصدير التقرير
+        </button>
       </div>
-      <div class="card-body p-0">
-        <div class="table-responsive">
-          <table class="table table-hover align-middle mb-0 text-center">
-            <thead class="bg-light text-muted">
-              <tr>
-                <th class="ps-4 py-3">الرقم المرجعي</th>
-                <th class="py-3 text-start">عنوان البحث</th>
-                <th class="py-3">التقييم النهائي</th>
-                <th class="py-3">تاريخ الإنجاز</th>
-                <th class="pe-4 py-3 text-end">الإجراءات</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="ps-4 fw-bold">BOC-RES-2026-112</td>
-                <td class="text-start">تأثير حقن المياه على مكامن الرميلة</td>
-                <td><span class="badge bg-success p-2">91% (ممتاز)</span></td>
-                <td>2026/05/20</td>
-                <td class="pe-4 text-end"><button class="btn btn-sm btn-outline-primary">عرض المحضر</button></td>
-              </tr>
-              <tr>
-                <td class="ps-4 fw-bold">BOC-RES-2026-110</td>
-                <td class="text-start">المعالجات الكيميائية للنفط الثقيل</td>
-                <td><span class="badge bg-warning text-dark p-2">65% (مقبول)</span></td>
-                <td>2026/05/18</td>
-                <td class="pe-4 text-end"><button class="btn btn-sm btn-outline-primary">عرض المحضر</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
+      <boc-data-table
+        [columns]="reportColumns"
+        [columnLabels]="reportColumnLabels"
+        [data]="recentReports">
+      </boc-data-table>
+    </boc-glass-card>
   </div>
 </div>

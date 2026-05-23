@@ -1,0 +1,15 @@
+.config-tabs .nav-link {
+  color: var(--boc-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--boc-radius-pill);
+}
+
+.config-tabs .nav-link.active {
+  background: rgba(15, 42, 56, 0.08);
+  color: var(--boc-primary);
+  font-weight: 600;
+}
+
+.admin-table tbody tr:hover {
+  background: rgba(15, 42, 56, 0.03);
+}

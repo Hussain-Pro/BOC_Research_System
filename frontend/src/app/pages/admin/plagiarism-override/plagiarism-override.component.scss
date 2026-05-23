@@ -1,1 +1,12 @@
-/* Plagiarism Override Styles */
+.admin-table thead {
+  background: rgba(15, 42, 56, 0.04);
+}
+
+.admin-table th {
+  color: var(--boc-secondary);
+  font-weight: 600;
+}
+
+.score-value {
+  font-size: 1.25rem;
+}

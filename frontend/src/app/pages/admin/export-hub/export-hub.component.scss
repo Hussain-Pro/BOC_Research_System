@@ -1,7 +1,25 @@
 .report-card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
-  }
+  transition: transform var(--boc-transition), box-shadow var(--boc-transition);
+}
+
+.report-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--boc-shadow-md);
+}
+
+.report-icon {
+  font-size: 3rem;
+  opacity: 0.85;
+}
+
+.icon-pdf {
+  color: var(--boc-danger);
+}
+
+.icon-excel {
+  color: var(--boc-success);
+}
+
+.icon-word {
+  color: var(--boc-primary);
 }

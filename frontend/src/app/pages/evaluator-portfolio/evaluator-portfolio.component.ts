@@ -1,18 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { BocLayoutService } from '../../services/boc-layout.service';
+import {
+  BocPageHeroComponent,
+  BocGlassCardComponent,
+  BocStatCardComponent,
+  BocDataTableComponent,
+  BocEmptyStateComponent
+} from '../../shared';
+
+interface PortfolioRecord {
+  id: string;
+  researchId: string;
+  title: string;
+  assignedDate: string;
+  evaluatedDate: string;
+  givenScore: number;
+  delayDays: number;
+  committeeFinalStatus: string;
+}
 
 @Component({
   selector: 'app-evaluator-portfolio',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    BocPageHeroComponent,
+    BocGlassCardComponent,
+    BocStatCardComponent,
+    BocDataTableComponent,
+    BocEmptyStateComponent
+  ],
   templateUrl: './evaluator-portfolio.component.html',
   styleUrls: ['./evaluator-portfolio.component.scss']
 })
 export class EvaluatorPortfolioComponent implements OnInit {
+  private layoutService = inject(BocLayoutService);
 
-  // Mock data representing the Evaluator's history
-  portfolioRecords = [
+  portfolioRecords: PortfolioRecord[] = [
     {
       id: 'A-0091',
       researchId: 'R-09511',
@@ -30,7 +57,7 @@ export class EvaluatorPortfolioComponent implements OnInit {
       assignedDate: '2024-09-01',
       evaluatedDate: '2024-09-15',
       givenScore: 50,
-      delayDays: 4, // SLA breached by 4 days
+      delayDays: 4,
       committeeFinalStatus: 'Fail_Rejected'
     }
   ];
@@ -41,9 +68,38 @@ export class EvaluatorPortfolioComponent implements OnInit {
     onTimePercentage: 95
   };
 
-  constructor() { }
+  tableColumns = ['id', 'title', 'assignedDate', 'evaluatedDate', 'givenScore', 'delayLabel', 'decisionLabel'];
+  tableLabels: Record<string, string> = {
+    id: 'رقم التقييم',
+    title: 'عنوان البحث',
+    assignedDate: 'تاريخ الإسناد',
+    evaluatedDate: 'تاريخ الإنجاز',
+    givenScore: 'الدرجة الممنوحة',
+    delayLabel: 'التأخير',
+    decisionLabel: 'القرار النهائي'
+  };
+
+  tableData: Record<string, string | number>[] = [];
+
+  breadcrumbs = [
+    { label: 'الرئيسية', route: '/home' },
+    { label: 'السجل التاريخي للمقيّم' }
+  ];
 
   ngOnInit(): void {
+    this.layoutService.setPage('السجل التاريخي للمقيّم');
+    this.tableData = this.portfolioRecords.map(record => ({
+      id: record.id,
+      title: `${record.researchId} — ${record.title}`,
+      assignedDate: this.formatDate(record.assignedDate),
+      evaluatedDate: this.formatDate(record.evaluatedDate),
+      givenScore: `${record.givenScore}%`,
+      delayLabel: record.delayDays > 0 ? `${record.delayDays} أيام` : 'ملتزم بالموعد',
+      decisionLabel: record.committeeFinalStatus === 'Pass_Approved' ? 'مقبول نهائياً' : 'مرفوض نهائياً'
+    }));
   }
 
+  private formatDate(value: string): string {
+    return new Date(value).toLocaleDateString('ar-EG');
+  }
 }

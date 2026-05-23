@@ -1,0 +1,24 @@
+:host ::ng-deep .page-hero {
+  border-inline-start-color: var(--boc-accent-evaluator);
+}
+
+.rsvp-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: rgba(132, 48, 206, 0.12);
+  color: var(--boc-accent-evaluator);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.details-box {
+  border-inline-start: 4px solid var(--boc-accent-evaluator);
+}
+
+.accent-text {
+  color: var(--boc-accent-evaluator);
+}

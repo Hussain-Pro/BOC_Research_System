@@ -1,93 +1,67 @@
 <div class="landing-wrapper" dir="rtl">
-  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-transparent position-absolute w-100 z-index-2">
     <div class="container py-3">
-      <a class="navbar-brand d-flex align-items-center" href="#">
-        <img src="assets/boc_logo.png" alt="BOC Logo" height="50" class="me-3 ms-3" onerror="this.style.display='none'">
+      <a class="navbar-brand d-flex align-items-center" routerLink="/landing">
+        <img src="assets/boc_logo.png" alt="BOC Logo" height="50" width="50" class="me-3 ms-3 rounded-circle">
         <span class="fw-bold fs-4">نظام إدارة البحوث</span>
       </a>
-      <div class="d-flex ms-auto">
-        <a routerLink="/auth/login" class="btn btn-outline-light rounded-pill px-4 me-2 fw-bold">تسجيل الدخول</a>
+      <div class="d-flex ms-auto gap-2">
+        <a routerLink="/auth/login" class="btn btn-outline-light-glass rounded-pill px-4 fw-bold">تسجيل الدخول</a>
         <a routerLink="/auth/register" class="btn btn-light text-primary rounded-pill px-4 fw-bold shadow-sm">إنشاء حساب</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero-section d-flex align-items-center min-vh-100 position-relative">
+  <section class="hero-section d-flex align-items-center min-vh-100 position-relative overflow-hidden">
     <div class="position-absolute top-0 start-0 w-100 h-100">
-      <img src="assets/boc_login_bg.png" alt="Hero Background" class="w-100 h-100 object-fit-cover opacity-50" onerror="this.style.display='none'">
-      <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(180deg, rgba(15,42,56,0.8) 0%, rgba(15,42,56,0.95) 100%);"></div>
+      <img src="assets/boc_login_bg.png" alt="" class="w-100 h-100 object-fit-cover hero-bg-img">
+      <div class="position-absolute top-0 start-0 w-100 h-100 hero-overlay"></div>
     </div>
-    
+
     <div class="container position-relative z-index-1 mt-5">
       <div class="row justify-content-center text-center">
         <div class="col-lg-8">
-          <h1 class="display-3 fw-bold text-white mb-4 lh-sm">
+          <h1 class="display-3 fw-bold text-white mb-4 lh-sm slide-up-anim">
             بوابتك الرقمية نحو<br>
             <span class="text-warning">التميز البحثي</span>
           </h1>
-          <p class="lead text-white-50 mb-5 px-md-5 fs-5">
-            نظام متكامل لإدارة وتحكيم البحوث العلمية في شركة نفط البصرة. يسهل تقديم البحوث، تتبع مسارها، وتقييمها بشفافية وسرعة من قبل اللجان المختصة.
+          <p class="lead text-white-50 mb-5 px-md-5 fs-5 slide-up-anim-delay">
+            نظام متكامل لإدارة وتحكيم البحوث العلمية في شركة نفط البصرة. يسهل تقديم البحوث، تتبع مسارها، وتقييمها بشفافية وسرعة.
           </p>
-          <div class="d-flex justify-content-center gap-3">
+          <div class="d-flex justify-content-center gap-3 flex-wrap slide-up-anim-delay-2">
             <a routerLink="/auth/register" class="btn btn-warning btn-lg rounded-pill px-5 fw-bold shadow-lg">ابدأ الآن</a>
-            <a href="#onboarding" class="btn btn-outline-light btn-lg rounded-pill px-5 fw-bold">كيف يعمل النظام؟</a>
+            <a href="#onboarding" class="btn btn-primary-glass btn-lg rounded-pill px-5 fw-bold">كيف يعمل النظام؟</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Onboarding Section -->
   <section id="onboarding" class="py-5 bg-white">
     <div class="container py-5">
       <div class="text-center mb-5">
-        <h2 class="fw-bold text-dark display-5">دليلك لاستخدام النظام</h2>
+        <h2 class="fw-bold display-5 hero-title">دليلك لاستخدام النظام</h2>
         <p class="text-muted fs-5">خطوات بسيطة من التقديم وحتى الاعتماد النهائي</p>
       </div>
 
-      <div class="row g-4 text-center">
-        <div class="col-md-3">
-          <div class="feature-card p-4 rounded-4 h-100 border">
-            <div class="icon-circle bg-primary bg-opacity-10 text-primary mb-4 mx-auto rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-              <i class="bi bi-person-plus fs-1"></i>
+      <div class="row g-4 text-center onboarding-steps">
+        <div class="col-md-3" *ngFor="let step of onboardingSteps; let i = index">
+          <div class="feature-card p-4 rounded-4 h-100 border position-relative">
+            <span class="step-number">{{ i + 1 }}</span>
+            <div class="icon-circle mb-4 mx-auto rounded-circle d-flex align-items-center justify-content-center"
+                 [style.width.px]="80" [style.height.px]="80"
+                 [style.background]="step.bg" [style.color]="step.color">
+              <i class="bi fs-1" [ngClass]="step.icon"></i>
             </div>
-            <h4 class="fw-bold mb-3">1. إنشاء الحساب</h4>
-            <p class="text-muted">قم بتسجيل حساب جديد لإنشاء ملفك الشخصي كباحث في النظام.</p>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="feature-card p-4 rounded-4 h-100 border">
-            <div class="icon-circle bg-success bg-opacity-10 text-success mb-4 mx-auto rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-              <i class="bi bi-file-earmark-arrow-up fs-1"></i>
-            </div>
-            <h4 class="fw-bold mb-3">2. تقديم البحث</h4>
-            <p class="text-muted">ارفع ملف بحثك مع الملخص والمعلومات الأساسية ليتم تحويله للجنة.</p>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="feature-card p-4 rounded-4 h-100 border">
-            <div class="icon-circle bg-warning bg-opacity-10 text-warning mb-4 mx-auto rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-              <i class="bi bi-search fs-1"></i>
-            </div>
-            <h4 class="fw-bold mb-3">3. المراجعة والتقييم</h4>
-            <p class="text-muted">يقوم المقيمون بمراجعة بحثك وإبداء الملاحظات والتعديلات المطلوبة.</p>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="feature-card p-4 rounded-4 h-100 border">
-            <div class="icon-circle bg-info bg-opacity-10 text-info mb-4 mx-auto rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-              <i class="bi bi-check-circle fs-1"></i>
-            </div>
-            <h4 class="fw-bold mb-3">4. الاعتماد النهائي</h4>
-            <p class="text-muted">بعد استيفاء الشروط وإكمال التعديلات، يتم اعتماد البحث رسمياً.</p>
+            <h4 class="fw-bold mb-3">{{ step.title }}</h4>
+            <p class="text-muted mb-0">{{ step.desc }}</p>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <footer class="py-4 text-center text-muted small border-top">
+    © {{ currentYear }} شركة نفط البصرة — نظام إدارة البحوث والدراسات
+  </footer>
 </div>

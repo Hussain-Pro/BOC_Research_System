@@ -1,0 +1,69 @@
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: (
+      brand-family: 'Tajawal',
+      plain-family: 'Tajawal',
+    ),
+    density: 0,
+  ));
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+  font-family: var(--font-family-arabic);
+}
+
+.mat-mdc-outlined-button,
+.mat-mdc-unelevated-button,
+.mat-mdc-raised-button,
+.mat-mdc-fab,
+.mat-mdc-mini-fab {
+  font-family: var(--font-family-arabic);
+}
+
+.mat-mdc-table,
+.mat-mdc-paginator,
+.mat-mdc-dialog-container {
+  font-family: var(--font-family-arabic);
+}
+
+.mat-mdc-header-cell {
+  color: var(--boc-primary) !important;
+  font-weight: 700;
+}
+
+.mat-mdc-row:hover {
+  background-color: rgba(15, 42, 56, 0.03);
+}
+
+.mdc-text-field--outlined .mdc-notched-outline__leading,
+.mdc-text-field--outlined .mdc-notched-outline__notch,
+.mdc-text-field--outlined .mdc-notched-outline__trailing {
+  border-color: var(--border-color) !important;
+}
+
+.mdc-text-field--focused .mdc-notched-outline__leading,
+.mdc-text-field--focused .mdc-notched-outline__notch,
+.mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: var(--boc-primary) !important;
+}
+
+.mat-mdc-form-field-focus-overlay {
+  background-color: transparent;
+}
+
+.mat-stepper-horizontal,
+.mat-stepper-vertical {
+  font-family: var(--font-family-arabic);
+}
+
+.mat-horizontal-stepper-header-container {
+  border-radius: var(--boc-radius-lg);
+}

@@ -1,31 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface TimelineStep {
-  title: string;
-  description: string;
-  date?: Date;
-  isCompleted: boolean;
-  isActive: boolean;
-  requiresAction?: boolean;
-}
+import { BocLayoutService } from '../../services/boc-layout.service';
+import { BocPageHeroComponent } from '../../shared/boc-page-hero/boc-page-hero.component';
+import { BocGlassCardComponent } from '../../shared/boc-glass-card/boc-glass-card.component';
+import { BocStatusChipComponent } from '../../shared/boc-status-chip/boc-status-chip.component';
+import { BocVerticalTimelineComponent, BocTimelineStep } from '../../shared/boc-vertical-timeline/boc-vertical-timeline.component';
 
 @Component({
   selector: 'app-research-timeline',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    BocPageHeroComponent,
+    BocGlassCardComponent,
+    BocStatusChipComponent,
+    BocVerticalTimelineComponent
+  ],
   templateUrl: './research-timeline.component.html',
   styleUrl: './research-timeline.component.scss'
 })
-export class ResearchTimelineComponent implements OnInit {
+export class ResearchTimelineComponent implements OnInit, OnDestroy {
+  private layoutService = inject(BocLayoutService);
+
   researchTitle = 'تطوير حقن المياه في حقول الرميلة';
   referenceNumber = 'BOC-RES-2026-0084';
   currentStatus = 'قيد التقييم (رئيس اللجنة)';
-  
-  timelineSteps: TimelineStep[] = [];
 
-  ngOnInit() {
-    // Mock Data for the blueprint timeline
+  timelineSteps: BocTimelineStep[] = [];
+
+  ngOnInit(): void {
+    this.layoutService.setPage('المخطط الزمني للبحث', [
+      { label: 'الرئيسية', route: '/home' },
+      { label: 'تاريخ الأبحاث', route: '/research/history' },
+      { label: 'المخطط الزمني' }
+    ]);
+
     this.timelineSteps = [
       {
         title: 'تقديم البحث',
@@ -62,5 +71,9 @@ export class ResearchTimelineComponent implements OnInit {
         isActive: false
       }
     ];
+  }
+
+  ngOnDestroy(): void {
+    this.layoutService.clearPage();
   }
 }

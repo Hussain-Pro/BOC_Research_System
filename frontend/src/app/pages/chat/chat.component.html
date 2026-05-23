@@ -1,49 +1,50 @@
-<div class="container-fluid bg-light min-vh-100 py-4" dir="rtl">
-  <div class="row justify-content-center h-100">
-    <div class="col-lg-10 h-100">
-      
-      <div class="card-industrial h-100 d-flex flex-column" style="height: 80vh !important;">
-        <!-- Chat Header -->
-        <div class="card-header bg-white p-3 border-bottom d-flex align-items-center">
-          <div class="d-flex align-items-center gap-3">
-            <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center fw-bold" style="width: 50px; height: 50px; font-size: 1.2rem;">
-              {{ currentRoom[0] }}
-            </div>
-            <div>
-              <h5 class="mb-0" style="color: var(--boc-primary); font-weight: 700;">{{ currentRoom }}</h5>
-              <small class="text-success"><i class="bi bi-circle-fill" style="font-size: 0.5rem;"></i> متصل (SignalR)</small>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Chat Body -->
-        <div class="card-body flex-grow-1 overflow-auto p-4" style="background-color: #f8f9fa;" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-          <div *ngFor="let msg of messages" class="mb-4 d-flex" [ngClass]="msg.isMine ? 'justify-content-start' : 'justify-content-end'">
-            
-            <div class="message-bubble p-3 rounded"
-                 [ngClass]="msg.isMine ? 'bg-white border' : 'text-white'"
-                 [ngStyle]="{'background-color': msg.isMine ? '#ffffff' : 'var(--boc-primary-light)', 'max-width': '75%', 'border-bottom-right-radius': msg.isMine ? '0' : '0.25rem', 'border-bottom-left-radius': !msg.isMine ? '0' : '0.25rem'}">
-              
-              <div class="d-flex justify-content-between align-items-center mb-1">
-                <small [ngClass]="msg.isMine ? 'text-primary fw-bold' : 'text-light fw-bold'">{{ msg.sender }}</small>
-                <small [ngClass]="msg.isMine ? 'text-muted ms-3' : 'text-light opacity-75 me-3'" style="font-size: 0.75rem;">{{ msg.timestamp | date:'HH:mm' }}</small>
-              </div>
-              <p class="mb-0">{{ msg.content }}</p>
-            </div>
+<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
+  <div class="container chat-page">
+    <boc-page-hero
+      title="المحادثة الفورية"
+      subtitle="تواصل مع أعضاء اللجنة والمسؤولين عبر قناة SignalR المؤمنة."
+      [breadcrumbs]="breadcrumbs">
+    </boc-page-hero>
 
+    <boc-glass-card [noPadding]="true" extraClass="chat-card">
+      <div class="chat-header">
+        <div class="d-flex align-items-center gap-3">
+          <div class="room-avatar">{{ currentRoom[0] }}</div>
+          <div>
+            <h5 class="mb-0 fw-bold">{{ currentRoom }}</h5>
+            <small class="text-success"><i class="bi bi-circle-fill live-indicator"></i> متصل (SignalR)</small>
           </div>
-        </div>
-
-        <!-- Chat Input -->
-        <div class="card-footer bg-white p-3 border-top">
-          <form (ngSubmit)="sendMessage()" class="d-flex gap-2">
-            <button type="button" class="btn btn-light border"><i class="bi bi-paperclip"></i></button>
-            <input type="text" class="form-control" placeholder="اكتب رسالتك هنا..." [(ngModel)]="newMessage" name="message" autocomplete="off" required>
-            <button type="submit" class="btn btn-primary-industrial px-4" [disabled]="!newMessage.trim()">إرسال <i class="bi bi-send ms-2"></i></button>
-          </form>
         </div>
       </div>
-      
-    </div>
+
+      <div class="chat-body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+        <boc-empty-state
+          *ngIf="messages.length === 0"
+          icon="bi-chat-dots"
+          title="لا توجد رسائل"
+          message="ابدأ المحادثة بإرسال رسالة جديدة.">
+        </boc-empty-state>
+
+        <div *ngFor="let msg of messages" class="message-row" [class.mine]="msg.isMine">
+          <div class="message-bubble glass-card">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <small class="fw-bold" [class.text-primary]="msg.isMine">{{ msg.sender }}</small>
+              <small class="text-muted timestamp">{{ msg.timestamp | date:'HH:mm' }}</small>
+            </div>
+            <p class="mb-0">{{ msg.content }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-footer">
+        <form (ngSubmit)="sendMessage()" class="d-flex gap-2">
+          <button type="button" class="btn btn-light border"><i class="bi bi-paperclip"></i></button>
+          <input type="text" class="form-control" placeholder="اكتب رسالتك هنا..." [(ngModel)]="newMessage" name="message" autocomplete="off" required>
+          <button type="submit" class="btn btn-primary-industrial px-4" [disabled]="!newMessage.trim()">
+            إرسال <i class="bi bi-send ms-2"></i>
+          </button>
+        </form>
+      </div>
+    </boc-glass-card>
   </div>
 </div>

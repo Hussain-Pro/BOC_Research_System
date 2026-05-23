@@ -1,168 +1,197 @@
-<div class="triage-container container fade-in" dir="rtl">
-  <!-- Live SignalR Broadcast Banner -->
-  <div *ngIf="infoMessage()" class="live-alert-banner fade-in">
-    <span class="live-dot"></span>
-    <span class="message-text">{{ infoMessage() }}</span>
-  </div>
+<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
+  <div class="container triage-container fade-in">
 
-  <div class="header-section">
-    <h1>لوحة فرز وتوزيع البحوث العلمية (Incoming Triage)</h1>
-    <p class="subtitle">قم بفرز البحوث ومراجعة المستندات وإسناد المقيمين بناءً على موازنة الأحمال ومكافحة تعارض المصالح.</p>
-  </div>
+    <div *ngIf="infoMessage()" class="live-alert-banner fade-in">
+      <span class="live-dot"></span>
+      <span class="message-text">{{ infoMessage() }}</span>
+    </div>
 
-  <div class="dashboard-grid">
-    <!-- List of Pending Papers -->
-    <div class="papers-sidebar card">
-      <h3>البحوث بانتظار الفرز ({{ triagePapers().length }})</h3>
-      <div *ngIf="isLoading()" class="loading-spinner">جاري التحميل...</div>
-      
-      <div *ngIf="!isLoading() && triagePapers().length === 0" class="empty-state">
-        <p>لا توجد بحوث جديدة في قائمة الفرز حالياً.</p>
+    <boc-page-hero
+      title="لوحة فرز وتوزيع البحوث العلمية"
+      subtitle="قم بفرز البحوث ومراجعة المستندات وإسناد المقيمين بناءً على موازنة الأحمال ومكافحة تعارض المصالح."
+      [breadcrumbs]="breadcrumbs">
+    </boc-page-hero>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <boc-stat-card
+          label="بحوث بانتظار الفرز"
+          [value]="triagePapers().length"
+          icon="bi-funnel"
+          iconBg="rgba(227, 116, 0, 0.12)"
+          iconColor="var(--boc-accent-triage)">
+        </boc-stat-card>
       </div>
-
-      <div class="papers-list" *ngIf="!isLoading()">
-        <div 
-          *ngFor="let paper of triagePapers()" 
-          class="paper-item" 
-          [class.selected]="selectedPaper()?.id === paper.id"
-          (click)="selectPaper(paper)">
-          <div class="paper-tracking">{{ paper.trackingNumber }}</div>
-          <div class="paper-title">{{ paper.title }}</div>
-          <div class="paper-meta">
-            <span>القسم: {{ paper.departmentName }}</span>
-            <span>التاريخ: {{ paper.createdAt | date:'yyyy-MM-dd' }}</span>
-          </div>
-        </div>
+      <div class="col-md-4">
+        <boc-stat-card
+          label="المقيمون المحددون"
+          [value]="selectedEvaluatorIds.length"
+          icon="bi-person-check"
+          iconBg="rgba(15, 42, 56, 0.1)"
+          iconColor="var(--boc-primary)">
+        </boc-stat-card>
+      </div>
+      <div class="col-md-4">
+        <boc-stat-card
+          label="أعضاء اللجنة المحددون"
+          [value]="selectedMemberIds.length"
+          icon="bi-people"
+          iconBg="rgba(13, 110, 253, 0.12)"
+          iconColor="var(--boc-accent-committee)">
+        </boc-stat-card>
       </div>
     </div>
 
-    <!-- Triage Details & Assigner Panel -->
-    <div class="triage-main-panel">
-      <!-- Success / Error Alerts -->
-      <div *ngIf="success()" class="alert alert-success fade-in">
-        ✓ تم توزيع وإسناد المقيمين بنجاح ونقل حالة البحث إلى (مرسل للمقيمين).
-      </div>
-      <div *ngIf="error()" class="alert alert-danger fade-in">
-        ⚠ {{ error() }}
-      </div>
+    <div class="dashboard-grid">
+      <boc-glass-card [title]="'البحوث بانتظار الفرز (' + triagePapers().length + ')'" extraClass="papers-sidebar">
+        <div *ngIf="isLoading()" class="loading-spinner">جاري التحميل...</div>
 
-      <div *ngIf="!selectedPaper() && !success()" class="no-selection card">
-        <div class="no-selection-icon">📁</div>
-        <h3>يرجى اختيار بحث من القائمة اليمنى لبدء عملية الفرز والتوزيع</h3>
-      </div>
+        <boc-empty-state
+          *ngIf="!isLoading() && triagePapers().length === 0"
+          icon="bi-inbox"
+          title="لا توجد بحوث جديدة"
+          message="لا توجد بحوث جديدة في قائمة الفرز حالياً.">
+        </boc-empty-state>
 
-      <div *ngIf="selectedPaper()" class="details-card card fade-in">
-        <div class="details-header">
-          <h2>{{ selectedPaper()?.title }}</h2>
-          <span class="badge badge-info">قيد الفرز والتقييم</span>
-        </div>
-
-        <div class="metadata-grid">
-          <div class="meta-field">
-            <strong>الباحث:</strong>
-            <span>{{ selectedPaper()?.researcherName }}</span>
-          </div>
-          <div class="meta-field">
-            <strong>الهيئة / المديرية:</strong>
-            <span>{{ selectedPaper()?.directorateName }}</span>
-          </div>
-          <div class="meta-field">
-            <strong>القسم:</strong>
-            <span>{{ selectedPaper()?.departmentName }}</span>
-          </div>
-          <div class="meta-field">
-            <strong>التصنيف:</strong>
-            <span>{{ selectedPaper()?.categoryName }}</span>
+        <div class="papers-list" *ngIf="!isLoading() && triagePapers().length">
+          <div
+            *ngFor="let paper of triagePapers()"
+            class="paper-item glass-card"
+            [class.selected]="selectedPaper()?.id === paper.id"
+            (click)="selectPaper(paper)">
+            <div class="paper-tracking">{{ paper.trackingNumber }}</div>
+            <div class="paper-title">{{ paper.title }}</div>
+            <div class="paper-meta">
+              <span>القسم: {{ paper.departmentName }}</span>
+              <span>التاريخ: {{ paper.createdAt | date:'yyyy-MM-dd' }}</span>
+            </div>
           </div>
         </div>
+      </boc-glass-card>
 
-        <div class="abstract-box">
-          <h4>خلاصة البحث العلمي</h4>
-          <p>{{ selectedPaper()?.abstract || 'لا يوجد مستخلص متوفر.' }}</p>
+      <div class="triage-main-panel">
+        <div *ngIf="success()" class="alert alert-success fade-in">
+          ✓ تم توزيع وإسناد المقيمين بنجاح ونقل حالة البحث إلى (مرسل للمقيمين).
+        </div>
+        <div *ngIf="error()" class="alert alert-danger fade-in">
+          ⚠ {{ error() }}
         </div>
 
-        <!-- Secure FTP Stream PDF Viewer -->
-        <div class="document-viewer-section">
-          <h4>مستند البحث (Secure Streaming)</h4>
-          <div class="viewer-actions">
-            <a [href]="getDocumentUrl(selectedPaper()!.id)" target="_blank" class="btn btn-secondary">
-              📥 تحميل الملف المرفق
-            </a>
-            <span class="security-lock">🔒 خادم FTP مؤمن باتصال SSL ونظام ClamAV</span>
+        <boc-glass-card *ngIf="!selectedPaper() && !success()">
+          <boc-empty-state
+            icon="bi-folder2-open"
+            title="اختر بحثاً للفرز"
+            message="يرجى اختيار بحث من القائمة اليمنى لبدء عملية الفرز والتوزيع.">
+          </boc-empty-state>
+        </boc-glass-card>
+
+        <boc-glass-card *ngIf="selectedPaper()" extraClass="fade-in">
+          <div class="details-header">
+            <h2>{{ selectedPaper()?.title }}</h2>
+            <span class="badge badge-info">قيد الفرز والتقييم</span>
           </div>
-          <div class="pdf-iframe-container" *ngIf="safeDocumentUrl">
-            <iframe [src]="safeDocumentUrl" width="100%" height="450px" style="border: none; border-radius: 4px;"></iframe>
+
+          <div class="metadata-grid">
+            <div class="meta-field">
+              <strong>الباحث:</strong>
+              <span>{{ selectedPaper()?.researcherName }}</span>
+            </div>
+            <div class="meta-field">
+              <strong>الهيئة / المديرية:</strong>
+              <span>{{ selectedPaper()?.directorateName }}</span>
+            </div>
+            <div class="meta-field">
+              <strong>القسم:</strong>
+              <span>{{ selectedPaper()?.departmentName }}</span>
+            </div>
+            <div class="meta-field">
+              <strong>التصنيف:</strong>
+              <span>{{ selectedPaper()?.categoryName }}</span>
+            </div>
           </div>
-        </div>
 
-        <!-- Evaluator Assignment Workload Balancer -->
-        <div class="assignment-section">
-          <h3>إسناد المقيمين وأعضاء اللجنة</h3>
-          <p class="instruction-text">
-            يتم تصفية المقيمين تلقائياً لاستبعاد تعارض المصالح (نفس القسم/المديرية) والذين بلغوا سن التقاعد (63).
-          </p>
+          <div class="abstract-box glass-card">
+            <h4>خلاصة البحث العلمي</h4>
+            <p>{{ selectedPaper()?.abstract || 'لا يوجد مستخلص متوفر.' }}</p>
+          </div>
 
-          <div *ngIf="isLoadingEvaluators()" class="loading-spinner">جاري جلب المقيمين وموازنة الأحمال...</div>
+          <div class="document-viewer-section">
+            <h4>مستند البحث (Secure Streaming)</h4>
+            <div class="viewer-actions">
+              <a [href]="getDocumentUrl(selectedPaper()!.id)" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill">
+                <i class="bi bi-download me-1"></i> تحميل الملف المرفق
+              </a>
+              <span class="security-lock"><i class="bi bi-shield-lock me-1"></i> خادم FTP مؤمن باتصال SSL ونظام ClamAV</span>
+            </div>
+            <div class="pdf-iframe-container" *ngIf="safeDocumentUrl">
+              <iframe [src]="safeDocumentUrl" width="100%" height="450px" style="border: none; border-radius: 4px;"></iframe>
+            </div>
+          </div>
 
-          <div class="evaluators-grid" *ngIf="!isLoadingEvaluators()">
-            <!-- Column 1: External Evaluators -->
-            <div class="evaluators-column">
-              <h4>المقيمون الخارجيون المؤهلون (التصنيف والأحمال)</h4>
-              <div class="list-wrapper">
-                <div 
-                  *ngFor="let ev of eligibleEvaluators()" 
-                  class="evaluator-card"
-                  [class.selected]="selectedEvaluatorIds.includes(ev.id)"
-                  (click)="toggleEvaluator(ev.id)">
-                  <div class="eval-info">
-                    <span class="eval-name">{{ ev.fullName }}</span>
-                    <span class="eval-spec">{{ ev.specializationName }}</span>
+          <div class="assignment-section">
+            <h3>إسناد المقيمين وأعضاء اللجنة</h3>
+            <p class="instruction-text">
+              يتم تصفية المقيمين تلقائياً لاستبعاد تعارض المصالح (نفس القسم/المديرية) والذين بلغوا سن التقاعد (63).
+            </p>
+
+            <div *ngIf="isLoadingEvaluators()" class="loading-spinner">جاري جلب المقيمين وموازنة الأحمال...</div>
+
+            <div class="evaluators-grid" *ngIf="!isLoadingEvaluators()">
+              <div class="evaluators-column">
+                <h4>المقيمون الخارجيون المؤهلون (التصنيف والأحمال)</h4>
+                <div class="list-wrapper">
+                  <div
+                    *ngFor="let ev of eligibleEvaluators()"
+                    class="evaluator-card glass-card"
+                    [class.selected]="selectedEvaluatorIds.includes(ev.id)"
+                    (click)="toggleEvaluator(ev.id)">
+                    <div class="eval-info">
+                      <span class="eval-name">{{ ev.fullName }}</span>
+                      <span class="eval-spec">{{ ev.specializationName }}</span>
+                    </div>
+                    <div class="eval-badges">
+                      <span class="tier-badge" [class.tier-1]="ev.tier === 1" [class.tier-2]="ev.tier === 2" [class.tier-3]="ev.tier === 3">
+                        الفئة {{ ev.tier }}
+                      </span>
+                      <span class="load-badge">الحمل النشط: {{ ev.activeLoad }}</span>
+                    </div>
+                    <div class="checkbox-indicator">
+                      {{ selectedEvaluatorIds.includes(ev.id) ? '✓' : '' }}
+                    </div>
                   </div>
-                  <div class="eval-badges">
-                    <span class="tier-badge" [class.tier-1]="ev.tier === 1" [class.tier-2]="ev.tier === 2" [class.tier-3]="ev.tier === 3">
-                      الفئة {{ ev.tier }}
-                    </span>
-                    <span class="load-badge">الحمل النشط: {{ ev.activeLoad }}</span>
-                  </div>
-                  <div class="checkbox-indicator">
-                    {{ selectedEvaluatorIds.includes(ev.id) ? '✓' : '' }}
+                </div>
+              </div>
+
+              <div class="evaluators-column">
+                <h4>أعضاء اللجنة الداخليون المؤهلون</h4>
+                <div class="list-wrapper">
+                  <div
+                    *ngFor="let ev of eligibleEvaluators()"
+                    class="evaluator-card member-card glass-card"
+                    [class.selected]="selectedMemberIds.includes(ev.id)"
+                    (click)="toggleMember(ev.id)">
+                    <div class="eval-info">
+                      <span class="eval-name">{{ ev.fullName }}</span>
+                      <span class="eval-spec">عضو لجنة</span>
+                    </div>
+                    <div class="checkbox-indicator">
+                      {{ selectedMemberIds.includes(ev.id) ? '✓' : '' }}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Column 2: Committee Members -->
-            <div class="evaluators-column">
-              <h4>أعضاء اللجنة الداخليون المؤهلون</h4>
-              <div class="list-wrapper">
-                <!-- In a real system, committee members are queryable. We reuse the evaluators query for selecting panel members. -->
-                <div 
-                  *ngFor="let ev of eligibleEvaluators()" 
-                  class="evaluator-card member-card"
-                  [class.selected]="selectedMemberIds.includes(ev.id)"
-                  (click)="toggleMember(ev.id)">
-                  <div class="eval-info">
-                    <span class="eval-name">{{ ev.fullName }}</span>
-                    <span class="eval-spec">عضو لجنة</span>
-                  </div>
-                  <div class="checkbox-indicator">
-                    {{ selectedMemberIds.includes(ev.id) ? '✓' : '' }}
-                  </div>
-                </div>
-              </div>
+            <div class="action-bar">
+              <button
+                class="btn btn-primary-industrial btn-large"
+                [disabled]="selectedEvaluatorIds.length === 0 && selectedMemberIds.length === 0"
+                (click)="onSubmitAssignment()">
+                إسناد وتوزيع المقيمين وتأكيد الحالة
+              </button>
             </div>
           </div>
-
-          <div class="action-bar">
-            <button 
-              class="btn btn-primary btn-large" 
-              [disabled]="selectedEvaluatorIds.length === 0 && selectedMemberIds.length === 0"
-              (click)="onSubmitAssignment()">
-              إسناد وتوزيع المقيمين وتأكيد الحالة
-            </button>
-          </div>
-        </div>
-
+        </boc-glass-card>
       </div>
     </div>
   </div>

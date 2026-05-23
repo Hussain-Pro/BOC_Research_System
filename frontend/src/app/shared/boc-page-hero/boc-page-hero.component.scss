@@ -1,0 +1,12 @@
+.hero-title {
+  color: var(--boc-primary);
+}
+
+.breadcrumb-item a {
+  color: var(--boc-secondary);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--boc-primary);
+  }
+}

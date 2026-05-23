@@ -1,72 +1,68 @@
-<div class="container-fluid min-vh-100 bg-light py-5" dir="rtl">
+<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
   <div class="container">
-    
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-5 p-4 rounded bg-white shadow-sm border-start border-4" style="border-color: var(--boc-secondary) !important;">
-      <div>
-        <h2 class="fw-bold mb-1" style="color: var(--boc-secondary);">إعدادات النظام (System Config)</h2>
-        <p class="text-muted mb-0">تكوين محددات النظام (SLA) والقوائم المنسدلة للأقسام العلمية والتخصصات.</p>
-      </div>
-      <button class="btn btn-primary-industrial btn-lg px-4">
-        <i class="bi bi-save me-2"></i> حفظ التغييرات
+    <boc-page-hero
+      title="إعدادات النظام"
+      subtitle="تكوين محددات النظام (SLA) والقوائم المنسدلة للأقسام العلمية والتخصصات."
+      [breadcrumbs]="[{ label: 'الرئيسية', route: '/home' }, { label: 'إعدادات النظام' }]">
+      <button heroActions type="button" class="btn btn-primary-industrial btn-sm rounded-pill">
+        <i class="bi bi-save me-1"></i> حفظ التغييرات
       </button>
-    </div>
+    </boc-page-hero>
 
     <div class="row g-4">
-      
-      <!-- SLA Variables -->
       <div class="col-md-5">
-        <div class="card shadow-sm border-0 p-4 h-100">
-          <h5 class="fw-bold mb-4 text-dark border-bottom pb-3"><i class="bi bi-sliders me-2 text-primary"></i> متغيرات SLA الأساسية</h5>
-          
+        <boc-glass-card title="متغيرات SLA الأساسية">
           <div class="mb-4">
             <label class="form-label fw-bold">الحد الأقصى لتقييم البحث (أيام)</label>
-            <input type="number" class="form-control form-control-lg" [value]="slaDays">
+            <input type="number" class="form-control" [value]="slaDays">
             <small class="text-muted">المدة الممنوحة للمقيم قبل تسجيل مخالفة SLA.</small>
           </div>
-          
+
           <div class="mb-4">
             <label class="form-label fw-bold">أيام التنبيه المبكر (Warning)</label>
-            <input type="number" class="form-control form-control-lg" [value]="warningDays">
+            <input type="number" class="form-control" [value]="warningDays">
             <small class="text-muted">عدد الأيام المتبقية لبدء إرسال إيميلات تذكيرية.</small>
           </div>
-          
-          <div class="mb-4">
+
+          <div class="mb-0">
             <label class="form-label fw-bold">فترة الاحتفاظ بالملفات المؤقتة (ساعات)</label>
-            <input type="number" class="form-control form-control-lg" [value]="tempRetention">
+            <input type="number" class="form-control" [value]="tempRetention">
           </div>
-        </div>
+        </boc-glass-card>
       </div>
-      
-      <!-- Dictionaries -->
+
       <div class="col-md-7">
-        <div class="card shadow-sm border-0 p-4 h-100">
-          <h5 class="fw-bold mb-4 text-dark border-bottom pb-3"><i class="bi bi-journal-bookmark me-2 text-primary"></i> إدارة قوائم النظام (Dictionaries)</h5>
-          
-          <ul class="nav nav-pills mb-4" id="configTabs" role="tablist">
+        <boc-glass-card title="إدارة قوائم النظام (Dictionaries)">
+          <ul class="nav nav-pills mb-4 config-tabs" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active bg-light text-dark fw-bold border" type="button">أقسام BOC المتخصصة</button>
+              <button class="nav-link active" type="button">أقسام BOC المتخصصة</button>
             </li>
             <li class="nav-item ms-2" role="presentation">
-              <button class="nav-link text-muted" type="button">معايير التقييم وأوزانها</button>
+              <button class="nav-link" type="button">معايير التقييم وأوزانها</button>
             </li>
           </ul>
-          
-          <div class="table-responsive">
-            <table class="table table-hover align-middle">
+
+          <div class="table-responsive admin-table">
+            <table class="table table-hover align-middle mb-0">
               <tbody>
                 <tr *ngFor="let dept of departments">
-                  <td class="w-100"><input type="text" class="form-control" [value]="dept.name"></td>
-                  <td class="text-end pe-3"><button class="btn btn-outline-danger" title="حذف"><i class="bi bi-trash"></i></button></td>
+                  <td class="w-100">
+                    <input type="text" class="form-control" [value]="dept.name">
+                  </td>
+                  <td class="text-end pe-0">
+                    <button type="button" class="btn btn-outline-danger btn-sm" title="حذف">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
-            <button class="btn btn-outline-primary mt-3"><i class="bi bi-plus-circle me-1"></i> إضافة قسم جديد</button>
           </div>
-        </div>
+          <button type="button" class="btn btn-outline-primary mt-3 rounded-pill">
+            <i class="bi bi-plus-circle me-1"></i> إضافة قسم جديد
+          </button>
+        </boc-glass-card>
       </div>
-      
     </div>
-
   </div>
 </div>

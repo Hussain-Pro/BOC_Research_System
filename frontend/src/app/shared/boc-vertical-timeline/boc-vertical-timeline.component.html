@@ -1,0 +1,43 @@
+<div class="boc-v-timeline" role="list">
+  <div
+    *ngFor="let step of steps; let i = index; let last = last"
+    class="timeline-item"
+    [class.timeline-item--last]="last"
+    [class.timeline-item--completed]="stepState(step) === 'completed'"
+    [class.timeline-item--active]="stepState(step) === 'active'"
+    [class.timeline-item--expanded]="isExpanded(i)"
+    role="listitem">
+
+    <div class="timeline-marker-col">
+      <button
+        type="button"
+        class="timeline-marker"
+        [attr.aria-expanded]="isExpanded(i)"
+        [attr.aria-label]="step.title"
+        (click)="toggleStep(i)">
+        <i *ngIf="stepState(step) === 'completed'" class="bi bi-check-lg"></i>
+        <span *ngIf="stepState(step) !== 'completed'">{{ i + 1 }}</span>
+      </button>
+      <div *ngIf="!last" class="timeline-connector" aria-hidden="true"></div>
+    </div>
+
+    <div class="timeline-body">
+      <button type="button" class="timeline-header" (click)="toggleStep(i)">
+        <div class="timeline-header-text">
+          <h6 class="timeline-title">{{ step.title }}</h6>
+          <small class="timeline-date text-muted" *ngIf="step.date">
+            {{ step.date | date:'yyyy/MM/dd HH:mm' }}
+          </small>
+        </div>
+        <i class="bi timeline-chevron" [class.bi-chevron-up]="isExpanded(i)" [class.bi-chevron-down]="!isExpanded(i)"></i>
+      </button>
+
+      <div class="timeline-content" *ngIf="isExpanded(i)">
+        <p class="timeline-description">{{ step.description }}</p>
+        <div *ngIf="step.isActive && step.requiresAction" class="timeline-action">
+          <ng-content select="[timelineAction]"></ng-content>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

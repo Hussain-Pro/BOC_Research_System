@@ -1,0 +1,21 @@
+<div class="boc-table-wrapper card-industrial overflow-hidden">
+  <table mat-table [dataSource]="dataSource" matSort class="w-100">
+    <ng-container *ngFor="let col of columns" [matColumnDef]="col">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ labelFor(col) }}</th>
+      <td mat-cell *matCellDef="let row">
+        <ng-container *ngIf="cellDefFor(col) as cellDef; else defaultCell">
+          <ng-container *ngTemplateOutlet="cellDef.templateRef; context: { $implicit: row }"></ng-container>
+        </ng-container>
+        <ng-template #defaultCell>{{ $any(row)[col] }}</ng-template>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell text-center text-muted py-4" [attr.colspan]="columns.length">
+        لا توجد بيانات للعرض
+      </td>
+    </tr>
+  </table>
+  <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons></mat-paginator>
+</div>
