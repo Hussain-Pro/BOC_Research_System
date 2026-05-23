@@ -3250,3 +3250,72 @@ ORDER BY [o].[OccurredOn]
 2026-05-24 01:39:16.738 +03:00 [INF]     Outbox Dispatcher completed processing.
 2026-05-24 01:39:16.739 +03:00 [DBG]     Trigger instruction : NoInstruction
 2026-05-24 01:39:16.740 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 01:39:46.729 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 01:39:46.730 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 01:39:46.743 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 01:39:46.757 +03:00 [INF]     Executed DbCommand (2ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 01:39:46.769 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 01:39:46.774 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 01:39:46.777 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 01:40:16.730 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 01:40:16.731 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 01:40:16.739 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 01:40:16.750 +03:00 [INF]     Executed DbCommand (3ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 01:40:16.757 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 01:40:16.759 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 01:40:16.761 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 01:40:46.737 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 01:40:46.742 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 01:40:46.761 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 01:40:46.789 +03:00 [INF]     Executed DbCommand (11ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 01:40:46.799 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 01:40:46.802 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 01:40:46.806 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 01:41:16.728 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 01:41:16.729 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 01:41:16.747 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 01:41:16.758 +03:00 [INF]     Executed DbCommand (2ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 01:41:16.775 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 01:41:16.775 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 01:41:16.779 +03:00 [DBG]     Calling Execute on job DEFAULT.EmailDispatcherJob
+2026-05-24 01:41:16.784 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 01:41:16.787 +03:00 [INF]     [EmailDispatcherJob] Starting email dispatch run...
+2026-05-24 01:41:16.791 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 01:41:16.854 +03:00 [INF]     Executed DbCommand (53ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [e].[Id], [e].[CreatedAt], [e].[DeliveryStatus], [e].[ErrorMessage], [e].[RecipientEmail], [e].[SentAt], [e].[Subject], [e].[TemplateType]
+FROM [EmailLogs] AS [e]
+WHERE [e].[DeliveryStatus] = N'Pending'
+ORDER BY [e].[CreatedAt]
+2026-05-24 01:41:16.899 +03:00 [INF]     Executed DbCommand (6ms) [Parameters=[@warningWindowStart='?' (DbType = DateTime2), @warningWindowEnd='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[AssignedById], [e].[AssignedDate], [e].[CreatedAt], [e].[DueDate], [e].[EvaluatorId], [e].[IsSLABreached], [e].[ModifiedAt], [e].[ReminderCount], [e].[ResearchId], [e].[RowVersion], [e].[Status], [e].[SubmittedDate], [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[BirthDate], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[DepartmentId], [a].[DeviceFingerprint], [a].[DirectorateId], [a].[Email], [a].[EmployeeID], [a].[EvaluatorStatus], [a].[FullName], [a].[IsEmailConfirmed], [a].[LastLoginAt], [a].[LockoutEnd], [a].[ModifiedAt], [a].[NationalID], [a].[NormalizedEmail], [a].[PasswordHash], [a].[PhoneNumber], [a].[RefreshTokenExpires], [a].[RefreshTokenHash], [a].[RoleId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[TwoFactorSecret], [r].[Id], [r].[Abstract], [r].[CategoryId], [r].[CreatedAt], [r].[DepartmentId], [r].[DirectorateId], [r].[FinalScore], [r].[IsArchived], [r].[MeetingId], [r].[MeetingMinutesId], [r].[ModifiedAt], [r].[ReplacedResearchId], [r].[ResearcherId], [r].[RowVersion], [r].[State], [r].[SubmissionDate], [r].[Title], [r].[TrackingNumber]
+FROM [EvaluatorAssignments] AS [e]
+INNER JOIN [AppUsers] AS [a] ON [e].[EvaluatorId] = [a].[Id]
+INNER JOIN [ResearchPapers] AS [r] ON [e].[ResearchId] = [r].[Id]
+WHERE [e].[Status] = N'Active' AND [e].[SubmittedDate] IS NULL AND [e].[IsSLABreached] = CAST(0 AS bit) AND [e].[ReminderCount] < 3 AND [e].[DueDate] >= @warningWindowStart AND [e].[DueDate] <= @warningWindowEnd
+2026-05-24 01:41:16.906 +03:00 [INF]     [EmailDispatcherJob] Completed. Sent: 0, Failed: 0.
+2026-05-24 01:41:16.907 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 01:41:16.911 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 01:41:27.204 +03:00 [INF]     Application is shutting down...
+2026-05-24 01:41:27.433 +03:00 [INF]     Scheduler QuartzScheduler_$_NON_CLUSTERED shutting down.
+2026-05-24 01:41:27.438 +03:00 [INF]     Scheduler QuartzScheduler_$_NON_CLUSTERED paused.
+2026-05-24 01:41:27.452 +03:00 [DBG]     Shutting down threadpool...
+2026-05-24 01:41:27.454 +03:00 [DBG]     Waiting for 0 threads to complete.
+2026-05-24 01:41:27.455 +03:00 [DBG]     No executing jobs remaining, all threads stopped.
+2026-05-24 01:41:27.456 +03:00 [DBG]     Shutdown of threadpool complete.
+2026-05-24 01:41:27.466 +03:00 [INF]     Scheduler QuartzScheduler_$_NON_CLUSTERED Shutdown complete.
