@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +15,10 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
   credentials = { email: '', password: '' };
   isLoading = false;
+  errorMessage = '';
   
   private authService = inject(AuthService);
+  private toastService = inject(ToastService);
   private router = inject(Router);
 
   onSubmit() {
@@ -41,14 +44,21 @@ export class LoginComponent {
           };
           this.router.navigate(['/auth/2fa'], { state: stateData });
         } else {
-          this.router.navigate(['/research/timeline']);
+          this.toastService.success('تم تسجيل الدخول بنجاح.');
+          const role = this.authService.getRole();
+          if (role === 'Admin') {
+            this.router.navigate(['/admin/analytics']);
+          } else {
+            this.router.navigate(['/home']);
+          }
         }
       },
       error: (err) => {
         console.error(err);
         this.isLoading = false;
-        alert(err.error?.title || err.error?.detail || 'فشل تسجيل الدخول. يرجى التحقق من البيانات.');
+        this.toastService.error(err.error?.detail || err.error?.title || 'فشل تسجيل الدخول. يرجى التحقق من البيانات.');
       }
     });
   }
 }
+

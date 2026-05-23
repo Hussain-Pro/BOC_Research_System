@@ -9,3 +9,4 @@ D:\WebApps\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\BOC.Domain.d
 D:\WebApps\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\refint\BOC.Domain.dll
 D:\WebApps\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\BOC.Domain.pdb
 D:\WebApps\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\ref\BOC.Domain.dll
+d:\WebApps\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\BOC.Domain.sourcelink.json

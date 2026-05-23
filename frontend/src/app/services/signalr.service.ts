@@ -28,7 +28,7 @@ export class SignalRService {
   public startConnections(token: string) {
     // 1. Notification Hub
     this.notificationHubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('https://localhost:7143/notificationHub', {
+      .withUrl('https://localhost:7139/notificationHub', {
         accessTokenFactory: () => token
       })
       .withAutomaticReconnect()
@@ -51,7 +51,7 @@ export class SignalRService {
 
     // 2. Chat Hub
     this.chatHubConnection = new signalR.HubConnectionBuilder()
-      .withUrl('https://localhost:7143/chatHub', {
+      .withUrl('https://localhost:7139/chatHub', {
         accessTokenFactory: () => token
       })
       .withAutomaticReconnect()

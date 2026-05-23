@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PRdZVUfH0o4=",
+  "dgSpecHash": "menfKfaF8xk=",
   "success": true,
-  "projectFilePath": "D:\\WebApps\\BOC_Research_System\\backend\\BOC.Infrastructure\\BOC.Infrastructure.csproj",
+  "projectFilePath": "d:\\WebApps\\BOC_Research_System\\backend\\BOC.Infrastructure\\BOC.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pc\\.nuget\\packages\\automapper\\16.1.1\\automapper.16.1.1.nupkg.sha512",
     "C:\\Users\\pc\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",

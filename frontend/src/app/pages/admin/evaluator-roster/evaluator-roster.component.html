@@ -1,85 +1,77 @@
-<div class="container-fluid min-vh-100 bg-light py-4" dir="rtl">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 style="color: var(--boc-primary); font-weight: 700;">
-      <i class="bi bi-people-fill me-2 text-primary"></i> سجل المقيمين وأحمال التقييم (Evaluator Roster)
-    </h2>
-    <div>
-      <button class="btn btn-primary-industrial ms-2"><i class="bi bi-person-plus ms-2"></i>إضافة مقيم جديد</button>
-    </div>
-  </div>
-
-  <div class="card-industrial p-4">
+<div class="container-fluid min-vh-100 bg-light py-5" dir="rtl">
+  <div class="container">
     
-    <!-- Filter Row -->
-    <div class="row mb-4">
-      <div class="col-md-4">
-        <input type="text" class="form-control" placeholder="بحث بالاسم أو التخصص...">
+    <div class="d-flex justify-content-between align-items-center mb-5 p-4 rounded bg-white shadow-sm border-start border-4" style="border-color: var(--boc-primary) !important;">
+      <div>
+        <h2 class="fw-bold mb-1" style="color: var(--boc-primary);">سجل المقيمين وأحمال التقييم (Evaluator Roster)</h2>
+        <p class="text-muted mb-0">مراقبة توفر المقيمين (Tiers) وتوزيع الأبحاث بشكل عادل ومدروس.</p>
       </div>
-      <div class="col-md-3">
-        <select class="form-select">
-          <option value="" selected>جميع التخصصات</option>
-          <option value="drilling">هندسة حفر</option>
-          <option value="reservoir">هندسة مكامن</option>
-          <option value="chemical">معالجة كيميائية</option>
-        </select>
-      </div>
-      <div class="col-md-3">
-        <select class="form-select">
-          <option value="" selected>ترتيب حسب الحمل (أقل إلى أعلى)</option>
-          <option value="1">ترتيب أبجدي</option>
-          <option value="2">ترتيب حسب التقييمات المنجزة</option>
-        </select>
-      </div>
+      <a routerLink="/home" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-right me-2"></i> العودة للرئيسية
+      </a>
     </div>
 
-    <!-- Tiered Roster Table -->
-    <div class="table-responsive">
-      <table class="table table-hover text-center align-middle border">
-        <thead class="table-light">
-          <tr>
-            <th>المقيم (الاسم والدرجة)</th>
-            <th>التخصص</th>
-            <th>حالة التوفر (Tier)</th>
-            <th>البحوث قيد التقييم (Active Load)</th>
-            <th>البحوث المنجزة (History)</th>
-            <th>مخالفات SLA</th>
-            <th>إجراءات</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Tier 1: Never Assigned -->
-          <tr class="table-success opacity-75">
-            <td class="text-start fw-bold">د. حسن إبراهيم (م. أقدم)</td>
-            <td>هندسة مكامن</td>
-            <td><span class="badge bg-success">Tier 1 (متاح جداً)</span></td>
-            <td><h5 class="mb-0">0</h5></td>
-            <td>0</td>
-            <td>0</td>
-            <td><button class="btn btn-sm btn-outline-primary">عرض السجل</button></td>
-          </tr>
-          <!-- Tier 2: Zero Active Load -->
-          <tr>
-            <td class="text-start fw-bold">د. فاطمة الزهراء (خبير)</td>
-            <td>معالجة كيميائية</td>
-            <td><span class="badge bg-primary">Tier 2 (متاح)</span></td>
-            <td><h5 class="mb-0 text-primary">0</h5></td>
-            <td>12</td>
-            <td>0</td>
-            <td><button class="btn btn-sm btn-outline-primary">عرض السجل</button></td>
-          </tr>
-          <!-- Tier 3: High Active Load -->
-          <tr>
-            <td class="text-start fw-bold">أ. خالد منصور (ر. مهندسين)</td>
-            <td>هندسة حفر</td>
-            <td><span class="badge bg-warning text-dark">Tier 3 (مشغول)</span></td>
-            <td><h5 class="mb-0 text-danger fw-bold">3</h5></td>
-            <td>45</td>
-            <td><span class="badge bg-danger rounded-pill">1</span></td>
-            <td><button class="btn btn-sm btn-outline-primary">عرض السجل</button></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="card shadow-sm border-0 p-4">
+      
+      <!-- Filter Row -->
+      <div class="row g-3 mb-4">
+        <div class="col-md-5">
+          <input type="text" class="form-control form-control-lg" placeholder="بحث بالاسم أو التخصص..." [(ngModel)]="searchQuery">
+        </div>
+        <div class="col-md-4">
+          <select class="form-select form-select-lg" [(ngModel)]="selectedSpecialty">
+            <option value="">جميع التخصصات</option>
+            <option value="حفر">هندسة حفر</option>
+            <option value="مكامن">هندسة مكامن</option>
+            <option value="كيميائية">معالجة كيميائية</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-primary-industrial btn-lg w-100">
+            <i class="bi bi-person-plus me-2"></i> إضافة مقيّم جديد
+          </button>
+        </div>
+      </div>
+
+      <!-- Tiered Roster Table -->
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="bg-light text-muted">
+            <tr>
+              <th class="ps-4 py-3">المقيّم (الاسم والدرجة)</th>
+              <th class="py-3">التخصص</th>
+              <th class="py-3 text-center">حالة التوفر (Tier)</th>
+              <th class="py-3 text-center">البحوث قيد التقييم</th>
+              <th class="py-3 text-center">البحوث المنجزة</th>
+              <th class="py-3 text-center">مخالفات SLA</th>
+              <th class="pe-4 py-3 text-end">إجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let r of filteredRoster" [ngClass]="{'bg-success bg-opacity-10': r.tier.includes('1')}">
+              <td class="ps-4 fw-bold text-dark">{{ r.name }}</td>
+              <td><span class="badge bg-light text-dark border">{{ r.specialty }}</span></td>
+              <td class="text-center">
+                <span class="badge" [ngClass]="getTierClass(r.tier)">{{ r.tier }}</span>
+              </td>
+              <td class="text-center">
+                <h5 class="mb-0 fw-bold" [ngClass]="{'text-danger': r.activeLoad >= 3, 'text-primary': r.activeLoad > 0 && r.activeLoad < 3}">{{ r.activeLoad }}</h5>
+              </td>
+              <td class="text-center text-muted">{{ r.completed }}</td>
+              <td class="text-center">
+                <span class="badge rounded-pill" [ngClass]="r.slaViolations > 0 ? 'bg-danger' : 'bg-success'">{{ r.slaViolations }}</span>
+              </td>
+              <td class="pe-4 text-end">
+                <button class="btn btn-sm btn-outline-primary"><i class="bi bi-eye me-1"></i> عرض السجل</button>
+              </td>
+            </tr>
+            <tr *ngIf="filteredRoster.length === 0">
+              <td colspan="7" class="text-center p-5 text-muted">لا يوجد مقيمين مطابقين للبحث.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
     </div>
-    
   </div>
 </div>

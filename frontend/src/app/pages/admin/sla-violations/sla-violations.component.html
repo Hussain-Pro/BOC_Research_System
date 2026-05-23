@@ -1,0 +1,63 @@
+<div class="container-fluid min-vh-100 bg-light py-5" dir="rtl">
+  <div class="container">
+    
+    <div class="d-flex justify-content-between align-items-center mb-5 p-4 rounded bg-white shadow-sm border-start border-4" style="border-color: var(--boc-danger) !important;">
+      <div>
+        <h2 class="fw-bold mb-1 text-danger">لوحة الأبحاث المتأخرة (SLA 10-Days Violation)</h2>
+        <p class="text-muted mb-0">مراقبة الأبحاث التي تجاوزت المدة القانونية للتقييم (10 أيام) واتخاذ الإجراءات اللازمة.</p>
+      </div>
+      <a routerLink="/home" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-right me-2"></i> العودة للرئيسية
+      </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="bg-light text-muted">
+              <tr>
+                <th class="ps-4 py-3">رقم البحث</th>
+                <th class="py-3">عنوان البحث</th>
+                <th class="py-3">المقيّم</th>
+                <th class="py-3">تاريخ الإسناد</th>
+                <th class="py-3">مدة التأخير</th>
+                <th class="pe-4 py-3 text-end">الإجراءات المتخذة</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let v of violations" [class.bg-danger]="v.status === 'Critical'" [class.bg-opacity-10]="v.status === 'Critical'">
+                <td class="ps-4 fw-bold">{{ v.researchId }}</td>
+                <td><div class="text-truncate" style="max-width: 200px;" [title]="v.researchTitle">{{ v.researchTitle }}</div></td>
+                <td><i class="bi bi-person-badge me-1"></i> {{ v.evaluatorName }}</td>
+                <td>{{ v.assignedDate | date:'yyyy/MM/dd' }}</td>
+                <td>
+                  <span class="badge" [ngClass]="v.status === 'Critical' ? 'bg-danger' : 'bg-warning text-dark'">
+                    متأخر {{ v.delayDays }} أيام
+                  </span>
+                </td>
+                <td class="pe-4 text-end">
+                  <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-secondary" (click)="sendReminder(v.evaluatorName)" title="إرسال تذكير عاجل">
+                      <i class="bi bi-envelope-exclamation"></i> تذكير
+                    </button>
+                    <button class="btn btn-sm btn-danger" (click)="reassignEvaluation(v.researchId)" title="سحب البحث وإعادة تعيينه">
+                      <i class="bi bi-arrow-left-right"></i> سحب وإعادة تعيين
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="violations.length === 0">
+                <td colspan="6" class="text-center p-5 text-muted">
+                  <i class="bi bi-shield-check display-4 text-success mb-3 d-block"></i>
+                  لا توجد أي أبحاث متأخرة حالياً. جميع اللجان ملتزمة بالـ SLA.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

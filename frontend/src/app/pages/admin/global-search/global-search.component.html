@@ -1,0 +1,75 @@
+<div class="container-fluid min-vh-100 bg-light py-5" dir="rtl">
+  <div class="container">
+    
+    <div class="d-flex justify-content-between align-items-center mb-5 p-4 rounded bg-white shadow-sm border-start border-4" style="border-color: var(--boc-primary) !important;">
+      <div>
+        <h2 class="fw-bold mb-1" style="color: var(--boc-primary);">محرك البحث الشامل (Global Search)</h2>
+        <p class="text-muted mb-0">ابحث عن أي بحث، مقيّم، باحث، أو محضر اجتماع في النظام.</p>
+      </div>
+      <a routerLink="/home" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-right me-2"></i> العودة للرئيسية
+      </a>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="card-body p-4">
+        <div class="row g-3">
+          <div class="col-md-8">
+            <div class="input-group input-group-lg">
+              <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
+              <input type="text" class="form-control border-start-0 ps-0" placeholder="اكتب رقم البحث، اسم الباحث، عنوان المحضر..." [(ngModel)]="searchQuery" (keyup.enter)="performSearch()">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <select class="form-select form-select-lg" [(ngModel)]="selectedFilter">
+              <option value="all">جميع السجلات</option>
+              <option value="research">الأبحاث فقط</option>
+              <option value="evaluator">المقيمين (الرستر)</option>
+              <option value="meeting">محاضر الاجتماعات</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-white border-bottom p-4">
+        <h6 class="fw-bold mb-0 text-muted">نتائج البحث ({{ searchResults.length }})</h6>
+      </div>
+      <div class="list-group list-group-flush">
+        <a href="javascript:void(0)" class="list-group-item list-group-item-action p-4 border-bottom" *ngFor="let res of searchResults">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <span class="badge" 
+                      [ngClass]="{
+                        'bg-primary': res.type === 'Research',
+                        'bg-success': res.type === 'Evaluator',
+                        'bg-warning text-dark': res.type === 'Meeting'
+                      }">
+                  <i class="bi bi-file-earmark-text me-1" *ngIf="res.type === 'Research'"></i>
+                  <i class="bi bi-person-badge me-1" *ngIf="res.type === 'Evaluator'"></i>
+                  <i class="bi bi-journal-text me-1" *ngIf="res.type === 'Meeting'"></i>
+                  {{ res.type === 'Research' ? 'بحث' : res.type === 'Evaluator' ? 'مقيّم' : 'محضر اجتماع' }}
+                </span>
+                <span class="text-muted small">{{ res.id }}</span>
+              </div>
+              <h5 class="fw-bold text-dark mb-1">{{ res.title }}</h5>
+              <small class="text-muted">تاريخ السجل: {{ res.date | date:'yyyy/MM/dd' }}</small>
+            </div>
+            <div>
+              <span class="badge bg-light text-dark border">{{ res.status }}</span>
+            </div>
+          </div>
+        </a>
+        <div class="p-5 text-center text-muted" *ngIf="searchResults.length === 0">
+          <i class="bi bi-search display-4 text-secondary opacity-50 mb-3 d-block"></i>
+          لا توجد نتائج مطابقة لبحثك.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

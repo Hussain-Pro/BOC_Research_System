@@ -203,3 +203,4 @@ D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\bin\Debug\net10.0\Microsoft.Ex
 D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\bin\Debug\net10.0\Microsoft.NET.StringTools.dll
 D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\bin\Debug\net10.0\Serilog.Enrichers.Environment.dll
 D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\bin\Debug\net10.0\Serilog.Enrichers.Thread.dll
+d:\WebApps\BOC_Research_System\backend\BOC.WebAPI\obj\Debug\net10.0\BOC.WebAPI.sourcelink.json

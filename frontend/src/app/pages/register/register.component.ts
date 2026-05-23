@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -12,13 +13,16 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
+  errorMessage = '';
+
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
+  private toastService = inject(ToastService);
   private router = inject(Router);
 
   registerForm: FormGroup = this.fb.group({
-    fullName: ['', Validators.required],
-    employeeID: ['', Validators.required],
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
     nationalID: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
@@ -34,13 +38,13 @@ export class RegisterComponent {
     this.isLoading = true;
     this.authService.register(this.registerForm.value).subscribe({
       next: () => {
-        alert('تم التسجيل بنجاح. حسابك بانتظار موافقة الموارد البشرية.');
+        this.toastService.success('تم التسجيل بنجاح. حسابك بانتظار موافقة الموارد البشرية.');
         this.router.navigate(['/auth/login']);
       },
       error: (err) => {
         console.error(err);
         this.isLoading = false;
-        alert(err.error?.detail || err.error?.title || 'فشل التسجيل. يرجى التحقق من البيانات.');
+        this.toastService.error(err.error?.detail || err.error?.title || 'فشل التسجيل. يرجى التحقق من البيانات.');
       }
     });
   }

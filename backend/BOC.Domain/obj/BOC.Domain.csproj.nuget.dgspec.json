@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\WebApps\\BOC_Research_System\\backend\\BOC.Domain\\BOC.Domain.csproj": {}
+    "d:\\WebApps\\BOC_Research_System\\backend\\BOC.Domain\\BOC.Domain.csproj": {}
   },
   "projects": {
-    "D:\\WebApps\\BOC_Research_System\\backend\\BOC.Domain\\BOC.Domain.csproj": {
+    "d:\\WebApps\\BOC_Research_System\\backend\\BOC.Domain\\BOC.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\WebApps\\BOC_Research_System\\backend\\BOC.Domain\\BOC.Domain.csproj",
+        "projectUniqueName": "d:\\WebApps\\BOC_Research_System\\backend\\BOC.Domain\\BOC.Domain.csproj",
         "projectName": "BOC.Domain",
-        "projectPath": "D:\\WebApps\\BOC_Research_System\\backend\\BOC.Domain\\BOC.Domain.csproj",
+        "projectPath": "d:\\WebApps\\BOC_Research_System\\backend\\BOC.Domain\\BOC.Domain.csproj",
         "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-        "outputPath": "D:\\WebApps\\BOC_Research_System\\backend\\BOC.Domain\\obj\\",
+        "outputPath": "d:\\WebApps\\BOC_Research_System\\backend\\BOC.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 25.1\\Components\\Offline Packages",

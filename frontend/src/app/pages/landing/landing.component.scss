@@ -1,0 +1,61 @@
+/* Landing Page Styles */
+.hero-section {
+  min-height: 100vh;
+  background-color: var(--boc-primary);
+}
+
+.bg-gradient-dark {
+  background: linear-gradient(135deg, rgba(15,42,56,0.9) 0%, rgba(15,42,56,0.7) 100%);
+}
+
+.slide-up-anim {
+  animation: slideUp 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.slide-up-anim-delay {
+  animation: slideUp 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.slide-up-anim-delay-2 {
+  animation: slideUp 0.8s ease-out 0.4s forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn-primary-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-primary-glass:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  color: white;
+}
+
+.btn-outline-light-glass {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-light-glass:hover {
+  background: white;
+  color: var(--boc-primary);
+  transform: translateY(-2px);
+}

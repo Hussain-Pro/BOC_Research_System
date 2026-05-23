@@ -15,3 +15,4 @@ D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\obj\Debug\net10.0\BOC.
 D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\obj\Debug\net10.0\refint\BOC.Infrastructure.dll
 D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\obj\Debug\net10.0\BOC.Infrastructure.pdb
 D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\obj\Debug\net10.0\ref\BOC.Infrastructure.dll
+d:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\obj\Debug\net10.0\BOC.Infrastructure.sourcelink.json

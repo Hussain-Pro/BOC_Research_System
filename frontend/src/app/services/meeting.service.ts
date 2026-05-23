@@ -46,7 +46,7 @@ export interface MeetingDetails {
   providedIn: 'root'
 })
 export class MeetingService {
-  private apiUrl = 'https://localhost:7143/api/meetings';
+  private apiUrl = 'https://localhost:7139/api/meetings';
 
   constructor(private http: HttpClient) {}
 

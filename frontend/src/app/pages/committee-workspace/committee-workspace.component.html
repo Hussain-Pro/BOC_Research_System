@@ -1,0 +1,146 @@
+<div class="container-fluid min-vh-100 bg-light p-0" dir="rtl">
+  
+  <!-- Header Navbar -->
+  <div class="bg-white shadow-sm border-bottom p-3 d-flex justify-content-between align-items-center sticky-top" style="z-index: 1000;">
+    <div>
+      <h4 class="fw-bold mb-0" style="color: var(--boc-primary);">مساحة عمل اللجان والتقييم</h4>
+      <small class="text-muted">مراجعة الأبحاث المسندة وإدخال التقييمات الفنية.</small>
+    </div>
+    <a routerLink="/home" class="btn btn-outline-secondary btn-sm">
+      <i class="bi bi-house me-1"></i> العودة للرئيسية
+    </a>
+  </div>
+
+  <div class="row g-0 h-100" style="height: calc(100vh - 72px) !important;">
+    
+    <!-- Left Sidebar: Assignments Queue -->
+    <div class="col-lg-3 bg-white border-end h-100 overflow-auto shadow-sm">
+      <div class="p-3 bg-light border-bottom sticky-top">
+        <h6 class="fw-bold mb-0">قائمة المهام ({{ assignments.length }})</h6>
+      </div>
+      
+      <div class="list-group list-group-flush">
+        <div class="p-4 text-center text-muted" *ngIf="assignments.length === 0">
+          <i class="bi bi-check2-circle display-4 text-success mb-2 d-block"></i>
+          لا توجد أبحاث مسندة إليك حالياً. أحسنت!
+        </div>
+
+        <button *ngFor="let assign of assignments" 
+                class="list-group-item list-group-item-action p-3 border-bottom"
+                [class.active-assignment]="selectedAssignment?.id === assign.id"
+                (click)="selectAssignment(assign)">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="badge bg-secondary">{{ assign.researchId }}</span>
+            <span class="badge bg-danger" *ngIf="getDaysRemaining(assign.dueDate) <= 3">
+              متبقي {{ getDaysRemaining(assign.dueDate) }} أيام!
+            </span>
+            <span class="badge bg-primary" *ngIf="getDaysRemaining(assign.dueDate) > 3">
+              متبقي {{ getDaysRemaining(assign.dueDate) }} يوم
+            </span>
+          </div>
+          <h6 class="fw-bold mb-1 lh-base">{{ assign.title }}</h6>
+          <small class="text-muted d-block">
+            <i class="bi bi-calendar-event me-1"></i> تاريخ الإسناد: {{ assign.assignedDate | date:'yyyy/MM/dd' }}
+          </small>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Workspace Area -->
+    <div class="col-lg-9 h-100 position-relative bg-light" *ngIf="selectedAssignment">
+      
+      <div class="row g-0 h-100">
+        
+        <!-- PDF Viewer Panel -->
+        <div class="col-xl-8 h-100 d-flex flex-column border-end position-relative">
+          
+          <!-- Viewer Toolbar -->
+          <div class="bg-white p-2 border-bottom d-flex justify-content-between align-items-center shadow-sm z-1">
+            <div class="btn-group">
+              <button class="btn btn-sm btn-outline-secondary" (click)="zoomIn()" title="تكبير"><i class="bi bi-zoom-in"></i></button>
+              <button class="btn btn-sm btn-outline-secondary" (click)="zoomOut()" title="تصغير"><i class="bi bi-zoom-out"></i></button>
+            </div>
+            
+            <span class="fw-bold text-muted small px-3">مستعرض الملفات المشفر</span>
+
+            <button class="btn btn-sm btn-outline-primary" (click)="downloadPdf()">
+              <i class="bi bi-download me-1"></i> تنزيل الملف
+            </button>
+          </div>
+
+          <!-- PDF Canvas -->
+          <div class="flex-grow-1 overflow-auto bg-secondary bg-opacity-10 position-relative p-4" style="height: calc(100vh - 120px);">
+             <pdf-viewer 
+                [src]="pdfSrc"
+                [render-text]="true"
+                [original-size]="false"
+                [zoom]="zoom"
+                style="width: 100%; height: 100%; display: block;"
+                (after-load-complete)="pdfLoading = false">
+             </pdf-viewer>
+
+             <div class="position-absolute top-50 start-50 translate-middle" *ngIf="pdfLoading">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+             </div>
+          </div>
+        </div>
+
+        <!-- Evaluation Form Panel -->
+        <div class="col-xl-4 h-100 bg-white d-flex flex-column shadow-sm z-2">
+          <div class="p-3 bg-light border-bottom">
+            <h6 class="fw-bold mb-0" style="color: var(--boc-primary);">نموذج التقييم الفني</h6>
+          </div>
+          
+          <div class="flex-grow-1 p-4 overflow-auto">
+            
+            <!-- Metadata Snippet -->
+            <div class="alert alert-secondary mb-4">
+              <h6 class="fw-bold text-dark">{{ selectedAssignment.title }}</h6>
+              <hr>
+              <p class="mb-0 small text-muted">الحد الأقصى للتسليم: {{ selectedAssignment.dueDate | date:'yyyy/MM/dd' }}</p>
+            </div>
+
+            <!-- Score Input -->
+            <div class="mb-4">
+              <label class="form-label fw-bold">الدرجة الممنوحة (من 100) <span class="text-danger">*</span></label>
+              <div class="input-group input-group-lg">
+                <input type="number" class="form-control text-center fs-3 fw-bold" [(ngModel)]="evaluationScore" min="0" max="100" placeholder="0 - 100">
+                <span class="input-group-text bg-light text-muted">%</span>
+              </div>
+            </div>
+
+            <!-- Comments Input -->
+            <div class="mb-4">
+              <label class="form-label fw-bold">التقرير الفني (المبررات) <span class="text-danger">*</span></label>
+              <textarea class="form-control" rows="8" [(ngModel)]="evaluationComments" placeholder="اكتب الملاحظات الفنية والمبررات للدرجة الممنوحة هنا..."></textarea>
+              <div class="form-text">الحد الأدنى 20 حرف. سيعرض التقرير أمام اللجنة في محضر الاجتماع.</div>
+            </div>
+
+          </div>
+
+          <!-- Submit Footer -->
+          <div class="p-3 border-top bg-light">
+            <button class="btn btn-primary-industrial w-100 btn-lg shadow-sm" [disabled]="isSubmitting" (click)="submitEvaluation()">
+              <span *ngIf="!isSubmitting"><i class="bi bi-shield-check me-2"></i> اعتماد وإرسال التقييم</span>
+              <span *ngIf="isSubmitting"><span class="spinner-border spinner-border-sm me-2"></span> جاري الإرسال...</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Empty State -->
+    <div class="col-lg-9 h-100 d-flex align-items-center justify-content-center bg-light" *ngIf="!selectedAssignment">
+      <div class="text-center text-muted">
+        <i class="bi bi-folder2-open display-1 text-secondary opacity-50 mb-3 d-block"></i>
+        <h5>يرجى اختيار بحث من القائمة الجانبية للبدء بالتقييم.</h5>
+      </div>
+    </div>
+
+  </div>
+</div>

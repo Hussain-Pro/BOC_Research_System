@@ -52,7 +52,13 @@ export class AuthService {
     if (token) {
       return this.jwtHelper.decodeToken(token);
     }
-    return { name: 'المستخدم الحالي', role: 'System Administrator' };
+    return null;
+  }
+
+  getRole(): string {
+    const user = this.currentUser();
+    if (!user) return '';
+    return user['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || user.role || '';
   }
 
   refreshToken(): Observable<any> {

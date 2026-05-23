@@ -1,0 +1,86 @@
+<div class="container-fluid min-vh-100 bg-light py-5" dir="rtl">
+  <div class="container">
+    
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-5 p-4 rounded bg-white shadow-sm border-start border-4" style="border-color: var(--boc-primary) !important;">
+      <div>
+        <h2 class="fw-bold mb-1" style="color: var(--boc-primary);">جدولة اجتماع اللجنة (Meeting Scheduler)</h2>
+        <p class="text-muted mb-0">إنشاء اجتماع جديد، بناء جدول الأعمال (Agenda)، وإرسال دعوات (RSVP) للأعضاء.</p>
+      </div>
+      <a routerLink="/meetings/studio" class="btn btn-outline-primary">
+        <i class="bi bi-journal-text me-2"></i> الانتقال للاستوديو (المحاضر السابقة)
+      </a>
+    </div>
+
+    <div class="row g-4">
+      
+      <!-- Meeting Details Form -->
+      <div class="col-lg-5">
+        <div class="card shadow-sm border-0 h-100">
+          <div class="card-header bg-white border-bottom p-4">
+            <h5 class="fw-bold mb-0 text-dark">تفاصيل الاجتماع الأساسية</h5>
+          </div>
+          <div class="card-body p-4">
+            
+            <div class="mb-4">
+              <label class="form-label fw-bold">تاريخ الاجتماع <span class="text-danger">*</span></label>
+              <input type="date" class="form-control form-control-lg" [(ngModel)]="meetingDate">
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-bold">وقت الاجتماع <span class="text-danger">*</span></label>
+              <input type="time" class="form-control form-control-lg" [(ngModel)]="meetingTime">
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-bold">موقع الاجتماع / الرابط <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-lg" [(ngModel)]="meetingLocation" placeholder="مثال: قاعة الاجتماعات أو رابط Google Meet">
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Agenda Builder -->
+      <div class="col-lg-7">
+        <div class="card shadow-sm border-0 h-100">
+          <div class="card-header bg-white border-bottom p-4">
+            <h5 class="fw-bold mb-0 text-dark">بناء جدول الأعمال (Agenda)</h5>
+            <small class="text-muted">الأبحاث المكتملة التقييم والجاهزة للعرض على اللجنة.</small>
+          </div>
+          <div class="card-body p-0">
+            
+            <div class="list-group list-group-flush">
+              <label class="list-group-item list-group-item-action d-flex gap-3 py-3" *ngFor="let research of availableResearches">
+                <input class="form-check-input flex-shrink-0 fs-4" type="checkbox" [(ngModel)]="research.selected">
+                <div class="d-flex gap-2 w-100 justify-content-between align-items-center">
+                  <div>
+                    <h6 class="mb-1 fw-bold">{{ research.title }}</h6>
+                    <p class="mb-0 text-muted small">رقم البحث: <span class="badge bg-secondary">{{ research.id }}</span></p>
+                  </div>
+                  <div>
+                    <span class="badge bg-success bg-opacity-10 text-success border border-success"><i class="bi bi-check-circle me-1"></i> جاهز للعرض</span>
+                  </div>
+                </div>
+              </label>
+            </div>
+
+            <div class="p-4 bg-light border-top text-center" *ngIf="availableResearches.length === 0">
+              <p class="text-muted mb-0">لا توجد أبحاث مكتملة التقييم حالياً.</p>
+            </div>
+
+          </div>
+          
+          <div class="card-footer bg-white border-top p-4">
+            <button class="btn btn-primary-industrial btn-lg w-100 shadow-sm" [disabled]="isSubmitting" (click)="scheduleMeeting()">
+              <span *ngIf="!isSubmitting"><i class="bi bi-calendar-plus me-2"></i> اعتماد الاجتماع وإرسال الدعوات</span>
+              <span *ngIf="isSubmitting"><span class="spinner-border spinner-border-sm me-2"></span> جاري الإرسال...</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

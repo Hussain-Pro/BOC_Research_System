@@ -163,6 +163,6 @@ export class TriageDashboardComponent implements OnInit, OnDestroy {
 
   // Secure FTP Stream URL provider
   getDocumentUrl(paperId: string): string {
-    return `https://localhost:7143/api/research/${paperId}/document`;
+    return `https://localhost:7139/api/research/${paperId}/document`;
   }
 }

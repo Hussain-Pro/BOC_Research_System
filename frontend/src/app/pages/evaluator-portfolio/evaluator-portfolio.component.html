@@ -1,0 +1,86 @@
+<div class="container-fluid min-vh-100 bg-light py-5" dir="rtl">
+  <div class="container">
+    
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-5 p-4 rounded bg-white shadow-sm border-start border-4" style="border-color: #8430CE !important;">
+      <div>
+        <h2 class="fw-bold mb-1" style="color: #8430CE;">السجل التاريخي للمقيّم (Evaluator Portfolio)</h2>
+        <p class="text-muted mb-0">سجل بجميع الأبحاث التي قمت بتقييمها، مع مؤشرات الأداء الخاصة بك.</p>
+      </div>
+      <a routerLink="/committee/workspace" class="btn text-white px-4" style="background-color: #8430CE;">
+        <i class="bi bi-clipboard-check me-2"></i> العودة لمساحة العمل
+      </a>
+    </div>
+
+    <!-- KPIs Row -->
+    <div class="row g-4 mb-5">
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0 bg-white h-100 text-center p-4">
+          <h1 class="display-4 fw-bold" style="color: var(--boc-primary);">{{ kpis.totalEvaluated }}</h1>
+          <p class="text-muted mb-0">إجمالي الأبحاث المقيمة</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0 bg-white h-100 text-center p-4">
+          <h1 class="display-4 fw-bold text-success">{{ kpis.onTimePercentage }}%</h1>
+          <p class="text-muted mb-0">نسبة الالتزام بوقت التقييم (SLA)</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0 bg-white h-100 text-center p-4">
+          <h1 class="display-4 fw-bold text-info">{{ kpis.averageScoreGiven }}</h1>
+          <p class="text-muted mb-0">متوسط الدرجات الممنوحة</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Grid -->
+    <div class="card shadow-sm border-0">
+      <div class="card-header bg-white border-bottom p-4">
+        <h5 class="fw-bold mb-0">قائمة الأبحاث المقيمة سابقاً</h5>
+      </div>
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="bg-light text-muted">
+              <tr>
+                <th class="ps-4 py-3">رقم التقييم</th>
+                <th class="py-3">عنوان البحث</th>
+                <th class="py-3">تاريخ الإسناد</th>
+                <th class="py-3">تاريخ الإنجاز</th>
+                <th class="py-3">الدرجة الممنوحة</th>
+                <th class="py-3">التأخير (أيام)</th>
+                <th class="pe-4 py-3">القرار النهائي للجنة</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let record of portfolioRecords">
+                <td class="ps-4 fw-bold text-muted">{{ record.id }}</td>
+                <td>
+                  <div class="fw-bold text-dark" style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" [title]="record.title">
+                    <span class="badge bg-secondary me-2">{{ record.researchId }}</span> {{ record.title }}
+                  </div>
+                </td>
+                <td>{{ record.assignedDate | date:'yyyy/MM/dd' }}</td>
+                <td>{{ record.evaluatedDate | date:'yyyy/MM/dd' }}</td>
+                <td>
+                  <span class="fw-bold fs-5 text-primary">{{ record.givenScore }}%</span>
+                </td>
+                <td>
+                  <span class="badge" [ngClass]="record.delayDays > 0 ? 'bg-danger' : 'bg-success'">
+                    {{ record.delayDays > 0 ? record.delayDays + ' أيام' : 'ملتزم بالموعد' }}
+                  </span>
+                </td>
+                <td class="pe-4">
+                  <span class="badge bg-success" *ngIf="record.committeeFinalStatus === 'Pass_Approved'">مقبول نهائياً</span>
+                  <span class="badge bg-danger" *ngIf="record.committeeFinalStatus === 'Fail_Rejected'">مرفوض نهائياً</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

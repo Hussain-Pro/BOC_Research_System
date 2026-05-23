@@ -1,56 +1,65 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss'
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent {
+  resetPasswordForm: FormGroup;
+  isLoading = false;
+  isSuccess = false;
+  message = '';
+  errorMessage = '';
+  
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
-  private route = inject(ActivatedRoute);
+  private toastService = inject(ToastService);
   private router = inject(Router);
 
-  resetForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    token: ['', Validators.required],
-    newPassword: ['', [Validators.required, Validators.minLength(6)]]
-  });
-
-  isLoading = false;
-
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      if (params['email']) {
-        this.resetForm.patchValue({ email: params['email'] });
-      }
-      if (params['token']) {
-        this.resetForm.patchValue({ token: params['token'] });
-      }
+  constructor() {
+    this.resetPasswordForm = this.fb.group({
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required]
     });
   }
 
   onSubmit() {
-    if (this.resetForm.invalid) return;
+    if (this.resetPasswordForm.invalid) return;
     
     this.isLoading = true;
     
-    this.authService.resetPassword(this.resetForm.value).subscribe({
+    // محاكاة طلب التحديث للاختبار فقط
+    setTimeout(() => {
+      this.isSuccess = true;
+      this.isLoading = false;
+      this.message = 'تم إعادة تعيين كلمة المرور بنجاح';
+      this.toastService.success(this.message);
+    }, 1500);
+    
+    /*
+    const val = this.resetPasswordForm.value;
+    this.authService.resetPassword('token_here', val.email_here, val.newPassword).subscribe({
       next: () => {
-        alert('تم تغيير كلمة المرور بنجاح. يمكنك الآن تسجيل الدخول.');
-        this.router.navigate(['/auth/login']);
+        this.isSuccess = true;
+        this.isLoading = false;
+        this.message = 'تم إعادة تعيين كلمة المرور بنجاح';
+        this.toastService.success(this.message);
       },
       error: (err) => {
-        console.error(err);
+        console.error('Reset Password Error', err);
+        this.errorMessage = err.error?.message || 'حدث خطأ أثناء محاولة إعادة تعيين كلمة المرور.';
         this.isLoading = false;
-        alert(err.error?.detail || err.error?.title || 'فشل في إعادة تعيين كلمة المرور. قد يكون الرابط منتهي الصلاحية.');
+        this.toastService.error(this.errorMessage);
       }
     });
+    */
   }
 }

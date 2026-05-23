@@ -1,0 +1,19 @@
+.btn-primary-industrial {
+  background-color: var(--boc-primary);
+  border-color: var(--boc-primary);
+  color: white;
+}
+.btn-primary-industrial:hover {
+  background-color: var(--boc-primary-light);
+  border-color: var(--boc-primary-light);
+  color: white;
+}
+
+.list-group-item {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: #f8f9fa;
+  }
+}

@@ -1,62 +1,72 @@
-<div class="container-fluid min-vh-100 bg-light py-4" dir="rtl">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 style="color: var(--boc-primary); font-weight: 700;">
-      <i class="bi bi-gear-fill me-2 text-primary"></i> إعدادات النظام ومعاجم البيانات (System Config)
-    </h2>
-    <button class="btn btn-success px-4"><i class="bi bi-save ms-2"></i> حفظ التغييرات</button>
-  </div>
-
-  <div class="row">
-    <div class="col-md-4 mb-4">
-      <div class="card-industrial p-4 h-100">
-        <h5 class="text-secondary mb-4 border-bottom pb-2">متغيرات SLA الأساسية</h5>
-        
-        <div class="mb-3">
-          <label class="form-label">الحد الأقصى لتقييم البحث (أيام)</label>
-          <input type="number" class="form-control" value="10">
-        </div>
-        
-        <div class="mb-3">
-          <label class="form-label">أيام التنبيه المبكر للباحثين</label>
-          <input type="number" class="form-control" value="3">
-        </div>
-        
-        <div class="mb-3">
-          <label class="form-label">فترة الاحتفاظ بالملفات المؤقتة (ساعات)</label>
-          <input type="number" class="form-control" value="24">
-        </div>
-      </div>
-    </div>
+<div class="container-fluid min-vh-100 bg-light py-5" dir="rtl">
+  <div class="container">
     
-    <div class="col-md-8 mb-4">
-      <div class="card-industrial p-4 h-100">
-        <h5 class="text-secondary mb-4 border-bottom pb-2">إدارة قوائم النظام (Dictionaries)</h5>
-        
-        <ul class="nav nav-tabs mb-3" id="configTabs" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active fw-bold" type="button">أقسام BOC المتخصصة</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link text-muted" type="button">معايير التقييم وأوزانها</button>
-          </li>
-        </ul>
-        
-        <div class="table-responsive">
-          <table class="table table-sm table-hover align-middle">
-            <tbody>
-              <tr>
-                <td class="w-75"><input type="text" class="form-control" value="قسم هندسة المكامن وتطوير الحقول"></td>
-                <td class="text-end"><button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button></td>
-              </tr>
-              <tr>
-                <td class="w-75"><input type="text" class="form-control" value="قسم الحفر والاستصلاح"></td>
-                <td class="text-end"><button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button></td>
-              </tr>
-            </tbody>
-          </table>
-          <button class="btn btn-sm btn-outline-primary mt-2"><i class="bi bi-plus"></i> إضافة قسم جديد</button>
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-5 p-4 rounded bg-white shadow-sm border-start border-4" style="border-color: var(--boc-secondary) !important;">
+      <div>
+        <h2 class="fw-bold mb-1" style="color: var(--boc-secondary);">إعدادات النظام (System Config)</h2>
+        <p class="text-muted mb-0">تكوين محددات النظام (SLA) والقوائم المنسدلة للأقسام العلمية والتخصصات.</p>
+      </div>
+      <button class="btn btn-primary-industrial btn-lg px-4">
+        <i class="bi bi-save me-2"></i> حفظ التغييرات
+      </button>
+    </div>
+
+    <div class="row g-4">
+      
+      <!-- SLA Variables -->
+      <div class="col-md-5">
+        <div class="card shadow-sm border-0 p-4 h-100">
+          <h5 class="fw-bold mb-4 text-dark border-bottom pb-3"><i class="bi bi-sliders me-2 text-primary"></i> متغيرات SLA الأساسية</h5>
+          
+          <div class="mb-4">
+            <label class="form-label fw-bold">الحد الأقصى لتقييم البحث (أيام)</label>
+            <input type="number" class="form-control form-control-lg" [value]="slaDays">
+            <small class="text-muted">المدة الممنوحة للمقيم قبل تسجيل مخالفة SLA.</small>
+          </div>
+          
+          <div class="mb-4">
+            <label class="form-label fw-bold">أيام التنبيه المبكر (Warning)</label>
+            <input type="number" class="form-control form-control-lg" [value]="warningDays">
+            <small class="text-muted">عدد الأيام المتبقية لبدء إرسال إيميلات تذكيرية.</small>
+          </div>
+          
+          <div class="mb-4">
+            <label class="form-label fw-bold">فترة الاحتفاظ بالملفات المؤقتة (ساعات)</label>
+            <input type="number" class="form-control form-control-lg" [value]="tempRetention">
+          </div>
         </div>
       </div>
+      
+      <!-- Dictionaries -->
+      <div class="col-md-7">
+        <div class="card shadow-sm border-0 p-4 h-100">
+          <h5 class="fw-bold mb-4 text-dark border-bottom pb-3"><i class="bi bi-journal-bookmark me-2 text-primary"></i> إدارة قوائم النظام (Dictionaries)</h5>
+          
+          <ul class="nav nav-pills mb-4" id="configTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active bg-light text-dark fw-bold border" type="button">أقسام BOC المتخصصة</button>
+            </li>
+            <li class="nav-item ms-2" role="presentation">
+              <button class="nav-link text-muted" type="button">معايير التقييم وأوزانها</button>
+            </li>
+          </ul>
+          
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <tbody>
+                <tr *ngFor="let dept of departments">
+                  <td class="w-100"><input type="text" class="form-control" [value]="dept.name"></td>
+                  <td class="text-end pe-3"><button class="btn btn-outline-danger" title="حذف"><i class="bi bi-trash"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="btn btn-outline-primary mt-3"><i class="bi bi-plus-circle me-1"></i> إضافة قسم جديد</button>
+          </div>
+        </div>
+      </div>
+      
     </div>
+
   </div>
 </div>

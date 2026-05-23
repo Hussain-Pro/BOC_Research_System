@@ -1,0 +1,15 @@
+.hover-card {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.icon-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,41 +1,83 @@
 <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light" dir="rtl">
   <div class="row w-100 justify-content-center">
-    <div class="col-md-5 col-lg-4">
-      <div class="card-industrial p-4 text-center">
-        <h3 class="mb-4" style="color: var(--boc-primary); font-weight: 700;">
-          المصادقة الثنائية (2FA)
-        </h3>
-        
-        <div *ngIf="requiresSetup" class="mb-4 text-center">
-          <div class="alert alert-info small text-end">
-            هذه هي المرة الأولى التي تسجل فيها الدخول. يرجى إعداد تطبيق المصادقة (مثل Google Authenticator).
+
+    <!-- Card -->
+    <div class="col-12 col-sm-10 col-md-7 col-lg-5 col-xl-4">
+      <div class="card-industrial p-4 p-md-5">
+
+        <!-- Header -->
+        <div class="text-center mb-4">
+          <div class="tfa-lock-icon mx-auto mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+            </svg>
           </div>
-          <img [src]="qrCodeUrl" alt="QR Code" class="img-fluid mb-2 border rounded p-2" style="max-width: 200px;">
-          <p class="small text-muted mb-0">أو أدخل هذا الرمز يدوياً:</p>
-          <code class="user-select-all fs-6">{{ secret }}</code>
+          <h3 class="mb-1" style="color: var(--boc-primary); font-weight: 700;">
+            المصادقة الثنائية (2FA)
+          </h3>
+          <p class="text-muted small mb-0" *ngIf="!requiresSetup">
+            أدخل الرمز المكوّن من 6 أرقام من تطبيق المصادقة
+          </p>
+          <p class="text-muted small mb-0" *ngIf="requiresSetup">
+            الإعداد الأوّلي — امسح رمز QR بتطبيق المصادقة
+          </p>
         </div>
 
-        <p class="text-muted small mb-4 text-end" *ngIf="!requiresSetup">
-          يرجى إدخال الرمز المكون من 6 أرقام من تطبيق المصادقة الخاص بك.
-        </p>
-        
-        <form (ngSubmit)="onSubmit()" #tfaForm="ngForm">
-          <div class="mb-4">
-            <input type="text" class="form-control form-control-lg text-center fw-bold text-tracking-widest" 
-                   id="code" [(ngModel)]="code" name="code" 
-                   required minlength="6" maxlength="6" 
-                   placeholder="000000" dir="ltr" autocomplete="one-time-code">
+        <!-- ══ SETUP SECTION ══ -->
+        <div *ngIf="requiresSetup">
+
+          <!-- Info box -->
+          <div class="tfa-info-box mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="flex-shrink-0 mt-1">
+              <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+            </svg>
+            <div class="small">
+              هذه المرة الأولى لتسجيل دخولك. امسح رمز QR باستخدام
+              <strong>Google Authenticator</strong> أو <strong>Microsoft Authenticator</strong>،
+              ثم أدخل الرمز المؤقت أدناه.
+            </div>
           </div>
-          
-          <button type="submit" class="btn btn-primary-industrial w-100 mb-3" [disabled]="!tfaForm.form.valid || isLoading">
-            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-            تأكيد
-          </button>
-        </form>
-        
-        <div class="mt-2">
-          <a routerLink="/auth/login" class="text-decoration-none text-muted small">العودة لتسجيل الدخول</a>
+
+          <!-- QR + Secret: stacked on mobile, side-by-side on md+ -->
+          <div class="row align-items-center mb-3 g-3">
+
+            <!-- QR Image -->
+            <div class="col-12 col-md-6 text-center">
+              <div class="tfa-qr-box mx-auto">
+                <img *ngIf="qrDataUrl"
+                     [src]="qrDataUrl"
+                     alt="رمز QR للمصادقة الثنائية"
+                     class="tfa-qr-img">
+                <div *ngIf="!qrDataUrl" class="tfa-qr-spinner">
+                  <div class="spinner-border" style="color: var(--boc-primary);" role="status"></div>
+                  <div class="small text-muted mt-2">جاري التوليد...</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Manual Key -->
+            <div class="col-12 col-md-6">
+              <div class="tfa-secret-box" (click)="copySecret()" title="انقر لنسخ الرمز">
+                <div class="small text-muted mb-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16" class="me-1">
+                    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5H3.5a.5.5 0 0 0 0 1H5v.5A1.5 1.5 0 0 0 6.5 4.5h3A1.5 1.5 0 0 0 11 3v-.5h1.5a.5.5 0 0 0 0-1H11A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                  </svg>
+                  أو أدخل الرمز يدوياً في التطبيق
+                </div>
+                <code class="tfa-secret-code">{{ secret }}</code>
+                <div class="tfa-copy-hint">انقر للنسخ</div>
+              </div>
+            </div>
+
+          </div>
         </div>
+        <!-- ══ END SETUP ══ -->
+
+        <!-- Divider -->
+        <div class="tfa-divider mb-3" *ngIf="requiresSetup">
+        </div>
+
       </div>
     </div>
   </div>

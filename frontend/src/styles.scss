@@ -60,3 +60,24 @@ body {
     background-color: var(--boc-primary-light);
   }
 }
+
+/* Driver.js Custom BOC Theme */
+.driverjs-theme-boc .driver-popover {
+  font-family: 'Tajawal', sans-serif;
+  border: 2px solid var(--boc-primary);
+  border-radius: 8px;
+}
+.driverjs-theme-boc .driver-popover-title {
+  color: var(--boc-primary);
+  font-weight: bold;
+}
+.driverjs-theme-boc .driver-popover-next-btn, .driverjs-theme-boc .driver-popover-done-btn {
+  background-color: var(--boc-primary) !important;
+  color: white !important;
+  text-shadow: none !important;
+}
+.driverjs-theme-boc .driver-popover-prev-btn {
+  background-color: #f8f9fa !important;
+  color: #6c757d !important;
+}
+

@@ -16,49 +16,78 @@
             <div class="col-md-6 mb-3">
               <label for="email" class="form-label">البريد الإلكتروني</label>
               <input type="email" class="form-control" id="email" formControlName="email" required dir="ltr">
-            </div>
-          </div>
-          
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="employeeID" class="form-label">الرقم الوظيفي</label>
-              <input type="text" class="form-control" id="employeeID" formControlName="employeeID" required dir="ltr">
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="nationalID" class="form-label">الرقم الوطني</label>
-              <input type="text" class="form-control" id="nationalID" formControlName="nationalID" required dir="ltr">
-            </div>
-          </div>
-          
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="birthDate" class="form-label">تاريخ الميلاد</label>
-              <input type="date" class="form-control" id="birthDate" formControlName="birthDate" required>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label for="roleId" class="form-label">نوع الحساب</label>
-              <select class="form-select" id="roleId" formControlName="roleId" required>
-                <option value="A7BE60BA-B82D-471F-B521-D89D98BC304C">باحث (Researcher)</option>
-                <option value="7713F124-36C9-41EA-8F89-EDDF79325A7F">مقيم خارجي (External Evaluator)</option>
-              </select>
-            </div>
-          </div>
-          
-          <div class="mb-4">
-            <label for="password" class="form-label">كلمة المرور</label>
-            <input type="password" class="form-control" id="password" formControlName="password" required dir="ltr">
-          </div>
-          
-          <button type="submit" class="btn btn-primary-industrial w-100 mb-3" [disabled]="registerForm.invalid || isLoading">
-            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-            تسجيل
-          </button>
-        </form>
-        
-        <div class="text-center mt-3">
-          <a routerLink="/auth/login" class="text-decoration-none" style="color: var(--boc-secondary);">العودة لتسجيل الدخول</a>
-        </div>
+<div class="login-wrapper d-flex min-vh-100" dir="rtl">
+  <!-- Left Side: Registration Form -->
+  <div class="login-form-side d-flex flex-column justify-content-center align-items-center bg-white shadow-lg p-4 p-md-5 overflow-auto">
+    <div class="w-100 py-5" style="max-width: 500px;">
+      <div class="text-center mb-5">
+        <img src="assets/boc_logo.png" alt="BOC Logo" width="80" class="mb-3" onerror="this.style.display='none'">
+        <h3 class="fw-bold text-dark">إنشاء حساب جديد</h3>
+        <p class="text-muted">انضم إلى مجتمع الباحثين في شركة نفط البصرة</p>
       </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger shadow-sm border-0 rounded-3 mb-4">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ errorMessage }}
+      </div>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        
+        <div class="row">
+          <div class="col-md-6 mb-4">
+            <label class="form-label fw-bold small text-muted">الاسم الأول</label>
+            <div class="input-group input-group-lg bg-light rounded-3 overflow-hidden">
+              <span class="input-group-text bg-transparent border-0 text-primary"><i class="bi bi-person"></i></span>
+              <input type="text" class="form-control bg-transparent border-0 px-2" formControlName="firstName" placeholder="أحمد">
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <label class="form-label fw-bold small text-muted">اسم العائلة</label>
+            <div class="input-group input-group-lg bg-light rounded-3 overflow-hidden">
+              <span class="input-group-text bg-transparent border-0 text-primary"><i class="bi bi-person"></i></span>
+              <input type="text" class="form-control bg-transparent border-0 px-2" formControlName="lastName" placeholder="العراقي">
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label fw-bold small text-muted">البريد الإلكتروني المؤسسي</label>
+          <div class="input-group input-group-lg bg-light rounded-3 overflow-hidden">
+            <span class="input-group-text bg-transparent border-0 text-primary"><i class="bi bi-envelope"></i></span>
+            <input type="email" class="form-control bg-transparent border-0 px-2" formControlName="email" placeholder="name@boc.iq" dir="ltr">
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label fw-bold small text-muted">كلمة المرور</label>
+          <div class="input-group input-group-lg bg-light rounded-3 overflow-hidden">
+            <span class="input-group-text bg-transparent border-0 text-primary"><i class="bi bi-shield-lock"></i></span>
+            <input type="password" class="form-control bg-transparent border-0 px-2" formControlName="password" placeholder="••••••••" dir="ltr">
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <label class="form-label fw-bold small text-muted">تأكيد كلمة المرور</label>
+          <div class="input-group input-group-lg bg-light rounded-3 overflow-hidden">
+            <span class="input-group-text bg-transparent border-0 text-primary"><i class="bi bi-shield-check"></i></span>
+            <input type="password" class="form-control bg-transparent border-0 px-2" formControlName="confirmPassword" placeholder="••••••••" dir="ltr">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold shadow-sm rounded-pill mb-4" [disabled]="registerForm.invalid || isLoading">
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+          إنشاء الحساب
+        </button>
+
+        <div class="text-center text-muted small">
+          لديك حساب بالفعل؟ <a routerLink="/auth/login" class="text-primary fw-bold text-decoration-none">تسجيل الدخول</a>
+        </div>
+      </form>
     </div>
+  </div>
+
+  <!-- Right Side: Cinematic Image Background -->
+  <div class="login-image-side d-none d-lg-block position-relative flex-grow-1">
+    <img src="assets/boc_login_bg.png" alt="Oil Rig Background" class="w-100 h-100 object-fit-cover">
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 10%);"></div>
   </div>
 </div>

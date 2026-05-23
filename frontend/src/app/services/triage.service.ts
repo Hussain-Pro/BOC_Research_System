@@ -38,7 +38,7 @@ export interface TriageAssignPayload {
   providedIn: 'root'
 })
 export class TriageService {
-  private apiUrl = 'https://localhost:7143/api/triage';
+  private apiUrl = 'https://localhost:7139/api/triage';
 
   constructor(private http: HttpClient) {}
 

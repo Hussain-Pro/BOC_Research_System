@@ -13,3 +13,4 @@ D:\WebApps\BOC_Research_System\backend\BOC.Application\obj\Debug\net10.0\BOC.App
 D:\WebApps\BOC_Research_System\backend\BOC.Application\obj\Debug\net10.0\refint\BOC.Application.dll
 D:\WebApps\BOC_Research_System\backend\BOC.Application\obj\Debug\net10.0\BOC.Application.pdb
 D:\WebApps\BOC_Research_System\backend\BOC.Application\obj\Debug\net10.0\ref\BOC.Application.dll
+d:\WebApps\BOC_Research_System\backend\BOC.Application\obj\Debug\net10.0\BOC.Application.sourcelink.json
