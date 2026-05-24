@@ -1,74 +1,94 @@
-<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
-  <div class="container-lg">
+<div class="anim-fade-in-up" id="researcher-history-page">
 
-    <boc-page-hero
-      title="تاريخ الأبحاث الشخصي"
-      subtitle="سجل بجميع الأبحاث التي قمت بتقديمها ونتائج التقييم النهائية.">
-      <a heroActions routerLink="/research/submit" class="btn btn-primary-industrial">
-        <i class="bi bi-plus-circle me-2"></i> تقديم بحث جديد
-      </a>
-    </boc-page-hero>
-
-    <boc-empty-state
-      *ngIf="historyRecords.length === 0"
-      icon="bi-journal-x"
-      title="لا توجد أبحاث مقدمة"
-      message="لم تقم بتقديم أي بحث بعد. ابدأ بتقديم بحثك الأول الآن."
-      actionLabel="تقديم بحث جديد"
-      actionRoute="/research/submit">
-    </boc-empty-state>
-
-    <boc-data-table
-      *ngIf="historyRecords.length > 0"
-      [columns]="tableColumns"
-      [columnLabels]="columnLabels"
-      [data]="historyRecords"
-      [pageSize]="10">
-
-      <ng-template bocTableCellDef="title" let-row>
-        <div class="title-cell" [title]="$any(row).title">{{ $any(row).title }}</div>
-      </ng-template>
-
-      <ng-template bocTableCellDef="category" let-row>
-        <span class="badge bg-light text-dark border">{{ $any(row).category }}</span>
-      </ng-template>
-
-      <ng-template bocTableCellDef="submittedAt" let-row>
-        {{ $any(row).submittedAt | date:'yyyy/MM/dd' }}
-      </ng-template>
-
-      <ng-template bocTableCellDef="status" let-row>
-        <boc-status-chip [status]="getStatusChip($any(row).status).type">
-          {{ getStatusChip($any(row).status).label }}
-        </boc-status-chip>
-      </ng-template>
-
-      <ng-template bocTableCellDef="score" let-row>
-        <span class="fw-bold"
-              [class.text-success]="$any(row).score !== null && $any(row).score >= 60"
-              [class.text-danger]="$any(row).score !== null && $any(row).score < 60"
-              [class.text-muted]="$any(row).score === null">
-          {{ $any(row).score !== null ? $any(row).score + '%' : '--' }}
-        </span>
-      </ng-template>
-
-      <ng-template bocTableCellDef="actions" let-row>
-        <a *ngIf="$any(row).status === 'Non_Compliant_Returned'"
-           [routerLink]="['/research/corrections', $any(row).id]"
-           class="btn btn-sm btn-outline-warning"
-           title="رفع التعديلات">
-          <i class="bi bi-pencil-square"></i> تعديل
-        </a>
-        <a *ngIf="$any(row).status !== 'Non_Compliant_Returned'"
-           [routerLink]="['/research/timeline']"
-           [queryParams]="{ id: $any(row).id }"
-           class="btn btn-sm btn-outline-primary"
-           title="عرض المسار">
-          <i class="bi bi-eye"></i>
-        </a>
-      </ng-template>
-
-    </boc-data-table>
-
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="text-h1">تاريخ الأبحاث الشخصي</h1>
+      <p class="text-label">سجل بجميع الأبحاث التي قمت بتقديمها ونتائج التقييم النهائية</p>
+    </div>
+    <a routerLink="/research/submit" class="btn btn-primary btn-md" id="new-research-btn">
+      <i class="bi bi-plus-lg"></i>
+      تقديم بحث جديد
+    </a>
   </div>
+
+  <!-- Empty State -->
+  <div *ngIf="historyRecords.length === 0" class="empty-state">
+    <div class="empty-icon"><i class="bi bi-journal-x"></i></div>
+    <h3>لا توجد أبحاث مقدمة</h3>
+    <p>لم تقم بتقديم أي بحث بعد. ابدأ بتقديم بحثك الأول الآن.</p>
+    <a routerLink="/research/submit" class="btn btn-primary btn-md" id="empty-state-submit-btn">
+      <i class="bi bi-plus-lg"></i>
+      تقديم بحث جديد
+    </a>
+  </div>
+
+  <!-- Data Table -->
+  <div class="card" *ngIf="historyRecords.length > 0">
+    <div class="card-header">
+      <span class="text-h3">الأبحاث المقدمة ({{ historyRecords.length }})</span>
+      <div style="display:flex;gap:8px">
+        <input class="form-input" style="width:220px;font-size:13px" placeholder="بحث في السجل..." type="search">
+      </div>
+    </div>
+    <div class="card-body" style="padding:0">
+
+      <boc-data-table
+        [columns]="tableColumns"
+        [columnLabels]="columnLabels"
+        [data]="historyRecords"
+        [pageSize]="10">
+
+        <ng-template bocTableCellDef="title" let-row>
+          <div class="text-body-strong" style="max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"
+               [title]="$any(row).title">{{ $any(row).title }}</div>
+        </ng-template>
+
+        <ng-template bocTableCellDef="category" let-row>
+          <span class="pill pill-default">{{ $any(row).category }}</span>
+        </ng-template>
+
+        <ng-template bocTableCellDef="submittedAt" let-row>
+          <span style="font-family:var(--font-family-english);font-size:13px;color:var(--text-secondary)">
+            {{ $any(row).submittedAt | date:'yyyy/MM/dd' }}
+          </span>
+        </ng-template>
+
+        <ng-template bocTableCellDef="status" let-row>
+          <boc-status-chip [status]="getStatusChip($any(row).status).type">
+            {{ getStatusChip($any(row).status).label }}
+          </boc-status-chip>
+        </ng-template>
+
+        <ng-template bocTableCellDef="score" let-row>
+          <span class="score-badge"
+                [class.score-pass]="$any(row).score !== null && $any(row).score >= 60"
+                [class.score-fail]="$any(row).score !== null && $any(row).score < 60"
+                [class.score-empty]="$any(row).score === null">
+            {{ $any(row).score !== null ? $any(row).score + '%' : '--' }}
+          </span>
+        </ng-template>
+
+        <ng-template bocTableCellDef="actions" let-row>
+          <div style="display:flex;gap:8px">
+            <a *ngIf="$any(row).status === 'Non_Compliant_Returned'"
+               [routerLink]="['/research/corrections', $any(row).id]"
+               class="btn btn-sm" style="background:rgba(255,193,7,0.1);color:#856404;border:1px solid rgba(255,193,7,0.3)"
+               id="edit-btn-{{$any(row).id}}" title="رفع التعديلات">
+              <i class="bi bi-pencil-square"></i> تعديل
+            </a>
+            <a *ngIf="$any(row).status !== 'Non_Compliant_Returned'"
+               [routerLink]="['/research/timeline']"
+               [queryParams]="{ id: $any(row).id }"
+               class="btn btn-sm" style="background:rgba(15,42,56,0.06);color:var(--boc-primary);border:1px solid var(--border-color)"
+               id="view-btn-{{$any(row).id}}" title="عرض المسار">
+              <i class="bi bi-eye"></i> عرض
+            </a>
+          </div>
+        </ng-template>
+
+      </boc-data-table>
+    </div>
+  </div>
+
 </div>

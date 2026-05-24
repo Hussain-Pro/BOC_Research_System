@@ -1,29 +1,24 @@
 <div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
   <div class="container">
-    <boc-page-hero
-      title="سجل المقيمين وأحمال التقييم"
-      subtitle="مراقبة توفر المقيمين (Tiers) وتوزيع الأبحاث بشكل عادل ومدروس."
-      [breadcrumbs]="[{ label: 'الرئيسية', route: '/home' }, { label: 'سجل المقيمين' }]">
+    <div class="page-header"><div><h1 class="text-h1">سجل المقيمين وأحمال التقييم</h1><p class="text-label">مراقبة توفر المقيمين (Tiers) وتوزيع الأبحاث بشكل عادل ومدروس.</p></div>
       <a heroActions routerLink="/home" class="btn btn-outline-secondary btn-sm rounded-pill">
         <i class="bi bi-arrow-right me-1"></i> العودة للرئيسية
       </a>
-    </boc-page-hero>
+    </div>
 
     <div class="row g-3 mb-4">
       <div class="col-md-4">
-        <boc-stat-card label="إجمالي المقيمين" [value]="roster.length" icon="bi-people"></boc-stat-card>
+        <div class="kpi-card"><div class="kpi-header"><span class="text-upper-label">إجمالي المقيمين</span></div><div class="kpi-value">{{ roster.length }}</div></div>
       </div>
       <div class="col-md-4">
-        <boc-stat-card label="البحوث قيد التقييم" [value]="totalActiveLoad" icon="bi-journal-text"
-                       iconBg="rgba(255, 193, 7, 0.15)" iconColor="var(--boc-warning)"></boc-stat-card>
+        <div class="kpi-card"><div class="kpi-header"><span class="text-upper-label">البحوث قيد التقييم</span></div><div class="kpi-value">{{ totalActiveLoad }}</div></div>
       </div>
       <div class="col-md-4">
-        <boc-stat-card label="البحوث المنجزة" [value]="totalCompleted" icon="bi-check-circle"
-                       iconBg="rgba(40, 167, 69, 0.12)" iconColor="var(--boc-success)"></boc-stat-card>
+        <div class="kpi-card"><div class="kpi-header"><span class="text-upper-label">البحوث المنجزة</span></div><div class="kpi-value">{{ totalCompleted }}</div></div>
       </div>
     </div>
 
-    <boc-glass-card title="قائمة المقيمين">
+    <div class="card mb-4"><div class="card-header"><span class="text-h3">قائمة المقيمين</span></div><div class="card-body">
       <div class="row g-3 mb-4">
         <div class="col-md-5">
           <input type="text" class="form-control" placeholder="بحث بالاسم أو التخصص..." [(ngModel)]="searchQuery">
@@ -43,11 +38,8 @@
         </div>
       </div>
 
-      <boc-empty-state *ngIf="filteredRoster.length === 0"
-                       icon="bi-search"
-                       title="لا يوجد مقيمين مطابقين"
-                       message="جرّب تعديل معايير البحث أو التخصص.">
-      </boc-empty-state>
+      <div class="empty-state" style="padding:40px"><div class="empty-icon"><i class="bi bi-info-circle"></i></div><h3>لا توجد بيانات</h3><p>البيانات المطلوبة غير متوفرة حالياً</p>
+      </div>
 
       <div class="table-responsive admin-table" *ngIf="filteredRoster.length">
         <table class="table table-hover align-middle mb-0">
@@ -87,6 +79,8 @@
           </tbody>
         </table>
       </div>
-    </boc-glass-card>
+    </div></div>
   </div>
 </div>
+
+

@@ -1,99 +1,109 @@
-<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
-  <div class="container">
-    <boc-page-hero
-      title="جدولة اجتماع اللجنة"
-      subtitle="إنشاء اجتماع جديد، بناء جدول الأعمال (Agenda)، وإرسال دعوات (RSVP) للأعضاء."
-      [breadcrumbs]="breadcrumbs">
-      <a heroActions routerLink="/committee/studio/1" class="btn btn-outline-primary btn-sm rounded-pill">
-        <i class="bi bi-journal-text me-2"></i> الانتقال للاستوديو
-      </a>
-    </boc-page-hero>
+<div class="anim-fade-in-up" id="meeting-scheduler-page">
 
-    <div class="row g-3 mb-4">
-      <div class="col-md-4">
-        <boc-stat-card
-          label="الأبحاث المتاحة"
-          [value]="availableResearches.length"
-          icon="bi-journals"
-          iconBg="rgba(13, 110, 253, 0.12)"
-          iconColor="var(--boc-accent-committee)">
-        </boc-stat-card>
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="text-h1">جدولة اجتماع اللجنة</h1>
+      <p class="text-label">إنشاء اجتماع جديد، بناء جدول الأعمال (Agenda)، وإرسال دعوات (RSVP) للأعضاء</p>
+    </div>
+    <a routerLink="/committee/studio/1" class="btn btn-primary btn-md" id="go-to-studio-btn">
+      <i class="bi bi-journal-text"></i> الانتقال للاستوديو
+    </a>
+  </div>
+
+  <!-- KPI Strip -->
+  <div class="kpi-grid kpi-grid-3 mb-5">
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">الأبحاث المتاحة</span>
+        <div class="kpi-icon" style="background:rgba(13, 110, 253, 0.12)">
+          <i class="bi bi-journals" style="color:var(--boc-accent-committee)"></i>
+        </div>
       </div>
-      <div class="col-md-4">
-        <boc-stat-card
-          label="محدد في جدول الأعمال"
-          [value]="selectedAgendaCount"
-          icon="bi-check2-square"
-          iconBg="rgba(40, 167, 69, 0.12)"
-          iconColor="var(--boc-success)">
-        </boc-stat-card>
+      <div class="kpi-value">{{ availableResearches.length }}</div>
+      <div class="kpi-label">بحث مكتمل التقييم</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">محدد في جدول الأعمال</span>
+        <div class="kpi-icon" style="background:rgba(40, 167, 69, 0.12)">
+          <i class="bi bi-check2-square" style="color:var(--boc-success)"></i>
+        </div>
       </div>
-      <div class="col-md-4">
-        <boc-stat-card
-          label="تاريخ الاجتماع"
-          [value]="meetingDate || '—'"
-          icon="bi-calendar-event"
-          iconBg="rgba(15, 42, 56, 0.1)"
-          iconColor="var(--boc-primary)">
-        </boc-stat-card>
+      <div class="kpi-value">{{ selectedAgendaCount }}</div>
+      <div class="kpi-label">بحث جاهز للعرض</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">تاريخ الاجتماع</span>
+        <div class="kpi-icon" style="background:rgba(15, 42, 56, 0.1)">
+          <i class="bi bi-calendar-event" style="color:var(--boc-primary)"></i>
+        </div>
+      </div>
+      <div class="kpi-value" style="font-size:20px;margin-top:10px">{{ meetingDate || '—' }}</div>
+      <div class="kpi-label">الموعد المقترح</div>
+    </div>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="row g-4 stagger-children">
+    
+    <div class="col-lg-5">
+      <div class="card">
+        <div class="card-header">
+          <span class="text-h3">تفاصيل الاجتماع الأساسية</span>
+        </div>
+        <div class="card-body">
+          <div class="form-group mb-4">
+            <label class="form-label">تاريخ الاجتماع <span class="text-danger">*</span></label>
+            <input type="date" class="form-input" [(ngModel)]="meetingDate">
+          </div>
+          <div class="form-group mb-4">
+            <label class="form-label">وقت الاجتماع <span class="text-danger">*</span></label>
+            <input type="time" class="form-input" [(ngModel)]="meetingTime">
+          </div>
+          <div class="form-group mb-0">
+            <label class="form-label">موقع الاجتماع / الرابط <span class="text-danger">*</span></label>
+            <input type="text" class="form-input" [(ngModel)]="meetingLocation" placeholder="مثال: قاعة الاجتماعات أو رابط Google Meet">
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="row g-4">
-      <div class="col-lg-5">
-        <boc-glass-card title="تفاصيل الاجتماع الأساسية">
-          <div class="mb-4">
-            <label class="form-label fw-bold">تاريخ الاجتماع <span class="text-danger">*</span></label>
-            <input type="date" class="form-control form-control-lg" [(ngModel)]="meetingDate">
+    <div class="col-lg-7">
+      <div class="card h-100" style="display:flex;flex-direction:column">
+        <div class="card-header">
+          <span class="text-h3">بناء جدول الأعمال (Agenda)</span>
+          <span class="text-caption">الأبحاث المكتملة التقييم والجاهزة للعرض على اللجنة</span>
+        </div>
+        <div class="card-body" style="padding:0;flex:1;display:flex;flex-direction:column">
+          
+          <div *ngIf="availableResearches.length === 0" class="empty-state" style="margin:auto">
+            <div class="empty-icon"><i class="bi bi-inbox"></i></div>
+            <h3>لا توجد أبحاث جاهزة</h3>
+            <p>لا توجد أبحاث مكتملة التقييم حالياً.</p>
           </div>
 
-          <div class="mb-4">
-            <label class="form-label fw-bold">وقت الاجتماع <span class="text-danger">*</span></label>
-            <input type="time" class="form-control form-control-lg" [(ngModel)]="meetingTime">
-          </div>
-
-          <div class="mb-0">
-            <label class="form-label fw-bold">موقع الاجتماع / الرابط <span class="text-danger">*</span></label>
-            <input type="text" class="form-control form-control-lg" [(ngModel)]="meetingLocation" placeholder="مثال: قاعة الاجتماعات أو رابط Google Meet">
-          </div>
-        </boc-glass-card>
-      </div>
-
-      <div class="col-lg-7">
-        <boc-glass-card
-          title="بناء جدول الأعمال (Agenda)"
-          subtitle="الأبحاث المكتملة التقييم والجاهزة للعرض على اللجنة."
-          [noPadding]="true">
-          <boc-empty-state
-            *ngIf="availableResearches.length === 0"
-            icon="bi-inbox"
-            title="لا توجد أبحاث جاهزة"
-            message="لا توجد أبحاث مكتملة التقييم حالياً.">
-          </boc-empty-state>
-
-          <div class="list-group list-group-flush" *ngIf="availableResearches.length">
-            <label class="list-group-item list-group-item-action d-flex gap-3 py-3 agenda-item" *ngFor="let research of availableResearches">
-              <input class="form-check-input flex-shrink-0 fs-4" type="checkbox" [(ngModel)]="research.selected">
-              <div class="d-flex gap-2 w-100 justify-content-between align-items-center">
-                <div>
-                  <h6 class="mb-1 fw-bold">{{ research.title }}</h6>
-                  <p class="mb-0 text-muted small">رقم البحث: <span class="badge bg-secondary">{{ research.id }}</span></p>
-                </div>
-                <span class="badge bg-success bg-opacity-10 text-success border border-success">
-                  <i class="bi bi-check-circle me-1"></i> جاهز للعرض
-                </span>
+          <div class="papers-list" *ngIf="availableResearches.length">
+            <label class="paper-item" *ngFor="let research of availableResearches" style="display:flex;align-items:center;gap:16px;cursor:pointer">
+              <input type="checkbox" class="form-checkbox" style="width:20px;height:20px;accent-color:var(--boc-primary)" [(ngModel)]="research.selected">
+              <div style="flex:1">
+                <div class="paper-title" style="margin-bottom:4px">{{ research.title }}</div>
+                <div class="paper-tracking" style="margin-bottom:0">{{ research.id }}</div>
               </div>
+              <span class="pill pill-success" style="font-size:11px"><i class="bi bi-check-circle"></i> جاهز</span>
             </label>
           </div>
-
-          <div class="p-4 border-top">
-            <button type="button" class="btn btn-primary-industrial btn-lg w-100" [disabled]="isSubmitting" (click)="scheduleMeeting()">
-              <span *ngIf="!isSubmitting"><i class="bi bi-calendar-plus me-2"></i> اعتماد الاجتماع وإرسال الدعوات</span>
-              <span *ngIf="isSubmitting"><span class="spinner-border spinner-border-sm me-2"></span> جاري الإرسال...</span>
-            </button>
-          </div>
-        </boc-glass-card>
+        </div>
+        <div class="card-footer" style="padding:20px;border-top:1px solid var(--border-color);background:rgba(15,42,56,0.02)">
+          <button type="button" class="btn btn-primary btn-lg w-100" [disabled]="isSubmitting" (click)="scheduleMeeting()">
+            <span class="spinner" *ngIf="isSubmitting"></span>
+            <i class="bi bi-calendar-plus" *ngIf="!isSubmitting"></i>
+            {{ isSubmitting ? 'جاري الإرسال...' : 'اعتماد الاجتماع وإرسال الدعوات' }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
+
 </div>

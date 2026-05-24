@@ -1,0 +1,25 @@
+<!-- Page Header Component -->
+<div class="page-header">
+  <div>
+    <h1 class="text-h1" *ngIf="title">{{ title | translate }}</h1>
+    <p class="text-body text-secondary" *ngIf="subtitle">{{ subtitle | translate }}</p>
+  </div>
+  <div class="actions" *ngIf="actions.length > 0">
+    <ng-container *ngFor="let action of actions">
+      <button
+        class="btn"
+        [class.btn-primary]="action.variant === 'primary'"
+        [class.btn-secondary]="action.variant === 'secondary'"
+        [class.btn-tertiary]="action.variant === 'tertiary'"
+        [class.btn-danger]="action.variant === 'danger'"
+        [class.btn-md]="action.size !== 'sm'"
+        [class.btn-sm]="action.size === 'sm'"
+        [disabled]="action.disabled"
+        (click)="action.handler()"
+      >
+        <i [class]="action.icon" *ngIf="action.icon"></i>
+        {{ action.label | translate }}
+      </button>
+    </ng-container>
+  </div>
+</div>

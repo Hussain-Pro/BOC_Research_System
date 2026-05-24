@@ -1,0 +1,137 @@
+<!-- Login Page — Enterprise Split-Screen Auth -->
+<div class="auth-page">
+  <!-- Visual Panel (Left on desktop) -->
+  <div class="auth-visual-panel">
+    <div class="auth-pattern"></div>
+    <div class="auth-visual-content">
+      <div class="auth-logo-large">
+        <i class="bi bi-bank"></i>
+      </div>
+      <h1 class="auth-title">{{ 'APP.TITLE' | translate }}</h1>
+      <p class="auth-subtitle">{{ 'APP.DESCRIPTION' | translate }}</p>
+      <div class="auth-features">
+        <div class="auth-feature">
+          <i class="bi bi-shield-check"></i>
+          <span>{{ 'AUTH.FEATURE_SECURE' | translate }}</span>
+        </div>
+        <div class="auth-feature">
+          <i class="bi bi-lightning-charge"></i>
+          <span>{{ 'AUTH.FEATURE_FAST' | translate }}</span>
+        </div>
+        <div class="auth-feature">
+          <i class="bi bi-globe"></i>
+          <span>{{ 'AUTH.FEATURE_ACCESSIBLE' | translate }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Panel (Right on desktop) -->
+  <div class="auth-form-panel">
+    <div class="auth-form-container">
+      <!-- Mobile-only brand -->
+      <div class="auth-mobile-brand">
+        <div class="auth-logo-small"><i class="bi bi-bank"></i></div>
+        <h2 class="text-h2">{{ 'APP.TITLE' | translate }}</h2>
+      </div>
+
+      <div class="auth-form-card">
+        <div class="auth-form-header">
+          <div class="auth-form-icon">
+            <i class="bi bi-person"></i>
+          </div>
+          <h3 class="text-h2">{{ 'AUTH.LOGIN_TITLE' | translate }}</h3>
+          <p class="text-body text-secondary">{{ 'AUTH.LOGIN_SUBTITLE' | translate }}</p>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+          <div class="form-group">
+            <label class="form-label">
+              {{ 'AUTH.EMAIL' | translate }}
+              <span class="required">*</span>
+            </label>
+            <input
+              type="email"
+              class="form-input"
+              [placeholder]="'AUTH.EMAIL_PLACEHOLDER' | translate"
+              formControlName="email"
+              [class.error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+            >
+            <div class="form-helper error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+              {{ 'AUTH.EMAIL_REQUIRED' | translate }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              {{ 'AUTH.PASSWORD' | translate }}
+              <span class="required">*</span>
+            </label>
+            <div class="password-input-wrap">
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                class="form-input"
+                [placeholder]="'AUTH.PASSWORD_PLACEHOLDER' | translate"
+                formControlName="password"
+                [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+              >
+              <button
+                type="button"
+                class="password-toggle"
+                (click)="showPassword = !showPassword"
+              >
+                <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+              </button>
+            </div>
+            <div class="form-helper error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+              {{ 'AUTH.PASSWORD_REQUIRED' | translate }}
+            </div>
+          </div>
+
+          <div class="auth-form-options">
+            <label class="auth-remember">
+              <input type="checkbox" formControlName="rememberMe">
+              <span>{{ 'AUTH.REMEMBER_ME' | translate }}</span>
+            </label>
+            <a class="auth-forgot" routerLink="/forgot-password">
+              {{ 'AUTH.FORGOT_PASSWORD' | translate }}
+            </a>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary btn-lg"
+            style="width: 100%"
+            [disabled]="loginForm.invalid || isLoading"
+          >
+            <span *ngIf="!isLoading">{{ 'AUTH.LOGIN' | translate }}</span>
+            <span *ngIf="isLoading" class="auth-spinner">
+              <i class="bi bi-arrow-repeat"></i>
+              {{ 'AUTH.LOGGING_IN' | translate }}
+            </span>
+          </button>
+        </form>
+
+        <div class="auth-divider">
+          <span>{{ 'AUTH.OR' | translate }}</span>
+        </div>
+
+        <button class="btn btn-secondary btn-md" style="width: 100%" (click)="loginWithSSO()">
+          <i class="bi bi-shield-lock"></i>
+          {{ 'AUTH.LOGIN_SSO' | translate }}
+        </button>
+
+        <p class="auth-register-link">
+          {{ 'AUTH.NO_ACCOUNT' | translate }}
+          <a routerLink="/register">{{ 'AUTH.REQUEST_ACCESS' | translate }}</a>
+        </p>
+      </div>
+
+      <!-- Footer -->
+      <div class="auth-footer">
+        <span class="text-caption text-muted">{{ 'APP.VERSION' | translate }}</span>
+        <span class="text-caption text-muted">{{ 'APP.COPYRIGHT' | translate }}</span>
+      </div>
+    </div>
+  </div>
+</div>

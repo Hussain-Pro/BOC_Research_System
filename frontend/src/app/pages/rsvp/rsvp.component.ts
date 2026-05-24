@@ -1,12 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BocLayoutService } from '../../services/boc-layout.service';
-import { BocPageHeroComponent, BocGlassCardComponent } from '../../shared';
+
 
 @Component({
   selector: 'app-rsvp',
   standalone: true,
-  imports: [CommonModule, BocPageHeroComponent, BocGlassCardComponent],
+  imports: [CommonModule],
   templateUrl: './rsvp.component.html',
   styleUrl: './rsvp.component.scss'
 })

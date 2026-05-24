@@ -3,11 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ToastService } from '../../../services/toast.service';
 import { BocLayoutService } from '../../../services/boc-layout.service';
-import { BocPageHeroComponent } from '../../../shared/boc-page-hero/boc-page-hero.component';
-import { BocStatCardComponent } from '../../../shared/boc-stat-card/boc-stat-card.component';
-import { BocGlassCardComponent } from '../../../shared/boc-glass-card/boc-glass-card.component';
 import { BocDataTableComponent } from '../../../shared/boc-data-table/boc-data-table.component';
-import { BocEmptyStateComponent } from '../../../shared/boc-empty-state/boc-empty-state.component';
 
 @Component({
   selector: 'app-ministry-gateway',
@@ -15,12 +11,10 @@ import { BocEmptyStateComponent } from '../../../shared/boc-empty-state/boc-empt
   imports: [
     CommonModule,
     RouterModule,
-    BocPageHeroComponent,
-    BocStatCardComponent,
-    BocGlassCardComponent,
-    BocDataTableComponent,
-    BocEmptyStateComponent
-  ],
+    
+    
+    
+    BocDataTableComponent],
   templateUrl: './ministry-gateway.component.html',
   styleUrls: ['./ministry-gateway.component.scss']
 })
@@ -84,3 +78,4 @@ export class MinistryGatewayComponent implements OnInit {
     return this.batches.filter(b => b.status === 'Pending').length;
   }
 }
+

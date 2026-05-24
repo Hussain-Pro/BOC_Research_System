@@ -1,94 +1,108 @@
-<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
-  <div class="container-lg">
+<div class="anim-fade-in-up" id="corrections-page">
 
-    <boc-page-hero
-      title="إرسال تعديلات البحث"
-      subtitle="يرجى قراءة ملاحظات السكرتير بعناية قبل رفع النسخة الجديدة.">
-      <a heroActions routerLink="/research/history" class="btn btn-outline-secondary">
-        <i class="bi bi-arrow-right me-2"></i> عودة
-      </a>
-    </boc-page-hero>
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="text-h1">إرسال تعديلات البحث</h1>
+      <p class="text-label">يرجى قراءة ملاحظات السكرتير بعناية قبل رفع النسخة الجديدة</p>
+    </div>
+    <a routerLink="/research/history" class="btn btn-secondary btn-md" id="back-to-history-btn">
+      <i class="bi bi-arrow-right"></i>
+      سجل الأبحاث
+    </a>
+  </div>
 
-    <div class="row justify-content-center">
-      <div class="col-lg-9">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
 
-        <!-- Secretary Notes Panel -->
-        <div class="secretary-notes-panel mb-4">
-          <div class="notes-header">
-            <i class="bi bi-exclamation-triangle-fill"></i>
-            <h5>سبب الإرجاع (ملاحظات السكرتير)</h5>
-          </div>
-          <p class="notes-body">{{ research.secretaryNotes }}</p>
-          <div class="notes-meta">
-            <span><i class="bi bi-clock me-1"></i> تم الإرجاع في: {{ research.returnedAt | date:'yyyy/MM/dd' }}</span>
-            <span><i class="bi bi-arrow-repeat me-1"></i> جولة التعديل: رقم {{ research.correctionRound }}</span>
+      <!-- Secretary Notes Card -->
+      <div class="card mb-4" style="border-right:4px solid var(--boc-warning)">
+        <div class="card-header">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:32px;height:32px;background:rgba(255,193,7,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center">
+              <i class="bi bi-exclamation-triangle-fill" style="color:var(--boc-warning);font-size:14px"></i>
+            </div>
+            <span class="text-h3">سبب الإرجاع (ملاحظات السكرتير)</span>
           </div>
         </div>
+        <div class="card-body">
+          <p class="text-body" style="line-height:1.8;color:var(--text-primary)">{{ research.secretaryNotes }}</p>
+          <div class="meta-row mt-3">
+            <span><i class="bi bi-clock"></i> تم الإرجاع في: {{ research.returnedAt | date:'yyyy/MM/dd' }}</span>
+            <span><i class="bi bi-arrow-repeat"></i> جولة التعديل رقم: {{ research.correctionRound }}</span>
+          </div>
+        </div>
+      </div>
 
-        <!-- Paper Info -->
-        <boc-glass-card title="تفاصيل البحث الأصلي" extraClass="mb-4">
+      <!-- Paper Info Card -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <span class="text-h3">تفاصيل البحث الأصلي</span>
+        </div>
+        <div class="card-body">
           <div class="row g-3">
             <div class="col-md-4">
-              <label class="field-label">رقم التتبع</label>
-              <div class="field-value">{{ research.id }}</div>
+              <p class="text-caption">رقم التتبع</p>
+              <p class="text-body-strong" style="font-family:var(--font-family-english)">{{ research.id }}</p>
             </div>
             <div class="col-md-8">
-              <label class="field-label">عنوان البحث</label>
-              <div class="field-value">{{ research.title }}</div>
+              <p class="text-caption">عنوان البحث</p>
+              <p class="text-body-strong">{{ research.title }}</p>
             </div>
           </div>
-        </boc-glass-card>
+        </div>
+      </div>
 
-        <!-- Upload Form -->
-        <boc-glass-card title="رفع النسخة المعدلة" subtitle="PDF أو DOCX — الحد الأقصى 50 ميجابايت">
+      <!-- Upload Card -->
+      <div class="card">
+        <div class="card-header">
+          <span class="text-h3">رفع النسخة المعدلة</span>
+          <span class="text-caption">PDF أو DOCX — الحد الأقصى 50 MB</span>
+        </div>
+        <div class="card-body">
           <div
             class="upload-zone"
-            [class.upload-zone--active]="selectedFile"
-            [class.upload-zone--dragover]="isDragOver"
+            [class.active]="!!selectedFile"
+            [class.dragover]="isDragOver"
             (dragover)="onDragOver($event)"
             (dragleave)="onDragLeave($event)"
             (drop)="onDrop($event)"
             (click)="correctionFile.click()"
             role="button"
-            tabindex="0">
+            tabindex="0"
+            id="corrections-upload-zone">
 
-            <i class="bi bi-cloud-arrow-up upload-icon" *ngIf="!selectedFile"></i>
-            <i class="bi bi-file-earmark-check upload-icon upload-icon--success" *ngIf="selectedFile"></i>
+            <div class="upload-icon-wrap">
+              <i class="bi" [class.bi-cloud-arrow-up]="!selectedFile" [class.bi-file-earmark-check]="!!selectedFile"></i>
+            </div>
 
-            <h6 class="upload-title" *ngIf="!selectedFile">اسحب وأفلت الملف هنا، أو انقر للاختيار</h6>
-            <h6 class="upload-title upload-title--success" *ngIf="selectedFile">{{ selectedFile.name }}</h6>
+            <div class="upload-text">
+              <strong *ngIf="!selectedFile">اسحب وأفلت الملف هنا، أو انقر للاختيار</strong>
+              <strong *ngIf="selectedFile">{{ selectedFile.name }}</strong>
+              <span *ngIf="!selectedFile">الحد الأقصى للحجم 50 ميجابايت</span>
+              <span *ngIf="selectedFile">{{ (selectedFile.size / 1024 / 1024) | number:'1.2-2' }} MB</span>
+            </div>
 
-            <p class="upload-hint" *ngIf="!selectedFile">الحد الأقصى للحجم 50 ميجابايت.</p>
-            <p class="upload-hint" *ngIf="selectedFile">حجم الملف: {{ (selectedFile.size / 1024 / 1024) | number:'1.2-2' }} MB</p>
-
-            <input
-              type="file"
-              #correctionFile
-              hidden
-              accept=".pdf,.doc,.docx"
-              (change)="onFileSelected($event)">
-            <button type="button" class="btn btn-outline-primary mt-2" (click)="correctionFile.click(); $event.stopPropagation()">
-              {{ selectedFile ? 'تغيير الملف' : 'استعراض الملفات' }}
-            </button>
+            <input type="file" #correctionFile hidden accept=".pdf,.doc,.docx" (change)="onFileSelected($event)">
           </div>
 
-          <div class="d-grid mt-4">
+          <!-- Submit -->
+          <div class="mt-4">
             <button
               type="button"
-              class="btn btn-primary-industrial btn-lg"
+              class="btn btn-primary btn-lg w-100"
+              id="submit-correction-btn"
               [disabled]="!selectedFile || isSubmitting"
               (click)="submitCorrection()">
-              <span *ngIf="!isSubmitting"><i class="bi bi-send me-2"></i> إرسال النسخة المعدلة</span>
-              <span *ngIf="isSubmitting">
-                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                جاري الرفع...
-              </span>
+              <span class="spinner" *ngIf="isSubmitting"></span>
+              <i class="bi bi-send" *ngIf="!isSubmitting"></i>
+              {{ isSubmitting ? 'جارٍ الرفع...' : 'إرسال النسخة المعدلة' }}
             </button>
           </div>
-        </boc-glass-card>
-
+        </div>
       </div>
-    </div>
 
+    </div>
   </div>
+
 </div>

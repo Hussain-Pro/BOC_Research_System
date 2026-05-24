@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
     "net10.0": {
       "AspNetCore.HealthChecks.Redis/9.0.0": {
@@ -4764,11 +4764,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\WebApps\\BOC_Research_System\\backend\\BOC.WebAPI\\BOC.WebAPI.csproj",
+      "projectUniqueName": "D:\\WebApps\\BOC_Research_System\\backend\\BOC.WebAPI\\BOC.WebAPI.csproj",
       "projectName": "BOC.WebAPI",
-      "projectPath": "d:\\WebApps\\BOC_Research_System\\backend\\BOC.WebAPI\\BOC.WebAPI.csproj",
+      "projectPath": "D:\\WebApps\\BOC_Research_System\\backend\\BOC.WebAPI\\BOC.WebAPI.csproj",
       "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-      "outputPath": "d:\\WebApps\\BOC_Research_System\\backend\\BOC.WebAPI\\obj\\",
+      "outputPath": "D:\\WebApps\\BOC_Research_System\\backend\\BOC.WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\DevExpress 25.1\\Components\\Offline Packages",
@@ -4794,6 +4794,7 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
             "D:\\WebApps\\BOC_Research_System\\backend\\BOC.Infrastructure\\BOC.Infrastructure.csproj": {
@@ -4812,10 +4813,11 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.200"
+      "SdkAnalysisLevel": "10.0.300"
     },
     "frameworks": {
       "net10.0": {
+        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
           "AspNetCore.HealthChecks.Redis": {
@@ -4896,7 +4898,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

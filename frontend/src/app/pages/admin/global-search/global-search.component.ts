@@ -3,9 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BocLayoutService } from '../../../services/boc-layout.service';
-import { BocPageHeroComponent } from '../../../shared/boc-page-hero/boc-page-hero.component';
-import { BocGlassCardComponent } from '../../../shared/boc-glass-card/boc-glass-card.component';
-import { BocEmptyStateComponent } from '../../../shared/boc-empty-state/boc-empty-state.component';
 
 @Component({
   selector: 'app-global-search',
@@ -13,11 +10,7 @@ import { BocEmptyStateComponent } from '../../../shared/boc-empty-state/boc-empt
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule,
-    BocPageHeroComponent,
-    BocGlassCardComponent,
-    BocEmptyStateComponent
-  ],
+    RouterModule],
   templateUrl: './global-search.component.html',
   styleUrls: ['./global-search.component.scss']
 })
@@ -73,3 +66,4 @@ export class GlobalSearchComponent implements OnInit {
     }
   }
 }
+

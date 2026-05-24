@@ -1,0 +1,30 @@
+<div class="toast-container" aria-live="polite" aria-atomic="true">
+  <div
+    *ngFor="let toast of toasts$ | async; trackBy: trackById"
+    class="toast"
+    [class.toast-success]="toast.type === 'success'"
+    [class.toast-error]="toast.type === 'error'"
+    [class.toast-warning]="toast.type === 'warning'"
+    [class.toast-info]="toast.type === 'info'"
+    role="alert"
+  >
+    <i class="toast-icon bi"
+       [class.bi-check-circle-fill]="toast.type === 'success'"
+       [class.bi-x-circle-fill]="toast.type === 'error'"
+       [class.bi-exclamation-triangle-fill]="toast.type === 'warning'"
+       [class.bi-info-circle-fill]="toast.type === 'info'"
+       [style.color]="toast.type === 'success' ? 'var(--boc-success)'
+                    : toast.type === 'error' ? 'var(--boc-danger)'
+                    : toast.type === 'warning' ? 'var(--boc-warning)'
+                    : 'var(--boc-info)'"
+    ></i>
+    <div class="toast-content">
+      <div class="toast-title">{{ toast.title }}</div>
+      <div class="toast-message" *ngIf="toast.message">{{ toast.message }}</div>
+    </div>
+    <button class="toast-close" (click)="dismiss(toast.id)" aria-label="إغلاق">
+      <i class="bi bi-x"></i>
+    </button>
+    <div class="toast-progress"></div>
+  </div>
+</div>

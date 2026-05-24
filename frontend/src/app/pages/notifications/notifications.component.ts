@@ -1,9 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { BocPageHeroComponent } from '../../shared/boc-page-hero/boc-page-hero.component';
-import { BocGlassCardComponent } from '../../shared/boc-glass-card/boc-glass-card.component';
-import { BocEmptyStateComponent } from '../../shared/boc-empty-state/boc-empty-state.component';
 import { BocLayoutService } from '../../services/boc-layout.service';
 
 interface Notification {
@@ -19,7 +16,7 @@ interface Notification {
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [CommonModule, RouterModule, BocPageHeroComponent, BocGlassCardComponent, BocEmptyStateComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.scss'
 })

@@ -1,0 +1,9 @@
+<!-- Breadcrumb Component -->
+<nav class="breadcrumb" *ngIf="items.length > 0">
+  <ng-container *ngFor="let item of items; let last = last; let first = first">
+    <a *ngIf="!last && item.url" [routerLink]="item.url">{{ item.label | translate }}</a>
+    <span *ngIf="!last && !item.url" class="text-secondary">{{ item.label | translate }}</span>
+    <span *ngIf="last" class="current">{{ item.label | translate }}</span>
+    <i *ngIf="!last" class="bi bi-chevron-left sep"></i>
+  </ng-container>
+</nav>

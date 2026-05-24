@@ -3,14 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ResearchService } from '../../services/research.service';
 import { BocLayoutService } from '../../services/boc-layout.service';
-import { BocPageHeroComponent } from '../../shared/boc-page-hero/boc-page-hero.component';
-import { BocGlassCardComponent } from '../../shared/boc-glass-card/boc-glass-card.component';
 import { BocFormFieldComponent } from '../../shared/boc-form-field/boc-form-field.component';
 import { BocVerticalTimelineComponent, BocTimelineStep } from '../../shared/boc-vertical-timeline/boc-vertical-timeline.component';
 
@@ -21,13 +16,7 @@ import { BocVerticalTimelineComponent, BocTimelineStep } from '../../shared/boc-
     CommonModule,
     ReactiveFormsModule,
     MatStepperModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatCheckboxModule,
-    BocPageHeroComponent,
-    BocGlassCardComponent,
-    BocFormFieldComponent,
     BocVerticalTimelineComponent
   ],
   templateUrl: './submit-research.component.html',

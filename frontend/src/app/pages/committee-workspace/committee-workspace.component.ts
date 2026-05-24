@@ -6,12 +6,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
 import { BocLayoutService } from '../../services/boc-layout.service';
-import {
-  BocPageHeroComponent,
-  BocGlassCardComponent,
-  BocStatCardComponent,
-  BocEmptyStateComponent
-} from '../../shared';
+
 
 @Component({
   selector: 'app-committee-workspace',
@@ -20,11 +15,7 @@ import {
     CommonModule,
     FormsModule,
     RouterModule,
-    PdfViewerModule,
-    BocPageHeroComponent,
-    BocGlassCardComponent,
-    BocStatCardComponent,
-    BocEmptyStateComponent
+    PdfViewerModule
   ],
   templateUrl: './committee-workspace.component.html',
   styleUrls: ['./committee-workspace.component.scss']

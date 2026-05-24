@@ -1,0 +1,16 @@
+<!-- Confirm Dialog Component -->
+<div class="modal-overlay active" *ngIf="isOpen" (click)="closeOnBackdrop($event)">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3 class="text-h2">{{ title | translate }}</h3>
+      <button class="icon-btn" (click)="cancel()"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="modal-body">
+      <p class="text-body">{{ message | translate }}</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary btn-md" (click)="cancel()">{{ cancelText | translate }}</button>
+      <button class="btn btn-danger btn-md" (click)="confirm()">{{ confirmText | translate }}</button>
+    </div>
+  </div>
+</div>

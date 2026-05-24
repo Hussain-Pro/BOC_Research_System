@@ -2,18 +2,13 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BocLayoutService } from '../../../services/boc-layout.service';
-import { BocPageHeroComponent } from '../../../shared/boc-page-hero/boc-page-hero.component';
-import { BocGlassCardComponent } from '../../../shared/boc-glass-card/boc-glass-card.component';
 
 @Component({
   selector: 'app-system-config',
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule,
-    BocPageHeroComponent,
-    BocGlassCardComponent
-  ],
+    RouterModule],
   templateUrl: './system-config.component.html',
   styleUrls: ['./system-config.component.scss']
 })
@@ -38,3 +33,4 @@ export class SystemConfigComponent implements OnInit {
     ]);
   }
 }
+

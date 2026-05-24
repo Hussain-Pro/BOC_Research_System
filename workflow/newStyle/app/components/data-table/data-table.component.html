@@ -1,0 +1,168 @@
+<!-- Enterprise Data Table -->
+<div class="table-container">
+  <!-- Toolbar -->
+  <div class="table-toolbar" *ngIf="showToolbar">
+    <div class="toolbar-left">
+      <input
+        type="text"
+        class="form-input"
+        [placeholder]="'TABLE.SEARCH' | translate"
+        [(ngModel)]="searchQuery"
+        (input)="onSearch()"
+        style="width: 260px"
+      >
+      <button class="btn btn-secondary btn-sm" (click)="toggleFilters()">
+        <i class="bi bi-funnel"></i> {{ 'TABLE.FILTERS' | translate }}
+      </button>
+      <button class="btn btn-ghost btn-sm" *ngIf="hasActiveFilters" (click)="clearFilters()">
+        <i class="bi bi-x-circle"></i> {{ 'TABLE.CLEAR_FILTERS' | translate }}
+      </button>
+    </div>
+    <div class="toolbar-right">
+      <div class="btn-group" *ngIf="viewModes.length > 0">
+        <button
+          *ngFor="let mode of viewModes"
+          class="btn"
+          [class.active]="currentViewMode === mode.value"
+          (click)="setViewMode(mode.value)"
+        >
+          <i [class]="mode.icon"></i>
+        </button>
+      </div>
+      <button class="btn btn-ghost btn-sm" (click)="exportData()" *ngIf="allowExport">
+        <i class="bi bi-download"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div style="overflow-x: auto">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th *ngIf="selectable" style="width: 40px">
+            <input
+              type="checkbox"
+              [checked]="isAllSelected"
+              (change)="toggleSelectAll()"
+            >
+          </th>
+          <th
+            *ngFor="let col of columns"
+            [style.width]="col.width"
+            [style.text-align]="col.align || 'right'"
+            [class.sortable]="col.sortable"
+            (click)="col.sortable ? sort(col.key) : null"
+          >
+            {{ col.header | translate }}
+            <i
+              *ngIf="col.sortable"
+              class="bi"
+              [class.bi-arrow-up]="sortColumn === col.key && sortDirection === 'asc'"
+              [class.bi-arrow-down]="sortColumn === col.key && sortDirection === 'desc'"
+              style="margin-right: 4px; font-size: 10px; opacity: 0.5"
+            ></i>
+          </th>
+          <th *ngIf="rowActions.length > 0" style="width: 100px">
+            {{ 'TABLE.ACTIONS' | translate }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let row of paginatedData; let i = index"
+          [class.selected]="isSelected(row)"
+          (click)="selectable ? toggleRow(row) : null"
+        >
+          <td *ngIf="selectable">
+            <input
+              type="checkbox"
+              [checked]="isSelected(row)"
+              (click)="$event.stopPropagation(); toggleRow(row)"
+            >
+          </td>
+          <td
+            *ngFor="let col of columns"
+            [style.text-align]="col.align || 'right'"
+          >
+            <ng-container *ngIf="col.template">
+              <ng-container *ngTemplateOutlet="col.template; context: { $implicit: row, column: col, value: getCellValue(row, col) }"></ng-container>
+            </ng-container>
+            <ng-container *ngIf="!col.template">
+              <span *ngIf="col.type === 'status'" class="status-pill" [class]="'pill-' + getCellValue(row, col)">
+                <span class="status-dot"></span>
+                {{ getCellValue(row, col) | translate }}
+              </span>
+              <span *ngIf="col.type === 'date'" class="text-caption text-secondary">
+                {{ getCellValue(row, col) | date:'mediumDate' }}
+              </span>
+              <span *ngIf="col.type === 'avatar'" style="display: flex; align-items: center; gap: var(--space-2)">
+                <div class="avatar avatar-sm">{{ getAvatarInitials(getCellValue(row, col)) }}</div>
+                <span class="text-body">{{ getCellValue(row, col) }}</span>
+              </span>
+              <span *ngIf="!col.type || col.type === 'text'" [class.text-body-strong]="col.emphasize">
+                {{ getCellValue(row, col) }}
+              </span>
+            </ng-container>
+          </td>
+          <td *ngIf="rowActions.length > 0">
+            <div class="table-cell-actions">
+              <button
+                *ngFor="let action of rowActions"
+                class="icon-btn btn-ghost btn-icon"
+                [title]="action.label | translate"
+                (click)="$event.stopPropagation(); action.handler(row)"
+              >
+                <i [class]="action.icon"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="paginatedData.length === 0 && !loading">
+    <i class="bi bi-inbox"></i>
+    <h3 class="text-h3">{{ 'TABLE.EMPTY_TITLE' | translate }}</h3>
+    <p class="text-body text-secondary">{{ 'TABLE.EMPTY_SUBTITLE' | translate }}</p>
+    <button class="btn btn-tertiary btn-md" *ngIf="hasActiveFilters" (click)="clearFilters()">
+      {{ 'TABLE.CLEAR_FILTERS' | translate }}
+    </button>
+  </div>
+
+  <!-- Skeleton Loading -->
+  <div *ngIf="loading" style="padding: var(--space-4)">
+    <div *ngFor="let _ of [1,2,3,4,5]" style="display: flex; gap: var(--space-4); margin-bottom: var(--space-3); align-items: center">
+      <div class="skeleton" style="width: 40px; height: 40px; border-radius: var(--radius-md); flex-shrink: 0"></div>
+      <div class="skeleton" style="width: 25%; height: 14px"></div>
+      <div class="skeleton" style="width: 20%; height: 14px"></div>
+      <div class="skeleton" style="width: 15%; height: 14px"></div>
+      <div class="skeleton" style="width: 15%; height: 14px"></div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="table-pagination" *ngIf="showPagination && paginatedData.length > 0">
+    <span>{{ 'TABLE.SHOWING' | translate }} {{ startIndex + 1 }}–{{ endIndex }} {{ 'TABLE.OF' | translate }} {{ filteredData.length }} {{ 'TABLE.RESULTS' | translate }}</span>
+    <div class="pagination-buttons">
+      <button class="btn btn-ghost btn-sm" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+      <button
+        *ngFor="let page of visiblePages"
+        class="btn"
+        [class.btn-primary]="page === currentPage"
+        [class.btn-ghost]="page !== currentPage"
+        [class.btn-sm]="true"
+        (click)="goToPage(page)"
+      >
+        {{ page }}
+      </button>
+      <button class="btn btn-ghost btn-sm" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+    </div>
+  </div>
+</div>

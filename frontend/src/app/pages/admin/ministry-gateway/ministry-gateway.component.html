@@ -1,9 +1,6 @@
 <div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
   <div class="container">
-    <boc-page-hero
-      title="بوابة الوزارة"
-      subtitle="تصدير الأبحاث المقبولة نهائياً بمحاضر اللجنة وتوثيقها رسمياً لدى الوزارة."
-      [breadcrumbs]="[{ label: 'الرئيسية', route: '/home' }, { label: 'بوابة الوزارة' }]">
+    <div class="page-header"><div><h1 class="text-h1">بوابة الوزارة</h1><p class="text-label">تصدير الأبحاث المقبولة نهائياً بمحاضر اللجنة وتوثيقها رسمياً لدى الوزارة.</p></div>
       <div heroActions class="d-flex gap-2 flex-wrap">
         <button type="button" class="btn btn-success btn-sm rounded-pill" [disabled]="isSending" (click)="sendNewBatch()">
           <span *ngIf="!isSending"><i class="bi bi-send-check me-1"></i> إرسال دفعة جديدة</span>
@@ -13,35 +10,31 @@
           <i class="bi bi-arrow-right me-1"></i> العودة
         </a>
       </div>
-    </boc-page-hero>
+    </div>
 
     <div class="row g-3 mb-4">
       <div class="col-md-4">
-        <boc-stat-card label="إجمالي الدفعات" [value]="batches.length" icon="bi-bank"
-                       iconBg="rgba(25, 135, 84, 0.12)" iconColor="var(--boc-accent-ministry)"></boc-stat-card>
+        <div class="kpi-card"><div class="kpi-header"><span class="text-upper-label">إجمالي الدفعات</span></div><div class="kpi-value">{{ batches.length }}</div></div>
       </div>
       <div class="col-md-4">
-        <boc-stat-card label="تم الاستلام بنجاح" [value]="successCount" icon="bi-check-circle"
-                       iconBg="rgba(40, 167, 69, 0.12)" iconColor="var(--boc-success)"></boc-stat-card>
+        <div class="kpi-card"><div class="kpi-header"><span class="text-upper-label">تم الاستلام بنجاح</span></div><div class="kpi-value">{{ successCount }}</div></div>
       </div>
       <div class="col-md-4">
-        <boc-stat-card label="قيد المعالجة" [value]="pendingCount" icon="bi-hourglass-split"
-                       iconBg="rgba(255, 193, 7, 0.15)" iconColor="var(--boc-warning)"></boc-stat-card>
+        <div class="kpi-card"><div class="kpi-header"><span class="text-upper-label">قيد المعالجة</span></div><div class="kpi-value">{{ pendingCount }}</div></div>
       </div>
     </div>
 
-    <boc-glass-card title="سجل الدفعات المرسلة" subtitle="Export History">
-      <boc-empty-state *ngIf="batches.length === 0"
-                       icon="bi-inbox"
-                       title="لا توجد دفعات مرسلة"
-                       message="لم يتم إرسال أي دفعة للوزارة بعد.">
-      </boc-empty-state>
+    <div class="card mb-4"><div class="card-header"><span class="text-h3">سجل الدفعات المرسلة</span></div><div class="card-body">
+      <div class="empty-state" style="padding:40px"><div class="empty-icon"><i class="bi bi-info-circle"></i></div><h3>لا توجد بيانات</h3><p>البيانات المطلوبة غير متوفرة حالياً</p>
+      </div>
 
       <boc-data-table *ngIf="batches.length"
                       [columns]="tableColumns"
                       [columnLabels]="columnLabels"
                       [data]="tableData">
       </boc-data-table>
-    </boc-glass-card>
+    </div></div>
   </div>
 </div>
+
+

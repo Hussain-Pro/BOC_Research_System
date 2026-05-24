@@ -1,0 +1,43 @@
+/* ================================================================
+   Elevation & Surface System
+   ================================================================ */
+
+@mixin elevation($level: 1) {
+  @if $level == 0 { box-shadow: none; }
+  @else if $level == 1 { box-shadow: var(--elevation-1); }
+  @else if $level == 2 { box-shadow: var(--elevation-2); }
+  @else if $level == 3 { box-shadow: var(--elevation-3); }
+  @else if $level == 4 { box-shadow: var(--elevation-4); }
+}
+
+@mixin surface($bg: var(--boc-surface), $border: var(--border-color), $radius: var(--radius-lg)) {
+  background: $bg;
+  border: 1px solid $border;
+  border-radius: $radius;
+}
+
+@mixin card-surface {
+  @include surface();
+  box-shadow: var(--elevation-1);
+  transition: box-shadow var(--motion-normal) var(--ease-normal), transform var(--motion-normal) var(--ease-normal);
+
+  &:hover {
+    @include elevation(2);
+    transform: translateY(-1px);
+  }
+}
+
+@mixin panel-surface {
+  @include surface();
+  box-shadow: var(--elevation-1);
+}
+
+@mixin modal-surface {
+  @include surface(var(--boc-surface), var(--border-color), var(--radius-xl));
+  box-shadow: var(--elevation-4);
+}
+
+@mixin dropdown-surface {
+  @include surface();
+  box-shadow: var(--elevation-3);
+}

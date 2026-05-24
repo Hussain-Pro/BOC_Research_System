@@ -3,11 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BocLayoutService } from '../../services/boc-layout.service';
 import {
-  BocPageHeroComponent,
-  BocGlassCardComponent,
-  BocStatCardComponent,
-  BocDataTableComponent,
-  BocEmptyStateComponent
+  BocDataTableComponent
 } from '../../shared';
 
 interface PortfolioRecord {
@@ -27,11 +23,7 @@ interface PortfolioRecord {
   imports: [
     CommonModule,
     RouterModule,
-    BocPageHeroComponent,
-    BocGlassCardComponent,
-    BocStatCardComponent,
-    BocDataTableComponent,
-    BocEmptyStateComponent
+    BocDataTableComponent
   ],
   templateUrl: './evaluator-portfolio.component.html',
   styleUrls: ['./evaluator-portfolio.component.scss']

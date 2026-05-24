@@ -5,13 +5,12 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
 import { BocAuthShellComponent } from '../../shared/boc-auth-shell/boc-auth-shell.component';
-import { BocFormFieldComponent } from '../../shared/boc-form-field/boc-form-field.component';
 import QRCode from 'qrcode';
 
 @Component({
   selector: 'app-two-factor',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, BocAuthShellComponent, BocFormFieldComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, BocAuthShellComponent],
   templateUrl: './two-factor.component.html',
   styleUrl: './two-factor.component.scss'
 })

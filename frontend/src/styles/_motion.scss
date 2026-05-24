@@ -1,0 +1,104 @@
+/* ================================================================
+   Motion System — Keyframes & Transition Utilities
+   ================================================================ */
+
+/* ---------- Keyframes ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scaleInBounce {
+  from { opacity: 0; transform: scale(0.9); }
+  60% { transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toastProgress {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+@keyframes spinner {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ---------- Animation Utilities ---------- */
+.anim-fade-in { animation: fadeIn var(--motion-normal) var(--ease-normal) forwards; }
+.anim-fade-in-up { animation: fadeInUp var(--motion-normal) var(--ease-normal) forwards; }
+.anim-fade-in-down { animation: fadeInDown var(--motion-normal) var(--ease-normal) forwards; }
+.anim-slide-in-right { animation: slideInRight var(--motion-normal) var(--ease-normal) forwards; }
+.anim-slide-in-left { animation: slideInLeft var(--motion-normal) var(--ease-normal) forwards; }
+.anim-scale-in { animation: scaleIn var(--motion-slow) var(--ease-slow) forwards; }
+.anim-scale-in-bounce { animation: scaleInBounce var(--motion-slow) var(--ease-bounce) forwards; }
+
+/* ---------- Stagger Children ---------- */
+.stagger-children > * {
+  opacity: 0;
+  animation: fadeInUp var(--motion-normal) var(--ease-normal) forwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 50ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 100ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 150ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 200ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 250ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 350ms; }
+
+/* ---------- Reduced Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

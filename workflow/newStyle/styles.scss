@@ -1,0 +1,138 @@
+/* ================================================================
+   BOC Research System — Main Styles Entry Point
+   Angular 21 + Material MDC + Bootstrap 5.3
+   ================================================================ */
+
+/* Vendor */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+/* Design System */
+@import 'styles/tokens';
+@import 'styles/elevation';
+@import 'styles/typography';
+@import 'styles/motion';
+@import 'styles/layout';
+@import 'styles/components';
+@import 'styles/utilities';
+@import 'styles/dark-mode';
+@import 'styles/material-theme';
+
+/* Global Setup */
+html[dir="rtl"] {
+  font-family: var(--font-family-arabic);
+}
+
+html[dir="ltr"] {
+  font-family: var(--font-family-english);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--boc-background);
+  color: var(--text-primary);
+  font-family: var(--font-family-arabic);
+  direction: rtl;
+  transition: background-color var(--motion-normal), color var(--motion-normal);
+}
+
+/* Driver.js Custom BOC Theme */
+.driverjs-theme-boc .driver-popover {
+  font-family: 'Tajawal', sans-serif;
+  border: 2px solid var(--boc-primary);
+  border-radius: var(--radius-lg);
+  background: var(--boc-glass-bg);
+  backdrop-filter: blur(var(--boc-glass-blur));
+  box-shadow: var(--elevation-3);
+}
+
+.driverjs-theme-boc .driver-popover-title {
+  color: var(--boc-primary);
+  font-weight: bold;
+}
+
+.driverjs-theme-boc .driver-popover-next-btn,
+.driverjs-theme-boc .driver-popover-done-btn {
+  background-color: var(--boc-primary) !important;
+  color: white !important;
+  text-shadow: none !important;
+  border-radius: var(--radius-full) !important;
+}
+
+.driverjs-theme-boc .driver-popover-prev-btn {
+  background-color: var(--boc-background) !important;
+  color: var(--boc-secondary) !important;
+  border-radius: var(--radius-full) !important;
+}
+
+/* Onboarding step connector */
+.onboarding-steps {
+  position: relative;
+
+  @media (min-width: 768px) {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      inset-inline: 12.5%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--boc-primary), var(--boc-secondary));
+      opacity: 0.2;
+      z-index: 0;
+    }
+  }
+}
+
+/* Focus rings for WCAG */
+:focus-visible {
+  outline: 2px solid var(--boc-primary);
+  outline-offset: 2px;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(15, 42, 56, 0.15);
+  color: var(--text-primary);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color-hover);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Print styles */
+@media print {
+  .app-sidebar, .app-header, .sidebar-overlay, .toast-container, .cmd-overlay, .modal-overlay {
+    display: none !important;
+  }
+
+  .app-shell {
+    display: block !important;
+  }
+
+  .app-main {
+    padding: 0 !important;
+    max-width: none !important;
+  }
+
+  .card, .kpi-card, .table-container {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    break-inside: avoid;
+  }
+}

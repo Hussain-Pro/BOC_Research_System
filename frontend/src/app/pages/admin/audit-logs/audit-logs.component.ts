@@ -2,9 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BocLayoutService } from '../../../services/boc-layout.service';
-import { BocPageHeroComponent } from '../../../shared/boc-page-hero/boc-page-hero.component';
-import { BocStatCardComponent } from '../../../shared/boc-stat-card/boc-stat-card.component';
-import { BocGlassCardComponent } from '../../../shared/boc-glass-card/boc-glass-card.component';
 import { BocDataTableComponent } from '../../../shared/boc-data-table/boc-data-table.component';
 
 @Component({
@@ -13,9 +10,9 @@ import { BocDataTableComponent } from '../../../shared/boc-data-table/boc-data-t
   imports: [
     CommonModule,
     RouterModule,
-    BocPageHeroComponent,
-    BocStatCardComponent,
-    BocGlassCardComponent,
+    
+    
+    
     BocDataTableComponent
   ],
   templateUrl: './audit-logs.component.html',
@@ -46,3 +43,4 @@ export class AuditLogsComponent implements OnInit {
     ]);
   }
 }
+

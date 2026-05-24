@@ -1,39 +1,90 @@
-<boc-auth-shell title="إنشاء حساب جديد" subtitle="انضم إلى مجتمع الباحثين في شركة نفط البصرة" maxWidth="500px">
-  <div *ngIf="errorMessage" class="alert alert-danger shadow-sm border-0 rounded-3 mb-4" role="alert">
-    <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ errorMessage }}
+<boc-auth-shell
+  title="إنشاء حساب جديد"
+  subtitle="انضم إلى مجتمع الباحثين في شركة نفط البصرة"
+  maxWidth="480px">
+
+  <!-- Error Alert -->
+  <div *ngIf="errorMessage" class="auth-alert auth-alert-error" role="alert">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <span>{{ errorMessage }}</span>
   </div>
 
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div class="row">
-      <div class="col-md-6">
-        <boc-form-field label="الاسم الأول" icon="bi-person" placeholder="أحمد" formControlName="firstName"></boc-form-field>
-      </div>
-      <div class="col-md-6">
-        <boc-form-field label="اسم العائلة" icon="bi-person" placeholder="العراقي" formControlName="lastName"></boc-form-field>
-      </div>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+
+    <!-- Name row -->
+    <div class="auth-form-grid">
+      <boc-form-field
+        label="الاسم الأول"
+        icon="bi-person"
+        placeholder="أحمد"
+        formControlName="firstName"
+        [required]="true">
+      </boc-form-field>
+      <boc-form-field
+        label="اسم العائلة"
+        icon="bi-person"
+        placeholder="الخالدي"
+        formControlName="lastName"
+        [required]="true">
+      </boc-form-field>
     </div>
 
-    <boc-form-field label="البريد الإلكتروني المؤسسي" type="email" icon="bi-envelope"
-                    placeholder="name@boc.iq" dir="ltr" formControlName="email"></boc-form-field>
+    <boc-form-field
+      label="البريد الإلكتروني المؤسسي"
+      type="email"
+      icon="bi-envelope"
+      placeholder="name@boc.iq"
+      dir="ltr"
+      formControlName="email"
+      [required]="true">
+    </boc-form-field>
 
-    <boc-form-field label="كلمة المرور" type="password" icon="bi-shield-lock"
-                    placeholder="••••••••" dir="ltr" formControlName="password"></boc-form-field>
+    <boc-form-field
+      label="كلمة المرور"
+      type="password"
+      icon="bi-shield-lock"
+      placeholder="••••••••"
+      dir="ltr"
+      formControlName="password"
+      [required]="true">
+    </boc-form-field>
 
-    <boc-form-field label="الرقم الوطني" icon="bi-card-text" placeholder="XXXXXXXXXX"
-                    dir="ltr" formControlName="nationalID"></boc-form-field>
+    <boc-form-field
+      label="الرقم الوطني"
+      icon="bi-card-text"
+      placeholder="XXXXXXXXXX"
+      dir="ltr"
+      formControlName="nationalID"
+      [required]="true">
+    </boc-form-field>
 
-    <boc-form-field label="تاريخ الميلاد" type="date" icon="bi-calendar"
-                    dir="ltr" formControlName="birthDate"></boc-form-field>
+    <boc-form-field
+      label="تاريخ الميلاد"
+      type="date"
+      icon="bi-calendar"
+      dir="ltr"
+      formControlName="birthDate"
+      [required]="true">
+    </boc-form-field>
 
-    <button type="submit" class="btn btn-primary-industrial btn-lg w-100 mt-2 mb-4"
-            [disabled]="registerForm.invalid || isLoading">
-      <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
-      إنشاء الحساب
+    <button
+      type="submit"
+      class="btn btn-primary btn-lg w-100 mt-2"
+      id="register-submit-btn"
+      [disabled]="registerForm.invalid || isLoading">
+      <span *ngIf="isLoading" class="spinner"></span>
+      <i *ngIf="!isLoading" class="bi bi-person-check"></i>
+      {{ isLoading ? 'جارٍ إنشاء الحساب...' : 'إنشاء الحساب' }}
     </button>
 
-    <div class="text-center text-muted small">
-      لديك حساب بالفعل؟
-      <a routerLink="/auth/login" class="text-primary fw-bold text-decoration-none">تسجيل الدخول</a>
+    <div class="auth-divider">
+      <span>لديك حساب بالفعل؟</span>
     </div>
+
+    <a routerLink="/auth/login" class="btn btn-secondary btn-lg w-100" id="back-to-login">
+      <i class="bi bi-box-arrow-in-left"></i>
+      تسجيل الدخول
+    </a>
+
   </form>
 </boc-auth-shell>

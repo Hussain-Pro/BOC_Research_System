@@ -2,11 +2,9 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BocLayoutService } from '../../services/boc-layout.service';
-import { BocPageHeroComponent } from '../../shared/boc-page-hero/boc-page-hero.component';
 import { BocDataTableComponent } from '../../shared/boc-data-table/boc-data-table.component';
 import { BocTableCellDefDirective } from '../../shared/boc-data-table/boc-table-cell.directive';
 import { BocStatusChipComponent, BocStatusType } from '../../shared/boc-status-chip/boc-status-chip.component';
-import { BocEmptyStateComponent } from '../../shared/boc-empty-state/boc-empty-state.component';
 
 export interface ResearchHistoryRecord {
   id: string;
@@ -23,11 +21,9 @@ export interface ResearchHistoryRecord {
   imports: [
     CommonModule,
     RouterModule,
-    BocPageHeroComponent,
     BocDataTableComponent,
     BocTableCellDefDirective,
-    BocStatusChipComponent,
-    BocEmptyStateComponent
+    BocStatusChipComponent
   ],
   templateUrl: './researcher-history.component.html',
   styleUrl: './researcher-history.component.scss'

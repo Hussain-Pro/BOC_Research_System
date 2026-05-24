@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BOC.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+65b56fc17c026a586775ebabe568012e44812ab9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+820b6607a5c078d6e762713ce7dece1aaa6a8b0e")]
 [assembly: System.Reflection.AssemblyProductAttribute("BOC.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BOC.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

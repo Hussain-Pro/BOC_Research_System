@@ -4143,3 +4143,905 @@ ORDER BY [o].[OccurredOn]
 2026-05-24 02:21:09.460 +03:00 [DBG]     No executing jobs remaining, all threads stopped.
 2026-05-24 02:21:09.461 +03:00 [DBG]     Shutdown of threadpool complete.
 2026-05-24 02:21:09.465 +03:00 [INF]     Scheduler QuartzScheduler_$_NON_CLUSTERED Shutdown complete.
+2026-05-24 17:41:55.966 +03:00 [INF]     No migrations were found in assembly 'BOC.Infrastructure'. A migration needs to be added before the database can be updated.
+2026-05-24 17:41:56.324 +03:00 [INF]     Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-05-24 17:41:56.353 +03:00 [INF]     Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-05-24 17:41:56.537 +03:00 [INF]     Executed DbCommand (172ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-05-24 17:41:56.698 +03:00 [INF]     Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-05-24 17:41:56.720 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-05-24 17:41:56.726 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-05-24 17:41:56.751 +03:00 [INF]     Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-05-24 17:41:56.773 +03:00 [INF]     No migrations were applied. The database is already up to date.
+2026-05-24 17:41:56.785 +03:00 [INF]     Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-05-24 17:41:57.027 +03:00 [INF]     Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AppRoles] AS [a]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-05-24 17:41:57.052 +03:00 [INF]     Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AppUsers] AS [a]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-05-24 17:41:57.065 +03:00 [INF]     Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [ResearchCategories] AS [r]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-05-24 17:41:57.198 +03:00 [INF]     Connecting to Redis endpoints: localhost:6379. Using Server Name: DESKTOP-SUIT5JA_2f0af3faffaa4609841622765668b2c0
+2026-05-24 17:41:57.225 +03:00 [INF]     Connecting to Redis endpoints: localhost:6379. Using Server Name: DESKTOP-SUIT5JA_27b7dd6bd3224eb7b95bece69da52438
+2026-05-24 17:41:57.251 +03:00 [INF]     BOC Research System started successfully. Environment: Development
+2026-05-24 17:41:57.302 +03:00 [INF]     User profile is available. Using 'C:\Users\pc\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-05-24 17:41:57.336 +03:00 [DBG]     TaskSchedulingThreadPool configured with max concurrency of 10 and TaskScheduler ThreadPoolTaskScheduler.
+2026-05-24 17:41:57.344 +03:00 [INF]     Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl
+2026-05-24 17:41:57.347 +03:00 [INF]     Quartz Scheduler created
+2026-05-24 17:41:57.350 +03:00 [INF]     JobFactory set to: Quartz.Simpl.MicrosoftDependencyInjectionJobFactory
+2026-05-24 17:41:57.353 +03:00 [INF]     RAMJobStore initialized.
+2026-05-24 17:41:57.355 +03:00 [INF]     Quartz Scheduler 3.18.1.0 - 'QuartzScheduler' with instanceId 'NON_CLUSTERED' initialized
+2026-05-24 17:41:57.357 +03:00 [INF]     Using thread pool 'Quartz.Simpl.DefaultThreadPool', size: 10
+2026-05-24 17:41:57.358 +03:00 [INF]     Using job store 'Quartz.Simpl.RAMJobStore', supports persistence: False, clustered: False
+2026-05-24 17:41:57.375 +03:00 [INF]     Adding 8 jobs, 8 triggers.
+2026-05-24 17:41:57.380 +03:00 [INF]     Adding job: DEFAULT.OutboxDispatcherJob
+2026-05-24 17:41:57.389 +03:00 [INF]     Adding job: DEFAULT.SLABreachScannerJob
+2026-05-24 17:41:57.392 +03:00 [INF]     Adding job: DEFAULT.RetirementAgeScannerJob
+2026-05-24 17:41:57.394 +03:00 [INF]     Adding job: DEFAULT.PlagiarismLockoutExpiryJob
+2026-05-24 17:41:57.395 +03:00 [INF]     Adding job: DEFAULT.SessionCleanupJob
+2026-05-24 17:41:57.396 +03:00 [INF]     Adding job: DEFAULT.DataRetentionJob
+2026-05-24 17:41:57.398 +03:00 [INF]     Adding job: DEFAULT.MinistryBatchPollerJob
+2026-05-24 17:41:57.399 +03:00 [INF]     Adding job: DEFAULT.EmailDispatcherJob
+2026-05-24 17:41:57.402 +03:00 [DBG]     Scheduling job: DEFAULT.OutboxDispatcherJob with trigger: DEFAULT.OutboxDispatcherJob-trigger
+2026-05-24 17:41:57.412 +03:00 [DBG]     Scheduling job: DEFAULT.SLABreachScannerJob with trigger: DEFAULT.SLABreachScannerJob-trigger
+2026-05-24 17:41:57.415 +03:00 [DBG]     Scheduling job: DEFAULT.RetirementAgeScannerJob with trigger: DEFAULT.RetirementAgeScannerJob-trigger
+2026-05-24 17:41:57.422 +03:00 [DBG]     Scheduling job: DEFAULT.PlagiarismLockoutExpiryJob with trigger: DEFAULT.PlagiarismLockoutExpiryJob-trigger
+2026-05-24 17:41:57.426 +03:00 [DBG]     Scheduling job: DEFAULT.SessionCleanupJob with trigger: DEFAULT.SessionCleanupJob-trigger
+2026-05-24 17:41:57.429 +03:00 [DBG]     Scheduling job: DEFAULT.DataRetentionJob with trigger: DEFAULT.DataRetentionJob-trigger
+2026-05-24 17:41:57.431 +03:00 [DBG]     Scheduling job: DEFAULT.MinistryBatchPollerJob with trigger: DEFAULT.MinistryBatchPollerJob-trigger
+2026-05-24 17:41:57.433 +03:00 [DBG]     Scheduling job: DEFAULT.EmailDispatcherJob with trigger: DEFAULT.EmailDispatcherJob-trigger
+2026-05-24 17:41:57.513 +03:00 [WRN]     The WebRootPath was not found: D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\wwwroot. Static files may be unavailable.
+2026-05-24 17:41:57.593 +03:00 [INF]     Now listening on: https://localhost:7139
+2026-05-24 17:41:57.595 +03:00 [INF]     Now listening on: http://localhost:5058
+2026-05-24 17:41:57.597 +03:00 [INF]     Application started. Press Ctrl+C to shut down.
+2026-05-24 17:41:57.599 +03:00 [INF]     Hosting environment: Development
+2026-05-24 17:41:57.600 +03:00 [INF]     Content root path: D:\WebApps\BOC_Research_System\backend\BOC.WebAPI
+2026-05-24 17:41:57.603 +03:00 [INF]     Scheduler QuartzScheduler_$_NON_CLUSTERED started.
+2026-05-24 17:41:57.608 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:41:57.616 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:41:57.619 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:41:57.622 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:41:57.625 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 17:41:57.642 +03:00 [WRN]     You do not have a valid license key for the Lucky Penny software MediatR. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2026-05-24 17:41:57.647 +03:00 [DBG]     Calling Execute on job DEFAULT.SLABreachScannerJob
+2026-05-24 17:41:57.647 +03:00 [DBG]     Calling Execute on job DEFAULT.MinistryBatchPollerJob
+2026-05-24 17:41:57.647 +03:00 [DBG]     Calling Execute on job DEFAULT.EmailDispatcherJob
+2026-05-24 17:41:57.647 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 17:41:57.652 +03:00 [INF]     SLA Breach Scanner job started...
+2026-05-24 17:41:57.653 +03:00 [INF]     [MinistryBatchPollerJob] Polling ministry batches for responses...
+2026-05-24 17:41:57.658 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 17:41:57.659 +03:00 [INF]     [EmailDispatcherJob] Starting email dispatch run...
+2026-05-24 17:41:57.900 +03:00 [INF]     Executed DbCommand (62ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [e].[Id], [e].[CreatedAt], [e].[DeliveryStatus], [e].[ErrorMessage], [e].[RecipientEmail], [e].[SentAt], [e].[Subject], [e].[TemplateType]
+FROM [EmailLogs] AS [e]
+WHERE [e].[DeliveryStatus] = N'Pending'
+ORDER BY [e].[CreatedAt]
+2026-05-24 17:41:57.900 +03:00 [INF]     Executed DbCommand (44ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 17:41:57.905 +03:00 [INF]     Executed DbCommand (69ms) [Parameters=[@now='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[AssignedById], [e].[AssignedDate], [e].[CreatedAt], [e].[DueDate], [e].[EvaluatorId], [e].[IsSLABreached], [e].[ModifiedAt], [e].[ReminderCount], [e].[ResearchId], [e].[RowVersion], [e].[Status], [e].[SubmittedDate]
+FROM [EvaluatorAssignments] AS [e]
+WHERE [e].[Status] = N'Active' AND [e].[SubmittedDate] IS NULL AND [e].[DueDate] < @now AND [e].[IsSLABreached] = CAST(0 AS bit)
+2026-05-24 17:41:57.912 +03:00 [INF]     No new SLA breaches found.
+2026-05-24 17:41:57.917 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:41:57.927 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 17:41:57.931 +03:00 [INF]     Executed DbCommand (31ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[BatchNumber], [m].[CreatedAt], [m].[MinistryResponseJson], [m].[ModifiedAt], [m].[SentDate], [m].[Status], [s].[Id], [s].[BatchId], [s].[CreatedAt], [s].[MinistryDecision], [s].[ResearchId], [s].[Id0], [s].[Abstract], [s].[CategoryId], [s].[CreatedAt0], [s].[DepartmentId], [s].[DirectorateId], [s].[FinalScore], [s].[IsArchived], [s].[MeetingId], [s].[MeetingMinutesId], [s].[ModifiedAt], [s].[ReplacedResearchId], [s].[ResearcherId], [s].[RowVersion], [s].[State], [s].[SubmissionDate], [s].[Title], [s].[TrackingNumber]
+FROM [MinistryBatches] AS [m]
+LEFT JOIN (
+    SELECT [b].[Id], [b].[BatchId], [b].[CreatedAt], [b].[MinistryDecision], [b].[ResearchId], [r].[Id] AS [Id0], [r].[Abstract], [r].[CategoryId], [r].[CreatedAt] AS [CreatedAt0], [r].[DepartmentId], [r].[DirectorateId], [r].[FinalScore], [r].[IsArchived], [r].[MeetingId], [r].[MeetingMinutesId], [r].[ModifiedAt], [r].[ReplacedResearchId], [r].[ResearcherId], [r].[RowVersion], [r].[State], [r].[SubmissionDate], [r].[Title], [r].[TrackingNumber]
+    FROM [BatchItems] AS [b]
+    INNER JOIN [ResearchPapers] AS [r] ON [b].[ResearchId] = [r].[Id]
+) AS [s] ON [m].[Id] = [s].[BatchId]
+WHERE [m].[Status] = N'Pending' AND [m].[MinistryResponseJson] IS NOT NULL
+ORDER BY [m].[Id], [s].[Id]
+2026-05-24 17:41:57.938 +03:00 [INF]     [MinistryBatchPollerJob] No pending ministry batch responses found.
+2026-05-24 17:41:57.941 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:41:57.943 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 17:41:57.944 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 17:41:57.946 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:41:57.947 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:41:57.958 +03:00 [INF]     Executed DbCommand (2ms) [Parameters=[@warningWindowStart='?' (DbType = DateTime2), @warningWindowEnd='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[AssignedById], [e].[AssignedDate], [e].[CreatedAt], [e].[DueDate], [e].[EvaluatorId], [e].[IsSLABreached], [e].[ModifiedAt], [e].[ReminderCount], [e].[ResearchId], [e].[RowVersion], [e].[Status], [e].[SubmittedDate], [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[BirthDate], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[DepartmentId], [a].[DeviceFingerprint], [a].[DirectorateId], [a].[Email], [a].[EmployeeID], [a].[EvaluatorStatus], [a].[FullName], [a].[IsEmailConfirmed], [a].[LastLoginAt], [a].[LockoutEnd], [a].[ModifiedAt], [a].[NationalID], [a].[NormalizedEmail], [a].[PasswordHash], [a].[PhoneNumber], [a].[RefreshTokenExpires], [a].[RefreshTokenHash], [a].[RoleId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[TwoFactorSecret], [r].[Id], [r].[Abstract], [r].[CategoryId], [r].[CreatedAt], [r].[DepartmentId], [r].[DirectorateId], [r].[FinalScore], [r].[IsArchived], [r].[MeetingId], [r].[MeetingMinutesId], [r].[ModifiedAt], [r].[ReplacedResearchId], [r].[ResearcherId], [r].[RowVersion], [r].[State], [r].[SubmissionDate], [r].[Title], [r].[TrackingNumber]
+FROM [EvaluatorAssignments] AS [e]
+INNER JOIN [AppUsers] AS [a] ON [e].[EvaluatorId] = [a].[Id]
+INNER JOIN [ResearchPapers] AS [r] ON [e].[ResearchId] = [r].[Id]
+WHERE [e].[Status] = N'Active' AND [e].[SubmittedDate] IS NULL AND [e].[IsSLABreached] = CAST(0 AS bit) AND [e].[ReminderCount] < 3 AND [e].[DueDate] >= @warningWindowStart AND [e].[DueDate] <= @warningWindowEnd
+2026-05-24 17:41:57.963 +03:00 [INF]     [EmailDispatcherJob] Completed. Sent: 0, Failed: 0.
+2026-05-24 17:41:57.965 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:41:57.968 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:42:05.337 +03:00 [ERR]     Not connected to Redis.
+2026-05-24 17:42:09.443 +03:00 [ERR]     Not connected to Redis.
+2026-05-24 17:42:22.875 +03:00 [INF]     Request starting HTTP/2 OPTIONS https://localhost:7139/api/Auth/login - null null
+2026-05-24 17:42:22.959 +03:00 [INF]     CORS policy execution successful.
+2026-05-24 17:42:22.967 +03:00 [INF]     HTTP OPTIONS /api/Auth/login responded 204 in 40.8580ms
+2026-05-24 17:42:22.976 +03:00 [INF]     Request finished HTTP/2 OPTIONS https://localhost:7139/api/Auth/login - 204 null null 101.3015ms
+2026-05-24 17:42:22.991 +03:00 [INF]     Request starting HTTP/2 POST https://localhost:7139/api/Auth/login - application/json 113
+2026-05-24 17:42:23.006 +03:00 [INF]     CORS policy execution successful.
+2026-05-24 17:42:23.089 +03:00 [INF]     Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: 'XMSDnoLQjtrD0dZTMvKYRDvgoZcWeXuZQ5ilig8Q7Ls'. , KeyId: 
+'.
+Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'.
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2026-05-24 17:42:23.103 +03:00 [INF]     Bearer was not authenticated. Failure message: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: 'XMSDnoLQjtrD0dZTMvKYRDvgoZcWeXuZQ5ilig8Q7Ls'. , KeyId: 
+'.
+Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'.
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2026-05-24 17:42:23.114 +03:00 [INF]     Executing endpoint 'BOC.WebAPI.Controllers.AuthController.Login (BOC.WebAPI)'
+2026-05-24 17:42:23.138 +03:00 [INF]     Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[BOC.Application.Features.Auth.Commands.LoginResultDto]] Login(BOC.Application.Features.Auth.Commands.LoginUserCommand) on controller BOC.WebAPI.Controllers.AuthController (BOC.WebAPI).
+2026-05-24 17:42:23.209 +03:00 [INF]     Beginning transaction for request LoginUserCommand...
+2026-05-24 17:42:23.310 +03:00 [INF]     Executed DbCommand (15ms) [Parameters=[@ToLowerInvariant='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[BirthDate], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[DepartmentId], [a].[DeviceFingerprint], [a].[DirectorateId], [a].[Email], [a].[EmployeeID], [a].[EvaluatorStatus], [a].[FullName], [a].[IsEmailConfirmed], [a].[LastLoginAt], [a].[LockoutEnd], [a].[ModifiedAt], [a].[NationalID], [a].[NormalizedEmail], [a].[PasswordHash], [a].[PhoneNumber], [a].[RefreshTokenExpires], [a].[RefreshTokenHash], [a].[RoleId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[TwoFactorSecret], [a0].[Id], [a0].[CreatedAt], [a0].[Description], [a0].[IsActive], [a0].[Name], [a0].[NormalizedName], [a0].[PermissionsJson]
+FROM [AppUsers] AS [a]
+INNER JOIN [AppRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[Email] = @ToLowerInvariant
+2026-05-24 17:42:23.628 +03:00 [INF]     Committed transaction for request LoginUserCommand.
+2026-05-24 17:42:23.637 +03:00 [INF]     Executing ObjectResult, writing value of type 'BOC.Application.Features.Auth.Commands.LoginResultDto'.
+2026-05-24 17:42:23.659 +03:00 [INF]     Executed action BOC.WebAPI.Controllers.AuthController.Login (BOC.WebAPI) in 513.5062ms
+2026-05-24 17:42:23.662 +03:00 [INF]     Executed endpoint 'BOC.WebAPI.Controllers.AuthController.Login (BOC.WebAPI)'
+2026-05-24 17:42:23.668 +03:00 [INF]     HTTP POST /api/Auth/login responded 200 in 665.3929ms
+2026-05-24 17:42:23.673 +03:00 [INF]     Request finished HTTP/2 POST https://localhost:7139/api/Auth/login - 200 null application/json; charset=utf-8 681.7251ms
+2026-05-24 17:42:27.425 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 17:42:27.433 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 17:42:27.444 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 17:42:27.473 +03:00 [INF]     Executed DbCommand (5ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 17:42:27.482 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 17:42:27.483 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:42:27.484 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:42:45.629 +03:00 [INF]     Request starting HTTP/2 OPTIONS https://localhost:7139/api/Auth/verify-2fa - null null
+2026-05-24 17:42:45.636 +03:00 [INF]     CORS policy execution successful.
+2026-05-24 17:42:45.638 +03:00 [INF]     HTTP OPTIONS /api/Auth/verify-2fa responded 204 in 2.9603ms
+2026-05-24 17:42:45.646 +03:00 [INF]     Request finished HTTP/2 OPTIONS https://localhost:7139/api/Auth/verify-2fa - 204 null null 17.0979ms
+2026-05-24 17:42:45.649 +03:00 [INF]     Request starting HTTP/2 POST https://localhost:7139/api/Auth/verify-2fa - application/json 106
+2026-05-24 17:42:45.665 +03:00 [INF]     CORS policy execution successful.
+2026-05-24 17:42:45.669 +03:00 [INF]     Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: 'XMSDnoLQjtrD0dZTMvKYRDvgoZcWeXuZQ5ilig8Q7Ls'. , KeyId: 
+'.
+Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'.
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2026-05-24 17:42:45.679 +03:00 [INF]     Bearer was not authenticated. Failure message: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: 'XMSDnoLQjtrD0dZTMvKYRDvgoZcWeXuZQ5ilig8Q7Ls'. , KeyId: 
+'.
+Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'.
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2026-05-24 17:42:45.684 +03:00 [INF]     Executing endpoint 'BOC.WebAPI.Controllers.AuthController.Verify2Fa (BOC.WebAPI)'
+2026-05-24 17:42:45.710 +03:00 [INF]     Route matched with {action = "Verify2Fa", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[BOC.Application.Features.Auth.Commands.VerifyTwoFactorResultDto]] Verify2Fa(BOC.Application.Features.Auth.Commands.VerifyTwoFactorCommand) on controller BOC.WebAPI.Controllers.AuthController (BOC.WebAPI).
+2026-05-24 17:42:45.746 +03:00 [INF]     Beginning transaction for request VerifyTwoFactorCommand...
+2026-05-24 17:42:45.818 +03:00 [INF]     Executed DbCommand (24ms) [Parameters=[@ToLowerInvariant='?' (Size = 200)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[BirthDate], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[DepartmentId], [a].[DeviceFingerprint], [a].[DirectorateId], [a].[Email], [a].[EmployeeID], [a].[EvaluatorStatus], [a].[FullName], [a].[IsEmailConfirmed], [a].[LastLoginAt], [a].[LockoutEnd], [a].[ModifiedAt], [a].[NationalID], [a].[NormalizedEmail], [a].[PasswordHash], [a].[PhoneNumber], [a].[RefreshTokenExpires], [a].[RefreshTokenHash], [a].[RoleId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[TwoFactorSecret], [a0].[Id], [a0].[CreatedAt], [a0].[Description], [a0].[IsActive], [a0].[Name], [a0].[NormalizedName], [a0].[PermissionsJson]
+FROM [AppUsers] AS [a]
+INNER JOIN [AppRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[Email] = @ToLowerInvariant
+2026-05-24 17:42:45.950 +03:00 [WRN]     Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+2026-05-24 17:42:45.983 +03:00 [INF]     Executed DbCommand (29ms) [Parameters=[@p3='?' (DbType = Guid), @p0='?' (DbType = DateTime2), @p1='?' (DbType = DateTime2), @p2='?' (Size = 500), @p4='?' (DbType = Guid), @p5='?' (Size = 50), @p6='?' (Size = 50), @p7='?' (Size = 4000), @p8='?' (Size = 4000), @p9='?' (Size = 50), @p10='?' (Size = 100), @p11='?' (Size = 100), @p12='?' (DbType = DateTime2), @p13='?' (Size = 500)], CommandType='"Text"', CommandTimeout='30']
+SET NOCOUNT ON;
+UPDATE [AppUsers] SET [LastLoginAt] = @p0, [RefreshTokenExpires] = @p1, [RefreshTokenHash] = @p2
+OUTPUT 1
+WHERE [Id] = @p3;
+INSERT INTO [AuditLogs] ([Id], [ActionType], [IpAddress], [NewValueJSON], [OldValueJSON], [OperatorEmployeeID], [RecordID], [TableName], [Timestamp], [UserAgent])
+VALUES (@p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13);
+2026-05-24 17:42:46.000 +03:00 [INF]     Committed transaction for request VerifyTwoFactorCommand.
+2026-05-24 17:42:46.002 +03:00 [INF]     Executing ObjectResult, writing value of type 'BOC.Application.Features.Auth.Commands.VerifyTwoFactorResultDto'.
+2026-05-24 17:42:46.009 +03:00 [INF]     Executed action BOC.WebAPI.Controllers.AuthController.Verify2Fa (BOC.WebAPI) in 290.7365ms
+2026-05-24 17:42:46.013 +03:00 [INF]     Executed endpoint 'BOC.WebAPI.Controllers.AuthController.Verify2Fa (BOC.WebAPI)'
+2026-05-24 17:42:46.015 +03:00 [INF]     HTTP POST /api/Auth/verify-2fa responded 200 in 349.6048ms
+2026-05-24 17:42:46.019 +03:00 [INF]     Request finished HTTP/2 POST https://localhost:7139/api/Auth/verify-2fa - 200 null application/json; charset=utf-8 369.5351ms
+2026-05-24 17:42:57.417 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 17:42:57.420 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 17:42:57.427 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 17:42:57.431 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 17:42:57.437 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 17:42:57.440 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:42:57.442 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:43:27.409 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 17:43:27.410 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 17:43:27.427 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 17:43:27.434 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 17:43:27.445 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 17:43:27.449 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:43:27.452 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:43:57.414 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 17:43:57.415 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 17:43:57.420 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 17:43:57.423 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 17:43:57.427 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 17:43:57.429 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:43:57.433 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:43:58.016 +03:00 [INF]     Request starting HTTP/2 OPTIONS https://localhost:7139/api/research/submit - null null
+2026-05-24 17:43:58.086 +03:00 [INF]     CORS policy execution successful.
+2026-05-24 17:43:58.089 +03:00 [INF]     HTTP OPTIONS /api/research/submit responded 204 in 3.0022ms
+2026-05-24 17:43:58.092 +03:00 [INF]     Request finished HTTP/2 OPTIONS https://localhost:7139/api/research/submit - 204 null null 75.3706ms
+2026-05-24 17:43:58.094 +03:00 [INF]     Request starting HTTP/2 POST https://localhost:7139/api/research/submit - multipart/form-data; boundary=----WebKitFormBoundaryBDUCIoqRCMRw8xbH 454970
+2026-05-24 17:43:58.103 +03:00 [INF]     CORS policy execution successful.
+2026-05-24 17:43:58.111 +03:00 [INF]     Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: 'XMSDnoLQjtrD0dZTMvKYRDvgoZcWeXuZQ5ilig8Q7Ls'. , KeyId: 
+'.
+Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'.
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2026-05-24 17:43:58.127 +03:00 [INF]     Bearer was not authenticated. Failure message: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: 'XMSDnoLQjtrD0dZTMvKYRDvgoZcWeXuZQ5ilig8Q7Ls'. , KeyId: 
+'.
+Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'.
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2026-05-24 17:43:58.135 +03:00 [INF]     Executing endpoint 'BOC.WebAPI.Controllers.ResearchController.Submit (BOC.WebAPI)'
+2026-05-24 17:43:58.144 +03:00 [INF]     Route matched with {action = "Submit", controller = "Research"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Guid]] Submit(System.String, System.String, System.Nullable`1[System.Guid], System.Guid, System.Guid, System.Guid, Boolean, Microsoft.AspNetCore.Http.IFormFile) on controller BOC.WebAPI.Controllers.ResearchController (BOC.WebAPI).
+2026-05-24 17:43:58.209 +03:00 [INF]     Beginning transaction for request SubmitResearchCommand...
+2026-05-24 17:43:58.226 +03:00 [INF]     Uploading research (1).pdf to FTP path /uploads/boc-research-dev/e76b4604-84e8-42f2-ae0e-dcbb91be2024_research (1).pdf...
+2026-05-24 17:44:19.265 +03:00 [ERR]     Transaction failed for request SubmitResearchCommand. Rolling back...
+System.TimeoutException: Timed out trying to connect to IP #1
+   at FluentFTP.FtpSocketStream.Connect(String host, Int32 port, FtpIpVersion ipVersions)
+   at FluentFTP.FtpClient.Connect(FtpSocketStream stream)
+   at FluentFTP.FtpClient.Connect(Boolean reConnect)
+   at FluentFTP.FtpClient.Connect()
+   at BOC.Infrastructure.Storage.FtpFileStorageService.<>c__DisplayClass4_0.<UploadFileAsync>b__0() in D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\Storage\FtpFileStorageService.cs:line 58
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at BOC.Infrastructure.Storage.FtpFileStorageService.UploadFileAsync(String fileName, Stream contentStream, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\Storage\FtpFileStorageService.cs:line 55
+   at BOC.Application.Features.Research.Commands.SubmitResearchCommandHandler.Handle(SubmitResearchCommand request, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Features\Research\Commands\SubmitResearchCommand.cs:line 85
+   at BOC.Application.Common.Behaviors.TransactionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Common\Behaviors\TransactionBehavior.cs:line 36
+2026-05-24 17:44:19.320 +03:00 [INF]     Executed action BOC.WebAPI.Controllers.ResearchController.Submit (BOC.WebAPI) in 21172.5748ms
+2026-05-24 17:44:19.322 +03:00 [INF]     Executed endpoint 'BOC.WebAPI.Controllers.ResearchController.Submit (BOC.WebAPI)'
+2026-05-24 17:44:19.326 +03:00 [ERR]     HTTP POST /api/research/submit responded 500 in 21225.4034ms
+System.TimeoutException: Timed out trying to connect to IP #1
+   at FluentFTP.FtpSocketStream.Connect(String host, Int32 port, FtpIpVersion ipVersions)
+   at FluentFTP.FtpClient.Connect(FtpSocketStream stream)
+   at FluentFTP.FtpClient.Connect(Boolean reConnect)
+   at FluentFTP.FtpClient.Connect()
+   at BOC.Infrastructure.Storage.FtpFileStorageService.<>c__DisplayClass4_0.<UploadFileAsync>b__0() in D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\Storage\FtpFileStorageService.cs:line 58
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at BOC.Infrastructure.Storage.FtpFileStorageService.UploadFileAsync(String fileName, Stream contentStream, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\Storage\FtpFileStorageService.cs:line 55
+   at BOC.Application.Features.Research.Commands.SubmitResearchCommandHandler.Handle(SubmitResearchCommand request, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Features\Research\Commands\SubmitResearchCommand.cs:line 85
+   at BOC.Application.Common.Behaviors.TransactionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Common\Behaviors\TransactionBehavior.cs:line 36
+   at BOC.Application.Common.Behaviors.TransactionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Common\Behaviors\TransactionBehavior.cs:line 46
+   at BOC.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Common\Behaviors\ValidationBehavior.cs:line 37
+   at BOC.WebAPI.Controllers.ResearchController.Submit(String title, String abstract, Nullable`1 categoryId, Guid researcherId, Guid departmentId, Guid directorateId, Boolean submitImmediately, IFormFile file) in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Controllers\ResearchController.cs:line 50
+   at lambda_method843(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at BOC.WebAPI.Middlewares.TwoFactorEnforcementMiddleware.InvokeAsync(HttpContext context, IBOCDbContext dbContext) in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Middlewares\TwoFactorEnforcementMiddleware.cs:line 67
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-05-24 17:44:19.377 +03:00 [ERR]     An unhandled exception occurred in the request pipeline.
+System.TimeoutException: Timed out trying to connect to IP #1
+   at FluentFTP.FtpSocketStream.Connect(String host, Int32 port, FtpIpVersion ipVersions)
+   at FluentFTP.FtpClient.Connect(FtpSocketStream stream)
+   at FluentFTP.FtpClient.Connect(Boolean reConnect)
+   at FluentFTP.FtpClient.Connect()
+   at BOC.Infrastructure.Storage.FtpFileStorageService.<>c__DisplayClass4_0.<UploadFileAsync>b__0() in D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\Storage\FtpFileStorageService.cs:line 58
+   at System.Threading.Tasks.Task`1.InnerInvoke()
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at BOC.Infrastructure.Storage.FtpFileStorageService.UploadFileAsync(String fileName, Stream contentStream, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Infrastructure\Storage\FtpFileStorageService.cs:line 55
+   at BOC.Application.Features.Research.Commands.SubmitResearchCommandHandler.Handle(SubmitResearchCommand request, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Features\Research\Commands\SubmitResearchCommand.cs:line 85
+   at BOC.Application.Common.Behaviors.TransactionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Common\Behaviors\TransactionBehavior.cs:line 36
+   at BOC.Application.Common.Behaviors.TransactionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Common\Behaviors\TransactionBehavior.cs:line 46
+   at BOC.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Common\Behaviors\ValidationBehavior.cs:line 37
+   at BOC.WebAPI.Controllers.ResearchController.Submit(String title, String abstract, Nullable`1 categoryId, Guid researcherId, Guid departmentId, Guid directorateId, Boolean submitImmediately, IFormFile file) in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Controllers\ResearchController.cs:line 50
+   at lambda_method843(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at BOC.WebAPI.Middlewares.TwoFactorEnforcementMiddleware.InvokeAsync(HttpContext context, IBOCDbContext dbContext) in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Middlewares\TwoFactorEnforcementMiddleware.cs:line 67
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at BOC.WebAPI.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Middlewares\GlobalExceptionMiddleware.cs:line 28
+2026-05-24 17:44:19.413 +03:00 [INF]     Request finished HTTP/2 POST https://localhost:7139/api/research/submit - 500 null application/json 21320.4946ms
+2026-05-24 17:44:25.135 +03:00 [INF]     Request starting HTTP/2 OPTIONS https://localhost:7139/api/triage/papers - null null
+2026-05-24 17:44:25.141 +03:00 [INF]     CORS policy execution successful.
+2026-05-24 17:44:25.144 +03:00 [INF]     HTTP OPTIONS /api/triage/papers responded 204 in 3.6003ms
+2026-05-24 17:44:25.150 +03:00 [INF]     Request finished HTTP/2 OPTIONS https://localhost:7139/api/triage/papers - 204 null null 15.0096ms
+2026-05-24 17:44:25.156 +03:00 [INF]     Request starting HTTP/2 GET https://localhost:7139/api/triage/papers - null null
+2026-05-24 17:44:25.166 +03:00 [INF]     CORS policy execution successful.
+2026-05-24 17:44:25.169 +03:00 [INF]     Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: 'XMSDnoLQjtrD0dZTMvKYRDvgoZcWeXuZQ5ilig8Q7Ls'. , KeyId: 
+'.
+Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'.
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2026-05-24 17:44:25.178 +03:00 [INF]     Bearer was not authenticated. Failure message: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: 'XMSDnoLQjtrD0dZTMvKYRDvgoZcWeXuZQ5ilig8Q7Ls'. , KeyId: 
+'.
+Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'.
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2026-05-24 17:44:25.181 +03:00 [INF]     Executing endpoint 'BOC.WebAPI.Controllers.TriageController.GetTriagePapers (BOC.WebAPI)'
+2026-05-24 17:44:25.193 +03:00 [INF]     Route matched with {action = "GetTriagePapers", controller = "Triage"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[BOC.Application.Features.Triage.Queries.TriagePaperDto]]] GetTriagePapers() on controller BOC.WebAPI.Controllers.TriageController (BOC.WebAPI).
+2026-05-24 17:44:25.237 +03:00 [INF]     Executed action BOC.WebAPI.Controllers.TriageController.GetTriagePapers (BOC.WebAPI) in 40.7792ms
+2026-05-24 17:44:25.241 +03:00 [INF]     Executed endpoint 'BOC.WebAPI.Controllers.TriageController.GetTriagePapers (BOC.WebAPI)'
+2026-05-24 17:44:25.244 +03:00 [ERR]     HTTP GET /api/triage/papers responded 500 in 78.0133ms
+System.InvalidOperationException: The LINQ expression 'DbSet<ResearchPaper>()
+    .Where(r => (int)r.State == 3)
+    .Join(
+        inner: DbSet<AppUser>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r, "ResearcherId"), 
+        innerKeySelector: a => EF.Property<Guid?>(a, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<ResearchPaper, AppUser>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Department>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r.Outer, "DepartmentId"), 
+        innerKeySelector: d => EF.Property<Guid?>(d, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<ResearchPaper, AppUser>, Department>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Directorate>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r.Outer.Outer, "DirectorateId"), 
+        innerKeySelector: d0 => EF.Property<Guid?>(d0, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<ResearchPaper, AppUser>, Department>, Directorate>(
+            Outer = o, 
+            Inner = i
+        ))
+    .LeftJoin(
+        inner: DbSet<ResearchCategory>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r.Outer.Outer.Outer, "CategoryId"), 
+        innerKeySelector: r0 => EF.Property<Guid?>(r0, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<ResearchPaper, AppUser>, Department>, Directorate>, ResearchCategory>(
+            Outer = o, 
+            Inner = i
+        ))
+    .OrderByDescending(r => new TriagePaperDto(
+        r.Outer.Outer.Outer.Outer.Id, 
+        r.Outer.Outer.Outer.Outer.TrackingNumber, 
+        r.Outer.Outer.Outer.Outer.Title, 
+        r.Outer.Outer.Outer.Outer.Abstract, 
+        r.Outer.Outer.Outer.Outer.ResearcherId, 
+        r.Outer.Outer.Outer.Inner.FullName, 
+        r.Outer.Outer.Outer.Outer.DepartmentId, 
+        r.Outer.Outer.Inner.Name, 
+        r.Outer.Outer.Outer.Outer.DirectorateId, 
+        r.Outer.Inner.Name, 
+        r.Inner != null ? r.Inner.Name : "N/A", 
+        r.Outer.Outer.Outer.Outer.CreatedAt
+    ).CreatedAt)' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutorExpression[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass11_0`1.<ExecuteCore>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteCore[TResult](Expression query, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at BOC.Application.Features.Triage.Queries.GetTriagePapersQueryHandler.Handle(GetTriagePapersQuery request, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Features\Triage\Queries\GetTriagePapersQuery.cs:line 41
+   at BOC.Application.Common.Behaviors.TransactionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Common\Behaviors\TransactionBehavior.cs:line 28
+   at BOC.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Common\Behaviors\ValidationBehavior.cs:line 37
+   at BOC.WebAPI.Controllers.TriageController.GetTriagePapers() in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Controllers\TriageController.cs:line 15
+   at lambda_method857(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at BOC.WebAPI.Middlewares.TwoFactorEnforcementMiddleware.InvokeAsync(HttpContext context, IBOCDbContext dbContext) in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Middlewares\TwoFactorEnforcementMiddleware.cs:line 67
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-05-24 17:44:25.284 +03:00 [ERR]     An unhandled exception occurred in the request pipeline.
+System.InvalidOperationException: The LINQ expression 'DbSet<ResearchPaper>()
+    .Where(r => (int)r.State == 3)
+    .Join(
+        inner: DbSet<AppUser>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r, "ResearcherId"), 
+        innerKeySelector: a => EF.Property<Guid?>(a, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<ResearchPaper, AppUser>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Department>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r.Outer, "DepartmentId"), 
+        innerKeySelector: d => EF.Property<Guid?>(d, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<ResearchPaper, AppUser>, Department>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Directorate>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r.Outer.Outer, "DirectorateId"), 
+        innerKeySelector: d0 => EF.Property<Guid?>(d0, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<ResearchPaper, AppUser>, Department>, Directorate>(
+            Outer = o, 
+            Inner = i
+        ))
+    .LeftJoin(
+        inner: DbSet<ResearchCategory>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r.Outer.Outer.Outer, "CategoryId"), 
+        innerKeySelector: r0 => EF.Property<Guid?>(r0, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<ResearchPaper, AppUser>, Department>, Directorate>, ResearchCategory>(
+            Outer = o, 
+            Inner = i
+        ))
+    .OrderByDescending(r => new TriagePaperDto(
+        r.Outer.Outer.Outer.Outer.Id, 
+        r.Outer.Outer.Outer.Outer.TrackingNumber, 
+        r.Outer.Outer.Outer.Outer.Title, 
+        r.Outer.Outer.Outer.Outer.Abstract, 
+        r.Outer.Outer.Outer.Outer.ResearcherId, 
+        r.Outer.Outer.Outer.Inner.FullName, 
+        r.Outer.Outer.Outer.Outer.DepartmentId, 
+        r.Outer.Outer.Inner.Name, 
+        r.Outer.Outer.Outer.Outer.DirectorateId, 
+        r.Outer.Inner.Name, 
+        r.Inner != null ? r.Inner.Name : "N/A", 
+        r.Outer.Outer.Outer.Outer.CreatedAt
+    ).CreatedAt)' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutorExpression[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass11_0`1.<ExecuteCore>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteCore[TResult](Expression query, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at BOC.Application.Features.Triage.Queries.GetTriagePapersQueryHandler.Handle(GetTriagePapersQuery request, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Features\Triage\Queries\GetTriagePapersQuery.cs:line 41
+   at BOC.Application.Common.Behaviors.TransactionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Common\Behaviors\TransactionBehavior.cs:line 28
+   at BOC.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Common\Behaviors\ValidationBehavior.cs:line 37
+   at BOC.WebAPI.Controllers.TriageController.GetTriagePapers() in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Controllers\TriageController.cs:line 15
+   at lambda_method857(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at BOC.WebAPI.Middlewares.TwoFactorEnforcementMiddleware.InvokeAsync(HttpContext context, IBOCDbContext dbContext) in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Middlewares\TwoFactorEnforcementMiddleware.cs:line 67
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at BOC.WebAPI.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Middlewares\GlobalExceptionMiddleware.cs:line 28
+2026-05-24 17:44:25.327 +03:00 [INF]     Request finished HTTP/2 GET https://localhost:7139/api/triage/papers - 500 null application/json 171.5199ms
+2026-05-24 17:44:27.420 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 17:44:27.420 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 17:44:27.424 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 17:44:27.429 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 17:44:27.434 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 17:44:27.436 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:44:27.440 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:44:57.413 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 17:44:57.414 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 17:44:57.419 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 17:44:57.424 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 17:44:57.433 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 17:44:57.436 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:44:57.438 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:45:01.846 +03:00 [INF]     Request starting HTTP/2 OPTIONS https://localhost:7139/api/triage/papers - null null
+2026-05-24 17:45:01.852 +03:00 [INF]     CORS policy execution successful.
+2026-05-24 17:45:01.853 +03:00 [INF]     HTTP OPTIONS /api/triage/papers responded 204 in 1.7565ms
+2026-05-24 17:45:01.857 +03:00 [INF]     Request finished HTTP/2 OPTIONS https://localhost:7139/api/triage/papers - 204 null null 10.0024ms
+2026-05-24 17:45:01.867 +03:00 [INF]     Request starting HTTP/2 GET https://localhost:7139/api/triage/papers - null null
+2026-05-24 17:45:01.873 +03:00 [INF]     CORS policy execution successful.
+2026-05-24 17:45:01.878 +03:00 [INF]     Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: 'XMSDnoLQjtrD0dZTMvKYRDvgoZcWeXuZQ5ilig8Q7Ls'. , KeyId: 
+'.
+Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'.
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(JsonWebToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignatureAndIssuerSecurityKey(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2026-05-24 17:45:01.885 +03:00 [INF]     Bearer was not authenticated. Failure message: IDX10517: Signature validation failed. The token's kid is missing. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: 'XMSDnoLQjtrD0dZTMvKYRDvgoZcWeXuZQ5ilig8Q7Ls'. , KeyId: 
+'.
+Number of keys in TokenValidationParameters: '1'. 
+Number of keys in Configuration: '0'.
+Exceptions caught:
+ '[PII of type 'System.String' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'.
+token: '[PII of type 'Microsoft.IdentityModel.JsonWebTokens.JsonWebToken' is hidden. For more details, see https://aka.ms/IdentityModel/PII.]'. See https://aka.ms/IDX10503 for details.
+2026-05-24 17:45:01.887 +03:00 [INF]     Executing endpoint 'BOC.WebAPI.Controllers.TriageController.GetTriagePapers (BOC.WebAPI)'
+2026-05-24 17:45:01.888 +03:00 [INF]     Route matched with {action = "GetTriagePapers", controller = "Triage"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[BOC.Application.Features.Triage.Queries.TriagePaperDto]]] GetTriagePapers() on controller BOC.WebAPI.Controllers.TriageController (BOC.WebAPI).
+2026-05-24 17:45:01.897 +03:00 [INF]     Executed action BOC.WebAPI.Controllers.TriageController.GetTriagePapers (BOC.WebAPI) in 6.6721ms
+2026-05-24 17:45:01.901 +03:00 [INF]     Executed endpoint 'BOC.WebAPI.Controllers.TriageController.GetTriagePapers (BOC.WebAPI)'
+2026-05-24 17:45:01.903 +03:00 [ERR]     HTTP GET /api/triage/papers responded 500 in 29.7930ms
+System.InvalidOperationException: The LINQ expression 'DbSet<ResearchPaper>()
+    .Where(r => (int)r.State == 3)
+    .Join(
+        inner: DbSet<AppUser>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r, "ResearcherId"), 
+        innerKeySelector: a => EF.Property<Guid?>(a, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<ResearchPaper, AppUser>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Department>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r.Outer, "DepartmentId"), 
+        innerKeySelector: d => EF.Property<Guid?>(d, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<ResearchPaper, AppUser>, Department>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Directorate>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r.Outer.Outer, "DirectorateId"), 
+        innerKeySelector: d0 => EF.Property<Guid?>(d0, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<ResearchPaper, AppUser>, Department>, Directorate>(
+            Outer = o, 
+            Inner = i
+        ))
+    .LeftJoin(
+        inner: DbSet<ResearchCategory>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r.Outer.Outer.Outer, "CategoryId"), 
+        innerKeySelector: r0 => EF.Property<Guid?>(r0, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<ResearchPaper, AppUser>, Department>, Directorate>, ResearchCategory>(
+            Outer = o, 
+            Inner = i
+        ))
+    .OrderByDescending(r => new TriagePaperDto(
+        r.Outer.Outer.Outer.Outer.Id, 
+        r.Outer.Outer.Outer.Outer.TrackingNumber, 
+        r.Outer.Outer.Outer.Outer.Title, 
+        r.Outer.Outer.Outer.Outer.Abstract, 
+        r.Outer.Outer.Outer.Outer.ResearcherId, 
+        r.Outer.Outer.Outer.Inner.FullName, 
+        r.Outer.Outer.Outer.Outer.DepartmentId, 
+        r.Outer.Outer.Inner.Name, 
+        r.Outer.Outer.Outer.Outer.DirectorateId, 
+        r.Outer.Inner.Name, 
+        r.Inner != null ? r.Inner.Name : "N/A", 
+        r.Outer.Outer.Outer.Outer.CreatedAt
+    ).CreatedAt)' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutorExpression[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass11_0`1.<ExecuteCore>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteCore[TResult](Expression query, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at BOC.Application.Features.Triage.Queries.GetTriagePapersQueryHandler.Handle(GetTriagePapersQuery request, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Features\Triage\Queries\GetTriagePapersQuery.cs:line 41
+   at BOC.Application.Common.Behaviors.TransactionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Common\Behaviors\TransactionBehavior.cs:line 28
+   at BOC.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Common\Behaviors\ValidationBehavior.cs:line 37
+   at BOC.WebAPI.Controllers.TriageController.GetTriagePapers() in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Controllers\TriageController.cs:line 15
+   at lambda_method857(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at BOC.WebAPI.Middlewares.TwoFactorEnforcementMiddleware.InvokeAsync(HttpContext context, IBOCDbContext dbContext) in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Middlewares\TwoFactorEnforcementMiddleware.cs:line 67
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-05-24 17:45:01.935 +03:00 [ERR]     An unhandled exception occurred in the request pipeline.
+System.InvalidOperationException: The LINQ expression 'DbSet<ResearchPaper>()
+    .Where(r => (int)r.State == 3)
+    .Join(
+        inner: DbSet<AppUser>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r, "ResearcherId"), 
+        innerKeySelector: a => EF.Property<Guid?>(a, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<ResearchPaper, AppUser>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Department>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r.Outer, "DepartmentId"), 
+        innerKeySelector: d => EF.Property<Guid?>(d, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<ResearchPaper, AppUser>, Department>(
+            Outer = o, 
+            Inner = i
+        ))
+    .Join(
+        inner: DbSet<Directorate>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r.Outer.Outer, "DirectorateId"), 
+        innerKeySelector: d0 => EF.Property<Guid?>(d0, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<ResearchPaper, AppUser>, Department>, Directorate>(
+            Outer = o, 
+            Inner = i
+        ))
+    .LeftJoin(
+        inner: DbSet<ResearchCategory>(), 
+        outerKeySelector: r => EF.Property<Guid?>(r.Outer.Outer.Outer, "CategoryId"), 
+        innerKeySelector: r0 => EF.Property<Guid?>(r0, "Id"), 
+        resultSelector: (o, i) => new TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<TransparentIdentifier<ResearchPaper, AppUser>, Department>, Directorate>, ResearchCategory>(
+            Outer = o, 
+            Inner = i
+        ))
+    .OrderByDescending(r => new TriagePaperDto(
+        r.Outer.Outer.Outer.Outer.Id, 
+        r.Outer.Outer.Outer.Outer.TrackingNumber, 
+        r.Outer.Outer.Outer.Outer.Title, 
+        r.Outer.Outer.Outer.Outer.Abstract, 
+        r.Outer.Outer.Outer.Outer.ResearcherId, 
+        r.Outer.Outer.Outer.Inner.FullName, 
+        r.Outer.Outer.Outer.Outer.DepartmentId, 
+        r.Outer.Outer.Inner.Name, 
+        r.Outer.Outer.Outer.Outer.DirectorateId, 
+        r.Outer.Inner.Name, 
+        r.Inner != null ? r.Inner.Name : "N/A", 
+        r.Outer.Outer.Outer.Outer.CreatedAt
+    ).CreatedAt)' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutorExpression[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass11_0`1.<ExecuteCore>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteCore[TResult](Expression query, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at BOC.Application.Features.Triage.Queries.GetTriagePapersQueryHandler.Handle(GetTriagePapersQuery request, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Features\Triage\Queries\GetTriagePapersQuery.cs:line 41
+   at BOC.Application.Common.Behaviors.TransactionBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Common\Behaviors\TransactionBehavior.cs:line 28
+   at BOC.Application.Common.Behaviors.ValidationBehavior`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in D:\WebApps\BOC_Research_System\backend\BOC.Application\Common\Behaviors\ValidationBehavior.cs:line 37
+   at BOC.WebAPI.Controllers.TriageController.GetTriagePapers() in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Controllers\TriageController.cs:line 15
+   at lambda_method857(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at BOC.WebAPI.Middlewares.TwoFactorEnforcementMiddleware.InvokeAsync(HttpContext context, IBOCDbContext dbContext) in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Middlewares\TwoFactorEnforcementMiddleware.cs:line 67
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at AspNetCoreRateLimit.RateLimitMiddleware`1.Invoke(HttpContext context) in C:\Users\User\Documents\Github\AspNetCoreRateLimit\src\AspNetCoreRateLimit\Middleware\RateLimitMiddleware.cs:line 124
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at BOC.WebAPI.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in D:\WebApps\BOC_Research_System\backend\BOC.WebAPI\Middlewares\GlobalExceptionMiddleware.cs:line 28
+2026-05-24 17:45:01.963 +03:00 [INF]     Request finished HTTP/2 GET https://localhost:7139/api/triage/papers - 500 null application/json 96.6497ms
+2026-05-24 17:45:27.419 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 17:45:27.420 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 17:45:27.431 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 17:45:27.440 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 17:45:27.445 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 17:45:27.446 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:45:27.447 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:45:57.412 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 17:45:57.413 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 17:45:57.421 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 17:45:57.430 +03:00 [INF]     Executed DbCommand (3ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 17:45:57.438 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 17:45:57.441 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:45:57.445 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:46:27.428 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 17:46:27.428 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 17:46:27.432 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 17:46:27.436 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 17:46:27.441 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 17:46:27.444 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:46:27.445 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:46:57.425 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:46:57.425 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 17:46:57.428 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 17:46:57.431 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 17:46:57.435 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 17:46:57.437 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 17:46:57.439 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:46:57.439 +03:00 [DBG]     Calling Execute on job DEFAULT.EmailDispatcherJob
+2026-05-24 17:46:57.442 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:46:57.444 +03:00 [INF]     [EmailDispatcherJob] Starting email dispatch run...
+2026-05-24 17:46:57.462 +03:00 [INF]     Executed DbCommand (14ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [e].[Id], [e].[CreatedAt], [e].[DeliveryStatus], [e].[ErrorMessage], [e].[RecipientEmail], [e].[SentAt], [e].[Subject], [e].[TemplateType]
+FROM [EmailLogs] AS [e]
+WHERE [e].[DeliveryStatus] = N'Pending'
+ORDER BY [e].[CreatedAt]
+2026-05-24 17:46:57.468 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[@warningWindowStart='?' (DbType = DateTime2), @warningWindowEnd='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[AssignedById], [e].[AssignedDate], [e].[CreatedAt], [e].[DueDate], [e].[EvaluatorId], [e].[IsSLABreached], [e].[ModifiedAt], [e].[ReminderCount], [e].[ResearchId], [e].[RowVersion], [e].[Status], [e].[SubmittedDate], [a].[Id], [a].[AccessFailedCount], [a].[AccountStatus], [a].[BirthDate], [a].[ConcurrencyStamp], [a].[CreatedAt], [a].[DepartmentId], [a].[DeviceFingerprint], [a].[DirectorateId], [a].[Email], [a].[EmployeeID], [a].[EvaluatorStatus], [a].[FullName], [a].[IsEmailConfirmed], [a].[LastLoginAt], [a].[LockoutEnd], [a].[ModifiedAt], [a].[NationalID], [a].[NormalizedEmail], [a].[PasswordHash], [a].[PhoneNumber], [a].[RefreshTokenExpires], [a].[RefreshTokenHash], [a].[RoleId], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[TwoFactorSecret], [r].[Id], [r].[Abstract], [r].[CategoryId], [r].[CreatedAt], [r].[DepartmentId], [r].[DirectorateId], [r].[FinalScore], [r].[IsArchived], [r].[MeetingId], [r].[MeetingMinutesId], [r].[ModifiedAt], [r].[ReplacedResearchId], [r].[ResearcherId], [r].[RowVersion], [r].[State], [r].[SubmissionDate], [r].[Title], [r].[TrackingNumber]
+FROM [EvaluatorAssignments] AS [e]
+INNER JOIN [AppUsers] AS [a] ON [e].[EvaluatorId] = [a].[Id]
+INNER JOIN [ResearchPapers] AS [r] ON [e].[ResearchId] = [r].[Id]
+WHERE [e].[Status] = N'Active' AND [e].[SubmittedDate] IS NULL AND [e].[IsSLABreached] = CAST(0 AS bit) AND [e].[ReminderCount] < 3 AND [e].[DueDate] >= @warningWindowStart AND [e].[DueDate] <= @warningWindowEnd
+2026-05-24 17:46:57.474 +03:00 [INF]     [EmailDispatcherJob] Completed. Sent: 0, Failed: 0.
+2026-05-24 17:46:57.476 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:46:57.477 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:47:27.411 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 17:47:27.412 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 17:47:27.421 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 17:47:27.427 +03:00 [INF]     Executed DbCommand (2ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 17:47:27.438 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 17:47:27.442 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:47:27.448 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:47:57.417 +03:00 [DBG]     Batch acquisition of 0 triggers
+2026-05-24 17:47:57.417 +03:00 [DBG]     Calling Execute on job DEFAULT.OutboxDispatcherJob
+2026-05-24 17:47:57.422 +03:00 [INF]     Outbox Dispatcher started processing...
+2026-05-24 17:47:57.426 +03:00 [INF]     Executed DbCommand (1ms) [Parameters=[@p='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@p) [o].[Id], [o].[CreatedAt], [o].[Error], [o].[EventType], [o].[OccurredOn], [o].[Payload], [o].[ProcessedAt], [o].[RetryCount]
+FROM [OutboxMessages] AS [o]
+WHERE [o].[ProcessedAt] IS NULL AND [o].[RetryCount] < 5
+ORDER BY [o].[OccurredOn]
+2026-05-24 17:47:57.430 +03:00 [INF]     Outbox Dispatcher completed processing.
+2026-05-24 17:47:57.431 +03:00 [DBG]     Trigger instruction : NoInstruction
+2026-05-24 17:47:57.433 +03:00 [DBG]     Batch acquisition of 1 triggers
+2026-05-24 17:48:12.158 +03:00 [INF]     Application is shutting down...
+2026-05-24 17:48:12.201 +03:00 [INF]     Scheduler QuartzScheduler_$_NON_CLUSTERED shutting down.
+2026-05-24 17:48:12.209 +03:00 [INF]     Scheduler QuartzScheduler_$_NON_CLUSTERED paused.
+2026-05-24 17:48:12.217 +03:00 [DBG]     Shutting down threadpool...
+2026-05-24 17:48:12.219 +03:00 [DBG]     Waiting for 0 threads to complete.
+2026-05-24 17:48:12.221 +03:00 [DBG]     No executing jobs remaining, all threads stopped.
+2026-05-24 17:48:12.222 +03:00 [DBG]     Shutdown of threadpool complete.
+2026-05-24 17:48:12.224 +03:00 [INF]     Scheduler QuartzScheduler_$_NON_CLUSTERED Shutdown complete.

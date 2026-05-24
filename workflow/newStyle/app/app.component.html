@@ -1,0 +1,6 @@
+<!-- Root App Component -->
+@if (isAuthenticated) {
+  <app-shell></app-shell>
+} @else {
+  <router-outlet></router-outlet>
+}

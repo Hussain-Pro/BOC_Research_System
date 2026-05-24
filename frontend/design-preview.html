@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOC Research System - Modern UI Preview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* BOC Muted Industrial Palette */
+            --boc-primary: #0F2A38;
+            --boc-secondary: #163E54;
+            --boc-accent: #4A607A;
+            --boc-bg: #F4F6F9;
+            --boc-surface: #FFFFFF;
+            --boc-text-main: #1A1A1A;
+            --boc-text-muted: #666666;
+            --boc-border: #E2E8F0;
+            --boc-success: #10B981;
+            --boc-warning: #F59E0B;
+            --boc-danger: #EF4444;
+            
+            /* Modern Motion & Transitions */
+            --transition-fast: 0.2s ease-in-out;
+            --transition-medium: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Depth & Soft Shadows */
+            --shadow-sm: 0 1px 3px rgba(15, 42, 56, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(15, 42, 56, 0.1), 0 2px 4px -1px rgba(15, 42, 56, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(15, 42, 56, 0.1), 0 4px 6px -2px rgba(15, 42, 56, 0.05);
+            --radius-md: 6px;
+            --radius-lg: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--boc-bg);
+            color: var(--boc-text-main);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar - Smooth slide in for mobile */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--boc-primary) 0%, var(--boc-secondary) 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-medium);
+            z-index: 50;
+            position: fixed;
+            height: 100vh;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-logo {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .sidebar-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            line-height: 1.2;
+        }
+        
+        .sidebar-subtitle {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            font-weight: 300;
+        }
+
+        .nav-menu {
+            padding: 24px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 16px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: var(--transition-fast);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hover Motion Effects */
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(-4px); /* RTL Slide left on hover */
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--boc-bg);
+            border-radius: 4px 0 0 4px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-right: 280px;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-medium);
+            width: calc(100% - 280px);
+        }
+
+        /* Topbar */
+        .topbar {
+            height: 72px;
+            background: var(--boc-surface);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .topbar-right, .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--boc-accent);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        /* Icon Hover Motion */
+        .icon-btn:hover {
+            background: var(--boc-bg);
+            color: var(--boc-primary);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: var(--boc-danger);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Constant pulse animation for live notifications */
+            animation: pulse 2s infinite;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px 12px;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border: 1px solid transparent;
+        }
+
+        .user-profile:hover {
+            background: var(--boc-bg);
+            border-color: var(--boc-border);
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--boc-accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .user-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .user-role {
+            font-size: 0.8rem;
+            color: var(--boc-text-muted);
+        }
+
+        /* Dashboard Content */
+        .dashboard-container {
+            padding: 32px;
+            /* Cascade load animation */
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--boc-primary);
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: var(--boc-text-muted);
+            font-size: 1rem;
+        }
+
+        .btn {
+            background: var(--boc-secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-fast);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn:hover {
+            background: var(--boc-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Stats Cards (Responsive Grid) */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--boc-surface);
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: var(--transition-medium);
+            border: 1px solid var(--boc-border);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        /* Motion Lift Effect */
+        .stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: var(--boc-bg);
+            color: var(--boc-primary);
+            transition: var(--transition-medium);
+        }
+
+        .stat-card:hover .stat-icon {
+            background: var(--boc-primary);
+            color: white;
+            transform: scale(1.15) rotate(10deg);
+        }
+
+        .stat-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--boc-primary);
+        }
+
+        .stat-label {
+            color: var(--boc-text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Data Table */
+        .table-card {
+            background: var(--boc-surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            border: 1px solid var(--boc-border);
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .table-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--boc-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #FAFBFC;
+        }
+
+        .table-title {
+            font-weight: 700;
+            color: var(--boc-primary);
+            font-size: 1.1rem;
+        }
+
+        .search-input {
+            padding: 8px 16px 8px 32px;
+            border: 1px solid var(--boc-border);
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            transition: var(--transition-fast);
+            width: 250px;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--boc-accent);
+            box-shadow: 0 0 0 3px rgba(74, 96, 122, 0.1);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--boc-surface);
+            padding: 16px 24px;
+            text-align: right;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--boc-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--boc-border);
+        }
+
+        td {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--boc-border);
+            vertical-align: middle;
+            transition: var(--transition-fast);
+        }
+
+        /* Row Hover Motion */
+        tbody tr {
+            transition: var(--transition-fast);
+        }
+
+        tbody tr:hover {
+            background: var(--boc-bg);
+            transform: scale(1.002); /* micro expansion */
+        }
+
+        .research-title {
+            font-weight: 700;
+            color: var(--boc-primary);
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .research-meta {
+            font-size: 0.8rem;
+            color: var(--boc-text-muted);
+            display: flex;
+            gap: 16px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .status-pending {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+
+        .status-active {
+            background: #D1FAE5;
+            color: #059669;
+        }
+
+        .action-btn {
+            background: var(--boc-surface);
+            border: 1px solid var(--boc-border);
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-md);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--boc-accent);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Button Hover Motion */
+        .action-btn:hover {
+            background: var(--boc-primary);
+            color: white;
+            border-color: var(--boc-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Keyframes for Motion/Transitions */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            70% { transform: scale(1.2); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        /* Responsive Breakpoints */
+        .menu-toggle {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(100%); /* Hide in RTL */
+            }
+            .sidebar.open {
+                transform: translateX(0); /* Slide in */
+            }
+            .main-content {
+                margin-right: 0;
+                width: 100%;
+            }
+            .menu-toggle {
+                display: flex;
+            }
+            
+            /* Background Overlay for mobile sidebar */
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(15, 42, 56, 0.5);
+                backdrop-filter: blur(3px);
+                z-index: 45;
+                opacity: 0;
+                transition: var(--transition-medium);
+            }
+            .sidebar-overlay.show {
+                display: block;
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+            .topbar {
+                padding: 0 16px;
+            }
+            .dashboard-container {
+                padding: 16px;
+            }
+            .table-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 16px;
+            }
+            .search-input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Overlay for mobile responsiveness -->
+    <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <i class="fa-solid fa-droplet"></i>
+            </div>
+            <div>
+                <div class="sidebar-title">شركة نفط البصرة</div>
+                <div class="sidebar-subtitle">نظام تقييم البحوث</div>
+            </div>
+        </div>
+        <nav class="nav-menu">
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-chart-pie nav-icon"></i>
+                <span>لوحة القيادة الإدارية</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-inbox nav-icon"></i>
+                <span>صندوق الوارد (الفرز)</span>
+                <!-- Motion badge on hover -->
+                <span style="margin-right: auto; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; transition: var(--transition-fast);">12</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-users-gear nav-icon"></i>
+                <span>إدارة اللجان والمقيمين</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-file-contract nav-icon"></i>
+                <span>محاضر الاجتماعات (Sessions)</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-clock-rotate-left nav-icon"></i>
+                <span>السجل التاريخي (History)</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Topbar -->
+        <header class="topbar">
+            <div class="topbar-right">
+                <button class="icon-btn menu-toggle" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div style="color: var(--boc-text-muted); font-size: 0.95rem; font-weight: 500; display: none; @media(min-width: 768px){display: block;}">
+                    الرئيسية / <span style="color: var(--boc-primary); font-weight: 700;">واجهة الفرز (Incoming Triage)</span>
+                </div>
+            </div>
+            <div class="topbar-left">
+                <button class="icon-btn" title="تغيير المظهر">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button class="icon-btn" title="الإشعارات (SignalR)">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="badge">3</span>
+                </button>
+                <div class="user-profile">
+                    <div class="user-info" style="text-align: left;">
+                        <span class="user-name">د. أحمد حسن</span>
+                        <span class="user-role">رئيس اللجنة (Chairman)</span>
+                    </div>
+                    <div class="avatar">أح</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard -->
+        <div class="dashboard-container">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">واجهة الفرز وتوزيع البحوث</h1>
+                    <p class="page-subtitle">إدارة وتوجيه البحوث الواردة إلى المقيمين أو أعضاء اللجنة (Triage Mapping)</p>
+                </div>
+                <button class="btn">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    تحديث البيانات المباشرة
+                </button>
+            </div>
+
+            <!-- Stats with Cascade Animation -->
+            <div class="stats-grid">
+                <div class="stat-card" style="animation-delay: 0.1s;">
+                    <div class="stat-icon"><i class="fa-solid fa-file-circle-exclamation"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-value">12</span>
+                        <span class="stat-label">بحوث بانتظار التوجيه</span>
+                    </div>
+                </div>
+                <div class="stat-card" style="animation-delay: 0.2s;">
+                    <div class="stat-icon" style="color: var(--boc-warning); background: #FEF3C7;"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-value">3</span>
+                        <span class="stat-label">تجاوز مدة التقييم (SLA Breach)</span>
+                    </div>
+                </div>
+                <div class="stat-card" style="animation-delay: 0.3s;">
+                    <div class="stat-icon" style="color: var(--boc-success); background: #D1FAE5;"><i class="fa-solid fa-check-double"></i></div>
+                    <div class="stat-content">
+                        <span class="stat-value">45</span>
+                        <span class="stat-label">مكتملة هذا الشهر</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Table with Depth & Motion -->
+            <div class="table-card" style="animation-delay: 0.4s;">
+                <div class="table-header">
+                    <h3 class="table-title">البحوث الواردة (Incoming Queue)</h3>
+                    <div style="position: relative;">
+                        <i class="fa-solid fa-search" style="position: absolute; right: 12px; top: 12px; color: var(--boc-text-muted);"></i>
+                        <input type="text" class="search-input" placeholder="ابحث برقم التتبع أو العنوان...">
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>رقم التتبع / تفاصيل البحث</th>
+                                <th>تاريخ التقديم</th>
+                                <th>القسم / الهيئة</th>
+                                <th>الحالة</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="research-title">تحسين كفاءة استخراج النفط باستخدام تقنيات النانو</span>
+                                    <div class="research-meta">
+                                        <span><i class="fa-solid fa-hashtag"></i> RES-2026-0042</span>
+                                        <span><i class="fa-solid fa-user"></i> م. مصطفى كريم</span>
+                                    </div>
+                                </td>
+                                <td>24 أيار 2026</td>
+                                <td>هيئة الحقول / قسم المكامن</td>
+                                <td>
+                                    <span class="status-badge status-pending">
+                                        <i class="fa-regular fa-clock"></i> قيد الفرز
+                                    </span>
+                                </td>
+                                <td>
+                                    <div style="display: flex; gap: 8px;">
+                                        <button class="action-btn" title="عرض التفاصيل (PDF Streaming)"><i class="fa-solid fa-file-pdf"></i></button>
+                                        <button class="action-btn" title="تعيين مقيمين (Triage Mapping)" style="color: var(--boc-primary); border-color: var(--boc-primary);"><i class="fa-solid fa-users"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="research-title">دراسة جدوى المضخات الغاطسة الكهربائية (ESP)</span>
+                                    <div class="research-meta">
+                                        <span><i class="fa-solid fa-hashtag"></i> RES-2026-0038</span>
+                                        <span><i class="fa-solid fa-user"></i> د. سارة محمود</span>
+                                    </div>
+                                </td>
+                                <td>20 أيار 2026</td>
+                                <td>هيئة الإنتاج</td>
+                                <td>
+                                    <span class="status-badge status-active">
+                                        <i class="fa-solid fa-paper-plane"></i> مرسل للمقيمين
+                                    </span>
+                                </td>
+                                <td>
+                                    <div style="display: flex; gap: 8px;">
+                                        <button class="action-btn" title="عرض التفاصيل"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="action-btn" title="متابعة حالة التقييم"><i class="fa-solid fa-list-check"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="research-title">تقييم مخاطر التآكل في أنابيب التصدير البحرية</span>
+                                    <div class="research-meta">
+                                        <span><i class="fa-solid fa-hashtag"></i> RES-2026-0045</span>
+                                        <span><i class="fa-solid fa-user"></i> م.أ علي طالب</span>
+                                    </div>
+                                </td>
+                                <td>23 أيار 2026</td>
+                                <td>هيئة المشاريع</td>
+                                <td>
+                                    <span class="status-badge status-pending">
+                                        <i class="fa-regular fa-clock"></i> قيد الفرز
+                                    </span>
+                                </td>
+                                <td>
+                                    <div style="display: flex; gap: 8px;">
+                                        <button class="action-btn" title="عرض التفاصيل"><i class="fa-solid fa-file-pdf"></i></button>
+                                        <button class="action-btn" title="تعيين مقيمين (Triage Mapping)" style="color: var(--boc-primary); border-color: var(--boc-primary);"><i class="fa-solid fa-users"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Smooth responsive sidebar toggle
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>

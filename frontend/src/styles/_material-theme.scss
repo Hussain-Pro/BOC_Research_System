@@ -1,18 +1,22 @@
-@use '@angular/material' as mat;
+/* ================================================================
+   Angular Material MDC Theme — BOC Enterprise
+   ================================================================ */
 
-html {
-  @include mat.theme((
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: (
-      brand-family: 'Tajawal',
-      plain-family: 'Tajawal',
-    ),
-    density: 0,
-  ));
+/* Material component overrides using CSS variables only
+   (avoids SASS @use conflicts with Bootstrap import chain) */
+
+/* Outlined text field borders */
+.mdc-text-field--outlined .mdc-notched-outline__leading,
+.mdc-text-field--outlined .mdc-notched-outline__notch,
+.mdc-text-field--outlined .mdc-notched-outline__trailing {
+  border-color: var(--border-color-hover) !important;
+}
+
+.mdc-text-field--focused .mdc-notched-outline__leading,
+.mdc-text-field--focused .mdc-notched-outline__notch,
+.mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: var(--boc-primary) !important;
+  border-width: 1px !important;
 }
 
 .mat-mdc-form-field {
@@ -20,14 +24,21 @@ html {
   font-family: var(--font-family-arabic);
 }
 
+.mat-mdc-form-field-focus-overlay {
+  background-color: transparent;
+}
+
+/* Button font + radius override */
 .mat-mdc-outlined-button,
 .mat-mdc-unelevated-button,
 .mat-mdc-raised-button,
 .mat-mdc-fab,
 .mat-mdc-mini-fab {
   font-family: var(--font-family-arabic);
+  border-radius: var(--radius-sm) !important;
 }
 
+/* Table */
 .mat-mdc-table,
 .mat-mdc-paginator,
 .mat-mdc-dialog-container {
@@ -35,35 +46,187 @@ html {
 }
 
 .mat-mdc-header-cell {
-  color: var(--boc-primary) !important;
+  color: var(--text-primary) !important;
   font-weight: 700;
+  font-size: 12px;
 }
 
 .mat-mdc-row:hover {
   background-color: rgba(15, 42, 56, 0.03);
 }
 
-.mdc-text-field--outlined .mdc-notched-outline__leading,
-.mdc-text-field--outlined .mdc-notched-outline__notch,
-.mdc-text-field--outlined .mdc-notched-outline__trailing {
-  border-color: var(--border-color) !important;
+/* Dialog */
+.mat-mdc-dialog-surface {
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--elevation-4) !important;
 }
 
-.mdc-text-field--focused .mdc-notched-outline__leading,
-.mdc-text-field--focused .mdc-notched-outline__notch,
-.mdc-text-field--focused .mdc-notched-outline__trailing {
+/* Menu / Dropdown */
+.mat-mdc-menu-panel {
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--elevation-3) !important;
+}
+
+/* Select panel */
+.mat-mdc-select-panel {
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--elevation-3) !important;
+}
+
+/* Tooltip */
+.mat-mdc-tooltip {
+  font-family: var(--font-family-arabic) !important;
+  font-size: 12px !important;
+  border-radius: var(--radius-md) !important;
+}
+
+/* Paginator */
+.mat-mdc-paginator {
+  background: transparent !important;
+}
+
+/* Chip */
+.mat-mdc-chip {
+  font-family: var(--font-family-arabic) !important;
+  border-radius: var(--radius-full) !important;
+}
+
+/* Progress bar */
+.mat-mdc-progress-bar {
+  border-radius: var(--radius-full);
+}
+
+/* Snackbar (Toast) */
+.mat-mdc-snack-bar-container {
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--elevation-3) !important;
+}
+
+.mat-mdc-snack-bar-label {
+  font-family: var(--font-family-arabic) !important;
+}
+
+/* Tabs */
+.mat-mdc-tab-labels {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.mat-mdc-tab .mdc-tab__text-label {
+  font-family: var(--font-family-arabic) !important;
+  font-weight: 500;
+}
+
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: var(--boc-primary) !important;
+  font-weight: 600;
+}
+
+.mat-mdc-tab-indicator .mdc-tab-indicator__content--underline {
   border-color: var(--boc-primary) !important;
 }
 
-.mat-mdc-form-field-focus-overlay {
-  background-color: transparent;
+/* Checkbox & Radio */
+.mat-mdc-checkbox .mdc-checkbox__background,
+.mat-mdc-radio-button .mdc-radio__background {
+  border-color: var(--border-color-hover) !important;
 }
 
+.mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background,
+.mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__background {
+  background-color: var(--boc-primary) !important;
+  border-color: var(--boc-primary) !important;
+}
+
+/* Slide Toggle */
+.mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked .mdc-switch__track::after {
+  background-color: var(--boc-primary) !important;
+}
+
+.mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked .mdc-switch__handle::after {
+  background-color: var(--boc-primary) !important;
+}
+
+/* ---------- Stepper ---------- */
 .mat-stepper-horizontal,
 .mat-stepper-vertical {
   font-family: var(--font-family-arabic);
 }
 
 .mat-horizontal-stepper-header-container {
-  border-radius: var(--boc-radius-lg);
+  border-radius: var(--radius-lg);
+}
+
+/* ---------- Dark Mode Material Overrides ---------- */
+[data-theme="dark"] {
+  .mat-mdc-form-field {
+    color: var(--text-primary);
+  }
+
+  .mat-mdc-header-cell {
+    color: var(--text-primary) !important;
+  }
+
+  .mat-mdc-row:hover {
+    background-color: rgba(139, 163, 184, 0.04);
+  }
+
+  .mdc-text-field--outlined .mdc-notched-outline__leading,
+  .mdc-text-field--outlined .mdc-notched-outline__notch,
+  .mdc-text-field--outlined .mdc-notched-outline__trailing {
+    border-color: var(--border-color-hover) !important;
+  }
+
+  .mdc-text-field--focused .mdc-notched-outline__leading,
+  .mdc-text-field--focused .mdc-notched-outline__notch,
+  .mdc-text-field--focused .mdc-notched-outline__trailing {
+    border-color: var(--boc-primary-light) !important;
+  }
+
+  .mat-mdc-tab-labels {
+    border-bottom-color: var(--hairline);
+  }
+
+  .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+    color: var(--text-primary) !important;
+  }
+
+  .mat-mdc-tab-indicator .mdc-tab-indicator__content--underline {
+    border-color: var(--boc-primary-light) !important;
+  }
+
+  .mat-mdc-checkbox .mdc-checkbox__background,
+  .mat-mdc-radio-button .mdc-radio__background {
+    border-color: var(--border-color-hover) !important;
+  }
+
+  .mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background,
+  .mat-mdc-radio-button.mat-mdc-radio-checked .mdc-radio__background {
+    background-color: var(--boc-primary-light) !important;
+    border-color: var(--boc-primary-light) !important;
+  }
+
+  .mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked .mdc-switch__track::after {
+    background-color: var(--boc-primary-light) !important;
+  }
+
+  .mat-mdc-slide-toggle.mat-mdc-slide-toggle-checked .mdc-switch__handle::after {
+    background-color: var(--boc-primary-light) !important;
+  }
+
+  .mat-mdc-dialog-surface {
+    background-color: var(--boc-surface) !important;
+  }
+
+  .mat-mdc-menu-panel {
+    background-color: var(--boc-surface) !important;
+  }
+
+  .mat-mdc-select-panel {
+    background-color: var(--boc-surface) !important;
+  }
+
+  .mat-mdc-snack-bar-container {
+    background-color: var(--boc-surface) !important;
+    color: var(--text-primary) !important;
+  }
 }

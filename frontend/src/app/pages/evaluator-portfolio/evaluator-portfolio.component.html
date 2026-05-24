@@ -1,61 +1,71 @@
-<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
-  <div class="container">
-    <boc-page-hero
-      title="السجل التاريخي للمقيّم"
-      subtitle="سجل بجميع الأبحاث التي قمت بتقييمها، مع مؤشرات الأداء الخاصة بك."
-      [breadcrumbs]="breadcrumbs">
-      <a heroActions routerLink="/committee/workspace" class="btn btn-primary-industrial btn-sm">
-        <i class="bi bi-clipboard-check me-2"></i> العودة لمساحة العمل
-      </a>
-    </boc-page-hero>
+<div class="anim-fade-in-up" id="evaluator-portfolio-page">
 
-    <div class="row g-3 mb-4">
-      <div class="col-md-4">
-        <boc-stat-card
-          label="إجمالي الأبحاث المقيمة"
-          [value]="kpis.totalEvaluated"
-          icon="bi-journal-check"
-          iconBg="rgba(132, 48, 206, 0.12)"
-          iconColor="var(--boc-accent-evaluator)">
-        </boc-stat-card>
-      </div>
-      <div class="col-md-4">
-        <boc-stat-card
-          label="نسبة الالتزام بوقت التقييم (SLA)"
-          [value]="kpis.onTimePercentage + '%'"
-          icon="bi-clock-history"
-          iconBg="rgba(40, 167, 69, 0.12)"
-          iconColor="var(--boc-success)"
-          trend="أداء ممتاز"
-          [trendUp]="true">
-        </boc-stat-card>
-      </div>
-      <div class="col-md-4">
-        <boc-stat-card
-          label="متوسط الدرجات الممنوحة"
-          [value]="kpis.averageScoreGiven"
-          icon="bi-bar-chart"
-          iconBg="rgba(15, 42, 56, 0.1)"
-          iconColor="var(--boc-primary)">
-        </boc-stat-card>
-      </div>
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="text-h1">السجل التاريخي للمقيّم</h1>
+      <p class="text-label">سجل بجميع الأبحاث التي قمت بتقييمها، مع مؤشرات الأداء الخاصة بك</p>
     </div>
+    <a routerLink="/committee/workspace" class="btn btn-secondary btn-md" id="back-to-workspace-btn">
+      <i class="bi bi-clipboard-check"></i> العودة لمساحة العمل
+    </a>
+  </div>
 
-    <boc-glass-card title="قائمة الأبحاث المقيمة سابقاً" subtitle="سجل كامل لتقييماتك السابقة وقرارات اللجنة">
-      <boc-empty-state
-        *ngIf="portfolioRecords.length === 0"
-        icon="bi-inbox"
-        title="لا توجد سجلات"
-        message="لم تقم بتقييم أي بحث بعد.">
-      </boc-empty-state>
+  <!-- KPI Strip -->
+  <div class="kpi-grid kpi-grid-3 mb-5">
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">إجمالي الأبحاث المقيمة</span>
+        <div class="kpi-icon" style="background:rgba(132, 48, 206, 0.12)">
+          <i class="bi bi-journal-check" style="color:var(--boc-accent-evaluator)"></i>
+        </div>
+      </div>
+      <div class="kpi-value">{{ kpis.totalEvaluated }}</div>
+      <div class="kpi-label">بحث مقيّم</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">نسبة الالتزام بالوقت (SLA)</span>
+        <div class="kpi-icon" style="background:rgba(40, 167, 69, 0.12)">
+          <i class="bi bi-clock-history" style="color:var(--boc-success)"></i>
+        </div>
+      </div>
+      <div class="kpi-value">{{ kpis.onTimePercentage }}%</div>
+      <div class="kpi-trend up"><i class="bi bi-arrow-up-right"></i> أداء ممتاز</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">متوسط الدرجات الممنوحة</span>
+        <div class="kpi-icon" style="background:rgba(15, 42, 56, 0.1)">
+          <i class="bi bi-bar-chart" style="color:var(--boc-primary)"></i>
+        </div>
+      </div>
+      <div class="kpi-value">{{ kpis.averageScoreGiven }}</div>
+      <div class="kpi-label">من 100</div>
+    </div>
+  </div>
 
+  <!-- Empty State -->
+  <div *ngIf="portfolioRecords.length === 0" class="empty-state">
+    <div class="empty-icon"><i class="bi bi-inbox"></i></div>
+    <h3>لا توجد سجلات</h3>
+    <p>لم تقم بتقييم أي بحث بعد.</p>
+  </div>
+
+  <!-- Data Table -->
+  <div class="card" *ngIf="portfolioRecords.length">
+    <div class="card-header">
+      <span class="text-h3">قائمة الأبحاث المقيمة سابقاً</span>
+      <span class="text-caption">سجل كامل لتقييماتك السابقة وقرارات اللجنة</span>
+    </div>
+    <div class="card-body" style="padding:0">
       <boc-data-table
-        *ngIf="portfolioRecords.length"
         [columns]="tableColumns"
         [columnLabels]="tableLabels"
         [data]="tableData"
         [pageSize]="10">
       </boc-data-table>
-    </boc-glass-card>
+    </div>
   </div>
+
 </div>

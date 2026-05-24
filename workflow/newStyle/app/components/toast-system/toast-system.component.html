@@ -1,0 +1,29 @@
+<!-- Toast System Container -->
+<div class="toast-container">
+  <div
+    *ngFor="let toast of toasts; let i = index"
+    class="toast"
+    [class.toast-info]="toast.type === 'info'"
+    [class.toast-success]="toast.type === 'success'"
+    [class.toast-warning]="toast.type === 'warning'"
+    [class.toast-error]="toast.type === 'error'"
+    [@toastAnimation]="'in'"
+  >
+    <i class="bi toast-icon"
+      [class.bi-info-circle]="toast.type === 'info'"
+      [class.bi-check-circle]="toast.type === 'success'"
+      [class.bi-exclamation-triangle]="toast.type === 'warning'"
+      [class.bi-exclamation-circle]="toast.type === 'error'"
+    ></i>
+    <div class="toast-body">
+      <div class="toast-title">{{ toast.title | translate }}</div>
+      <div class="toast-message">{{ toast.message | translate }}</div>
+    </div>
+    <button class="toast-close" (click)="removeToast(toast.id)">
+      <i class="bi bi-x-lg"></i>
+    </button>
+    <div class="toast-progress">
+      <div class="toast-progress-bar" [style.animation-duration.ms]="toast.duration"></div>
+    </div>
+  </div>
+</div>

@@ -1,35 +1,26 @@
 <div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
   <div class="container">
-    <boc-page-hero
-      title="رفع حظر الانتحال العلمي"
-      subtitle="مراجعة الأبحاث التي أوقفها النظام تلقائياً بسبب ارتفاع نسبة الاستلال."
-      [breadcrumbs]="[{ label: 'الرئيسية', route: '/home' }, { label: 'تجاوز الانتحال' }]">
+    <div class="page-header"><div><h1 class="text-h1">رفع حظر الانتحال العلمي</h1><p class="text-label">مراجعة الأبحاث التي أوقفها النظام تلقائياً بسبب ارتفاع نسبة الاستلال.</p></div>
       <a heroActions routerLink="/home" class="btn btn-outline-secondary btn-sm rounded-pill">
         <i class="bi bi-arrow-right me-1"></i> العودة للرئيسية
       </a>
-    </boc-page-hero>
+    </div>
 
     <div class="row g-3 mb-4">
       <div class="col-md-4">
-        <boc-stat-card label="أبحاث محظورة" [value]="lockedResearches.length" icon="bi-shield-exclamation"
-                       iconBg="rgba(111, 66, 193, 0.12)" iconColor="var(--boc-accent-plagiarism)"></boc-stat-card>
+        <div class="kpi-card"><div class="kpi-header"><span class="text-upper-label">أبحاث محظورة</span></div><div class="kpi-value">{{ lockedResearches.length }}</div></div>
       </div>
       <div class="col-md-4">
-        <boc-stat-card label="حد الاستلال المسموح" value="20%" icon="bi-percent"
-                       iconBg="rgba(15, 42, 56, 0.1)" iconColor="var(--boc-primary)"></boc-stat-card>
+        <div class="kpi-card"><div class="kpi-header"><span class="text-upper-label">حد الاستلال المسموح</span></div><div class="kpi-value">20%</div></div>
       </div>
       <div class="col-md-4">
-        <boc-stat-card label="آخر مراجعة" value="اليوم" icon="bi-clock-history"
-                       iconBg="rgba(74, 96, 122, 0.12)" iconColor="var(--boc-secondary)"></boc-stat-card>
+        <div class="kpi-card"><div class="kpi-header"><span class="text-upper-label">آخر مراجعة</span></div><div class="kpi-value">اليوم</div></div>
       </div>
     </div>
 
-    <boc-glass-card title="الأبحاث المحظورة" [noPadding]="true">
-      <boc-empty-state *ngIf="lockedResearches.length === 0"
-                       icon="bi-check-circle"
-                       title="لا توجد أبحاث محظورة"
-                       message="لا توجد أي أبحاث محظورة حالياً بسبب الانتحال.">
-      </boc-empty-state>
+    <div class="card mb-4"><div class="card-header"><span class="text-h3">الأبحاث المحظورة</span></div><div class="card-body">
+      <div class="empty-state" style="padding:40px"><div class="empty-icon"><i class="bi bi-info-circle"></i></div><h3>لا توجد بيانات</h3><p>البيانات المطلوبة غير متوفرة حالياً</p>
+      </div>
 
       <div class="table-responsive admin-table" *ngIf="lockedResearches.length">
         <table class="table table-hover align-middle mb-0">
@@ -69,6 +60,8 @@
           </tbody>
         </table>
       </div>
-    </boc-glass-card>
+    </div></div>
   </div>
 </div>
+
+

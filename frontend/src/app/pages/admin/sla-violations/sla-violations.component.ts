@@ -3,22 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ToastService } from '../../../services/toast.service';
 import { BocLayoutService } from '../../../services/boc-layout.service';
-import { BocPageHeroComponent } from '../../../shared/boc-page-hero/boc-page-hero.component';
-import { BocStatCardComponent } from '../../../shared/boc-stat-card/boc-stat-card.component';
-import { BocGlassCardComponent } from '../../../shared/boc-glass-card/boc-glass-card.component';
-import { BocEmptyStateComponent } from '../../../shared/boc-empty-state/boc-empty-state.component';
 
 @Component({
   selector: 'app-sla-violations',
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule,
-    BocPageHeroComponent,
-    BocStatCardComponent,
-    BocGlassCardComponent,
-    BocEmptyStateComponent
-  ],
+    RouterModule],
   templateUrl: './sla-violations.component.html',
   styleUrls: ['./sla-violations.component.scss']
 })
@@ -68,3 +59,4 @@ export class SlaViolationsComponent implements OnInit {
     return this.violations.filter(v => v.status === 'Critical').length;
   }
 }
+

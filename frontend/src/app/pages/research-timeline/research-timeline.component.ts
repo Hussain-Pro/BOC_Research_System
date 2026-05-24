@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BocLayoutService } from '../../services/boc-layout.service';
-import { BocPageHeroComponent } from '../../shared/boc-page-hero/boc-page-hero.component';
-import { BocGlassCardComponent } from '../../shared/boc-glass-card/boc-glass-card.component';
 import { BocStatusChipComponent } from '../../shared/boc-status-chip/boc-status-chip.component';
 import { BocVerticalTimelineComponent, BocTimelineStep } from '../../shared/boc-vertical-timeline/boc-vertical-timeline.component';
 
@@ -11,8 +9,6 @@ import { BocVerticalTimelineComponent, BocTimelineStep } from '../../shared/boc-
   standalone: true,
   imports: [
     CommonModule,
-    BocPageHeroComponent,
-    BocGlassCardComponent,
     BocStatusChipComponent,
     BocVerticalTimelineComponent
   ],
@@ -77,3 +73,4 @@ export class ResearchTimelineComponent implements OnInit, OnDestroy {
     this.layoutService.clearPage();
   }
 }
+

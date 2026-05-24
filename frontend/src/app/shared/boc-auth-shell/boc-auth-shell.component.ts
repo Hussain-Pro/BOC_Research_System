@@ -13,6 +13,10 @@ export class BocAuthShellComponent {
   @Input() subtitle = '';
   @Input() visualTitle = 'نظام إدارة البحوث';
   @Input() visualSubtitle = 'شركة نفط البصرة — منصة التقييم البحثي';
-  @Input() maxWidth = '420px';
+  @Input() maxWidth = '440px';
   @Input() showVisual = true;
+
+  get year(): number {
+    return new Date().getFullYear();
+  }
 }

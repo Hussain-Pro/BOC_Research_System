@@ -1,0 +1,28 @@
+<!-- Enterprise Navbar (used on public pages: login, register, landing, forgot-password) -->
+<nav class="navbar-boc">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <div class="navbar-logo"><i class="bi bi-bank"></i></div>
+      <div>
+        <span class="navbar-title">{{ 'APP.TITLE' | translate }}</span>
+        <span class="navbar-subtitle">{{ 'APP.SUBTITLE' | translate }}</span>
+      </div>
+    </div>
+    <div class="navbar-actions">
+      <button class="icon-btn" (click)="toggleTheme()" [title]="'THEME.TOGGLE' | translate">
+        <i class="bi" [class.bi-moon-stars]="!isDarkMode" [class.bi-sun]="isDarkMode"></i>
+      </button>
+      <button class="icon-btn" (click)="toggleDir()" [title]="'HEADER.TOGGLE_DIR' | translate">
+        <i class="bi bi-arrow-left-right"></i>
+      </button>
+      <div class="lang-selector" [matMenuTriggerFor]="langMenu">
+        <span>{{ currentLang === 'ar' ? 'العربية' : 'English' }}</span>
+        <i class="bi bi-chevron-down"></i>
+      </div>
+      <mat-menu #langMenu="matMenu">
+        <button mat-menu-item (click)="setLang('ar')">العربية</button>
+        <button mat-menu-item (click)="setLang('en')">English</button>
+      </mat-menu>
+    </div>
+  </div>
+</nav>

@@ -2,7 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BocLayoutService } from '../../services/boc-layout.service';
-import { BocPageHeroComponent, BocGlassCardComponent, BocEmptyStateComponent } from '../../shared';
 
 interface ChatMessage {
   id: string;
@@ -15,7 +14,7 @@ interface ChatMessage {
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [CommonModule, FormsModule, BocPageHeroComponent, BocGlassCardComponent, BocEmptyStateComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })

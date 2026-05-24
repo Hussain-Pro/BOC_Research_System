@@ -1,14 +1,25 @@
-/* Muted Industrial Theme - BOC Research System */
+/* ================================================================
+   BOC Research System — Main Style Entry Point
+   New Enterprise Design System v2
+   ================================================================ */
+
+/* Design System — order matters */
+@use 'styles/tokens';        /* CSS custom properties */
+@use 'styles/typography';    /* Font imports + text scale */
+@use 'styles/motion';        /* Keyframes + animation utilities */
+@use 'styles/elevation';     /* Surface mixins */
+@use 'styles/layout';        /* App shell grid, sidebar, header */
+@use 'styles/components';    /* UI components */
+@use 'styles/utilities';     /* Helper classes */
+@use 'styles/dark-mode';     /* Dark mode overrides */
+@use 'styles/auth';          /* Auth page shared utilities */
+@use 'styles/research';      /* Research page shared utilities */
+
+/* External dependencies */
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
 
-@import 'styles/tokens';
-@import 'styles/material-theme';
-@import 'styles/glass';
-@import 'styles/dark-mode';
-
-/* Global RTL and Body Setup */
+/* ---------- Global RTL / LTR Setup ---------- */
 html[dir="rtl"] {
   font-family: var(--font-family-arabic);
 }
@@ -21,20 +32,99 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--boc-background);
-  color: var(--boc-primary);
+  color: var(--text-primary);
   font-family: var(--font-family-arabic);
   direction: rtl;
-  transition: background-color var(--boc-transition), color var(--boc-transition);
+  transition: background-color var(--motion-normal) var(--ease-normal),
+              color var(--motion-normal) var(--ease-normal);
 }
 
-/* Driver.js Custom BOC Theme */
+/* ---------- Dark Mode body class support (legacy) ---------- */
+body.dark-mode {
+  --boc-background: #0D1B26;
+  --boc-surface: #142A3A;
+  --boc-primary: #E8EDF2;
+  --boc-primary-light: #8BA3B8;
+  --boc-secondary: #8BA3B8;
+  --text-primary: #E8EDF2;
+  --text-secondary: #8BA3B8;
+  --border-color: rgba(139, 163, 184, 0.12);
+  --hairline: rgba(139, 163, 184, 0.10);
+}
+
+/* ---------- Bootstrap Resets (keep Bootstrap grid working) ---------- */
+
+/* Override Bootstrap card with new design */
+.card {
+  background: var(--boc-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elevation-1);
+  transition: box-shadow var(--motion-normal) var(--ease-normal),
+              transform var(--motion-normal) var(--ease-normal);
+
+  &:hover {
+    box-shadow: var(--elevation-2);
+    transform: translateY(-1px);
+  }
+}
+
+.card-header {
+  background-color: var(--boc-surface) !important;
+  border-bottom: 1px solid var(--hairline) !important;
+  font-weight: 700;
+  color: var(--text-primary);
+  padding: var(--space-4);
+}
+
+/* Override Bootstrap form-control */
+.form-control, .form-select {
+  border-radius: var(--radius-md) !important;
+  border: 1px solid var(--border-color-hover) !important;
+  background: var(--boc-surface);
+  color: var(--text-primary);
+  font-family: var(--font-family-arabic);
+  font-size: 14px;
+  transition: border-color var(--motion-fast), box-shadow var(--motion-fast) !important;
+
+  &:focus {
+    border-color: var(--boc-primary) !important;
+    box-shadow: 0 0 0 3px rgba(15, 42, 56, 0.08) !important;
+  }
+}
+
+/* Override Bootstrap table */
+.table thead th {
+  background-color: var(--boc-background) !important;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 12px;
+  border-bottom: 2px solid var(--border-color-strong) !important;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(15, 42, 56, 0.03) !important;
+}
+
+/* Override h tags to use text-primary */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* ---------- Focus rings for WCAG ---------- */
+:focus-visible {
+  outline: 2px solid var(--boc-primary);
+  outline-offset: 2px;
+}
+
+/* ---------- Driver.js Custom BOC Theme ---------- */
 .driverjs-theme-boc .driver-popover {
   font-family: 'Tajawal', sans-serif;
   border: 2px solid var(--boc-primary);
-  border-radius: var(--boc-radius-lg);
-  background: var(--boc-glass-bg);
-  backdrop-filter: blur(var(--boc-glass-blur));
-  box-shadow: var(--boc-shadow-lg);
+  border-radius: var(--radius-lg);
+  background: var(--boc-surface);
+  box-shadow: var(--elevation-3);
 }
 
 .driverjs-theme-boc .driver-popover-title {
@@ -47,78 +137,11 @@ body {
   background-color: var(--boc-primary) !important;
   color: white !important;
   text-shadow: none !important;
-  border-radius: var(--boc-radius-pill) !important;
+  border-radius: var(--radius-full) !important;
 }
 
 .driverjs-theme-boc .driver-popover-prev-btn {
   background-color: var(--boc-background) !important;
   color: var(--boc-secondary) !important;
-  border-radius: var(--boc-radius-pill) !important;
-}
-
-/* Status chips */
-.boc-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--boc-radius-pill);
-  font-size: 0.8rem;
-  font-weight: 600;
-
-  &.chip-draft { background: rgba(74, 96, 122, 0.12); color: var(--boc-secondary); }
-  &.chip-review { background: rgba(23, 162, 184, 0.12); color: var(--boc-info); }
-  &.chip-success { background: rgba(40, 167, 69, 0.12); color: var(--boc-success); }
-  &.chip-warning { background: rgba(255, 193, 7, 0.15); color: #856404; }
-  &.chip-danger { background: rgba(220, 53, 69, 0.12); color: var(--boc-danger); }
-}
-
-/* Empty state */
-.boc-empty-state {
-  text-align: center;
-  padding: 3rem 2rem;
-  color: var(--boc-secondary);
-
-  .empty-icon {
-    font-size: 3rem;
-    opacity: 0.4;
-    margin-bottom: 1rem;
-  }
-}
-
-/* Skeleton loader */
-.boc-skeleton {
-  background: linear-gradient(90deg, #e8edf2 25%, #f4f6f9 50%, #e8edf2 75%);
-  background-size: 200% 100%;
-  animation: boc-shimmer 1.5s infinite;
-  border-radius: var(--boc-radius-md);
-}
-
-@keyframes boc-shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* Focus rings for WCAG */
-:focus-visible {
-  outline: 2px solid var(--boc-primary);
-  outline-offset: 2px;
-}
-
-/* Onboarding step connector */
-.onboarding-steps {
-  position: relative;
-
-  @media (min-width: 768px) {
-    &::before {
-      content: '';
-      position: absolute;
-      top: 40px;
-      inset-inline: 12.5%;
-      height: 2px;
-      background: linear-gradient(90deg, var(--boc-primary), var(--boc-secondary));
-      opacity: 0.2;
-      z-index: 0;
-    }
-  }
+  border-radius: var(--radius-full) !important;
 }

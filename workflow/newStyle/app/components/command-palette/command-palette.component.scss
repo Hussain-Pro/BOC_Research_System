@@ -1,0 +1,118 @@
+@import '../../styles/tokens';
+
+.cmd-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 42, 56, 0.50);
+  backdrop-filter: blur(4px);
+  z-index: 1100;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 120px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--motion-fast), visibility var(--motion-fast);
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+
+    .cmd-palette {
+      transform: translateY(0);
+    }
+  }
+}
+
+.cmd-palette {
+  background: var(--boc-surface);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--elevation-4);
+  width: 100%;
+  max-width: 640px;
+  overflow: hidden;
+  transform: translateY(-10px);
+  transition: transform var(--motion-slow) var(--ease-slow);
+}
+
+.cmd-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--hairline);
+
+  i { color: var(--text-muted); font-size: 18px; }
+
+  kbd {
+    background: var(--boc-background);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 2px 6px;
+    font-size: 11px;
+    font-family: var(--font-family-english);
+    color: var(--text-muted);
+  }
+}
+
+.cmd-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--font-family-arabic);
+  font-size: 16px;
+  color: var(--text-primary);
+  outline: none;
+
+  &::placeholder { color: var(--text-muted); }
+}
+
+.cmd-results {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.cmd-group {
+  border-bottom: 1px solid var(--hairline);
+
+  &:last-child { border-bottom: none; }
+}
+
+.cmd-group-header {
+  padding: var(--space-2) var(--space-5);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+
+.cmd-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  cursor: pointer;
+  transition: background var(--motion-fast);
+  border-right: 3px solid transparent;
+
+  html[dir="ltr"] & {
+    border-right: none;
+    border-left: 3px solid transparent;
+  }
+
+  &:hover, &.selected {
+    background: rgba(15, 42, 56, 0.04);
+    border-right-color: var(--boc-primary);
+
+    html[dir="ltr"] & {
+      border-right-color: transparent;
+      border-left-color: var(--boc-primary);
+    }
+  }
+
+  i { color: var(--text-secondary); font-size: 16px; }
+}
+
+.cmd-item-title { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+.cmd-item-sub { font-size: 12px; color: var(--text-muted); }

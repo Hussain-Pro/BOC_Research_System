@@ -41,6 +41,7 @@ public class GetTriagePapersQueryHandler : IRequestHandler<GetTriagePapersQuery,
         return await _context.ResearchPapers
             .AsNoTracking()
             .Where(p => p.State == ResearchState.Incoming_Triage_Queue)
+            .OrderByDescending(p => p.CreatedAt)
             .Select(p => new TriagePaperDto(
                 p.Id,
                 p.TrackingNumber,
@@ -55,7 +56,6 @@ public class GetTriagePapersQueryHandler : IRequestHandler<GetTriagePapersQuery,
                 p.Category != null ? p.Category.Name : "N/A",
                 p.CreatedAt
             ))
-            .OrderByDescending(p => p.CreatedAt)
             .ToListAsync(cancellationToken);
     }
 }

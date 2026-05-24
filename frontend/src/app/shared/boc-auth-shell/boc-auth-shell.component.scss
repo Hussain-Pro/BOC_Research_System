@@ -1,18 +1,215 @@
+/* ================================================================
+   Auth Shell — Enterprise Split-Screen Layout
+   ================================================================ */
+
+:host {
+  display: block;
+}
+
 .auth-shell {
-  overflow: hidden;
-}
-
-.auth-form-side {
+  display: flex;
   min-height: 100vh;
-  z-index: 2;
+  background: var(--boc-background);
 }
 
-@media (max-width: 991.98px) {
-  .auth-form-side {
-    border-top: 4px solid var(--boc-primary);
+/* ---- Brand Panel (Left / Decorative side) ---- */
+.auth-brand-panel {
+  width: 420px;
+  flex-shrink: 0;
+  background: var(--boc-primary);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 1023px) {
+    display: none;
   }
 }
 
-.z-index-1 {
+.auth-brand-content {
+  position: relative;
+  z-index: 2;
+  padding: 48px 40px;
+  color: white;
+}
+
+.auth-brand-logo {
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: white;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.auth-brand-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.auth-brand-sub {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.auth-brand-stats {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 40px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.auth-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.auth-stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+}
+
+.auth-stat-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 500;
+}
+
+.auth-brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+
+  i { font-size: 14px; color: rgba(40, 167, 69, 0.85); }
+}
+
+/* Geometric decorations */
+.auth-brand-decor {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.06;
+  background: white;
   z-index: 1;
+}
+
+.decor-1 {
+  width: 380px;
+  height: 380px;
+  bottom: -100px;
+  left: -100px;
+}
+
+.decor-2 {
+  width: 200px;
+  height: 200px;
+  top: -60px;
+  right: -60px;
+}
+
+.decor-3 {
+  width: 120px;
+  height: 120px;
+  top: 40%;
+  left: 60%;
+  opacity: 0.04;
+}
+
+/* ---- Form Panel (Right side) ---- */
+.auth-form-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: var(--boc-surface);
+  min-height: 100vh;
+  position: relative;
+}
+
+.auth-form-inner {
+  width: 100%;
+  animation: fadeInUp var(--motion-slow) var(--ease-normal) both;
+}
+
+/* Logo mark (small square icon) */
+.auth-logo-mark {
+  width: 40px;
+  height: 40px;
+  background: var(--boc-primary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.auth-mobile-logo {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.auth-form-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.auth-form-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+  line-height: 1.3;
+}
+
+.auth-form-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.auth-form-footer {
+  position: absolute;
+  bottom: 20px;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Mobile responsive — single column */
+@media (max-width: 1023px) {
+  .auth-shell {
+    flex-direction: column;
+  }
+
+  .auth-form-panel {
+    border-top: 4px solid var(--boc-primary);
+    min-height: 100vh;
+  }
 }

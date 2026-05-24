@@ -7,23 +7,14 @@ import { SignalRService, ChatMessage } from '../../services/signalr.service';
 import { AuthService } from '../../services/auth.service';
 import { BocLayoutService } from '../../services/boc-layout.service';
 import { Subscription } from 'rxjs';
-import {
-  BocPageHeroComponent,
-  BocGlassCardComponent,
-  BocStatCardComponent,
-  BocEmptyStateComponent
-} from '../../shared';
+
 
 @Component({
   selector: 'app-meeting-studio',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
-    BocPageHeroComponent,
-    BocGlassCardComponent,
-    BocStatCardComponent,
-    BocEmptyStateComponent
+    FormsModule
   ],
   templateUrl: './meeting-studio.component.html',
   styleUrl: './meeting-studio.component.scss'

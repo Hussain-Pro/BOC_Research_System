@@ -1,51 +1,61 @@
 <boc-auth-shell
-  title="المصادقة الثنائية (2FA)"
-  [subtitle]="requiresSetup ? 'الإعداد الأوّلي — امسح رمز QR بتطبيق المصادقة' : 'أدخل الرمز المكوّن من 6 أرقام من تطبيق المصادقة'"
-  maxWidth="480px">
+  title="التحقق بخطوتين"
+  subtitle="أدخل رمز التحقق من تطبيق المصادقة">
 
-  <div *ngIf="requiresSetup" class="mb-4">
-    <div class="tfa-info-box mb-3">
-      <i class="bi bi-info-circle me-2"></i>
-      <span class="small">
-        امسح رمز QR باستخدام <strong>Google Authenticator</strong> أو <strong>Microsoft Authenticator</strong>،
-        ثم أدخل الرمز المؤقت أدناه.
-      </span>
+  <form [formGroup]="twoFactorForm" (ngSubmit)="onSubmit()" novalidate>
+
+    <!-- Setup Mode: Show QR Code -->
+    <ng-container *ngIf="requiresSetup">
+      <div class="auth-alert" style="background:rgba(15,42,56,0.06);color:var(--text-secondary);border:1px solid var(--border-color);margin-bottom:16px;">
+        <i class="bi bi-info-circle-fill" style="color:var(--boc-info)"></i>
+        <span>المرة الأولى — امسح رمز QR بتطبيق المصادقة (Google Authenticator أو Authy)</span>
+      </div>
+
+      <div class="qr-container" *ngIf="qrDataUrl">
+        <img [src]="qrDataUrl" alt="QR Code" width="180" height="180">
+      </div>
+
+      <div class="secret-key-row" *ngIf="secret">
+        <span>{{ secret }}</span>
+        <button type="button" class="icon-btn" (click)="copySecret()" title="نسخ الرمز" id="copy-secret-btn">
+          <i class="bi bi-clipboard"></i>
+        </button>
+      </div>
+    </ng-container>
+
+    <!-- OTP Code input -->
+    <div class="form-group">
+      <label class="form-label">رمز التحقق المؤقت (6 أرقام)</label>
+      <input
+        type="text"
+        class="form-input otp-input"
+        placeholder="000000"
+        maxlength="6"
+        dir="ltr"
+        id="otp-code-input"
+        formControlName="code"
+        autocomplete="one-time-code"
+        inputmode="numeric"
+      >
     </div>
 
-    <div class="row align-items-center g-3 mb-3">
-      <div class="col-12 col-md-6 text-center">
-        <div class="tfa-qr-box mx-auto">
-          <img *ngIf="qrDataUrl" [src]="qrDataUrl" alt="رمز QR للمصادقة الثنائية" class="tfa-qr-img">
-          <div *ngIf="!qrDataUrl" class="tfa-qr-spinner">
-            <div class="spinner-border text-primary" role="status"></div>
-            <div class="small text-muted mt-2">جاري التوليد...</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="tfa-secret-box" (click)="copySecret()" role="button" tabindex="0" (keydown.enter)="copySecret()">
-          <div class="small text-muted mb-2"><i class="bi bi-clipboard me-1"></i>أو أدخل الرمز يدوياً</div>
-          <code class="tfa-secret-code">{{ secret }}</code>
-          <div class="tfa-copy-hint">انقر للنسخ</div>
-        </div>
-      </div>
-    </div>
-    <hr class="text-muted opacity-25">
-  </div>
-
-  <form [formGroup]="twoFactorForm" (ngSubmit)="onSubmit()">
-    <boc-form-field label="رمز التحقق (OTP)" icon="bi-shield-lock"
-                    placeholder="000000" dir="ltr" hint="6 أرقام"
-                    formControlName="code"></boc-form-field>
-
-    <button type="submit" class="btn btn-primary-industrial btn-lg w-100 mt-3 mb-3"
-            [disabled]="twoFactorForm.invalid || isLoading">
-      <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
-      تأكيد المصادقة
+    <button
+      type="submit"
+      class="btn btn-primary btn-lg w-100 mt-2"
+      id="verify-2fa-btn"
+      [disabled]="twoFactorForm.invalid || isLoading">
+      <span *ngIf="isLoading" class="spinner"></span>
+      <i *ngIf="!isLoading" class="bi bi-shield-lock-fill"></i>
+      {{ isLoading ? 'جارٍ التحقق...' : 'تأكيد الرمز' }}
     </button>
 
-    <div class="text-center text-muted small">
-      <a routerLink="/auth/login" class="text-primary fw-bold text-decoration-none">العودة لتسجيل الدخول</a>
-    </div>
+    <div class="auth-divider"><span>أو</span></div>
+
+    <a routerLink="/auth/login" class="btn btn-secondary btn-lg w-100" id="back-to-login">
+      <i class="bi bi-arrow-right"></i>
+      العودة لتسجيل الدخول
+    </a>
+
   </form>
+
 </boc-auth-shell>

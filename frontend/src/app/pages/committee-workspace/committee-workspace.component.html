@@ -1,150 +1,165 @@
-<div class="container-fluid dashboard-bg min-vh-100 py-4 workspace-page" dir="rtl">
-  <div class="container">
-    <boc-page-hero
-      title="مساحة عمل اللجان والتقييم"
-      subtitle="مراجعة الأبحاث المسندة وإدخال التقييمات الفنية."
-      [breadcrumbs]="breadcrumbs">
-      <a heroActions routerLink="/home" class="btn btn-outline-secondary btn-sm rounded-pill">
-        <i class="bi bi-house me-1"></i> العودة للرئيسية
-      </a>
-    </boc-page-hero>
+<div class="anim-fade-in-up workspace-page" id="workspace-page">
 
-    <div class="row g-3 mb-4">
-      <div class="col-md-4">
-        <boc-stat-card
-          label="المهام النشطة"
-          [value]="assignments.length"
-          icon="bi-clipboard-check"
-          iconBg="rgba(132, 48, 206, 0.12)"
-          iconColor="var(--boc-accent-evaluator)">
-        </boc-stat-card>
-      </div>
-      <div class="col-md-4">
-        <boc-stat-card
-          label="المهمة المحددة"
-          [value]="selectedAssignment ? 1 : 0"
-          icon="bi-file-earmark-text"
-          iconBg="rgba(15, 42, 56, 0.1)"
-          iconColor="var(--boc-primary)">
-        </boc-stat-card>
-      </div>
-      <div class="col-md-4">
-        <boc-stat-card
-          label="تكبير العرض"
-          [value]="zoomLabel"
-          icon="bi-zoom-in"
-          iconBg="rgba(13, 110, 253, 0.12)"
-          iconColor="var(--boc-accent-committee)">
-        </boc-stat-card>
-      </div>
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="text-h1">مساحة عمل اللجان والتقييم</h1>
+      <p class="text-label">مراجعة الأبحاث المسندة وإدخال التقييمات الفنية</p>
     </div>
+  </div>
 
-    <div class="row g-4 workspace-grid">
-      <div class="col-lg-3">
-        <boc-glass-card [title]="'قائمة المهام (' + assignments.length + ')'" [noPadding]="true">
-          <boc-empty-state
-            *ngIf="assignments.length === 0"
-            icon="bi-check2-circle"
-            title="لا توجد مهام"
-            message="لا توجد أبحاث مسندة إليك حالياً. أحسنت!">
-          </boc-empty-state>
-
-          <div class="list-group list-group-flush" *ngIf="assignments.length">
-            <button
-              *ngFor="let assign of assignments"
-              type="button"
-              class="list-group-item list-group-item-action p-3 border-bottom assignment-item"
-              [class.active-assignment]="selectedAssignment?.id === assign.id"
-              (click)="selectAssignment(assign)">
-              <div class="d-flex justify-content-between align-items-start mb-2">
-                <span class="badge bg-secondary">{{ assign.researchId }}</span>
-                <span class="badge bg-danger" *ngIf="getDaysRemaining(assign.dueDate) <= 3">
-                  متبقي {{ getDaysRemaining(assign.dueDate) }} أيام!
-                </span>
-                <span class="badge bg-primary" *ngIf="getDaysRemaining(assign.dueDate) > 3">
-                  متبقي {{ getDaysRemaining(assign.dueDate) }} يوم
-                </span>
-              </div>
-              <h6 class="fw-bold mb-1 lh-base">{{ assign.title }}</h6>
-              <small class="text-muted d-block">
-                <i class="bi bi-calendar-event me-1"></i> تاريخ الإسناد: {{ assign.assignedDate | date:'yyyy/MM/dd' }}
-              </small>
-            </button>
-          </div>
-        </boc-glass-card>
+  <!-- KPI Strip -->
+  <div class="kpi-grid kpi-grid-3 mb-5">
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">المهام النشطة</span>
+        <div class="kpi-icon" style="background:rgba(132, 48, 206, 0.12)">
+          <i class="bi bi-clipboard-check" style="color:var(--boc-accent-evaluator)"></i>
+        </div>
       </div>
+      <div class="kpi-value">{{ assignments.length }}</div>
+      <div class="kpi-label">مهمة قيد الانتظار</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">المهمة المحددة</span>
+        <div class="kpi-icon" style="background:rgba(15, 42, 56, 0.1)">
+          <i class="bi bi-file-earmark-text" style="color:var(--boc-primary)"></i>
+        </div>
+      </div>
+      <div class="kpi-value">{{ selectedAssignment ? 1 : 0 }}</div>
+      <div class="kpi-label">قيد المراجعة حالياً</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">مستوى التكبير</span>
+        <div class="kpi-icon" style="background:rgba(13, 110, 253, 0.12)">
+          <i class="bi bi-zoom-in" style="color:var(--boc-accent-committee)"></i>
+        </div>
+      </div>
+      <div class="kpi-value">{{ zoomLabel }}</div>
+      <div class="kpi-label">مستعرض الـ PDF</div>
+    </div>
+  </div>
 
-      <div class="col-lg-9" *ngIf="selectedAssignment">
-        <div class="row g-4 h-100">
-          <div class="col-xl-8">
-            <boc-glass-card title="مستعرض الملفات المشفر" [noPadding]="true" extraClass="viewer-card">
-              <div class="viewer-toolbar">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary" (click)="zoomIn()" title="تكبير"><i class="bi bi-zoom-in"></i></button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary" (click)="zoomOut()" title="تصغير"><i class="bi bi-zoom-out"></i></button>
-                </div>
-                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill" (click)="downloadPdf()">
-                  <i class="bi bi-download me-1"></i> تنزيل الملف
-                </button>
-              </div>
-              <div class="pdf-viewer-area">
-                <pdf-viewer
-                  [src]="pdfSrc"
-                  [render-text]="true"
-                  [original-size]="false"
-                  [zoom]="zoom"
-                  style="width: 100%; height: 100%; display: block;"
-                  (after-load-complete)="pdfLoading = false">
-                </pdf-viewer>
-                <div class="pdf-loading" *ngIf="pdfLoading">
-                  <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                  </div>
-                </div>
-              </div>
-            </boc-glass-card>
-          </div>
+  <!-- Split Layout -->
+  <div class="triage-layout">
+    
+    <!-- Sidebar: Assignments List -->
+    <div class="triage-sidebar card">
+      <div class="card-header">
+        <span class="text-h3">قائمة المهام ({{ assignments.length }})</span>
+      </div>
+      <div class="card-body" style="padding:0;overflow-y:auto;max-height:calc(100vh - 320px)">
+        
+        <div *ngIf="assignments.length === 0" class="empty-state" style="padding:40px 20px">
+          <div class="empty-icon"><i class="bi bi-check2-circle"></i></div>
+          <h3>لا توجد مهام</h3>
+          <p>لا توجد أبحاث مسندة إليك حالياً. أحسنت!</p>
+        </div>
 
-          <div class="col-xl-4">
-            <boc-glass-card title="نموذج التقييم الفني">
-              <div class="glass-card p-3 mb-4 meta-snippet">
-                <h6 class="fw-bold text-dark">{{ selectedAssignment.title }}</h6>
-                <hr>
-                <p class="mb-0 small text-muted">الحد الأقصى للتسليم: {{ selectedAssignment.dueDate | date:'yyyy/MM/dd' }}</p>
-              </div>
-
-              <div class="mb-4">
-                <label class="form-label fw-bold">الدرجة الممنوحة (من 100) <span class="text-danger">*</span></label>
-                <div class="input-group input-group-lg">
-                  <input type="number" class="form-control text-center fs-3 fw-bold" [(ngModel)]="evaluationScore" min="0" max="100" placeholder="0 - 100">
-                  <span class="input-group-text bg-light text-muted">%</span>
-                </div>
-              </div>
-
-              <div class="mb-4">
-                <label class="form-label fw-bold">التقرير الفني (المبررات) <span class="text-danger">*</span></label>
-                <textarea class="form-control" rows="8" [(ngModel)]="evaluationComments" placeholder="اكتب الملاحظات الفنية والمبررات للدرجة الممنوحة هنا..."></textarea>
-                <div class="form-text">الحد الأدنى 20 حرف. سيعرض التقرير أمام اللجنة في محضر الاجتماع.</div>
-              </div>
-
-              <button type="button" class="btn btn-primary-industrial w-100 btn-lg" [disabled]="isSubmitting" (click)="submitEvaluation()">
-                <span *ngIf="!isSubmitting"><i class="bi bi-shield-check me-2"></i> اعتماد وإرسال التقييم</span>
-                <span *ngIf="isSubmitting"><span class="spinner-border spinner-border-sm me-2"></span> جاري الإرسال...</span>
-              </button>
-            </boc-glass-card>
+        <div class="papers-list" *ngIf="assignments.length">
+          <div
+            *ngFor="let assign of assignments"
+            class="paper-item"
+            [class.selected]="selectedAssignment?.id === assign.id"
+            (click)="selectAssignment(assign)">
+            
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+              <span class="paper-tracking" style="margin-bottom:0">{{ assign.researchId }}</span>
+              <span class="pill" [class.pill-danger]="getDaysRemaining(assign.dueDate) <= 3" [class.pill-primary]="getDaysRemaining(assign.dueDate) > 3" style="font-size:10px">
+                متبقي {{ getDaysRemaining(assign.dueDate) }} أيام
+              </span>
+            </div>
+            
+            <div class="paper-title">{{ assign.title }}</div>
+            
+            <div class="paper-meta">
+              <span><i class="bi bi-calendar-event"></i> إسناد: {{ assign.assignedDate | date:'yyyy-MM-dd' }}</span>
+            </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="col-lg-9" *ngIf="!selectedAssignment">
-        <boc-glass-card>
-          <boc-empty-state
-            icon="bi-folder2-open"
-            title="اختر مهمة للتقييم"
-            message="يرجى اختيار بحث من القائمة الجانبية للبدء بالتقييم.">
-          </boc-empty-state>
-        </boc-glass-card>
+    <!-- Main Panel: Viewer & Evaluation Form -->
+    <div class="triage-main">
+
+      <!-- Placeholder -->
+      <div class="card" *ngIf="!selectedAssignment" style="min-height:400px;display:flex;align-items:center;justify-content:center">
+        <div class="empty-state">
+          <div class="empty-icon"><i class="bi bi-folder2-open"></i></div>
+          <h3>اختر مهمة للتقييم</h3>
+          <p>يرجى اختيار بحث من القائمة الجانبية للبدء بالتقييم.</p>
+        </div>
       </div>
+
+      <div *ngIf="selectedAssignment" class="stagger-children" style="display:grid;grid-template-columns:1.5fr 1fr;gap:24px">
+        
+        <!-- Viewer Card -->
+        <div class="card">
+          <div class="card-header">
+            <span class="text-h3">مستعرض الملفات المشفر</span>
+            <div style="display:flex;gap:8px">
+              <div class="btn-group" style="display:flex">
+                <button type="button" class="btn btn-secondary btn-sm" (click)="zoomOut()" title="تصغير" style="border-radius:0 4px 4px 0;border-left:1px solid rgba(0,0,0,0.1)"><i class="bi bi-zoom-out"></i></button>
+                <button type="button" class="btn btn-secondary btn-sm" (click)="zoomIn()" title="تكبير" style="border-radius:4px 0 0 4px"><i class="bi bi-zoom-in"></i></button>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" (click)="downloadPdf()">
+                <i class="bi bi-download"></i> تنزيل
+              </button>
+            </div>
+          </div>
+          <div class="card-body" style="padding:0;background:#e5e5e5;min-height:600px;position:relative">
+            <pdf-viewer
+              [src]="pdfSrc"
+              [render-text]="true"
+              [original-size]="false"
+              [zoom]="zoom"
+              style="width: 100%; height: 600px; display: block;"
+              (after-load-complete)="pdfLoading = false">
+            </pdf-viewer>
+            <div class="pdf-loading" *ngIf="pdfLoading" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)">
+              <span class="spinner"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Evaluation Form Card -->
+        <div class="card" style="align-self:start">
+          <div class="card-header">
+            <span class="text-h3">نموذج التقييم الفني</span>
+          </div>
+          <div class="card-body">
+            
+            <div style="background:rgba(15,42,56,0.03);border:1px solid var(--border-color);border-radius:var(--radius-md);padding:16px;margin-bottom:24px">
+              <h4 class="text-body-strong mb-2">{{ selectedAssignment.title }}</h4>
+              <p class="text-caption mb-0 text-muted">الحد الأقصى للتسليم: {{ selectedAssignment.dueDate | date:'yyyy/MM/dd' }}</p>
+            </div>
+
+            <div class="form-group mb-4">
+              <label class="form-label">الدرجة الممنوحة (من 100) <span class="text-danger">*</span></label>
+              <input type="number" class="form-input" style="font-size:24px;font-weight:bold;text-align:center;padding:12px" [(ngModel)]="evaluationScore" min="0" max="100" placeholder="0 - 100">
+            </div>
+
+            <div class="form-group mb-4">
+              <label class="form-label">التقرير الفني (المبررات) <span class="text-danger">*</span></label>
+              <textarea class="form-input" rows="8" [(ngModel)]="evaluationComments" placeholder="اكتب الملاحظات الفنية والمبررات للدرجة الممنوحة هنا..."></textarea>
+              <p class="text-caption mt-2">الحد الأدنى 20 حرف. سيعرض التقرير أمام اللجنة في محضر الاجتماع.</p>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-lg w-100" [disabled]="isSubmitting" (click)="submitEvaluation()">
+              <span class="spinner" *ngIf="isSubmitting"></span>
+              <i class="bi bi-shield-check" *ngIf="!isSubmitting"></i>
+              {{ isSubmitting ? 'جاري الإرسال...' : 'اعتماد وإرسال التقييم' }}
+            </button>
+            
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </div>
+
 </div>

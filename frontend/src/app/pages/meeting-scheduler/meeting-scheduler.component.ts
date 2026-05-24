@@ -4,12 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ToastService } from '../../services/toast.service';
 import { BocLayoutService } from '../../services/boc-layout.service';
-import {
-  BocPageHeroComponent,
-  BocGlassCardComponent,
-  BocStatCardComponent,
-  BocEmptyStateComponent
-} from '../../shared';
+
 
 @Component({
   selector: 'app-meeting-scheduler',
@@ -17,11 +12,7 @@ import {
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule,
-    BocPageHeroComponent,
-    BocGlassCardComponent,
-    BocStatCardComponent,
-    BocEmptyStateComponent
+    RouterModule
   ],
   templateUrl: './meeting-scheduler.component.html',
   styleUrls: ['./meeting-scheduler.component.scss']

@@ -1,5 +1,5 @@
 <div class="toast-container-wrapper">
-  @for (toast of toastService.toasts; track toast.id) {
+  @for (toast of toasts$ | async; track toast.id) {
     <div class="toast-card" [ngClass]="toast.type">
       <div class="toast-icon">
         @if (toast.type === 'success') {
@@ -27,9 +27,9 @@
         }
       </div>
       <div class="toast-content">
-        <span class="toast-message">{{ toast.message }}</span>
+        <span class="toast-message">{{ toast.title }}{{ toast.message ? ': ' + toast.message : '' }}</span>
       </div>
-      <button class="toast-close-btn" (click)="toastService.remove(toast.id)" aria-label="إغلاق">
+      <button class="toast-close-btn" (click)="toastService.dismiss(toast.id)" aria-label="إغلاق">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>

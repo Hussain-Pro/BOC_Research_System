@@ -1,7 +1,13 @@
+/* ================================================================
+   BOC Research System — Enterprise Design Tokens
+   Angular + Material MDC + Bootstrap 5.3
+   ================================================================ */
+
 :root {
-  /* Muted Industrial — Core Colors (unchanged) */
+  /* ---------- Core Colors ---------- */
   --boc-primary: #0F2A38;
   --boc-primary-light: #163E54;
+  --boc-primary-dark: #0A1E28;
   --boc-secondary: #4A607A;
   --boc-background: #F4F6F9;
   --boc-surface: #FFFFFF;
@@ -10,7 +16,7 @@
   --boc-danger: #dc3545;
   --boc-info: #17a2b8;
 
-  /* Role accent tokens */
+  /* ---------- Role Accents ---------- */
   --boc-accent-triage: #E37400;
   --boc-accent-evaluator: #8430CE;
   --boc-accent-committee: #0d6efd;
@@ -18,45 +24,111 @@
   --boc-accent-export: #fd7e14;
   --boc-accent-plagiarism: #6f42c1;
 
-  /* Typography */
+  /* ---------- Typography ---------- */
   --font-family-arabic: 'Tajawal', sans-serif;
-  --font-family-english: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-family-english: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-  /* Spacing & Shape */
-  --boc-radius-sm: 4px;
-  --boc-radius-md: 6px;
-  --boc-radius-lg: 8px;
-  --boc-radius-xl: 12px;
-  --boc-radius-pill: 999px;
+  /* ---------- Spacing (4px base) ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
 
-  /* Elevation */
-  --boc-shadow-sm: 0 1px 3px rgba(15, 42, 56, 0.08);
-  --boc-shadow-md: 0 4px 12px rgba(15, 42, 56, 0.12);
-  --boc-shadow-lg: 0 8px 24px rgba(15, 42, 56, 0.16);
+  /* ---------- Shape ---------- */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 999px;
 
-  /* Glass */
-  --boc-glass-bg: rgba(255, 255, 255, 0.85);
-  --boc-glass-border: rgba(255, 255, 255, 0.4);
-  --boc-glass-blur: 12px;
+  /* ---------- Elevation (layered paper) ---------- */
+  --elevation-0: none;
+  --elevation-1: 0 1px 2px rgba(15, 42, 56, 0.06), 0 1px 3px rgba(15, 42, 56, 0.04);
+  --elevation-2: 0 4px 8px rgba(15, 42, 56, 0.08), 0 2px 4px rgba(15, 42, 56, 0.04);
+  --elevation-3: 0 8px 16px rgba(15, 42, 56, 0.10), 0 4px 8px rgba(15, 42, 56, 0.06);
+  --elevation-4: 0 12px 24px rgba(15, 42, 56, 0.12), 0 8px 16px rgba(15, 42, 56, 0.08);
 
-  /* Motion */
-  --boc-transition: 0.2s ease-in-out;
+  /* ---------- Motion ---------- */
+  --motion-instant: 0ms;
+  --motion-fast: 150ms;
+  --motion-normal: 250ms;
+  --motion-slow: 350ms;
+  --ease-fast: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --ease-normal: cubic-bezier(0.4, 0.14, 0.3, 1);
+  --ease-slow: cubic-bezier(0, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* Text aliases */
+  /* ---------- Semantic Aliases ---------- */
   --text-primary: var(--boc-primary);
   --text-secondary: var(--boc-secondary);
   --text-muted: rgba(74, 96, 122, 0.75);
-  --text-light: rgba(255, 255, 255, 0.85);
-
-  /* Background aliases */
+  --text-light: rgba(255, 255, 255, 0.9);
   --bg-off-white: var(--boc-background);
   --bg-white: var(--boc-surface);
-  --border-color: rgba(74, 96, 122, 0.25);
+  --border-color: rgba(74, 96, 122, 0.08);
+  --border-color-hover: rgba(74, 96, 122, 0.20);
+  --border-color-strong: rgba(74, 96, 122, 0.12);
+  --hairline: rgba(74, 96, 122, 0.08);
 
-  /* Legacy aliases */
+  /* ---------- Layout ---------- */
+  --header-height: 56px;
+  --sidebar-width: 260px;
+  --sidebar-collapsed: 64px;
+  --status-bar-height: 28px;
+
+  /* ---------- Legacy Aliases (for backward compat) ---------- */
   --primary-oil-blue: var(--boc-primary);
   --primary-oil-blue-light: var(--boc-primary-light);
-  --border-radius: var(--boc-radius-md);
-  --transition-standard: var(--boc-transition);
+  --border-radius: var(--radius-md);
+  --boc-radius-sm: var(--radius-sm);
+  --boc-radius-md: var(--radius-md);
+  --boc-radius-lg: var(--radius-lg);
+  --boc-radius-pill: var(--radius-full);
+  --transition-standard: var(--motion-normal);
   --accent-gold: var(--boc-warning);
+  --boc-glass-bg: rgba(255, 255, 255, 0.92);
+  --boc-glass-border: rgba(255, 255, 255, 0.4);
+  --boc-glass-blur: 12px;
+  --boc-shadow-sm: var(--elevation-1);
+  --boc-shadow-md: var(--elevation-2);
+  --boc-shadow-lg: var(--elevation-3);
+  --boc-shadow: var(--elevation-2);
+  --boc-transition: var(--motion-normal);
+  --boc-border: var(--border-color);
+  --boc-accent: var(--boc-secondary);
+  --boc-bg: var(--boc-background);
+  --boc-text-muted: var(--text-muted);
+  --transition-fast: all var(--motion-fast) var(--ease-fast);
+  --transition-medium: all var(--motion-normal) var(--ease-normal);
+}
+
+/* ---------- Dark Mode ---------- */
+[data-theme="dark"] {
+  --boc-background: #0D1B26;
+  --boc-surface: #142A3A;
+  --boc-primary: #E8EDF2;
+  --boc-primary-light: #8BA3B8;
+  --boc-primary-dark: #0A1E28;
+  --boc-secondary: #8BA3B8;
+  --text-primary: #E8EDF2;
+  --text-secondary: #8BA3B8;
+  --text-muted: rgba(139, 163, 184, 0.6);
+  --border-color: rgba(139, 163, 184, 0.12);
+  --border-color-hover: rgba(139, 163, 184, 0.25);
+  --border-color-strong: rgba(139, 163, 184, 0.18);
+  --hairline: rgba(139, 163, 184, 0.10);
+  --elevation-1: 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.15);
+  --elevation-2: 0 4px 8px rgba(0, 0, 0, 0.30), 0 2px 4px rgba(0, 0, 0, 0.20);
+  --elevation-3: 0 8px 16px rgba(0, 0, 0, 0.35), 0 4px 8px rgba(0, 0, 0, 0.25);
+  --elevation-4: 0 12px 24px rgba(0, 0, 0, 0.40), 0 8px 16px rgba(0, 0, 0, 0.30);
+  --boc-glass-bg: rgba(20, 42, 58, 0.92);
+  --boc-glass-border: rgba(139, 163, 184, 0.15);
+  --boc-border: var(--border-color);
+  --boc-bg: var(--boc-background);
+  --boc-text-muted: var(--text-muted);
 }

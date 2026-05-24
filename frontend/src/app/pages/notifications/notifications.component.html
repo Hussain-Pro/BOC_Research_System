@@ -1,35 +1,47 @@
-<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
-  <div class="container">
-    <boc-page-hero title="مركز الإشعارات" subtitle="تابع آخر التحديثات والتنبيهات"
-                   [breadcrumbs]="[{label: 'الرئيسية', route: '/home'}, {label: 'الإشعارات'}]">
-      <button heroActions type="button" class="btn btn-outline-secondary btn-sm rounded-pill" (click)="markAllAsRead()">
-        تحديد الكل كمقروء
-      </button>
-    </boc-page-hero>
+<div class="anim-fade-in-up" id="notifications-page">
 
-    <boc-glass-card [noPadding]="true">
-      <boc-empty-state *ngIf="notifications.length === 0" icon="bi-bell-slash"
-                       title="لا توجد إشعارات جديدة" message="ستظهر التنبيهات هنا عند وصولها.">
-      </boc-empty-state>
-
-      <div class="list-group list-group-flush" *ngIf="notifications.length">
-        <div *ngFor="let notif of notifications"
-             class="list-group-item list-group-item-action p-4 d-flex gap-3 align-items-start notification-item"
-             [class.unread]="!notif.isRead">
-          <div class="notif-icon flex-shrink-0" [ngClass]="getIconClass(notif.type)">
-            <i class="bi" [ngClass]="getIcon(notif.type)"></i>
-          </div>
-          <div class="flex-grow-1">
-            <div class="d-flex justify-content-between mb-1">
-              <h6 class="fw-bold mb-0" [class.text-primary]="!notif.isRead">{{ notif.title }}</h6>
-              <small class="text-muted">{{ notif.timestamp | date:'shortTime' }}</small>
-            </div>
-            <p class="mb-2 text-secondary small">{{ notif.message }}</p>
-            <a *ngIf="notif.actionUrl" class="btn btn-sm btn-primary-industrial" [routerLink]="notif.actionUrl">عرض التفاصيل</a>
-          </div>
-          <span *ngIf="!notif.isRead" class="badge bg-danger rounded-circle p-2 align-self-start"></span>
-        </div>
-      </div>
-    </boc-glass-card>
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="text-h1">مركز الإشعارات</h1>
+      <p class="text-label">تابع آخر التحديثات والتنبيهات</p>
+    </div>
+    <button class="btn btn-secondary btn-sm" (click)="markAllAsRead()" id="mark-all-read-btn">
+      <i class="bi bi-check2-all"></i> تحديد الكل كمقروء
+    </button>
   </div>
+
+  <div class="card p-0">
+    <div *ngIf="notifications.length === 0" class="empty-state" style="padding:60px 20px">
+      <div class="empty-icon"><i class="bi bi-bell-slash"></i></div>
+      <h3>لا توجد إشعارات جديدة</h3>
+      <p>ستظهر التنبيهات هنا عند وصولها.</p>
+    </div>
+
+    <div class="list-group" *ngIf="notifications.length">
+      <div *ngFor="let notif of notifications"
+           class="list-group-item d-flex gap-3 align-items-start"
+           style="padding:20px;border:none;border-bottom:1px solid var(--border-color);"
+           [style.background]="notif.isRead ? 'transparent' : 'rgba(13,110,253,0.03)'">
+        
+        <div class="kpi-icon flex-shrink-0" [ngClass]="getIconClass(notif.type)" style="width:40px;height:40px;font-size:18px">
+          <i class="bi" [ngClass]="getIcon(notif.type)"></i>
+        </div>
+        
+        <div class="flex-grow-1">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="mb-0 text-body-strong" [class.text-primary]="!notif.isRead">{{ notif.title }}</h6>
+            <small class="text-muted">{{ notif.timestamp | date:'shortTime' }}</small>
+          </div>
+          <p class="mb-3 text-body" style="font-size:14px">{{ notif.message }}</p>
+          <a *ngIf="notif.actionUrl" class="btn btn-outline-primary btn-sm" [routerLink]="notif.actionUrl" style="border-radius:var(--radius-sm)">
+            عرض التفاصيل
+          </a>
+        </div>
+        
+        <span *ngIf="!notif.isRead" style="width:10px;height:10px;background:var(--boc-danger);border-radius:50%;align-self:center"></span>
+      </div>
+    </div>
+  </div>
+
 </div>

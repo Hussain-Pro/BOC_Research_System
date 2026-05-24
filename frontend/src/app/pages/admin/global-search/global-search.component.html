@@ -1,16 +1,13 @@
 <div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
   <div class="container">
-    <boc-page-hero
-      title="محرك البحث الشامل"
-      subtitle="ابحث عن أي بحث، مقيّم، باحث، أو محضر اجتماع في النظام."
-      [breadcrumbs]="[{ label: 'الرئيسية', route: '/home' }, { label: 'البحث الشامل' }]">
+    <div class="page-header"><div><h1 class="text-h1">محرك البحث الشامل</h1><p class="text-label">ابحث عن أي بحث، مقيّم، باحث، أو محضر اجتماع في النظام.</p></div>
       <a heroActions routerLink="/home" class="btn btn-outline-secondary btn-sm rounded-pill">
         <i class="bi bi-arrow-right me-1"></i> العودة للرئيسية
       </a>
-    </boc-page-hero>
+    </div>
 
     <div class="mb-4">
-    <boc-glass-card title="بحث متقدم">
+    <div class="card mb-4"><div class="card-header"><span class="text-h3">بحث متقدم</span></div><div class="card-body">
       <div class="row g-3">
         <div class="col-md-8">
           <div class="input-group">
@@ -28,15 +25,12 @@
           </select>
         </div>
       </div>
-    </boc-glass-card>
+    </div></div>
     </div>
 
-    <boc-glass-card [title]="'نتائج البحث (' + searchResults.length + ')'" [noPadding]="true">
-      <boc-empty-state *ngIf="searchResults.length === 0"
-                       icon="bi-search"
-                       title="لا توجد نتائج مطابقة"
-                       message="جرّب كلمات بحث مختلفة أو غيّر نوع التصفية.">
-      </boc-empty-state>
+    <div class="card mb-4"><div class="card-body">
+      <div class="empty-state" style="padding:40px"><div class="empty-icon"><i class="bi bi-info-circle"></i></div><h3>لا توجد بيانات</h3><p>البيانات المطلوبة غير متوفرة حالياً</p>
+      </div>
 
       <div class="list-group list-group-flush" *ngIf="searchResults.length">
         <a href="javascript:void(0)" class="list-group-item list-group-item-action p-4 search-result-item"
@@ -57,6 +51,8 @@
           </div>
         </a>
       </div>
-    </boc-glass-card>
+    </div></div>
   </div>
 </div>
+
+

@@ -1,0 +1,91 @@
+<!-- App Shell: Header + Sidebar + Content Wrapper -->
+<div class="app-shell" [class.sidebar-collapsed]="isSidebarCollapsed">
+
+  <!-- Mobile Sidebar Overlay -->
+  <div class="sidebar-overlay" [class.active]="isMobileSidebarOpen" (click)="closeMobileSidebar()"></div>
+
+  <!-- Sidebar -->
+  <aside class="app-sidebar" [class.open]="isMobileSidebarOpen" #sidebarRef>
+    <div class="sidebar-brand">
+      <div class="logo-icon"><i class="bi bi-bank"></i></div>
+      <span class="logo-text">{{ 'APP.TITLE' | translate }}</span>
+      <button class="sidebar-toggle" (click)="toggleSidebar()" *ngIf="!isMobile">
+        <i class="bi" [class.bi-chevron-right]="!isSidebarCollapsed" [class.bi-chevron-left]="isSidebarCollapsed"></i>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ng-container *ngFor="let section of navSections">
+        <div class="nav-section" *ngIf="section.items.length > 0">
+          <div class="nav-section-title">{{ section.title | translate }}</div>
+          <a
+            *ngFor="let item of section.items"
+            class="nav-item"
+            [class.active]="isActive(item.route)"
+            [routerLink]="item.route"
+            (click)="closeMobileSidebar()"
+          >
+            <i [class]="item.icon"></i>
+            <span class="nav-label">{{ item.label | translate }}</span>
+            <span class="nav-badge" *ngIf="item.badge">{{ item.badge }}</span>
+          </a>
+        </div>
+      </ng-container>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="theme-toggle" (click)="toggleTheme()">
+        <i class="bi" [class.bi-moon-stars]="!isDarkMode" [class.bi-sun]="isDarkMode"></i>
+        <span class="nav-label">{{ (isDarkMode ? 'THEME.LIGHT' : 'THEME.DARK') | translate }}</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="app-header" [class.scrolled]="isScrolled">
+    <div class="header-left">
+      <button class="icon-btn d-lg-none" (click)="openMobileSidebar()">
+        <i class="bi bi-list"></i>
+      </button>
+      <app-breadcrumb class="d-none d-md-flex" [items]="breadcrumbs"></app-breadcrumb>
+    </div>
+    <div class="header-right">
+      <div class="search-trigger" (click)="openCommandPalette()">
+        <i class="bi bi-search"></i>
+        <span>{{ 'SEARCH.PLACEHOLDER' | translate }}</span>
+        <kbd>Ctrl</kbd><kbd>K</kbd>
+      </div>
+      <button class="icon-btn" (click)="toggleDir()" [title]="'HEADER.TOGGLE_DIR' | translate">
+        <i class="bi bi-arrow-left-right"></i>
+      </button>
+      <button class="icon-btn" (click)="toggleNotifications()">
+        <i class="bi bi-bell"></i>
+        <span class="badge-dot" *ngIf="unreadNotifications > 0"></span>
+      </button>
+      <div class="user-menu" [matMenuTriggerFor]="userMenu">
+        <div class="avatar">{{ userInitials }}</div>
+        <span class="name d-none d-md-inline">{{ userName }}</span>
+        <i class="bi bi-chevron-down d-none d-md-inline" style="font-size:12px;color:var(--text-secondary)"></i>
+      </div>
+      <mat-menu #userMenu="matMenu" class="glass-dropdown">
+        <button mat-menu-item [routerLink]="['/profile']">
+          <i class="bi bi-person" style="margin-left:8px"></i>
+          <span>{{ 'PROFILE.TITLE' | translate }}</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <i class="bi bi-box-arrow-right" style="margin-left:8px"></i>
+          <span>{{ 'AUTH.LOGOUT' | translate }}</span>
+        </button>
+      </mat-menu>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="app-main">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+<!-- Global Overlays -->
+<app-command-palette></app-command-palette>
+<app-toast-system></app-toast-system>

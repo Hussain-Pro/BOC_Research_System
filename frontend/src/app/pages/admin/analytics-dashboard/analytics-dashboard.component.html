@@ -1,35 +1,68 @@
-<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
-  <div class="container">
-    <boc-page-hero
-      title="لوحة البيانات التنفيذية"
-      subtitle="إحصائيات متقدمة تعكس واقع إنجاز الدراسات والبحوث."
-      [breadcrumbs]="[{ label: 'الرئيسية', route: '/home' }, { label: 'التحليلات' }]">
-      <a heroActions routerLink="/home" class="btn btn-outline-secondary btn-sm rounded-pill">
-        <i class="bi bi-arrow-right me-1"></i> العودة للرئيسية
-      </a>
-    </boc-page-hero>
+<div class="anim-fade-in-up" id="analytics-dashboard-page">
 
-    <div class="row g-3 mb-4">
-      <div class="col-md-3">
-        <boc-stat-card label="إجمالي البحوث المستلمة" [value]="metrics.totalReceived" icon="bi-inbox"></boc-stat-card>
-      </div>
-      <div class="col-md-3">
-        <boc-stat-card label="قيد التقييم" [value]="metrics.underEvaluation" icon="bi-hourglass-split"
-                       iconBg="rgba(255, 193, 7, 0.15)" iconColor="var(--boc-warning)"></boc-stat-card>
-      </div>
-      <div class="col-md-3">
-        <boc-stat-card label="مكتملة ومُصدقة" [value]="metrics.completed" icon="bi-check-circle"
-                       iconBg="rgba(40, 167, 69, 0.12)" iconColor="var(--boc-success)"></boc-stat-card>
-      </div>
-      <div class="col-md-3">
-        <boc-stat-card label="مخالفات المدة (SLA)" [value]="metrics.slaBreaches" icon="bi-alarm"
-                       iconBg="rgba(220, 53, 69, 0.12)" iconColor="var(--boc-danger)"></boc-stat-card>
-      </div>
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="text-h1">لوحة البيانات التنفيذية</h1>
+      <p class="text-label">إحصائيات متقدمة تعكس واقع إنجاز الدراسات والبحوث</p>
     </div>
+    <a routerLink="/home" class="btn btn-secondary btn-sm" id="back-home-btn">
+      <i class="bi bi-arrow-right"></i> العودة للرئيسية
+    </a>
+  </div>
 
-    <div class="row g-4 mb-4">
-      <div class="col-md-8">
-        <boc-glass-card title="معدل إنجاز البحوث">
+  <!-- KPI Strip -->
+  <div class="kpi-grid kpi-grid-4 mb-5">
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">إجمالي البحوث</span>
+        <div class="kpi-icon" style="background:rgba(15, 42, 56, 0.1)">
+          <i class="bi bi-inbox" style="color:var(--boc-primary)"></i>
+        </div>
+      </div>
+      <div class="kpi-value">{{ metrics.totalReceived }}</div>
+      <div class="kpi-label">بحث مستلم</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">قيد التقييم</span>
+        <div class="kpi-icon" style="background:rgba(255, 193, 7, 0.15)">
+          <i class="bi bi-hourglass-split" style="color:var(--boc-warning)"></i>
+        </div>
+      </div>
+      <div class="kpi-value">{{ metrics.underEvaluation }}</div>
+      <div class="kpi-label">قيد المعالجة</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">مكتملة ومُصدقة</span>
+        <div class="kpi-icon" style="background:rgba(40, 167, 69, 0.12)">
+          <i class="bi bi-check-circle" style="color:var(--boc-success)"></i>
+        </div>
+      </div>
+      <div class="kpi-value">{{ metrics.completed }}</div>
+      <div class="kpi-label">بحث مكتمل</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">مخالفات SLA</span>
+        <div class="kpi-icon" style="background:rgba(220, 53, 69, 0.12)">
+          <i class="bi bi-alarm" style="color:var(--boc-danger)"></i>
+        </div>
+      </div>
+      <div class="kpi-value">{{ metrics.slaBreaches }}</div>
+      <div class="kpi-label">تجاوز للمدة</div>
+    </div>
+  </div>
+
+  <!-- Charts Layout -->
+  <div class="row g-4 mb-4 stagger-children">
+    <div class="col-lg-8">
+      <div class="card h-100">
+        <div class="card-header">
+          <span class="text-h3">معدل إنجاز البحوث</span>
+        </div>
+        <div class="card-body">
           <apx-chart
             [series]="areaChartOptions.series"
             [chart]="areaChartOptions.chart"
@@ -37,36 +70,47 @@
             [dataLabels]="areaChartOptions.dataLabels"
             [grid]="areaChartOptions.grid"
             [stroke]="areaChartOptions.stroke"
-            [title]="areaChartOptions.title"
             [colors]="areaChartOptions.colors">
           </apx-chart>
-        </boc-glass-card>
+        </div>
       </div>
-      <div class="col-md-4">
-        <boc-glass-card title="حالة البحوث الكلية">
+    </div>
+    <div class="col-lg-4">
+      <div class="card h-100">
+        <div class="card-header">
+          <span class="text-h3">حالة البحوث الكلية</span>
+        </div>
+        <div class="card-body" style="display:flex;align-items:center;justify-content:center">
           <apx-chart
             [series]="donutChartOptions.series"
             [chart]="donutChartOptions.chart"
             [labels]="donutChartOptions.labels"
             [dataLabels]="donutChartOptions.dataLabels"
-            [title]="donutChartOptions.title"
             [colors]="donutChartOptions.colors">
           </apx-chart>
-        </boc-glass-card>
+        </div>
       </div>
     </div>
+  </div>
 
-    <boc-glass-card title="أحدث المحاضر المنجزة" subtitle="آخر التقارير المعتمدة من اللجان">
-      <div class="d-flex justify-content-end mb-3">
-        <button type="button" class="btn btn-sm btn-outline-primary rounded-pill">
-          <i class="bi bi-file-earmark-excel me-1"></i> تصدير التقرير
-        </button>
+  <!-- Recent Reports Table -->
+  <div class="card mb-5">
+    <div class="card-header" style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <span class="text-h3" style="display:block">أحدث المحاضر المنجزة</span>
+        <span class="text-caption">آخر التقارير المعتمدة من اللجان</span>
       </div>
+      <button class="btn btn-secondary btn-sm" style="border-color:var(--border-color);color:var(--text-body)">
+        <i class="bi bi-file-earmark-excel" style="color:var(--boc-success)"></i> تصدير التقرير
+      </button>
+    </div>
+    <div class="card-body" style="padding:0">
       <boc-data-table
         [columns]="reportColumns"
         [columnLabels]="reportColumnLabels"
         [data]="recentReports">
       </boc-data-table>
-    </boc-glass-card>
+    </div>
   </div>
+
 </div>

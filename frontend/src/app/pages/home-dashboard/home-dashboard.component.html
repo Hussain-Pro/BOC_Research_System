@@ -1,76 +1,173 @@
-<div class="container-fluid py-4 dashboard-bg min-vh-100" dir="rtl" id="home-dashboard">
-  <div class="row mb-4 g-3">
-    <div class="col-md-3"><boc-stat-card label="البحوث النشطة" value="12" icon="bi-journal-text" trend="+3 هذا الشهر" [trendUp]="true"></boc-stat-card></div>
-    <div class="col-md-3"><boc-stat-card label="بانتظار المراجعة" value="5" icon="bi-hourglass-split" iconBg="rgba(255,193,7,0.15)" iconColor="#856404"></boc-stat-card></div>
-    <div class="col-md-3"><boc-stat-card label="تم اعتمادها" value="28" icon="bi-check-circle" iconBg="rgba(40,167,69,0.12)" iconColor="var(--boc-success)" trend="+8%" [trendUp]="true"></boc-stat-card></div>
-    <div class="col-md-3"><boc-stat-card label="إشعارات جديدة" value="3" icon="bi-bell" iconBg="rgba(220,53,69,0.12)" iconColor="var(--boc-danger)"></boc-stat-card></div>
+<!-- Home Dashboard — New Enterprise Design -->
+<div class="anim-fade-in-up" id="home-dashboard">
+
+  <!-- ── Page Header ── -->
+  <div class="page-header">
+    <div>
+      <h1 class="text-h1">لوحة التحكم</h1>
+      <p class="text-label">نظرة عامة على حالة الأبحاث والمهام المعلقة</p>
+    </div>
+    <div class="actions">
+      <button class="btn btn-secondary btn-md" id="export-report-btn" routerLink="/admin/export">
+        <i class="bi bi-download"></i>
+        تصدير التقرير
+      </button>
+      <a class="btn btn-primary btn-md" id="new-research-btn" routerLink="/research/submit">
+        <i class="bi bi-plus-lg"></i>
+        بحث جديد
+      </a>
+    </div>
   </div>
 
-  <div class="row mb-4">
-    <div class="col-12">
-      <boc-glass-card>
-        <div class="row align-items-center">
-          <div class="col-lg-8">
-            <span class="badge bg-primary bg-opacity-10 text-primary mb-2 px-3 py-2 rounded-pill fw-bold">مرحباً بك مجدداً</span>
-            <h2 class="fw-bold mb-2 hero-title">نظام إدارة البحوث - شركة نفط البصرة</h2>
-            <p class="text-muted fs-5 mb-3">
-              أهلاً بك، <span class="fw-bold text-primary">{{ userName }}</span>
-              <span class="badge bg-secondary ms-2" *ngIf="userRole">{{ userRole }}</span>
-            </p>
-            <div class="d-flex gap-2 flex-wrap">
-              <a routerLink="/research/submit" class="btn btn-primary-industrial btn-sm"><i class="bi bi-file-earmark-plus me-1"></i>تقديم بحث</a>
-              <a routerLink="/research/history" class="btn btn-outline-secondary btn-sm rounded-pill"><i class="bi bi-clock-history me-1"></i>متابعة</a>
-              <a routerLink="/profile" class="btn btn-outline-secondary btn-sm rounded-pill"><i class="bi bi-person me-1"></i>الملف الشخصي</a>
-              <button type="button" class="btn btn-outline-primary btn-sm rounded-pill" (click)="startTour()"><i class="bi bi-compass me-1"></i>ابدأ الجولة التعريفية</button>
-            </div>
-          </div>
-          <div class="col-lg-4 text-start d-none d-lg-block">
-            <img src="assets/boc_logo.png" alt="BOC Logo" height="100" class="opacity-75">
+  <!-- ── Hero Welcome Card ── -->
+  <div class="hero-card stagger-children mb-5">
+    <div class="d-flex align-items-start justify-between gap-4">
+      <div class="flex-1">
+        <h2 class="text-h2 mb-2">مرحباً بك، {{ userName }}</h2>
+        <p class="text-body" style="color:var(--text-secondary)">
+          لديك 4 أبحاث قيد المراجعة واجتماع لجنة مقرر غداً الساعة 10:00 صباحاً.
+        </p>
+        <div class="d-flex gap-3 mt-4 flex-wrap">
+          <a routerLink="/research/submit" class="btn btn-primary btn-md" id="hero-submit-btn">
+            <i class="bi bi-file-earmark-plus"></i>
+            تقديم بحث
+          </a>
+          <a routerLink="/research/history" class="btn btn-secondary btn-md" id="hero-history-btn">
+            <i class="bi bi-clock-history"></i>
+            متابعة
+          </a>
+          <button class="btn btn-ghost btn-md" id="hero-tour-btn" (click)="startTour()">
+            <i class="bi bi-compass"></i>
+            الجولة التعريفية
+          </button>
+        </div>
+      </div>
+      <div class="d-none d-lg-flex" style="opacity:0.12">
+        <i class="bi bi-bank" style="font-size:72px;color:var(--boc-primary)"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── KPI Cards ── -->
+  <div class="kpi-grid stagger-children" id="kpi-section">
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">إجمالي الأبحاث</span>
+        <div class="kpi-icon" style="background:rgba(15,42,56,0.08)">
+          <i class="bi bi-file-earmark-text" style="color:var(--boc-primary)"></i>
+        </div>
+      </div>
+      <div class="kpi-value">128</div>
+      <div class="kpi-label">إجمالي الأبحاث</div>
+      <div class="kpi-trend up"><i class="bi bi-arrow-up-right"></i> +12% هذا الشهر</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">بانتظار التقييم</span>
+        <div class="kpi-icon" style="background:rgba(227,116,0,0.10)">
+          <i class="bi bi-hourglass-split" style="color:var(--boc-accent-triage)"></i>
+        </div>
+      </div>
+      <div class="kpi-value">24</div>
+      <div class="kpi-label">بانتظار التقييم</div>
+      <div class="kpi-trend up"><i class="bi bi-arrow-up-right"></i> +3 هذا الأسبوع</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">تمت الموافقة</span>
+        <div class="kpi-icon" style="background:rgba(40,167,69,0.10)">
+          <i class="bi bi-check-circle" style="color:var(--boc-success)"></i>
+        </div>
+      </div>
+      <div class="kpi-value">86</div>
+      <div class="kpi-label">تمت الموافقة</div>
+      <div class="kpi-trend down"><i class="bi bi-arrow-down-right"></i> -2% عن المعدل</div>
+    </div>
+
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">اجتماعات اللجان</span>
+        <div class="kpi-icon" style="background:rgba(132,48,206,0.10)">
+          <i class="bi bi-people" style="color:var(--boc-accent-evaluator)"></i>
+        </div>
+      </div>
+      <div class="kpi-value">7</div>
+      <div class="kpi-label">اجتماعات اللجان</div>
+      <div class="kpi-trend up"><i class="bi bi-arrow-up-right"></i> اجتماعان هذا الأسبوع</div>
+    </div>
+  </div>
+
+  <!-- ── Chart + Quick Actions Row ── -->
+  <div class="row g-4 mb-5">
+
+    <!-- Chart -->
+    <div class="col-lg-8">
+      <div class="card h-100">
+        <div class="card-header">
+          <span class="text-h3">نشاط تقديم البحوث</span>
+          <div class="btn-group" id="chart-period-toggle">
+            <button class="btn btn-sm active" id="chart-monthly">شهري</button>
+            <button class="btn btn-sm" id="chart-weekly">أسبوعي</button>
           </div>
         </div>
-      </boc-glass-card>
+        <div class="card-body">
+          <apx-chart
+            [series]="$any(submissionsChartOptions['series'])"
+            [chart]="$any(submissionsChartOptions['chart'])"
+            [xaxis]="$any(submissionsChartOptions['xaxis'])"
+            [dataLabels]="$any(submissionsChartOptions['dataLabels'])"
+            [grid]="$any(submissionsChartOptions['grid'])"
+            [stroke]="$any(submissionsChartOptions['stroke'])"
+            [colors]="$any(submissionsChartOptions['colors'])">
+          </apx-chart>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="row mb-4">
-    <div class="col-lg-8 mb-4">
-      <boc-glass-card title="نشاط تقديم البحوث">
-        <apx-chart
-          [series]="$any(submissionsChartOptions['series'])"
-          [chart]="$any(submissionsChartOptions['chart'])"
-          [xaxis]="$any(submissionsChartOptions['xaxis'])"
-          [dataLabels]="$any(submissionsChartOptions['dataLabels'])"
-          [grid]="$any(submissionsChartOptions['grid'])"
-          [stroke]="$any(submissionsChartOptions['stroke'])"
-          [colors]="$any(submissionsChartOptions['colors'])">
-        </apx-chart>
-      </boc-glass-card>
-    </div>
-    <div class="col-lg-4 mb-4">
-      <boc-glass-card title="إجراءات سريعة">
-        <ng-container *ngFor="let action of visibleActions()">
-          <a [routerLink]="action.route"
-             class="btn w-100 mb-3 py-3 rounded-3 text-start d-flex align-items-center justify-content-between action-btn shadow-sm text-white"
-             [class]="action.class || ''"
-             [style.background-color]="action.style || null">
-            <div><i class="bi me-2 ms-2 fs-5" [ngClass]="action.icon"></i><span class="fw-bold fs-6">{{ action.label }}</span></div>
-            <i class="bi bi-chevron-left"></i>
-          </a>
-        </ng-container>
-      </boc-glass-card>
-    </div>
-  </div>
-
-  <div *ngIf="userRole === 'Admin'">
-    <h4 class="fw-bold hero-title border-bottom pb-3 mb-4"><i class="bi bi-shield-lock text-danger me-2"></i>الإدارة الشاملة للنظام</h4>
-    <div class="row g-4">
-      <div class="col-md-3" *ngFor="let card of adminCards">
-        <div class="glass-card p-4 h-100 hover-card">
-          <i class="bi display-6 mb-3 d-block" [ngClass]="card.icon" [style.color]="card.color"></i>
-          <h6 class="fw-bold">{{ card.title }}</h6>
-          <a [routerLink]="card.route" class="text-decoration-none small fw-bold" [style.color]="card.color">{{ card.link }} <i class="bi bi-arrow-left"></i></a>
+    <!-- Quick Actions -->
+    <div class="col-lg-4">
+      <div class="card h-100">
+        <div class="card-header">
+          <span class="text-h3">إجراءات سريعة</span>
+        </div>
+        <div class="card-body d-flex flex-column gap-2" id="quick-actions-panel">
+          <ng-container *ngFor="let action of visibleActions()">
+            <a
+              [routerLink]="action.route"
+              class="quick-action-item"
+              [id]="'quick-action-' + action.icon">
+              <div class="quick-action-icon-wrap" [style.background]="action.style ? action.style + '18' : 'rgba(15,42,56,0.06)'">
+                <i class="bi" [ngClass]="action.icon" [style.color]="action.style || 'var(--boc-primary)'"></i>
+              </div>
+              <span>{{ action.label }}</span>
+              <i class="bi bi-chevron-left ms-auto" style="font-size:12px;color:var(--text-muted)"></i>
+            </a>
+          </ng-container>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- ── Admin Cards (Admin only) ── -->
+  <div *ngIf="userRole === 'Admin'" id="admin-panel" class="mb-5">
+    <div class="page-header mb-4">
+      <div>
+        <h2 class="text-h2">الإدارة الشاملة للنظام</h2>
+        <p class="text-label">لوحات التحكم والأدوات المتقدمة</p>
+      </div>
+    </div>
+    <div class="quick-actions-grid stagger-children">
+      <a *ngFor="let card of adminCards" [routerLink]="card.route" class="quick-action-card" [id]="'admin-card-' + card.icon">
+        <div class="quick-action-icon" [style.background]="card.color + '18'">
+          <i class="bi" [ngClass]="card.icon" [style.color]="card.color"></i>
+        </div>
+        <span class="text-body-strong">{{ card.title }}</span>
+        <span class="text-caption" [style.color]="card.color">{{ card.link }} ←</span>
+      </a>
+    </div>
+  </div>
+
 </div>

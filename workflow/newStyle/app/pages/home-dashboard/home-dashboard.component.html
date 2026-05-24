@@ -1,0 +1,133 @@
+<!-- Home Dashboard — Enterprise Refactored -->
+<div class="dashboard-wrapper">
+
+  <!-- Page Header -->
+  <app-page-header
+    [title]="'DASHBOARD.TITLE'"
+    [subtitle]="'DASHBOARD.SUBTITLE'"
+    [actions]="pageActions"
+  ></app-page-header>
+
+  <!-- Hero Card -->
+  <div class="hero-card">
+    <div class="d-flex justify-between align-center flex-wrap gap-3">
+      <div>
+        <h2 class="text-h2 mb-2">{{ 'DASHBOARD.WELCOME' | translate:{ name: userName } }}</h2>
+        <p class="text-body text-secondary">{{ 'DASHBOARD.SUMMARY' | translate }}</p>
+      </div>
+      <button class="btn btn-primary btn-md" (click)="navigateToTasks()">
+        {{ 'DASHBOARD.VIEW_TASKS' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="kpi-grid stagger-children">
+    <div class="kpi-card" *ngFor="let kpi of kpis">
+      <div class="kpi-header">
+        <div class="kpi-icon" [style.background]="kpi.iconBg" [style.color]="kpi.iconColor">
+          <i [class]="kpi.icon"></i>
+        </div>
+        <button class="icon-btn btn-ghost"><i class="bi bi-three-dots-vertical"></i></button>
+      </div>
+      <div class="kpi-value">{{ kpi.value | number }}</div>
+      <div class="kpi-label">{{ kpi.label | translate }}</div>
+      <div class="kpi-trend" [class.up]="kpi.trend > 0" [class.down]="kpi.trend < 0">
+        <i [class]="kpi.trend > 0 ? 'bi bi-arrow-up-right' : 'bi bi-arrow-down-right'"></i>
+        {{ kpi.trendText | translate }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts & Activity Row -->
+  <div class="content-grid" style="margin-bottom: var(--space-5)">
+    <!-- Chart Card -->
+    <div class="card" style="grid-column: span 8">
+      <div class="card-header">
+        <span class="text-h3">{{ 'DASHBOARD.RESEARCH_STATUS' | translate }}</span>
+        <div class="btn-group">
+          <button
+            *ngFor="let period of chartPeriods"
+            class="btn"
+            [class.active]="selectedPeriod === period.value"
+            (click)="setChartPeriod(period.value)"
+          >
+            {{ period.label | translate }}
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div id="chart-research-status" style="min-height: 320px">
+          <!-- ApexChart rendered here -->
+          <apx-chart
+            [series]="chartSeries"
+            [chart]="chartOptions"
+            [colors]="chartColors"
+            [labels]="chartLabels"
+          ></apx-chart>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="card" style="grid-column: span 4">
+      <div class="card-header">
+        <span class="text-h3">{{ 'DASHBOARD.RECENT_ACTIVITY' | translate }}</span>
+        <button class="btn btn-tertiary btn-sm" (click)="viewAllActivity()">
+          {{ 'COMMON.VIEW_ALL' | translate }}
+        </button>
+      </div>
+      <div class="card-body" style="padding: 0">
+        <div
+          *ngFor="let activity of recentActivity; let last = last"
+          class="activity-item"
+          [class.border-bottom]="!last"
+        >
+          <div class="avatar avatar-sm">{{ activity.initials }}</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-body-strong text-truncate">{{ activity.actor }}</div>
+            <div class="text-caption text-secondary text-truncate">{{ activity.action | translate }}</div>
+          </div>
+          <span class="text-caption text-muted" style="flex-shrink: 0">{{ activity.time | translate }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pending Reviews Table -->
+  <div class="card" style="margin-bottom: var(--space-5)">
+    <div class="card-header">
+      <span class="text-h3">{{ 'DASHBOARD.PENDING_REVIEWS' | translate }}</span>
+      <button class="btn btn-tertiary btn-sm" (click)="navigateToTriage()">
+        {{ 'COMMON.VIEW_ALL' | translate }}
+      </button>
+    </div>
+    <div class="card-body" style="padding: 0">
+      <app-data-table
+        [data]="pendingReviews"
+        [columns]="reviewColumns"
+        [rowActions]="reviewActions"
+        [selectable]="false"
+        [showPagination]="false"
+        [showToolbar]="false"
+      ></app-data-table>
+    </div>
+  </div>
+
+  <!-- Quick Actions Grid -->
+  <div class="demo-section-title">{{ 'DASHBOARD.QUICK_ACTIONS' | translate }}</div>
+  <div class="quick-actions-grid">
+    <div
+      *ngFor="let action of quickActions"
+      class="quick-action-card"
+      (click)="action.handler()"
+    >
+      <div class="quick-action-icon" [style.background]="action.bg" [style.color]="action.color">
+        <i [class]="action.icon"></i>
+      </div>
+      <div class="text-body-strong">{{ action.label | translate }}</div>
+      <div class="text-caption text-secondary">{{ action.desc | translate }}</div>
+    </div>
+  </div>
+
+</div>

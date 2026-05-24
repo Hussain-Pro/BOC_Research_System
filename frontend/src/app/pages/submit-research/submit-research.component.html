@@ -1,114 +1,138 @@
-<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
-  <div class="container-lg">
+<div class="anim-fade-in-up" id="submit-research-page">
 
-    <boc-page-hero
-      title="تقديم بحث علمي جديد"
-      subtitle="أكمل الخطوات التالية لتقديم بحثك للمراجعة والتقييم.">
-    </boc-page-hero>
-
-    <div *ngIf="error()" class="alert alert-danger d-flex align-items-center gap-2 mb-4" role="alert">
-      <i class="bi bi-exclamation-circle"></i>
-      {{ error() }}
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="text-h1">تقديم بحث علمي جديد</h1>
+      <p class="text-label">أكمل الخطوات التالية لتقديم بحثك للمراجعة والتقييم</p>
     </div>
+    <a routerLink="/research/history" class="btn btn-secondary btn-md">
+      <i class="bi bi-clock-history"></i>
+      سجل الأبحاث
+    </a>
+  </div>
 
-    <boc-glass-card [noPadding]="true" extraClass="stepper-card">
-      <mat-stepper linear #stepper class="boc-stepper" labelPosition="bottom">
+  <!-- Error Alert -->
+  <div *ngIf="error()" class="auth-alert auth-alert-error mb-4" role="alert">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <span>{{ error() }}</span>
+  </div>
 
-        <!-- Step 1: Research Details -->
-        <mat-step [stepControl]="detailsForm" label="تفاصيل البحث">
-          <form [formGroup]="detailsForm" class="step-content">
-            <p class="text-muted mb-4">يرجى ملء الحقول التالية بعناية. هذه البيانات ستستخدم في عمليات الفرز والتقييم.</p>
+  <!-- Stepper Card -->
+  <div class="card">
+    <mat-stepper linear #stepper class="boc-stepper" labelPosition="bottom">
 
-            <boc-form-field
-              label="عنوان البحث بالكامل"
-              icon="bi-journal-text"
-              placeholder="مثال: دراسة تحسين إنتاجية الآبار المشتركة في حقل الرميلة"
-              formControlName="title">
-            </boc-form-field>
+      <!-- Step 1: Research Details -->
+      <mat-step [stepControl]="detailsForm" label="تفاصيل البحث">
+        <form [formGroup]="detailsForm" class="step-content">
+          <p class="text-body mb-5" style="color:var(--text-secondary)">يرجى ملء الحقول التالية بعناية. هذه البيانات ستستخدم في عمليات الفرز والتقييم.</p>
 
-            <mat-form-field appearance="outline" class="w-100 mb-3">
-              <mat-label>المستخلص (Abstract)</mat-label>
-              <textarea
-                matInput
-                rows="6"
-                formControlName="abstract"
-                placeholder="اكتب مستخلص البحث هنا بالتفصيل (الأهداف، الطرق المستخدمة، والنتائج المتوقعة)...">
-              </textarea>
-            </mat-form-field>
+          <div class="form-group">
+            <label class="form-label">عنوان البحث بالكامل <span class="required">*</span></label>
+            <div class="form-input-wrapper">
+              <i class="form-input-icon bi bi-journal-text"></i>
+              <input type="text" class="form-input has-icon"
+                     placeholder="مثال: دراسة تحسين إنتاجية الآبار المشتركة في حقل الرميلة"
+                     formControlName="title">
+            </div>
+          </div>
 
-            <mat-checkbox formControlName="submitImmediately" color="primary">
+          <div class="form-group">
+            <label class="form-label">المستخلص (Abstract)</label>
+            <textarea
+              class="form-input"
+              rows="6"
+              formControlName="abstract"
+              placeholder="اكتب مستخلص البحث هنا بالتفصيل (الأهداف، الطرق المستخدمة، والنتائج المتوقعة)...">
+            </textarea>
+          </div>
+
+          <div class="form-check-row">
+            <mat-checkbox formControlName="submitImmediately" color="primary" id="submit-immediately-check">
               إرسال للتدقيق فوراً (تخطي المسودة)
             </mat-checkbox>
-
-            <div class="step-actions">
-              <button type="button" mat-stroked-button color="primary" matStepperNext [disabled]="detailsForm.invalid">
-                التالي <i class="bi bi-arrow-left ms-1"></i>
-              </button>
-            </div>
-          </form>
-        </mat-step>
-
-        <!-- Step 2: File Upload -->
-        <mat-step label="رفع الملف">
-          <div class="step-content">
-            <p class="text-muted mb-4">يرجى رفع ملف البحث بصيغة PDF أو Word. الحد الأقصى لحجم الملف هو 50 ميجابايت.</p>
-
-            <div class="upload-zone" (click)="fileInput.click()" role="button" tabindex="0">
-              <i class="bi bi-cloud-arrow-up upload-icon"></i>
-              <p class="upload-text mb-1" *ngIf="!selectedFile">اسحب الملف هنا أو انقر للتصفح</p>
-              <p class="file-name mb-0" *ngIf="selectedFile">
-                تم اختيار: <strong>{{ selectedFile.name }}</strong>
-                ({{ (selectedFile.size / 1024 / 1024) | number:'1.1-2' }} MB)
-              </p>
-              <input
-                type="file"
-                #fileInput
-                hidden
-                (change)="onFileSelected($event)"
-                accept=".pdf,.doc,.docx,.xlsx,.png,.jpg">
-            </div>
-
-            <div class="step-actions">
-              <button type="button" mat-stroked-button matStepperPrevious>
-                <i class="bi bi-arrow-right me-1"></i> السابق
-              </button>
-              <button type="button" class="btn btn-primary-industrial" (click)="onSubmit()" [disabled]="!selectedFile">
-                <i class="bi bi-send me-1"></i> إرسال البحث
-              </button>
-            </div>
           </div>
-        </mat-step>
 
-        <!-- Step 3: Success -->
-        <mat-step label="حالة التقديم" [editable]="false">
-          <div class="step-content success-step text-center">
+          <div class="step-actions">
+            <button type="button" class="btn btn-primary btn-md" matStepperNext
+                    [disabled]="detailsForm.invalid" id="step1-next-btn">
+              التالي
+              <i class="bi bi-arrow-left"></i>
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- Step 2: File Upload -->
+      <mat-step label="رفع الملف">
+        <div class="step-content">
+          <p class="text-body mb-5" style="color:var(--text-secondary)">يرجى رفع ملف البحث بصيغة PDF أو Word. الحد الأقصى لحجم الملف هو 50 ميجابايت.</p>
+
+          <div class="upload-zone" (click)="fileInput.click()" role="button" tabindex="0"
+               [class.active]="!!selectedFile" id="file-upload-zone">
+            <div class="upload-icon-wrap">
+              <i class="bi" [class.bi-cloud-arrow-up]="!selectedFile" [class.bi-file-earmark-check]="!!selectedFile"></i>
+            </div>
+            <div class="upload-text" *ngIf="!selectedFile">
+              <strong>اسحب الملف هنا أو انقر للتصفح</strong>
+              <span>PDF, DOCX, XLSX — الحد الأقصى 50 MB</span>
+            </div>
+            <div class="upload-text" *ngIf="selectedFile">
+              <strong>{{ selectedFile.name }}</strong>
+              <span>{{ (selectedFile.size / 1024 / 1024) | number:'1.1-2' }} MB — انقر للتغيير</span>
+            </div>
+            <input type="file" #fileInput hidden (change)="onFileSelected($event)"
+                   accept=".pdf,.doc,.docx,.xlsx,.png,.jpg">
+          </div>
+
+          <div class="step-actions">
+            <button type="button" class="btn btn-secondary btn-md" matStepperPrevious id="step2-prev-btn">
+              <i class="bi bi-arrow-right"></i>
+              السابق
+            </button>
+            <button type="button" class="btn btn-primary btn-md" (click)="onSubmit()"
+                    [disabled]="!selectedFile" id="submit-research-btn">
+              <i class="bi bi-send"></i>
+              إرسال البحث
+            </button>
+          </div>
+        </div>
+      </mat-step>
+
+      <!-- Step 3: Success -->
+      <mat-step label="حالة التقديم" [editable]="false">
+        <div class="step-content">
+          <div class="auth-success-state">
             <div class="success-icon">
-              <i class="bi bi-check-lg"></i>
+              <i class="bi bi-check-circle-fill"></i>
             </div>
-            <h3 class="fw-bold mb-2" style="color: var(--boc-primary);">تم تقديم البحث بنجاح!</h3>
-            <p class="tracking-text mb-4">
-              رقم التتبع الخاص بك هو:
-              <strong dir="ltr">{{ trackingNumber() }}</strong>
+            <h3>تم تقديم البحث بنجاح!</h3>
+            <p>
+              رقم التتبع الخاص بك:
+              <strong class="tracking-num" dir="ltr">{{ trackingNumber() }}</strong>
             </p>
-            <p class="text-muted mb-4">يمكنك متابعة حالة البحث من خلال الخط الزمني أدناه:</p>
-
-            <div class="timeline-panel text-start">
-              <boc-vertical-timeline [steps]="successTimelineSteps"></boc-vertical-timeline>
-            </div>
-
-            <div class="step-actions justify-content-center mt-4">
-              <button type="button" class="btn btn-primary-industrial" (click)="router.navigate(['/home'])">
-                <i class="bi bi-house me-1"></i> الذهاب للوحة التحكم
-              </button>
-              <button type="button" mat-stroked-button (click)="router.navigate(['/research/history'])">
-                <i class="bi bi-clock-history me-1"></i> متابعة الأبحاث
-              </button>
-            </div>
           </div>
-        </mat-step>
 
-      </mat-stepper>
-    </boc-glass-card>
+          <div class="tracking-timeline mt-4">
+            <boc-vertical-timeline [steps]="successTimelineSteps"></boc-vertical-timeline>
+          </div>
 
+          <div class="step-actions justify-content-center mt-4">
+            <button type="button" class="btn btn-primary btn-md"
+                    (click)="router.navigate(['/home'])" id="go-home-btn">
+              <i class="bi bi-house"></i>
+              الذهاب للوحة التحكم
+            </button>
+            <button type="button" class="btn btn-secondary btn-md"
+                    (click)="router.navigate(['/research/history'])" id="go-history-btn">
+              <i class="bi bi-clock-history"></i>
+              متابعة الأبحاث
+            </button>
+          </div>
+        </div>
+      </mat-step>
+
+    </mat-stepper>
   </div>
+
 </div>

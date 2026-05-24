@@ -1,66 +1,92 @@
-<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
-  <div class="container">
-    <boc-page-hero title="الملف الشخصي" subtitle="إدارة بياناتك وتفضيلات النظام"
-                   [breadcrumbs]="[{label: 'الرئيسية', route: '/home'}, {label: 'الملف الشخصي'}]">
-    </boc-page-hero>
+<div class="anim-fade-in-up" id="user-profile-page">
 
-    <div class="row g-4">
-      <div class="col-lg-4">
-        <boc-glass-card>
-          <div class="text-center">
-            <div class="profile-avatar mx-auto mb-3">
-              <i class="bi bi-person-circle"></i>
-            </div>
-            <h4 class="fw-bold mb-1">{{ user?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] || 'مستخدم غير معروف' }}</h4>
-            <p class="text-muted mb-3">{{ user?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'] }}</p>
-            <div class="d-flex justify-content-center gap-2 mb-4">
-              <span class="badge bg-primary px-3 py-2 rounded-pill">{{ role }}</span>
-            </div>
-            <hr>
-            <div class="text-start">
-              <h6 class="fw-bold mb-3 text-muted">معلومات الموارد البشرية</h6>
-              <div class="mb-2"><i class="bi bi-building me-2 text-primary"></i>المديرية: استكشاف البصرة</div>
-              <div class="mb-2"><i class="bi bi-diagram-3 me-2 text-primary"></i>القسم: قسم الدراسات والبحوث</div>
-              <div class="mb-2"><i class="bi bi-bookmark-star me-2 text-primary"></i>التخصص: هندسة نفط</div>
-            </div>
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="text-h1">الملف الشخصي</h1>
+      <p class="text-label">إدارة بياناتك وتفضيلات النظام</p>
+    </div>
+  </div>
+
+  <div class="row g-4 stagger-children">
+    <div class="col-lg-4">
+      <div class="card h-100 text-center" style="padding:32px 20px">
+        <div class="avatar mx-auto mb-4" style="width:80px;height:80px;background:var(--boc-bg);border:2px solid var(--boc-primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;color:var(--boc-primary)">
+          <i class="bi bi-person"></i>
+        </div>
+        <h4 class="text-h2 mb-1" style="color:var(--boc-primary)">{{ user?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] || 'مستخدم غير معروف' }}</h4>
+        <p class="text-muted text-caption mb-3">{{ user?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'] }}</p>
+        
+        <div style="margin-bottom:24px">
+          <span class="pill pill-primary" style="font-size:12px;padding:6px 12px">{{ role }}</span>
+        </div>
+
+        <hr style="border-color:var(--hairline);margin:24px 0">
+
+        <div class="text-start" style="background:rgba(15,42,56,0.02);padding:20px;border-radius:var(--radius-md);border:1px solid var(--border-color)">
+          <h6 class="text-body-strong mb-3 text-muted" style="font-size:13px;text-transform:uppercase">معلومات الموارد البشرية</h6>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <i class="bi bi-building" style="color:var(--boc-primary);font-size:18px"></i>
+            <span class="text-body">المديرية: استكشاف البصرة</span>
           </div>
-        </boc-glass-card>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <i class="bi bi-diagram-3" style="color:var(--boc-primary);font-size:18px"></i>
+            <span class="text-body">القسم: قسم الدراسات والبحوث</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px">
+            <i class="bi bi-bookmark-star" style="color:var(--boc-primary);font-size:18px"></i>
+            <span class="text-body">التخصص: هندسة نفط</span>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="col-lg-8">
-        <boc-glass-card title="تفضيلات النظام">
+    <div class="col-lg-8">
+      <div class="card h-100">
+        <div class="card-header">
+          <span class="text-h3">تفضيلات النظام</span>
+        </div>
+        <div class="card-body">
           <form (ngSubmit)="savePreferences()">
-            <div class="mb-4 pb-3 border-bottom">
-              <label class="form-label fw-bold">لغة واجهة المستخدم</label>
-              <select class="form-select w-50" [(ngModel)]="language" name="language">
+            
+            <div class="form-group" style="padding-bottom:20px;border-bottom:1px solid var(--hairline);margin-bottom:20px">
+              <label class="form-label" style="font-size:15px">لغة واجهة المستخدم</label>
+              <select class="form-input" style="max-width:300px" [(ngModel)]="language" name="language">
                 <option value="ar">العربية (RTL)</option>
                 <option value="en">English (LTR)</option>
               </select>
             </div>
-            <div class="mb-4 pb-3 border-bottom d-flex justify-content-between align-items-center">
+
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid var(--hairline);margin-bottom:20px">
               <div>
-                <h6 class="fw-bold mb-1">الوضع الليلي</h6>
-                <p class="text-muted small mb-0">تفعيل الألوان الداكنة لإراحة العين.</p>
+                <h6 class="text-body-strong mb-1" style="font-size:15px">الوضع الليلي</h6>
+                <p class="text-muted text-caption mb-0">تفعيل الألوان الداكنة لإراحة العين</p>
               </div>
-              <div class="form-check form-switch fs-4">
+              <div class="form-check form-switch" style="font-size:24px">
                 <input class="form-check-input" type="checkbox" role="switch" [checked]="isDarkMode" (change)="toggleTheme()" aria-label="تبديل الوضع الليلي">
               </div>
             </div>
-            <div class="mb-4 pb-3 border-bottom d-flex justify-content-between align-items-center">
+
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;margin-bottom:24px">
               <div>
-                <h6 class="fw-bold mb-1">إشعارات البريد الإلكتروني</h6>
-                <p class="text-muted small mb-0">استلام التنبيهات عبر البريد.</p>
+                <h6 class="text-body-strong mb-1" style="font-size:15px">إشعارات البريد الإلكتروني</h6>
+                <p class="text-muted text-caption mb-0">استلام التنبيهات عبر البريد</p>
               </div>
-              <div class="form-check form-switch fs-4">
+              <div class="form-check form-switch" style="font-size:24px">
                 <input class="form-check-input" type="checkbox" role="switch" [(ngModel)]="emailNotifications" name="emailNotifications">
               </div>
             </div>
-            <div class="d-flex justify-content-end">
-              <button type="submit" class="btn btn-primary-industrial px-4"><i class="bi bi-save me-2"></i>حفظ التفضيلات</button>
+
+            <div style="display:flex;justify-content:flex-end">
+              <button type="submit" class="btn btn-primary btn-md">
+                <i class="bi bi-save"></i> حفظ التفضيلات
+              </button>
             </div>
+
           </form>
-        </boc-glass-card>
+        </div>
       </div>
     </div>
   </div>
+
 </div>

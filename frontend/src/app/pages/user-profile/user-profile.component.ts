@@ -4,13 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
 
-import { BocPageHeroComponent } from '../../shared/boc-page-hero/boc-page-hero.component';
-import { BocGlassCardComponent } from '../../shared/boc-glass-card/boc-glass-card.component';
+
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule, BocPageHeroComponent, BocGlassCardComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss']
 })

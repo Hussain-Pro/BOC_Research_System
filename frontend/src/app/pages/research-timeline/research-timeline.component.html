@@ -1,21 +1,29 @@
-<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
-  <div class="container-lg">
+<div class="anim-fade-in-up" id="timeline-page">
 
-    <boc-page-hero
-      [title]="'المخطط الزمني للبحث'"
-      [subtitle]="'بحث: ' + researchTitle + ' (الرقم المرجعي: ' + referenceNumber + ')'">
-      <div heroActions>
-        <boc-status-chip status="review">الحالة: {{ currentStatus }}</boc-status-chip>
-      </div>
-    </boc-page-hero>
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="text-h1">المخطط الزمني للبحث</h1>
+      <p class="text-label">بحث: {{ researchTitle }} (الرقم المرجعي: {{ referenceNumber }})</p>
+    </div>
+    <div class="actions">
+      <boc-status-chip status="review">الحالة: {{ currentStatus }}</boc-status-chip>
+    </div>
+  </div>
 
-    <boc-glass-card title="تتبع مسار التقييم" subtitle="انقر على أي مرحلة لعرض التفاصيل">
+  <!-- Timeline Card -->
+  <div class="card">
+    <div class="card-header">
+      <span class="text-h3">تتبع مسار التقييم</span>
+      <span class="text-caption">يتم تحديث الحالة تلقائياً بعد كل مرحلة</span>
+    </div>
+    <div class="card-body">
       <boc-vertical-timeline [steps]="timelineSteps">
-        <button timelineAction type="button" class="btn btn-sm btn-primary-industrial">
+        <button timelineAction type="button" class="btn btn-sm btn-primary">
           تنفيذ الإجراء المطلوب
         </button>
       </boc-vertical-timeline>
-    </boc-glass-card>
-
+    </div>
   </div>
+
 </div>

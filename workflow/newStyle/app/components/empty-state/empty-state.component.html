@@ -1,0 +1,17 @@
+<!-- Empty State Component -->
+<div class="empty-state">
+  <i [class]="icon || 'bi bi-inbox'"></i>
+  <h3 class="text-h3">{{ title | translate }}</h3>
+  <p class="text-body text-secondary">{{ subtitle | translate }}</p>
+  <button
+    *ngIf="actionLabel"
+    class="btn"
+    [class.btn-tertiary]="actionVariant === 'tertiary'"
+    [class.btn-primary]="actionVariant === 'primary'"
+    [class.btn-md]="true"
+    (click)="actionClick.emit()"
+  >
+    <i [class]="actionIcon" *ngIf="actionIcon"></i>
+    {{ actionLabel | translate }}
+  </button>
+</div>

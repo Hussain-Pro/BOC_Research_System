@@ -7,17 +7,11 @@ import { AuthService } from '../../services/auth.service';
 import { BocLayoutService } from '../../services/boc-layout.service';
 import { Subscription } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import {
-  BocPageHeroComponent,
-  BocGlassCardComponent,
-  BocStatCardComponent,
-  BocEmptyStateComponent
-} from '../../shared';
 
 @Component({
   selector: 'app-triage-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, BocPageHeroComponent, BocGlassCardComponent, BocStatCardComponent, BocEmptyStateComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './triage-dashboard.component.html',
   styleUrl: './triage-dashboard.component.scss'
 })

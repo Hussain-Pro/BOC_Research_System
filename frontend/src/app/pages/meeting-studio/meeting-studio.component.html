@@ -1,307 +1,278 @@
-<div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
-  <div class="container meeting-container fade-in">
+<div class="anim-fade-in-up" id="meeting-studio-page">
 
-    <div *ngIf="infoMessage()" class="live-alert-banner fade-in">
-      <span class="live-dot"></span>
-      <span class="message-text">{{ infoMessage() }}</span>
+  <!-- Live Alert Banner -->
+  <div *ngIf="infoMessage()" class="live-alert-banner">
+    <span class="live-dot"></span>
+    <span>{{ infoMessage() }}</span>
+  </div>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="text-h1">استوديو صياغة محاضر الاجتماعات</h1>
+      <p class="text-label">إدارة الجلسات الحية، رصد الحضور والتصويت، وتسجيل قرارات اللجنة</p>
     </div>
+  </div>
 
-    <boc-page-hero
-      title="استوديو صياغة محاضر الاجتماعات"
-      subtitle="إدارة الجلسات الحية، رصد الحضور والتصويت، رصد درجات رئيس اللجنة، وصياغة وتجميد المحاضر الرسمية."
-      [breadcrumbs]="breadcrumbs">
-    </boc-page-hero>
-
-    <div class="row g-3 mb-4">
-      <div class="col-md-3">
-        <boc-stat-card
-          label="رقم الاجتماع"
-          [value]="meetingDetails()?.meetingNumber || '—'"
-          icon="bi-hash"
-          iconBg="rgba(13, 110, 253, 0.12)"
-          iconColor="var(--boc-accent-committee)">
-        </boc-stat-card>
+  <!-- KPI Strip -->
+  <div class="kpi-grid kpi-grid-4 mb-5">
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">رقم الاجتماع</span>
+        <div class="kpi-icon" style="background:rgba(13, 110, 253, 0.12)">
+          <i class="bi bi-hash" style="color:var(--boc-accent-committee)"></i>
+        </div>
       </div>
-      <div class="col-md-3">
-        <boc-stat-card
-          label="البحوث في جدول الأعمال"
-          [value]="meetingDetails()?.papers?.length || 0"
-          icon="bi-journals"
-          iconBg="rgba(15, 42, 56, 0.1)"
-          iconColor="var(--boc-primary)">
-        </boc-stat-card>
-      </div>
-      <div class="col-md-3">
-        <boc-stat-card
-          label="الحضور"
-          [value]="attendedCount"
-          icon="bi-people"
-          iconBg="rgba(40, 167, 69, 0.12)"
-          iconColor="var(--boc-success)">
-        </boc-stat-card>
-      </div>
-      <div class="col-md-3">
-        <boc-stat-card
-          label="حالة المحضر"
-          [value]="minutesStatusLabel"
-          icon="bi-file-earmark-lock"
-          iconBg="rgba(227, 116, 0, 0.12)"
-          iconColor="var(--boc-accent-triage)">
-        </boc-stat-card>
-      </div>
+      <div class="kpi-value">{{ meetingDetails()?.meetingNumber || '—' }}</div>
+      <div class="kpi-label">اجتماع لجنة معتمد</div>
     </div>
-
-    <boc-glass-card extraClass="meeting-meta-bar mb-4">
-      <div class="meta-item">
-        <strong>عنوان الجلسة</strong>
-        <span>{{ meetingDetails()?.title }}</span>
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">البحوث المدرجة</span>
+        <div class="kpi-icon" style="background:rgba(15, 42, 56, 0.1)">
+          <i class="bi bi-journals" style="color:var(--boc-primary)"></i>
+        </div>
       </div>
-      <div class="meta-item">
-        <strong>التاريخ والوقت</strong>
-        <span dir="ltr">{{ meetingDetails()?.scheduledDate | date:'yyyy-MM-dd HH:mm' }}</span>
+      <div class="kpi-value">{{ meetingDetails()?.papers?.length || 0 }}</div>
+      <div class="kpi-label">في جدول الأعمال</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">الحضور</span>
+        <div class="kpi-icon" style="background:rgba(40, 167, 69, 0.12)">
+          <i class="bi bi-people" style="color:var(--boc-success)"></i>
+        </div>
       </div>
-      <div class="meta-item">
-        <strong>الموقع</strong>
-        <span>{{ meetingDetails()?.location }}</span>
+      <div class="kpi-value">{{ attendedCount }}</div>
+      <div class="kpi-label">من الأعضاء الحاضرين</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-header">
+        <span class="text-upper-label">حالة المحضر</span>
+        <div class="kpi-icon" style="background:rgba(227, 116, 0, 0.12)">
+          <i class="bi bi-file-earmark-lock" style="color:var(--boc-accent-triage)"></i>
+        </div>
       </div>
-    </boc-glass-card>
+      <div class="kpi-value" style="font-size:20px;margin-top:10px">{{ minutesStatusLabel }}</div>
+      <div class="kpi-label">الوضع الحالي</div>
+    </div>
+  </div>
 
-    <div *ngIf="success()" class="alert alert-success fade-in">✓ تم حفظ العملية بنجاح.</div>
-    <div *ngIf="error()" class="alert alert-danger fade-in">⚠ {{ error() }}</div>
-    <div *ngIf="isLoading()" class="loading-spinner">جاري تحميل تفاصيل الاجتماع...</div>
+  <!-- Status Alerts -->
+  <div *ngIf="success()" class="auth-alert auth-alert-success mb-4" role="alert">
+    <i class="bi bi-check-circle-fill"></i>
+    <span>تم حفظ العملية بنجاح.</span>
+  </div>
+  <div *ngIf="error()" class="auth-alert auth-alert-error mb-4" role="alert">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    <span>{{ error() }}</span>
+  </div>
 
-    <div class="meeting-grid" *ngIf="!isLoading()">
-      <div class="sidebar-column">
-        <boc-glass-card title="الحضور والغياب للأعضاء">
-          <div class="attendees-list">
-            <div *ngFor="let member of meetingDetails()?.attendees" class="attendee-item glass-card">
-              <div>
-                <span class="member-name">{{ member.fullName }}</span>
-                <span class="member-role d-block">{{ member.roleName }}</span>
+  <div *ngIf="isLoading()" class="text-center p-5">
+    <span class="spinner" style="border-width:3px;width:30px;height:30px"></span>
+    <p class="text-caption mt-2">جاري التحميل...</p>
+  </div>
+
+  <!-- Split Layout for Studio -->
+  <div class="triage-layout" *ngIf="!isLoading()">
+    
+    <!-- Sidebar: Attendees & Agenda -->
+    <div class="triage-sidebar stagger-children">
+      <div class="card mb-4">
+        <div class="card-header">
+          <span class="text-h3">حضور الأعضاء</span>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div class="evaluators-list" style="max-height:200px">
+            <div *ngFor="let member of meetingDetails()?.attendees" class="evaluator-item" style="border:none;border-bottom:1px solid var(--hairline);border-radius:0">
+              <div class="evaluator-info">
+                <span class="evaluator-name">{{ member.fullName }}</span>
+                <span class="evaluator-spec">{{ member.roleName }}</span>
               </div>
-              <span class="attendance-badge" [class.present]="member.attended" [class.absent]="!member.attended">
+              <span class="pill" [class.pill-success]="member.attended" [class.pill-danger]="!member.attended" style="font-size:10px">
                 {{ member.attended ? 'حاضر' : 'غائب' }}
               </span>
             </div>
           </div>
-        </boc-glass-card>
+        </div>
+      </div>
 
-        <boc-glass-card [title]="'البحوث المدرجة (' + (meetingDetails()?.papers?.length || 0) + ')'">
-          <boc-empty-state
-            *ngIf="!meetingDetails()?.papers?.length"
-            icon="bi-inbox"
-            title="لا توجد بحوث"
-            message="لم يتم إدراج بحوث في جدول أعمال هذا الاجتماع.">
-          </boc-empty-state>
-
+      <div class="card">
+        <div class="card-header">
+          <span class="text-h3">البحوث المدرجة ({{ meetingDetails()?.papers?.length || 0 }})</span>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div *ngIf="!meetingDetails()?.papers?.length" class="empty-state" style="padding:20px">
+            <div class="empty-icon"><i class="bi bi-inbox"></i></div>
+            <p>لا توجد بحوث مدرجة.</p>
+          </div>
           <div class="papers-list" *ngIf="meetingDetails()?.papers?.length">
             <div
               *ngFor="let paper of meetingDetails()?.papers"
-              class="paper-item glass-card"
+              class="paper-item"
               [class.selected]="activePaper()?.id === paper.id"
               (click)="selectPaper(paper)">
-              <div class="paper-title">{{ paper.title }}</div>
-              <div class="paper-info">
-                <span>الباحث: {{ paper.researcherName }}</span>
+              <div class="paper-title" style="margin-bottom:4px">{{ paper.title }}</div>
+              <div class="paper-meta" style="flex-direction:column;gap:4px">
+                <span><i class="bi bi-person"></i> {{ paper.researcherName }}</span>
                 <span>الحالة: {{ paper.state }}</span>
-              </div>
-              <div class="paper-score-info" *ngIf="paper.finalScore">
-                <span class="score-badge">الدرجة النهائية: {{ paper.finalScore }} / 100</span>
-              </div>
-              <div class="vote-counts">
-                <span class="vote-up">موافق: {{ getVoteCount(paper.id, 'Approve') }}</span>
-                <span class="vote-down">رافض: {{ getVoteCount(paper.id, 'Reject') }}</span>
+                <span *ngIf="paper.finalScore" style="color:var(--boc-primary);font-weight:bold">الدرجة: {{ paper.finalScore }}/100</span>
               </div>
             </div>
           </div>
-        </boc-glass-card>
+        </div>
       </div>
+    </div>
 
-      <div class="main-content-column">
-        <boc-glass-card *ngIf="activePaper()">
-          <div class="card-header">
-            <h2>إجراءات وتقييم البحث: {{ activePaper()?.title }}</h2>
-            <span class="tracking-no">{{ activePaper()?.trackingNumber }}</span>
-          </div>
-
-          <div class="evaluations-summary glass-card">
-            <h4>تقييمات المقيمين الخارجيين (وزن 70%):</h4>
-            <div class="scores-row">
-              <div *ngFor="let sc of activePaper()?.evaluatorScores; let i = index" class="score-box">
-                <span class="score-label">مقيم {{ i + 1 }}</span>
-                <span class="score-value">{{ sc }} / 100</span>
-              </div>
-              <div *ngIf="activePaper()?.evaluatorScores?.length === 0" class="no-evaluators">
-                لا توجد درجات مقيمين خارجيين بعد.
-              </div>
+    <!-- Main Content -->
+    <div class="triage-main stagger-children">
+      
+      <!-- Actions & Evaluation -->
+      <div class="card mb-4" *ngIf="activePaper()">
+        <div class="card-header">
+          <span class="text-h3">إجراءات وتقييم البحث: {{ activePaper()?.trackingNumber }}</span>
+        </div>
+        <div class="card-body">
+          <h4 class="text-body-strong mb-3">تقييمات المقيمين الخارجيين (وزن 70%):</h4>
+          <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap">
+            <div *ngFor="let sc of activePaper()?.evaluatorScores; let i = index" class="kpi-card" style="padding:10px 16px;min-width:120px">
+              <div class="text-caption">مقيم {{ i + 1 }}</div>
+              <div class="text-h3" style="color:var(--boc-primary)">{{ sc }}<span style="font-size:12px;color:var(--text-muted)">/100</span></div>
             </div>
+            <div *ngIf="activePaper()?.evaluatorScores?.length === 0" class="text-muted text-caption">لا توجد تقييمات.</div>
           </div>
 
-          <div class="action-forms-grid">
-            <div class="form-section glass-card">
-              <h4>1. درجة رئيس اللجنة (وزن 30%):</h4>
-              <div class="form-group">
-                <label for="chairman-score">الدرجة (من 0 إلى 30)</label>
-                <input
-                  type="number"
-                  id="chairman-score"
-                  class="form-control"
-                  min="0"
-                  max="30"
-                  [(ngModel)]="chairmanScore"
-                  [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+            <!-- Chairman Grade -->
+            <div style="background:rgba(15,42,56,0.03);padding:16px;border-radius:var(--radius-md);border:1px solid var(--border-color)">
+              <h4 class="text-body-strong mb-3">1. درجة رئيس اللجنة (وزن 30%):</h4>
+              <div class="form-group mb-3">
+                <label class="form-label">الدرجة (من 0 إلى 30)</label>
+                <input type="number" class="form-input" min="0" max="30" [(ngModel)]="chairmanScore" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
               </div>
-              <div class="form-group">
-                <label for="chairman-comments">ملاحظات رئيس اللجنة وتوصياته</label>
-                <textarea
-                  id="chairman-comments"
-                  class="form-control"
-                  rows="3"
-                  [(ngModel)]="chairmanComments"
-                  [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
+              <div class="form-group mb-3">
+                <label class="form-label">ملاحظات رئيس اللجنة وتوصياته</label>
+                <textarea class="form-input" rows="3" [(ngModel)]="chairmanComments" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
               </div>
-              <button
-                type="button"
-                class="btn btn-primary-industrial"
-                (click)="onSubmitGrade()"
-                [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
-                تأكيد وحساب التقييم النهائي 70/30
+              <button class="btn btn-primary btn-sm w-100" (click)="onSubmitGrade()" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
+                تأكيد وحساب التقييم 70/30
               </button>
             </div>
 
-            <div class="form-section glass-card">
-              <h4>2. تصويت أعضاء اللجنة الحاضرين:</h4>
-              <div class="form-group">
-                <label for="voting-member">العضو المصوت</label>
-                <select
-                  id="voting-member"
-                  class="form-control"
-                  [(ngModel)]="votingMemberId"
-                  [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
+            <!-- Committee Vote -->
+            <div style="background:rgba(15,42,56,0.03);padding:16px;border-radius:var(--radius-md);border:1px solid var(--border-color)">
+              <h4 class="text-body-strong mb-3">2. تصويت أعضاء اللجنة الحاضرين:</h4>
+              <div class="form-group mb-3">
+                <label class="form-label">العضو المصوت</label>
+                <select class="form-input" [(ngModel)]="votingMemberId" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
                   <option value="">-- اختر عضو لجنة --</option>
-                  <option *ngFor="let member of meetingDetails()?.attendees" [value]="member.memberId">
-                    {{ member.fullName }}
-                  </option>
+                  <option *ngFor="let member of meetingDetails()?.attendees" [value]="member.memberId">{{ member.fullName }}</option>
                 </select>
               </div>
-              <div class="form-group">
-                <label for="vote-value">رأي العضو</label>
-                <select
-                  id="vote-value"
-                  class="form-control"
-                  [(ngModel)]="votingValue"
-                  [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
+              <div class="form-group mb-3">
+                <label class="form-label">رأي العضو</label>
+                <select class="form-input" [(ngModel)]="votingValue" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
                   <option value="Approve">موافق (مستوف)</option>
                   <option value="Reject">غير موافق (مرفوض)</option>
                   <option value="Abstain">امتناع</option>
                 </select>
               </div>
-              <button
-                type="button"
-                class="btn btn-outline-secondary rounded-pill"
-                (click)="onCastVote()"
-                [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
-                تسجيل التصويت بشكل رسمي
+              <button class="btn btn-secondary btn-sm w-100" (click)="onCastVote()" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
+                تسجيل التصويت
               </button>
             </div>
           </div>
-        </boc-glass-card>
-
-        <boc-glass-card *ngIf="!activePaper()">
-          <boc-empty-state
-            icon="bi-file-earmark-text"
-            title="اختر بحثاً من جدول الأعمال"
-            message="حدد بحثاً من القائمة الجانبية لبدء التقييم والتصويت.">
-          </boc-empty-state>
-        </boc-glass-card>
-
-        <boc-glass-card title="استوديو صياغة المحضر النهائي (5 BOC Sections)"
-                        subtitle="قم بتحرير الأقسام الخمسة التفصيلية للمحضر، ثم انقر على توليد المحضر المدمج.">
-          <div class="compiler-sections">
-            <div class="form-group">
-              <label>القسم الأول: افتتاح الجلسة وإعلان الحضور (Session Opening)</label>
-              <textarea class="form-control" rows="2" [(ngModel)]="section1" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
-            </div>
-            <div class="form-group">
-              <label>القسم الثاني: خلاصة تقارير المقيمين للبحوث (Research Review & Reports)</label>
-              <textarea class="form-control" rows="2" [(ngModel)]="section2" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
-            </div>
-            <div class="form-group">
-              <label>القسم الثالث: محضر المناقشات التفصيلي ومداولات اللجنة (Discussion & Deliberation)</label>
-              <textarea class="form-control" rows="2" [(ngModel)]="section3" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
-            </div>
-            <div class="form-group">
-              <label>القسم الرابع: نتائج التصويت ودرجات رئيس اللجنة (Voting & Grading)</label>
-              <textarea class="form-control" rows="2" [(ngModel)]="section4" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
-            </div>
-            <div class="form-group">
-              <label>القسم الخامس: القرار النهائي والتوقيعات الرسمية (Final Decision)</label>
-              <textarea class="form-control" rows="2" [(ngModel)]="section5" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
-            </div>
-          </div>
-
-          <div class="action-bar">
-            <button
-              type="button"
-              class="btn btn-outline-secondary rounded-pill"
-              (click)="compileMinutes()"
-              [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
-              توليد ودمج محضر الاجتماع
-            </button>
-          </div>
-
-          <div class="compiled-result" *ngIf="compiledContent">
-            <h4>المحضر الكامل المدمج (قابل للتعديل):</h4>
-            <textarea
-              class="form-control compiled-textarea"
-              rows="8"
-              [(ngModel)]="compiledContent"
-              [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
-          </div>
-
-          <div class="freeze-action-section" *ngIf="meetingDetails()?.minutesStatus !== 'Minutes_Frozen'">
-            <div class="warning-alert">
-              🚨 تجميد المحضر هو خطوة أمنية نهائية. بمجرد التجميد، لن يتمكن أحد (بمن فيهم رئيس اللجنة) من تعديل الدرجات أو التصويت أو تغيير المحضر.
-            </div>
-            <button type="button" class="btn btn-primary-industrial btn-large btn-danger" (click)="onFreezeMinutes()">
-              تجميد واعتماد محضر الاجتماع النهائي (Freeze Minutes)
-            </button>
-          </div>
-
-          <div class="frozen-badge-alert" *ngIf="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
-            🔒 هذا المحضر مجمد ومقفل بالكامل ولا يسمح بإجراء أي تعديلات عليه.
-          </div>
-        </boc-glass-card>
-
-        <boc-glass-card title="قناة المحادثة والتنسيق الحي"
-                        subtitle="تواصل حي ومؤمن مع أعضاء اللجنة والمسؤولين لمناقشة بنود جدول الأعمال.">
-          <div class="chat-messages-box">
-            <div *ngFor="let msg of chatMessages" class="chat-message glass-card">
-              <div class="message-meta">
-                <strong>عضو:</strong>
-                <span dir="ltr">{{ msg.senderId }}</span>
-              </div>
-              <div class="message-content">{{ msg.content }}</div>
-            </div>
-            <boc-empty-state
-              *ngIf="chatMessages.length === 0"
-              icon="bi-chat-dots"
-              title="لا توجد رسائل"
-              message="لا توجد رسائل سابقة في هذه الجلسة.">
-            </boc-empty-state>
-          </div>
-
-          <div class="chat-input-bar">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="اكتب رسالتك للمناقشة هنا..."
-              [(ngModel)]="newMessage"
-              (keyup.enter)="sendChatMessage()">
-            <button type="button" class="btn btn-primary-industrial" (click)="sendChatMessage()">إرسال</button>
-          </div>
-        </boc-glass-card>
+        </div>
       </div>
+
+      <div class="card mb-4" *ngIf="!activePaper()">
+        <div class="empty-state" style="padding:60px 20px">
+          <div class="empty-icon"><i class="bi bi-file-earmark-text"></i></div>
+          <h3>اختر بحثاً من جدول الأعمال</h3>
+          <p>حدد بحثاً من القائمة الجانبية لبدء التقييم والتصويت.</p>
+        </div>
+      </div>
+
+      <!-- Minutes Compilation -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <span class="text-h3">استوديو صياغة المحضر النهائي (BOC Minutes)</span>
+          <span class="text-caption">قم بتحرير الأقسام الخمسة التفصيلية للمحضر، ثم انقر على توليد.</span>
+        </div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:24px">
+            <div class="form-group">
+              <label class="form-label">القسم الأول: افتتاح الجلسة وإعلان الحضور</label>
+              <textarea class="form-input" rows="2" [(ngModel)]="section1" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">القسم الثاني: خلاصة تقارير المقيمين للبحوث</label>
+              <textarea class="form-input" rows="2" [(ngModel)]="section2" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">القسم الثالث: محضر المناقشات التفصيلي ومداولات اللجنة</label>
+              <textarea class="form-input" rows="2" [(ngModel)]="section3" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">القسم الرابع: نتائج التصويت ودرجات رئيس اللجنة</label>
+              <textarea class="form-input" rows="2" [(ngModel)]="section4" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">القسم الخامس: القرار النهائي والتوقيعات الرسمية</label>
+              <textarea class="form-input" rows="2" [(ngModel)]="section5" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'"></textarea>
+            </div>
+          </div>
+
+          <button class="btn btn-secondary btn-md mb-4" (click)="compileMinutes()" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
+            <i class="bi bi-file-earmark-text"></i> توليد ودمج المحضر
+          </button>
+
+          <div *ngIf="compiledContent">
+            <h4 class="text-body-strong mb-2">المحضر الكامل المدمج (قابل للتعديل):</h4>
+            <textarea class="form-input" rows="8" [(ngModel)]="compiledContent" [disabled]="meetingDetails()?.minutesStatus === 'Minutes_Frozen'" style="font-family:var(--font-family-arabic);line-height:1.8"></textarea>
+          </div>
+
+          <div class="mt-4 pt-4" style="border-top:1px solid var(--hairline)" *ngIf="meetingDetails()?.minutesStatus !== 'Minutes_Frozen'">
+            <div class="auth-alert auth-alert-error mb-3">
+              <i class="bi bi-exclamation-triangle-fill"></i>
+              <span>تجميد المحضر خطوة نهائية، تمنع أي تعديلات أو تصويت لاحقاً.</span>
+            </div>
+            <button class="btn btn-primary btn-lg" style="background:var(--boc-danger);border-color:var(--boc-danger)" (click)="onFreezeMinutes()">
+              <i class="bi bi-lock-fill"></i> تجميد واعتماد محضر الاجتماع النهائي
+            </button>
+          </div>
+
+          <div class="auth-alert mb-0 mt-4" style="background:rgba(15,42,56,0.06);color:var(--boc-primary);border-color:var(--boc-primary)" *ngIf="meetingDetails()?.minutesStatus === 'Minutes_Frozen'">
+            <i class="bi bi-shield-lock-fill"></i>
+            <span>هذا المحضر مجمد ومقفل بالكامل ولا يسمح بإجراء أي تعديلات عليه.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Channel -->
+      <div class="card">
+        <div class="card-header">
+          <span class="text-h3">قناة التنسيق الحي</span>
+          <span class="text-caption">تواصل حي ومؤمن مع أعضاء اللجنة والمسؤولين</span>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div style="padding:16px;height:250px;overflow-y:auto;background:rgba(15,42,56,0.02)">
+            <div *ngIf="chatMessages.length === 0" class="text-center text-muted text-caption" style="margin-top:80px">
+              لا توجد رسائل سابقة في هذه الجلسة.
+            </div>
+            <div *ngFor="let msg of chatMessages" style="background:#fff;border:1px solid var(--border-color);border-radius:var(--radius-md);padding:10px;margin-bottom:8px">
+              <div class="text-caption text-muted mb-1">عضو: <span dir="ltr">{{ msg.senderId }}</span></div>
+              <div class="text-body">{{ msg.content }}</div>
+            </div>
+          </div>
+          <div style="padding:16px;border-top:1px solid var(--border-color);display:flex;gap:12px">
+            <input type="text" class="form-input" style="flex:1" placeholder="اكتب رسالتك للمناقشة هنا..." [(ngModel)]="newMessage" (keyup.enter)="sendChatMessage()">
+            <button class="btn btn-primary" (click)="sendChatMessage()"><i class="bi bi-send"></i></button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
+
 </div>

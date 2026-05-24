@@ -1,30 +1,24 @@
 <div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
   <div class="container">
-    <boc-page-hero
-      title="مركز تصدير التقارير"
-      subtitle="استخراج تقارير الأداء، الكشوفات المالية، وسجلات الأبحاث بصيغ متعددة."
-      [breadcrumbs]="[{ label: 'الرئيسية', route: '/home' }, { label: 'مركز التصدير' }]">
+    <div class="page-header"><div><h1 class="text-h1">مركز تصدير التقارير</h1><p class="text-label">استخراج تقارير الأداء، الكشوفات المالية، وسجلات الأبحاث بصيغ متعددة.</p></div>
       <a heroActions routerLink="/home" class="btn btn-outline-secondary btn-sm rounded-pill">
         <i class="bi bi-arrow-right me-1"></i> العودة للرئيسية
       </a>
-    </boc-page-hero>
+    </div>
 
     <div class="row g-3 mb-4">
       <div class="col-md-4">
-        <boc-stat-card label="تقرير مُستخرج (العام الحالي)" value="1,245" icon="bi-cloud-download"
-                       iconBg="rgba(253, 126, 20, 0.12)" iconColor="var(--boc-accent-export)"></boc-stat-card>
+        <div class="kpi-card"><div class="kpi-header"><span class="text-upper-label">تقرير مُستخرج (العام الحالي)</span></div><div class="kpi-value">1,245</div></div>
       </div>
       <div class="col-md-4">
-        <boc-stat-card label="قوالب تقارير جاهزة" value="15" icon="bi-file-earmark-check"
-                       iconBg="rgba(40, 167, 69, 0.12)" iconColor="var(--boc-success)"></boc-stat-card>
+        <div class="kpi-card"><div class="kpi-header"><span class="text-upper-label">قوالب تقارير جاهزة</span></div><div class="kpi-value">15</div></div>
       </div>
       <div class="col-md-4">
-        <boc-stat-card label="تقرير مُرسل للإدارة العليا" value="54" icon="bi-envelope-paper"
-                       iconBg="rgba(255, 193, 7, 0.15)" iconColor="var(--boc-warning)"></boc-stat-card>
+        <div class="kpi-card"><div class="kpi-header"><span class="text-upper-label">تقرير مُرسل للإدارة العليا</span></div><div class="kpi-value">54</div></div>
       </div>
     </div>
 
-    <boc-glass-card title="القوالب الأكثر استخداماً" subtitle="اختر قالباً لتصديره فوراً">
+    <div class="card mb-4"><div class="card-header"><span class="text-h3">القوالب الأكثر استخداماً</span></div><div class="card-body">
       <div class="row g-4">
         <div class="col-md-6 col-lg-3" *ngFor="let report of reports">
           <div class="report-card glass-card p-4 h-100 d-flex flex-column">
@@ -40,6 +34,8 @@
           </div>
         </div>
       </div>
-    </boc-glass-card>
+    </div></div>
   </div>
 </div>
+
+

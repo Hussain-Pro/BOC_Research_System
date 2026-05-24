@@ -4,10 +4,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ToastService } from '../../../services/toast.service';
 import { BocLayoutService } from '../../../services/boc-layout.service';
-import { BocPageHeroComponent } from '../../../shared/boc-page-hero/boc-page-hero.component';
-import { BocStatCardComponent } from '../../../shared/boc-stat-card/boc-stat-card.component';
-import { BocGlassCardComponent } from '../../../shared/boc-glass-card/boc-glass-card.component';
-import { BocEmptyStateComponent } from '../../../shared/boc-empty-state/boc-empty-state.component';
 
 @Component({
   selector: 'app-evaluator-roster',
@@ -15,12 +11,7 @@ import { BocEmptyStateComponent } from '../../../shared/boc-empty-state/boc-empt
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule,
-    BocPageHeroComponent,
-    BocStatCardComponent,
-    BocGlassCardComponent,
-    BocEmptyStateComponent
-  ],
+    FormsModule],
   templateUrl: './evaluator-roster.component.html',
   styleUrls: ['./evaluator-roster.component.scss']
 })
@@ -88,3 +79,4 @@ export class EvaluatorRosterComponent implements OnInit {
     return this.roster.reduce((sum, r) => sum + r.completed, 0);
   }
 }
+

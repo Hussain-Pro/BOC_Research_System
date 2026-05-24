@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOC Research System — Enterprise Design Symbol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+/* =========================================================
+   BOC RESEARCH SYSTEM — ENTERPRISE DESIGN SYSTEM SYMBOL v2.0
+   ========================================================= */
+
+/* ---------- 1. CSS Custom Properties (Tokens) ---------- */
+:root {
+  /* Core Colors */
+  --boc-primary: #0F2A38;
+  --boc-primary-light: #163E54;
+  --boc-secondary: #4A607A;
+  --boc-background: #F4F6F9;
+  --boc-surface: #FFFFFF;
+  --boc-success: #28a745;
+  --boc-warning: #ffc107;
+  --boc-danger: #dc3545;
+  --boc-info: #17a2b8;
+
+  /* Role Accents */
+  --boc-accent-triage: #E37400;
+  --boc-accent-evaluator: #8430CE;
+  --boc-accent-committee: #0d6efd;
+  --boc-accent-ministry: #198754;
+  --boc-accent-export: #fd7e14;
+  --boc-accent-plagiarism: #6f42c1;
+
+  /* Typography */
+  --font-arabic: 'Tajawal', sans-serif;
+  --font-english: 'Inter', 'Segoe UI', sans-serif;
+
+  /* Spacing (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* Shape */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 999px;
+
+  /* Elevation (layered paper) */
+  --elevation-0: none;
+  --elevation-1: 0 1px 2px rgba(15,42,56,0.06), 0 1px 3px rgba(15,42,56,0.04);
+  --elevation-2: 0 4px 8px rgba(15,42,56,0.08), 0 2px 4px rgba(15,42,56,0.04);
+  --elevation-3: 0 8px 16px rgba(15,42,56,0.10), 0 4px 8px rgba(15,42,56,0.06);
+  --elevation-4: 0 12px 24px rgba(15,42,56,0.12), 0 8px 16px rgba(15,42,56,0.08);
+
+  /* Motion */
+  --motion-instant: 0ms;
+  --motion-fast: 150ms;
+  --motion-normal: 250ms;
+  --motion-slow: 350ms;
+  --ease-fast: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --ease-normal: cubic-bezier(0.4, 0.14, 0.3, 1);
+  --ease-slow: cubic-bezier(0, 0, 0.2, 1);
+
+  /* Semantic Aliases */
+  --text-primary: var(--boc-primary);
+  --text-secondary: var(--boc-secondary);
+  --text-muted: rgba(74, 96, 122, 0.75);
+  --text-light: rgba(255,255,255,0.9);
+  --border-color: rgba(74, 96, 122, 0.08);
+  --border-color-hover: rgba(74, 96, 122, 0.20);
+  --border-color-strong: rgba(74, 96, 122, 0.12);
+  --hairline: rgba(74, 96, 122, 0.08);
+
+  /* Layout */
+  --header-height: 56px;
+  --sidebar-width: 260px;
+  --sidebar-collapsed: 64px;
+}
+
+/* Dark Mode */
+[data-theme="dark"] {
+  --boc-background: #0D1B26;
+  --boc-surface: #142A3A;
+  --text-primary: #E8EDF2;
+  --text-secondary: #8BA3B8;
+  --text-muted: rgba(139,163,184,0.6);
+  --border-color: rgba(139,163,184,0.12);
+  --border-color-hover: rgba(139,163,184,0.25);
+  --border-color-strong: rgba(139,163,184,0.18);
+  --hairline: rgba(139,163,184,0.10);
+  --elevation-1: 0 1px 2px rgba(0,0,0,0.25), 0 1px 3px rgba(0,0,0,0.15);
+  --elevation-2: 0 4px 8px rgba(0,0,0,0.30), 0 2px 4px rgba(0,0,0,0.20);
+  --elevation-3: 0 8px 16px rgba(0,0,0,0.35), 0 4px 8px rgba(0,0,0,0.25);
+  --elevation-4: 0 12px 24px rgba(0,0,0,0.40), 0 8px 16px rgba(0,0,0,0.30);
+}
+
+/* ---------- 2. Reset & Base ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: var(--font-arabic);
+  background: var(--boc-background);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: background var(--motion-normal) var(--ease-normal), color var(--motion-normal) var(--ease-normal);
+  overflow-x: hidden;
+}
+
+/* ---------- 3. Typography Utilities ---------- */
+.text-display { font-size: 28px; font-weight: 700; line-height: 1.25; }
+.text-h1 { font-size: 22px; font-weight: 700; line-height: 1.3; }
+.text-h2 { font-size: 18px; font-weight: 600; line-height: 1.35; }
+.text-h3 { font-size: 16px; font-weight: 600; line-height: 1.4; }
+.text-body { font-size: 14px; font-weight: 400; line-height: 1.7; }
+.text-body-strong { font-size: 14px; font-weight: 600; line-height: 1.6; }
+.text-label { font-size: 12px; font-weight: 500; line-height: 1.4; letter-spacing: 0.3px; }
+.text-caption { font-size: 11px; font-weight: 500; line-height: 1.4; }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+
+/* ---------- 4. App Shell ---------- */
+.app-shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-rows: var(--header-height) 1fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  min-height: 100vh;
+  transition: grid-template-columns var(--motion-normal) var(--ease-normal);
+}
+.app-shell.sidebar-collapsed {
+  grid-template-columns: var(--sidebar-collapsed) 1fr;
+}
+
+/* Header */
+.app-header {
+  grid-area: header;
+  height: var(--header-height);
+  background: var(--boc-surface);
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-5);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: box-shadow var(--motion-normal) var(--ease-normal);
+}
+.app-header.scrolled {
+  box-shadow: var(--elevation-2);
+}
+.header-left, .header-right { display: flex; align-items: center; gap: var(--space-3); }
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+.breadcrumb a { color: var(--text-secondary); text-decoration: none; transition: color var(--motion-fast); }
+.breadcrumb a:hover { color: var(--text-primary); }
+.breadcrumb .sep { opacity: 0.5; font-size: 12px; }
+.breadcrumb .current { color: var(--text-primary); font-weight: 600; }
+
+.header-title { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+
+/* Search Trigger */
+.search-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--boc-background);
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color var(--motion-fast), box-shadow var(--motion-fast);
+}
+.search-trigger:hover { border-color: var(--border-color-hover); }
+.search-trigger kbd {
+  background: var(--boc-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 1px 6px;
+  font-size: 11px;
+  font-family: var(--font-english);
+}
+
+/* Icon Button */
+.icon-btn {
+  width: 36px; height: 36px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background var(--motion-fast), color var(--motion-fast), transform var(--motion-fast);
+  position: relative;
+}
+.icon-btn:hover { background: rgba(15,42,56,0.06); color: var(--text-primary); }
+.icon-btn:active { transform: scale(0.95); }
+.icon-btn .badge-dot {
+  position: absolute;
+  top: 6px; right: 6px;
+  width: 8px; height: 8px;
+  background: var(--boc-danger);
+  border-radius: 50%;
+  border: 2px solid var(--boc-surface);
+}
+
+/* User Menu */
+.user-menu {
+  display: flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--motion-fast);
+}
+.user-menu:hover { background: rgba(15,42,56,0.04); }
+.user-menu .avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--boc-primary);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px;
+}
+.user-menu .name { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+
+/* Sidebar */
+.app-sidebar {
+  grid-area: sidebar;
+  background: var(--boc-surface);
+  border-left: 1px solid var(--hairline);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: width var(--motion-normal) var(--ease-normal);
+}
+.sidebar-brand {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-4);
+  border-bottom: 1px solid var(--hairline);
+  flex-shrink: 0;
+}
+.sidebar-brand .logo-icon {
+  width: 32px; height: 32px;
+  background: var(--boc-primary);
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 16px;
+  flex-shrink: 0;
+}
+.sidebar-brand .logo-text {
+  font-size: 16px; font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  transition: opacity var(--motion-normal);
+}
+.app-shell.sidebar-collapsed .logo-text { opacity: 0; width: 0; }
+
+.sidebar-toggle {
+  margin-right: auto;
+  margin-left: 0;
+  background: none; border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  transition: color var(--motion-fast), background var(--motion-fast);
+}
+.sidebar-toggle:hover { background: rgba(15,42,56,0.06); color: var(--text-primary); }
+
+/* Nav */
+.sidebar-nav { padding: var(--space-3) 0; flex: 1; }
+.nav-section { margin-bottom: var(--space-2); }
+.nav-section-title {
+  padding: var(--space-2) var(--space-4);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: opacity var(--motion-normal);
+}
+.app-shell.sidebar-collapsed .nav-section-title { opacity: 0; height: 0; padding: 0; overflow: hidden; }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: 40px;
+  padding: 0 var(--space-4);
+  margin: 0 var(--space-2);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--motion-fast), color var(--motion-fast);
+  position: relative;
+  white-space: nowrap;
+}
+.nav-item:hover { background: rgba(15,42,56,0.04); color: var(--text-primary); }
+.nav-item.active {
+  background: rgba(15,42,56,0.06);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  right: -8px; top: 50%; transform: translateY(-50%);
+  width: 3px; height: 20px;
+  background: var(--boc-primary);
+  border-radius: var(--radius-full);
+}
+html[dir="ltr"] .nav-item.active::before { right: auto; left: -8px; }
+
+.nav-item i { font-size: 18px; width: 20px; text-align: center; flex-shrink: 0; }
+.nav-item .nav-label { transition: opacity var(--motion-normal); }
+.app-shell.sidebar-collapsed .nav-item .nav-label { opacity: 0; width: 0; }
+.nav-item .nav-badge {
+  margin-right: auto;
+  margin-left: 0;
+  background: var(--boc-primary);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  transition: opacity var(--motion-normal);
+}
+.app-shell.sidebar-collapsed .nav-item .nav-badge { opacity: 0; }
+
+/* Sidebar Footer */
+.sidebar-footer {
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.sidebar-footer .theme-toggle {
+  display: flex; align-items: center; gap: var(--space-2);
+  font-size: 13px; color: var(--text-secondary);
+  cursor: pointer;
+}
+.sidebar-footer .theme-toggle i { font-size: 16px; }
+
+/* Main Content */
+.app-main {
+  grid-area: main;
+  padding: var(--space-5);
+  overflow-y: auto;
+  max-width: 1440px;
+}
+
+/* ---------- 5. Page Header Component ---------- */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.page-header .actions { display: flex; gap: var(--space-2); }
+
+/* ---------- 6. Cards ---------- */
+.card {
+  background: var(--boc-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elevation-1);
+  transition: box-shadow var(--motion-normal) var(--ease-normal), transform var(--motion-normal) var(--ease-normal);
+}
+.card:hover { box-shadow: var(--elevation-2); transform: translateY(-1px); }
+.card-header {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-body { padding: var(--space-4); }
+.card-footer {
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+/* Role Accent Card */
+.card-accent { border-right: 4px solid var(--accent-color, var(--boc-primary)); }
+html[dir="ltr"] .card-accent { border-right: none; border-left: 4px solid var(--accent-color, var(--boc-primary)); }
+
+/* Hero Card */
+.hero-card {
+  background: var(--boc-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elevation-1);
+  border-right: 4px solid var(--boc-primary);
+  padding: var(--space-5) var(--space-6);
+  margin-bottom: var(--space-5);
+}
+html[dir="ltr"] .hero-card { border-right: none; border-left: 4px solid var(--boc-primary); }
+
+/* ---------- 7. Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-arabic);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--ease-fast),
+              transform var(--motion-fast) var(--ease-fast),
+              box-shadow var(--motion-fast) var(--ease-fast);
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-sm { height: 32px; padding: 0 var(--space-3); font-size: 12px; }
+.btn-md { height: 40px; padding: 0 var(--space-4); font-size: 14px; }
+.btn-lg { height: 48px; padding: 0 var(--space-6); font-size: 14px; }
+
+.btn-primary {
+  background: var(--boc-primary);
+  color: white;
+}
+.btn-primary:hover { background: var(--boc-primary-light); }
+
+.btn-secondary {
+  background: var(--boc-surface);
+  color: var(--boc-primary);
+  border: 1px solid var(--boc-primary);
+}
+.btn-secondary:hover { background: rgba(15,42,56,0.04); }
+
+.btn-tertiary {
+  background: transparent;
+  color: var(--boc-primary);
+}
+.btn-tertiary:hover { background: rgba(15,42,56,0.04); }
+
+.btn-danger {
+  background: var(--boc-danger);
+  color: white;
+}
+.btn-danger:hover { background: #c82333; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+.btn-ghost:hover { background: rgba(74,96,122,0.08); color: var(--text-primary); }
+
+/* Icon-only button */
+.btn-icon {
+  width: 32px; height: 32px;
+  padding: 0;
+  border-radius: var(--radius-md);
+}
+
+/* Button Group */
+.btn-group {
+  display: inline-flex;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.btn-group .btn {
+  border-radius: 0;
+  border: none;
+  background: var(--boc-surface);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.btn-group .btn:hover { background: rgba(15,42,56,0.04); color: var(--text-primary); }
+.btn-group .btn.active {
+  background: var(--boc-primary);
+  color: white;
+}
+.btn-group .btn + .btn { border-right: 1px solid var(--border-color); }
+html[dir="ltr"] .btn-group .btn + .btn { border-right: none; border-left: 1px solid var(--border-color); }
+
+/* ---------- 8. Status Pills & Dots ---------- */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 24px;
+  padding: 0 10px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+}
+.status-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pill-draft { background: rgba(74,96,122,0.10); color: var(--boc-secondary); }
+.pill-draft .status-dot { background: var(--boc-secondary); }
+.pill-review { background: rgba(23,162,184,0.10); color: var(--boc-info); }
+.pill-review .status-dot { background: var(--boc-info); }
+.pill-success { background: rgba(40,167,69,0.10); color: var(--boc-success); }
+.pill-success .status-dot { background: var(--boc-success); }
+.pill-danger { background: rgba(220,53,69,0.10); color: var(--boc-danger); }
+.pill-danger .status-dot { background: var(--boc-danger); }
+.pill-warning { background: rgba(255,193,7,0.15); color: #856404; }
+.pill-warning .status-dot { background: var(--boc-warning); }
+
+/* Role accent pills */
+.pill-triage { background: rgba(227,116,0,0.10); color: var(--boc-accent-triage); }
+.pill-triage .status-dot { background: var(--boc-accent-triage); }
+.pill-evaluator { background: rgba(132,48,206,0.10); color: var(--boc-accent-evaluator); }
+.pill-evaluator .status-dot { background: var(--boc-accent-evaluator); }
+.pill-committee { background: rgba(13,110,253,0.10); color: var(--boc-accent-committee); }
+.pill-committee .status-dot { background: var(--boc-accent-committee); }
+
+/* ---------- 9. KPI / Stat Cards ---------- */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+.kpi-card {
+  background: var(--boc-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elevation-1);
+  padding: var(--space-4);
+  transition: box-shadow var(--motion-normal), transform var(--motion-normal);
+}
+.kpi-card:hover { box-shadow: var(--elevation-2); transform: translateY(-1px); }
+.kpi-card .kpi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+.kpi-card .kpi-icon {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
+.kpi-card .kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+.kpi-card .kpi-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.kpi-card .kpi-trend {
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: var(--space-2);
+}
+.kpi-card .kpi-trend.up { color: var(--boc-success); }
+.kpi-card .kpi-trend.down { color: var(--boc-danger); }
+
+/* ---------- 10. Data Table ---------- */
+.table-container {
+  background: var(--boc-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elevation-1);
+  overflow: hidden;
+}
+.table-toolbar {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.table-toolbar .toolbar-left, .table-toolbar .toolbar-right {
+  display: flex; align-items: center; gap: var(--space-3);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.data-table thead th {
+  background: var(--boc-background);
+  height: 44px;
+  padding: 0 var(--space-4);
+  text-align: right;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-color-strong);
+  white-space: nowrap;
+}
+html[dir="ltr"] .data-table thead th { text-align: left; }
+.data-table tbody td {
+  height: 52px;
+  padding: 0 var(--space-4);
+  border-bottom: 1px solid var(--hairline);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+.data-table tbody tr {
+  transition: background var(--motion-fast);
+}
+.data-table tbody tr:hover { background: rgba(15,42,56,0.03); }
+.data-table tbody tr.selected {
+  background: rgba(15,42,56,0.05);
+  border-right: 3px solid var(--boc-primary);
+}
+html[dir="ltr"] .data-table tbody tr.selected { border-right: none; border-left: 3px solid var(--boc-primary); }
+
+.table-cell-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  opacity: 0;
+  transition: opacity var(--motion-fast);
+}
+.data-table tbody tr:hover .table-cell-actions { opacity: 1; }
+
+/* Table Pagination */
+.table-pagination {
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.pagination-buttons { display: flex; gap: var(--space-1); }
+
+/* ---------- 11. Forms ---------- */
+.form-group {
+  margin-bottom: var(--space-4);
+}
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+}
+.form-label .required { color: var(--boc-danger); margin-right: 4px; }
+.form-input {
+  width: 100%;
+  height: 40px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border-color-hover);
+  border-radius: var(--radius-md);
+  background: var(--boc-surface);
+  color: var(--text-primary);
+  font-family: var(--font-arabic);
+  font-size: 14px;
+  transition: border-color var(--motion-fast), box-shadow var(--motion-fast);
+}
+.form-input::placeholder { color: var(--text-muted); }
+.form-input:hover { border-color: var(--border-color-hover); }
+.form-input:focus {
+  outline: none;
+  border-color: var(--boc-primary);
+  box-shadow: 0 0 0 3px rgba(15,42,56,0.08);
+}
+.form-input.error {
+  border-color: var(--boc-danger);
+  box-shadow: 0 0 0 3px rgba(220,53,69,0.08);
+}
+.form-helper {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: var(--space-1);
+}
+.form-helper.error { color: var(--boc-danger); }
+
+/* Form Grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+/* ---------- 12. Toast System ---------- */
+.toast-container {
+  position: fixed;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 400px;
+}
+.toast {
+  background: var(--boc-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elevation-3);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  position: relative;
+  overflow: hidden;
+  animation: toastIn var(--motion-slow) var(--ease-slow);
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.toast.toast-info { border-right: 4px solid var(--boc-info); }
+.toast.toast-success { border-right: 4px solid var(--boc-success); }
+.toast.toast-warning { border-right: 4px solid var(--boc-warning); }
+.toast.toast-error { border-right: 4px solid var(--boc-danger); }
+html[dir="ltr"] .toast.toast-info { border-right: none; border-left: 4px solid var(--boc-info); }
+html[dir="ltr"] .toast.toast-success { border-right: none; border-left: 4px solid var(--boc-success); }
+html[dir="ltr"] .toast.toast-warning { border-right: none; border-left: 4px solid var(--boc-warning); }
+html[dir="ltr"] .toast.toast-error { border-right: none; border-left: 4px solid var(--boc-danger); }
+
+.toast-icon { font-size: 18px; margin-top: 2px; flex-shrink: 0; }
+.toast-info .toast-icon { color: var(--boc-info); }
+.toast-success .toast-icon { color: var(--boc-success); }
+.toast-warning .toast-icon { color: var(--boc-warning); }
+.toast-error .toast-icon { color: var(--boc-danger); }
+.toast-body { flex: 1; }
+.toast-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+.toast-message { font-size: 13px; color: var(--text-secondary); }
+.toast-close {
+  background: none; border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  transition: color var(--motion-fast);
+}
+.toast-close:hover { color: var(--text-primary); }
+.toast-progress {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--border-color);
+}
+.toast-progress-bar {
+  height: 100%;
+  width: 100%;
+  animation: toastProgress 5s linear forwards;
+}
+@keyframes toastProgress { from { width: 100%; } to { width: 0%; } }
+.toast-info .toast-progress-bar { background: var(--boc-info); }
+.toast-success .toast-progress-bar { background: var(--boc-success); }
+.toast-warning .toast-progress-bar { background: var(--boc-warning); }
+.toast-error .toast-progress-bar { background: var(--boc-danger); }
+
+/* ---------- 13. Modal ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,42,56,0.45);
+  backdrop-filter: blur(2px);
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--motion-normal), visibility var(--motion-normal);
+}
+.modal-overlay.active { opacity: 1; visibility: visible; }
+.modal {
+  background: var(--boc-surface);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--elevation-4);
+  width: 100%;
+  max-width: 560px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.96) translateY(10px);
+  transition: transform var(--motion-slow) var(--ease-slow);
+}
+.modal-overlay.active .modal { transform: scale(1) translateY(0); }
+.modal-header {
+  height: 56px;
+  padding: 0 var(--space-5);
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-body { padding: var(--space-5); overflow-y: auto; }
+.modal-footer {
+  padding: var(--space-3) var(--space-5);
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+/* ---------- 14. Command Palette ---------- */
+.cmd-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,42,56,0.50);
+  backdrop-filter: blur(4px);
+  z-index: 1100;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 120px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--motion-fast), visibility var(--motion-fast);
+}
+.cmd-overlay.active { opacity: 1; visibility: visible; }
+.cmd-palette {
+  background: var(--boc-surface);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--elevation-4);
+  width: 100%;
+  max-width: 640px;
+  overflow: hidden;
+  transform: translateY(-10px);
+  transition: transform var(--motion-slow) var(--ease-slow);
+}
+.cmd-overlay.active .cmd-palette { transform: translateY(0); }
+.cmd-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--hairline);
+}
+.cmd-input-wrap i { color: var(--text-muted); font-size: 18px; }
+.cmd-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--font-arabic);
+  font-size: 16px;
+  color: var(--text-primary);
+  outline: none;
+}
+.cmd-input::placeholder { color: var(--text-muted); }
+.cmd-results { max-height: 400px; overflow-y: auto; }
+.cmd-group { border-bottom: 1px solid var(--hairline); }
+.cmd-group:last-child { border-bottom: none; }
+.cmd-group-header {
+  padding: var(--space-2) var(--space-5);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+}
+.cmd-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  cursor: pointer;
+  transition: background var(--motion-fast);
+  border-right: 3px solid transparent;
+}
+html[dir="ltr"] .cmd-item { border-right: none; border-left: 3px solid transparent; }
+.cmd-item:hover, .cmd-item.selected {
+  background: rgba(15,42,56,0.04);
+  border-right-color: var(--boc-primary);
+}
+html[dir="ltr"] .cmd-item:hover, html[dir="ltr"] .cmd-item.selected { border-right-color: transparent; border-left-color: var(--boc-primary); }
+.cmd-item i { color: var(--text-secondary); font-size: 16px; }
+.cmd-item-title { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+.cmd-item-sub { font-size: 12px; color: var(--text-muted); }
+
+/* ---------- 15. Empty State ---------- */
+.empty-state {
+  text-align: center;
+  padding: var(--space-8) var(--space-5);
+  color: var(--text-secondary);
+}
+.empty-state i {
+  font-size: 48px;
+  color: var(--text-secondary);
+  opacity: 0.4;
+  margin-bottom: var(--space-4);
+}
+.empty-state h3 { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: var(--space-2); }
+.empty-state p { font-size: 14px; margin-bottom: var(--space-4); }
+
+/* ---------- 16. Skeleton Loader ---------- */
+.skeleton {
+  background: linear-gradient(90deg, var(--boc-background) 25%, rgba(15,42,56,0.05) 50%, var(--boc-background) 75%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ---------- 17. Filter Bar ---------- */
+.filter-bar {
+  background: var(--boc-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elevation-1);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 28px;
+  padding: 0 var(--space-2) 0 var(--space-3);
+  background: var(--boc-background);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  color: var(--text-primary);
+}
+.filter-chip button {
+  background: none; border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0;
+  display: flex;
+}
+.filter-chip button:hover { color: var(--boc-danger); }
+
+/* ---------- 18. Timeline ---------- */
+.timeline {
+  position: relative;
+  padding-right: var(--space-4);
+}
+html[dir="ltr"] .timeline { padding-right: 0; padding-left: var(--space-4); }
+.timeline::before {
+  content: '';
+  position: absolute;
+  right: 18px;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: var(--border-color-strong);
+}
+html[dir="ltr"] .timeline::before { right: auto; left: 18px; }
+.timeline-item {
+  position: relative;
+  padding-right: var(--space-6);
+  padding-bottom: var(--space-5);
+}
+html[dir="ltr"] .timeline-item { padding-right: 0; padding-left: var(--space-6); }
+.timeline-dot {
+  position: absolute;
+  right: 12px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--boc-primary);
+  border: 2px solid var(--boc-surface);
+  box-shadow: var(--elevation-1);
+}
+html[dir="ltr"] .timeline-dot { right: auto; left: 12px; }
+.timeline-dot.active {
+  width: 16px; height: 16px;
+  right: 10px;
+  box-shadow: 0 0 0 3px rgba(15,42,56,0.15);
+}
+html[dir="ltr"] .timeline-dot.active { right: auto; left: 10px; }
+.timeline-dot.secondary { background: var(--boc-secondary); }
+.timeline-content {
+  background: var(--boc-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+/* ---------- 19. Focus & Accessibility ---------- */
+:focus-visible {
+  outline: 2px solid var(--boc-primary);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- 20. Responsive ---------- */
+@media (max-width: 1199px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .form-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 991px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "main";
+  }
+  .app-sidebar {
+    position: fixed;
+    right: 0; top: 0; bottom: 0;
+    width: 260px;
+    z-index: 800;
+    transform: translateX(100%);
+    transition: transform var(--motion-normal) var(--ease-normal);
+  }
+  html[dir="ltr"] .app-sidebar { right: auto; left: 0; transform: translateX(-100%); }
+  .app-sidebar.open { transform: translateX(0); }
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15,42,56,0.4);
+    z-index: 700;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--motion-normal), visibility var(--motion-normal);
+  }
+  .sidebar-overlay.active { opacity: 1; visibility: visible; }
+  .app-main { padding: var(--space-4); }
+}
+@media (max-width: 767px) {
+  .kpi-grid { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .page-header { flex-direction: column; align-items: flex-start; }
+  .table-toolbar { flex-direction: column; align-items: stretch; }
+  .table-toolbar .toolbar-left, .table-toolbar .toolbar-right { width: 100%; }
+  .data-table { display: block; overflow-x: auto; }
+  .toast-container { left: var(--space-3); right: var(--space-3); max-width: none; }
+  .search-trigger span, .search-trigger kbd { display: none; }
+}
+
+/* ---------- 21. Demo Utilities ---------- */
+.demo-section { margin-bottom: var(--space-8); }
+.demo-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--hairline);
+}
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+.demo-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-3);
+}
+</style>
+</head>
+<body>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Sidebar Overlay (Mobile) -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Command Palette -->
+<div class="cmd-overlay" id="cmdOverlay">
+  <div class="cmd-palette">
+    <div class="cmd-input-wrap">
+      <i class="bi bi-search"></i>
+      <input type="text" class="cmd-input" placeholder="البحث في الأبحاث، اللجان، الاجتماعات أو الأشخاص..." id="cmdInput">
+    </div>
+    <div class="cmd-results">
+      <div class="cmd-group">
+        <div class="cmd-group-header">الأبحاث</div>
+        <div class="cmd-item selected">
+          <i class="bi bi-file-text"></i>
+          <div>
+            <div class="cmd-item-title">تقييم أثر التضخم على القطاع المصرفي</div>
+            <div class="cmd-item-sub">بانتظار التقييم • محمود العلي</div>
+          </div>
+        </div>
+        <div class="cmd-item">
+          <i class="bi bi-file-text"></i>
+          <div>
+            <div class="cmd-item-title">دراسة السيولة في الأسواق الناشئة</div>
+            <div class="cmd-item-sub">مسودة • فاطمة الزهراء</div>
+          </div>
+        </div>
+      </div>
+      <div class="cmd-group">
+        <div class="cmd-group-header">الإجراءات</div>
+        <div class="cmd-item">
+          <i class="bi bi-plus-circle"></i>
+          <div>
+            <div class="cmd-item-title">تقديم بحث جديد</div>
+            <div class="cmd-item-sub">افتح نموذج التقديم</div>
+          </div>
+        </div>
+        <div class="cmd-item">
+          <i class="bi bi-calendar-plus"></i>
+          <div>
+            <div class="cmd-item-title">جدولة اجتماع لجنة</div>
+            <div class="cmd-item-sub">اختر اللجنة والتاريخ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="demoModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="text-h2">تأكيد الإجراء</h3>
+      <button class="icon-btn" onclick="toggleModal()"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="modal-body">
+      <p class="text-body">هل أنت متأكد من رغبتك في إرسال هذا البحث إلى لجنة التقييم؟ لا يمكن التراجع عن هذا الإجراء.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary btn-md" onclick="toggleModal()">إلغاء</button>
+      <button class="btn btn-primary btn-md" onclick="toggleModal(); showToast('تم الإرسال بنجاح', 'success')">تأكيد الإرسال</button>
+    </div>
+  </div>
+</div>
+
+<!-- App Shell -->
+<div class="app-shell" id="appShell">
+
+  <!-- Sidebar -->
+  <aside class="app-sidebar" id="appSidebar">
+    <div class="sidebar-brand">
+      <div class="logo-icon"><i class="bi bi-bank"></i></div>
+      <span class="logo-text">نظام أبحاث البنك</span>
+      <button class="sidebar-toggle" onclick="toggleSidebar()" id="sidebarToggle">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-section-title">الرئيسية</div>
+        <a href="#" class="nav-item active"><i class="bi bi-grid"></i><span class="nav-label">لوحة التحكم</span></a>
+        <a href="#" class="nav-item"><i class="bi bi-bell"></i><span class="nav-label">الإشعارات</span><span class="nav-badge">3</span></a>
+        <a href="#" class="nav-item"><i class="bi bi-chat-dots"></i><span class="nav-label">المراسلة</span></a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">الأبحاث</div>
+        <a href="#" class="nav-item"><i class="bi bi-file-earmark-text"></i><span class="nav-label">تقديم بحث</span></a>
+        <a href="#" class="nav-item"><i class="bi bi-clock-history"></i><span class="nav-label">سجل الباحث</span></a>
+        <a href="#" class="nav-item"><i class="bi bi-clipboard-check"></i><span class="nav-label">التصحيحات</span></a>
+        <a href="#" class="nav-item"><i class="bi bi-diagram-3"></i><span class="nav-label">الخط الزمني</span></a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">اللجان</div>
+        <a href="#" class="nav-item"><i class="bi bi-people"></i><span class="nav-label">مساحة اللجنة</span></a>
+        <a href="#" class="nav-item"><i class="bi bi-calendar-week"></i><span class="nav-label">جدولة الاجتماعات</span></a>
+        <a href="#" class="nav-item"><i class="bi bi-camera-video"></i><span class="nav-label">استوديو الاجتماع</span></a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">الإدارة</div>
+        <a href="#" class="nav-item"><i class="bi bi-shield-check"></i><span class="nav-label">لوحة المسؤول</span></a>
+        <a href="#" class="nav-item"><i class="bi bi-person-gear"></i><span class="nav-label">الملف الشخصي</span></a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="bi bi-moon-stars" id="themeIcon"></i>
+        <span class="nav-label">الوضع الداكن</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="app-header" id="appHeader">
+    <div class="header-left">
+      <button class="icon-btn d-lg-none" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+      <nav class="breadcrumb d-none d-md-flex">
+        <a href="#">الرئيسية</a>
+        <i class="bi bi-chevron-left sep"></i>
+        <a href="#">الأبحاث</a>
+        <i class="bi bi-chevron-left sep"></i>
+        <span class="current">لوحة التحكم</span>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="search-trigger" onclick="toggleCmd()">
+        <i class="bi bi-search"></i>
+        <span>البحث السريع...</span>
+        <kbd>Ctrl</kbd><kbd>K</kbd>
+      </div>
+      <button class="icon-btn" onclick="toggleDir()" title="تبديل الاتجاه"><i class="bi bi-arrow-left-right"></i></button>
+      <button class="icon-btn" onclick="showToast('لديك 3 إشعارات جديدة', 'info')">
+        <i class="bi bi-bell"></i>
+        <span class="badge-dot"></span>
+      </button>
+      <div class="user-menu">
+        <div class="avatar">أح</div>
+        <span class="name d-none d-md-inline">أحمد الخالدي</span>
+        <i class="bi bi-chevron-down d-none d-md-inline" style="font-size:12px;color:var(--text-secondary)"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="app-main">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div>
+        <h1 class="text-h1">لوحة التحكم</h1>
+        <p class="text-body text-secondary">نظرة عامة على حالة الأبحاث والمهام المعلقة</p>
+      </div>
+      <div class="actions">
+        <button class="btn btn-secondary btn-md"><i class="bi bi-download"></i> تصدير التقرير</button>
+        <button class="btn btn-primary btn-md"><i class="bi bi-plus-lg"></i> بحث جديد</button>
+      </div>
+    </div>
+
+    <!-- Hero Card -->
+    <div class="hero-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-3)">
+        <div>
+          <h2 class="text-h2" style="margin-bottom:var(--space-2)">مرحباً بك، أحمد</h2>
+          <p class="text-body text-secondary">لديك 4 أبحاث قيد المراجعة واجتماع لجنة مقرر غداً الساعة 10:00 صباحاً.</p>
+        </div>
+        <button class="btn btn-primary btn-md" onclick="toggleModal()">الاطلاع على المهام</button>
+      </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <div class="kpi-icon" style="background:rgba(15,42,56,0.08);color:var(--boc-primary)"><i class="bi bi-file-earmark-text"></i></div>
+          <button class="icon-btn btn-ghost"><i class="bi bi-three-dots-vertical"></i></button>
+        </div>
+        <div class="kpi-value">128</div>
+        <div class="kpi-label">إجمالي الأبحاث</div>
+        <div class="kpi-trend up"><i class="bi bi-arrow-up-right"></i> +12% هذا الشهر</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <div class="kpi-icon" style="background:rgba(227,116,0,0.10);color:var(--boc-accent-triage)"><i class="bi bi-hourglass-split"></i></div>
+          <button class="icon-btn btn-ghost"><i class="bi bi-three-dots-vertical"></i></button>
+        </div>
+        <div class="kpi-value">24</div>
+        <div class="kpi-label">بانتظار التقييم</div>
+        <div class="kpi-trend up"><i class="bi bi-arrow-up-right"></i> +3 هذا الأسبوع</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <div class="kpi-icon" style="background:rgba(40,167,69,0.10);color:var(--boc-success)"><i class="bi bi-check-circle"></i></div>
+          <button class="icon-btn btn-ghost"><i class="bi bi-three-dots-vertical"></i></button>
+        </div>
+        <div class="kpi-value">86</div>
+        <div class="kpi-label">تمت الموافقة</div>
+        <div class="kpi-trend down"><i class="bi bi-arrow-down-right"></i> -2% عن المعدل</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <div class="kpi-icon" style="background:rgba(132,48,206,0.10);color:var(--boc-accent-evaluator)"><i class="bi bi-people"></i></div>
+          <button class="icon-btn btn-ghost"><i class="bi bi-three-dots-vertical"></i></button>
+        </div>
+        <div class="kpi-value">7</div>
+        <div class="kpi-label">اجتماعات اللجان</div>
+        <div class="kpi-trend up"><i class="bi bi-arrow-up-right"></i> اجتماعان هذا الأسبوع</div>
+      </div>
+    </div>
+
+    <!-- Demo: Components Library -->
+    <div class="demo-section">
+      <div class="demo-section-title">البطاقات والأسطح (Cards & Surfaces)</div>
+      <div class="demo-grid">
+        <div class="card">
+          <div class="card-header">
+            <span class="text-h3">بطاقة قياسية</span>
+            <span class="text-caption text-muted">منذ ساعتين</span>
+          </div>
+          <div class="card-body">
+            <p class="text-body text-secondary">هذه البطاقة تستخدم السطح الورقي المُحسّن مع ظل متدرج. عند التمرير، ترتفع 1px وتزداد حدة الظل.</p>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-tertiary btn-sm">تفاصيل</button>
+            <button class="btn btn-primary btn-sm">موافقة</button>
+          </div>
+        </div>
+
+        <div class="card card-accent" style="--accent-color: var(--boc-accent-triage)">
+          <div class="card-header">
+            <span class="text-h3">بطاقة بتمييز الدور</span>
+            <span class="status-pill pill-triage"><span class="status-dot"></span>التقييم</span>
+          </div>
+          <div class="card-body">
+            <p class="text-body text-secondary">الحدود الملونة على اليمين (أو اليسار في LTR) تشير إلى دور العملية. لا تُستخدم كخلفية كاملة.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body" style="text-align:center;padding:var(--space-8)">
+            <div class="empty-state" style="padding:0">
+              <i class="bi bi-inbox"></i>
+              <h3 class="text-h3">لا توجد بيانات</h3>
+              <p class="text-body text-secondary">لم يتم العثور على أبحاث مطابقة للمعايير المحددة.</p>
+              <button class="btn btn-tertiary btn-md">إعادة ضبط الفلاتر</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demo: Buttons -->
+    <div class="demo-section">
+      <div class="demo-section-title">الأزرار (Buttons)</div>
+      <div class="demo-row">
+        <button class="btn btn-primary btn-md"><i class="bi bi-check-lg"></i> أساسي</button>
+        <button class="btn btn-secondary btn-md">ثانوي</button>
+        <button class="btn btn-tertiary btn-md">ثالثي</button>
+        <button class="btn btn-danger btn-md"><i class="bi bi-trash"></i> حذف</button>
+        <button class="btn btn-ghost btn-md"><i class="bi bi-pencil"></i></button>
+      </div>
+      <div class="demo-row">
+        <button class="btn btn-primary btn-sm">صغير</button>
+        <button class="btn btn-primary btn-md">متوسط</button>
+        <button class="btn btn-primary btn-lg">كبير</button>
+      </div>
+      <div class="demo-row">
+        <div class="btn-group">
+          <button class="btn active">يومي</button>
+          <button class="btn">أسبوعي</button>
+          <button class="btn">شهري</button>
+          <button class="btn">سنوي</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demo: Status Pills -->
+    <div class="demo-section">
+      <div class="demo-section-title">مؤشرات الحالة (Status Indicators)</div>
+      <div class="demo-row">
+        <span class="status-pill pill-draft"><span class="status-dot"></span>مسودة</span>
+        <span class="status-pill pill-review"><span class="status-dot"></span>قيد المراجعة</span>
+        <span class="status-pill pill-success"><span class="status-dot"></span>تمت الموافقة</span>
+        <span class="status-pill pill-warning"><span class="status-dot"></span>يحتاج تصحيح</span>
+        <span class="status-pill pill-danger"><span class="status-dot"></span>مرفوض</span>
+      </div>
+      <div class="demo-row">
+        <span class="status-pill pill-triage"><span class="status-dot"></span>التقييم الأولي</span>
+        <span class="status-pill pill-evaluator"><span class="status-dot"></span>تقييم لجنة</span>
+        <span class="status-pill pill-committee"><span class="status-dot"></span>اجتماع لجنة</span>
+      </div>
+    </div>
+
+    <!-- Demo: Data Table -->
+    <div class="demo-section">
+      <div class="demo-section-title">جدول البيانات (Data Table)</div>
+      <div class="table-container">
+        <div class="table-toolbar">
+          <div class="toolbar-left">
+            <input type="text" class="form-input" placeholder="البحث في الأبحاث..." style="width:260px">
+            <button class="btn btn-secondary btn-sm"><i class="bi bi-funnel"></i> الفلاتر</button>
+          </div>
+          <div class="toolbar-right">
+            <div class="btn-group">
+              <button class="btn active"><i class="bi bi-list"></i></button>
+              <button class="btn"><i class="bi bi-grid"></i></button>
+            </div>
+          </div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:40px"><input type="checkbox"></th>
+              <th>عنوان البحث</th>
+              <th>الباحث</th>
+              <th>الحالة</th>
+              <th>الدور</th>
+              <th>التاريخ</th>
+              <th style="width:100px">الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td><div class="text-body-strong">تقييم أثر التضخم على القطاع المصرفي</div></td>
+              <td><div style="display:flex;align-items:center;gap:var(--space-2)"><div class="avatar" style="width:24px;height:24px;font-size:10px">مع</div><span class="text-body">محمود العلي</span></div></td>
+              <td><span class="status-pill pill-review"><span class="status-dot"></span>قيد المراجعة</span></td>
+              <td><span class="status-pill pill-triage"><span class="status-dot"></span>تقييم</span></td>
+              <td><span class="text-caption text-secondary">24 مايو 2026</span></td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="icon-btn btn-ghost btn-icon"><i class="bi bi-eye"></i></button>
+                  <button class="icon-btn btn-ghost btn-icon"><i class="bi bi-pencil"></i></button>
+                  <button class="icon-btn btn-ghost btn-icon"><i class="bi bi-three-dots-vertical"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="selected">
+              <td><input type="checkbox" checked></td>
+              <td><div class="text-body-strong">دراسة السيولة في الأسواق الناشئة</div></td>
+              <td><div style="display:flex;align-items:center;gap:var(--space-2)"><div class="avatar" style="width:24px;height:24px;font-size:10px">فز</div><span class="text-body">فاطمة الزهراء</span></div></td>
+              <td><span class="status-pill pill-draft"><span class="status-dot"></span>مسودة</span></td>
+              <td><span class="status-pill pill-evaluator"><span class="status-dot"></span>لجنة</span></td>
+              <td><span class="text-caption text-secondary">22 مايو 2026</span></td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="icon-btn btn-ghost btn-icon"><i class="bi bi-eye"></i></button>
+                  <button class="icon-btn btn-ghost btn-icon"><i class="bi bi-pencil"></i></button>
+                  <button class="icon-btn btn-ghost btn-icon"><i class="bi bi-three-dots-vertical"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td><div class="text-body-strong">تحليل المخاطر الائتمانية لعام 2026</div></td>
+              <td><div style="display:flex;align-items:center;gap:var(--space-2)"><div class="avatar" style="width:24px;height:24px;font-size:10px">سع</div><span class="text-body">سعيد المنصوري</span></div></td>
+              <td><span class="status-pill pill-success"><span class="status-dot"></span>تمت الموافقة</span></td>
+              <td><span class="status-pill pill-committee"><span class="status-dot"></span>لجنة</span></td>
+              <td><span class="text-caption text-secondary">18 مايو 2026</span></td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="icon-btn btn-ghost btn-icon"><i class="bi bi-eye"></i></button>
+                  <button class="icon-btn btn-ghost btn-icon"><i class="bi bi-download"></i></button>
+                  <button class="icon-btn btn-ghost btn-icon"><i class="bi bi-three-dots-vertical"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td><div class="text-body-strong">تقرير الاستقرار المالي النصف سنوي</div></td>
+              <td><div style="display:flex;align-items:center;gap:var(--space-2)"><div class="avatar" style="width:24px;height:24px;font-size:10px">نخ</div><span class="text-body">نورة الخالدي</span></div></td>
+              <td><span class="status-pill pill-warning"><span class="status-dot"></span>يحتاج تصحيح</span></td>
+              <td><span class="status-pill pill-triage"><span class="status-dot"></span>تقييم</span></td>
+              <td><span class="text-caption text-secondary">15 مايو 2026</span></td>
+              <td>
+                <div class="table-cell-actions">
+                  <button class="icon-btn btn-ghost btn-icon"><i class="bi bi-eye"></i></button>
+                  <button class="icon-btn btn-ghost btn-icon"><i class="bi bi-pencil"></i></button>
+                  <button class="icon-btn btn-ghost btn-icon"><i class="bi bi-three-dots-vertical"></i></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-pagination">
+          <span>عرض 1–4 من 128 نتيجة</span>
+          <div class="pagination-buttons">
+            <button class="btn btn-ghost btn-sm" disabled><i class="bi bi-chevron-right"></i></button>
+            <button class="btn btn-primary btn-sm">1</button>
+            <button class="btn btn-ghost btn-sm">2</button>
+            <button class="btn btn-ghost btn-sm">3</button>
+            <button class="btn btn-ghost btn-sm"><i class="bi bi-chevron-left"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demo: Forms -->
+    <div class="demo-section">
+      <div class="demo-section-title">النماذج (Forms)</div>
+      <div class="card" style="max-width:800px">
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">عنوان البحث <span class="required">*</span></label>
+              <input type="text" class="form-input" placeholder="أدخل عنوان البحث">
+              <div class="form-helper">يجب ألا يتجاوز 120 حرفاً</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">نوع البحث</label>
+              <input type="text" class="form-input" value="بحث اقتصادي" readonly>
+            </div>
+            <div class="form-group">
+              <label class="form-label">اللجنة المختصة</label>
+              <input type="text" class="form-input" placeholder="اختر اللجنة">
+            </div>
+            <div class="form-group" style="grid-column:1/-1">
+              <label class="form-label">الملخص التنفيذي <span class="required">*</span></label>
+              <textarea class="form-input" style="height:100px;resize:vertical;padding:var(--space-3)" placeholder="اكتب ملخصاً مختصراً..."></textarea>
+              <div class="form-helper error">هذا الحقل مطلوب</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-secondary btn-md">حفظ كمسودة</button>
+          <button class="btn btn-primary btn-md">إرسال للمراجعة</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demo: Filter Bar -->
+    <div class="demo-section">
+      <div class="demo-section-title">شريط الفلاتر (Filter Bar)</div>
+      <div class="filter-bar">
+        <input type="text" class="form-input" placeholder="البحث..." style="width:200px">
+        <button class="btn btn-secondary btn-sm"><i class="bi bi-funnel"></i> الحالة</button>
+        <button class="btn btn-secondary btn-sm"><i class="bi bi-calendar"></i> التاريخ</button>
+        <button class="btn btn-secondary btn-sm"><i class="bi bi-person"></i> الباحث</button>
+        <div style="flex:1"></div>
+        <span class="filter-chip">قيد المراجعة <button><i class="bi bi-x"></i></button></span>
+        <span class="filter-chip">2026 <button><i class="bi bi-x"></i></button></span>
+        <button class="btn btn-tertiary btn-sm" style="color:var(--boc-danger)"><i class="bi bi-x-circle"></i> مسح الكل</button>
+      </div>
+    </div>
+
+    <!-- Demo: Timeline -->
+    <div class="demo-section">
+      <div class="demo-section-title">الخط الزمني (Timeline)</div>
+      <div class="card" style="max-width:700px">
+        <div class="card-body">
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot active"></div>
+              <div class="timeline-content">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-2)">
+                  <span class="text-body-strong">تم إرسال البحث</span>
+                  <span class="text-caption text-muted">24 مايو 2026</span>
+                </div>
+                <p class="text-body text-secondary">تم رفع البحث بنجاح من قبل الباحث محمود العلي.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-2)">
+                  <span class="text-body-strong">التقييم الأولي</span>
+                  <span class="text-caption text-muted">25 مايو 2026</span>
+                </div>
+                <p class="text-body text-secondary">قيد المراجعة من قبل فريق التقييم الأولي.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot secondary"></div>
+              <div class="timeline-content">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-2)">
+                  <span class="text-body-strong">اجتماع اللجنة</span>
+                  <span class="text-caption text-muted">30 مايو 2026</span>
+                </div>
+                <p class="text-body text-secondary">مجدول للعرض على لجنة البحوث المصرفية.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demo: Auth Split Screen -->
+    <div class="demo-section">
+      <div class="demo-section-title">شاشة المصادقة (Auth Split Screen)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;min-height:500px;border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--elevation-3)">
+        <div style="background:linear-gradient(135deg,var(--boc-primary) 0%,var(--boc-primary-light) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;padding:var(--space-8);position:relative;overflow:hidden">
+          <div style="position:absolute;inset:0;opacity:0.05;background-image:repeating-linear-gradient(45deg,transparent,transparent 20px,white 20px,white 21px)"></div>
+          <div style="width:64px;height:64px;background:rgba(255,255,255,0.15);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:var(--space-5);position:relative;z-index:1">🏛</div>
+          <h2 style="font-size:24px;font-weight:700;margin-bottom:var(--space-3);position:relative;z-index:1">نظام أبحاث البنك المركزي</h2>
+          <p style="font-size:14px;opacity:0.85;text-align:center;max-width:280px;position:relative;z-index:1">منصة متكاملة لإدارة البحوث المصرفية وتقييمها واعتمادها.</p>
+        </div>
+        <div style="background:var(--boc-background);display:flex;align-items:center;justify-content:center;padding:var(--space-8)">
+          <div style="background:var(--boc-surface);border-radius:var(--radius-xl);box-shadow:var(--elevation-3);padding:40px 32px;width:100%;max-width:400px">
+            <div style="text-align:center;margin-bottom:var(--space-6)">
+              <div style="width:48px;height:48px;background:var(--boc-primary);border-radius:var(--radius-lg);display:inline-flex;align-items:center;justify-content:center;color:white;font-size:20px;margin-bottom:var(--space-3)"><i class="bi bi-person"></i></div>
+              <h3 class="text-h2">تسجيل الدخول</h3>
+              <p class="text-body text-secondary">أدخل بيانات الاعتماد الخاصة بك</p>
+            </div>
+            <div class="form-group">
+              <label class="form-label">البريد الإلكتروني</label>
+              <input type="email" class="form-input" placeholder="name@boc.gov">
+            </div>
+            <div class="form-group">
+              <label class="form-label">كلمة المرور</label>
+              <input type="password" class="form-input" placeholder="••••••••">
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-4)">
+              <label style="display:flex;align-items:center;gap:var(--space-2);font-size:13px;color:var(--text-secondary);cursor:pointer"><input type="checkbox"> تذكرني</label>
+              <a href="#" style="font-size:13px;color:var(--boc-primary);text-decoration:none;font-weight:500">نسيت كلمة المرور؟</a>
+            </div>
+            <button class="btn btn-primary btn-lg" style="width:100%;margin-bottom:var(--space-4)">تسجيل الدخول</button>
+            <p style="text-align:center;font-size:13px;color:var(--text-secondary)">ليس لديك حساب؟ <a href="#" style="color:var(--boc-primary);font-weight:600;text-decoration:none">طلب انضمام</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demo: Skeleton -->
+    <div class="demo-section">
+      <div class="demo-section-title">محمل الهيكل العظمي (Skeleton Loader)</div>
+      <div class="card" style="max-width:600px">
+        <div class="card-body">
+          <div style="display:flex;gap:var(--space-4);margin-bottom:var(--space-4)">
+            <div class="skeleton" style="width:48px;height:48px;border-radius:var(--radius-md);flex-shrink:0"></div>
+            <div style="flex:1">
+              <div class="skeleton" style="width:60%;height:16px;margin-bottom:var(--space-2)"></div>
+              <div class="skeleton" style="width:40%;height:12px"></div>
+            </div>
+          </div>
+          <div class="skeleton" style="width:100%;height:120px;border-radius:var(--radius-md);margin-bottom:var(--space-3)"></div>
+          <div style="display:flex;gap:var(--space-3)">
+            <div class="skeleton" style="width:80px;height:32px;border-radius:var(--radius-sm)"></div>
+            <div class="skeleton" style="width:80px;height:32px;border-radius:var(--radius-sm)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer spacer -->
+    <div style="height:60px"></div>
+  </main>
+</div>
+
+<script>
+  // Sidebar Toggle
+  function toggleSidebar() {
+    const shell = document.getElementById('appShell');
+    const sidebar = document.getElementById('appSidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const toggle = document.getElementById('sidebarToggle');
+    const isMobile = window.innerWidth < 992;
+
+    if (isMobile) {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('active');
+    } else {
+      shell.classList.toggle('sidebar-collapsed');
+      const icon = toggle.querySelector('i');
+      if (shell.classList.contains('sidebar-collapsed')) {
+        icon.classList.replace('bi-chevron-right', 'bi-chevron-left');
+      } else {
+        icon.classList.replace('bi-chevron-left', 'bi-chevron-right');
+      }
+    }
+  }
+
+  // Header scroll shadow
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('appHeader');
+    if (window.scrollY > 10) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  });
+
+  // Theme Toggle
+  function toggleTheme() {
+    const html = document.documentElement;
+    const icon = document.getElementById('themeIcon');
+    const label = document.querySelector('.theme-toggle span');
+    if (html.getAttribute('data-theme') === 'dark') {
+      html.removeAttribute('data-theme');
+      icon.classList.replace('bi-sun', 'bi-moon-stars');
+      if (label) label.textContent = 'الوضع الداكن';
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      icon.classList.replace('bi-moon-stars', 'bi-sun');
+      if (label) label.textContent = 'الوضع الفاتح';
+    }
+  }
+
+  // Direction Toggle (RTL / LTR)
+  function toggleDir() {
+    const html = document.documentElement;
+    if (html.dir === 'rtl') {
+      html.dir = 'ltr';
+      html.lang = 'en';
+    } else {
+      html.dir = 'rtl';
+      html.lang = 'ar';
+    }
+  }
+
+  // Command Palette
+  function toggleCmd() {
+    const overlay = document.getElementById('cmdOverlay');
+    overlay.classList.toggle('active');
+    if (overlay.classList.contains('active')) {
+      setTimeout(() => document.getElementById('cmdInput').focus(), 100);
+    }
+  }
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      toggleCmd();
+    }
+    if (e.key === 'Escape') {
+      document.getElementById('cmdOverlay').classList.remove('active');
+      document.getElementById('demoModal').classList.remove('active');
+    }
+  });
+
+  // Modal
+  function toggleModal() {
+    document.getElementById('demoModal').classList.toggle('active');
+  }
+
+  // Toast System
+  function showToast(message, type = 'info') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+
+    const icons = { info: 'bi-info-circle', success: 'bi-check-circle', warning: 'bi-exclamation-triangle', error: 'bi-exclamation-circle' };
+    const titles = { info: 'معلومة', success: 'نجاح', warning: 'تحذير', error: 'خطأ' };
+
+    toast.innerHTML = `
+      <i class="bi ${icons[type]} toast-icon"></i>
+      <div class="toast-body">
+        <div class="toast-title">${titles[type]}</div>
+        <div class="toast-message">${message}</div>
+      </div>
+      <button class="toast-close" onclick="this.parentElement.remove()"><i class="bi bi-x-lg"></i></button>
+      <div class="toast-progress"><div class="toast-progress-bar"></div></div>
+    `;
+
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 5000);
+  }
+
+  // Demo: auto-show a toast on load
+  setTimeout(() => showToast('مرحباً بك في النظام الجديد', 'info'), 800);
+</script>
+
+</body>
+</html>

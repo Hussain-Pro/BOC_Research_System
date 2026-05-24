@@ -1,4 +1,8 @@
-<app-navbar *ngIf="showNavbar"></app-navbar>
-<router-outlet></router-outlet>
-<app-toast-container></app-toast-container>
+<!-- App Shell — authenticated pages -->
+<app-shell *ngIf="showAppShell"></app-shell>
 
+<!-- Auth pages / landing / errors — no shell -->
+<ng-container *ngIf="!showAppShell">
+  <router-outlet></router-outlet>
+  <app-toast-container></app-toast-container>
+</ng-container>

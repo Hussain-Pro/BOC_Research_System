@@ -1,0 +1,160 @@
+<!-- App Shell: Header + Sidebar + Content Wrapper -->
+<div class="app-shell" [class.sidebar-collapsed]="isSidebarCollapsed">
+
+  <!-- Mobile Sidebar Overlay -->
+  <div class="sidebar-overlay" [class.active]="isMobileSidebarOpen" (click)="closeMobileSidebar()"></div>
+
+  <!-- Sidebar -->
+  <aside class="app-sidebar" [class.open]="isMobileSidebarOpen">
+    <div class="sidebar-brand">
+      <div class="logo-icon"><i class="bi bi-bank"></i></div>
+      <span class="logo-text">نظام أبحاث البنك</span>
+      <button class="sidebar-toggle" (click)="toggleSidebar()" *ngIf="!isMobile">
+        <i class="bi"
+           [class.bi-chevron-right]="isSidebarCollapsed"
+           [class.bi-chevron-left]="!isSidebarCollapsed"></i>
+      </button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <!-- Main -->
+      <div class="nav-section">
+        <div class="nav-section-title">الرئيسية</div>
+        <a class="nav-item" routerLink="/home" routerLinkActive="active" (click)="closeMobileSidebar()">
+          <i class="bi bi-grid-1x2"></i>
+          <span class="nav-label">لوحة التحكم</span>
+        </a>
+        <a class="nav-item" routerLink="/admin/notifications" routerLinkActive="active" (click)="closeMobileSidebar()">
+          <i class="bi bi-bell"></i>
+          <span class="nav-label">الإشعارات</span>
+          <span class="nav-badge" *ngIf="unreadNotifications > 0">{{ unreadNotifications }}</span>
+        </a>
+        <a class="nav-item" routerLink="/admin/chat" routerLinkActive="active" (click)="closeMobileSidebar()">
+          <i class="bi bi-chat-dots"></i>
+          <span class="nav-label">المراسلة</span>
+        </a>
+      </div>
+
+      <!-- Research -->
+      <div class="nav-section">
+        <div class="nav-section-title">الأبحاث</div>
+        <a class="nav-item" routerLink="/research/submit" routerLinkActive="active" (click)="closeMobileSidebar()">
+          <i class="bi bi-file-earmark-text"></i>
+          <span class="nav-label">تقديم بحث</span>
+        </a>
+        <a class="nav-item" routerLink="/research/history" routerLinkActive="active" (click)="closeMobileSidebar()">
+          <i class="bi bi-clock-history"></i>
+          <span class="nav-label">سجل الباحث</span>
+        </a>
+        <a class="nav-item" routerLink="/triage" routerLinkActive="active" (click)="closeMobileSidebar()">
+          <i class="bi bi-clipboard-check"></i>
+          <span class="nav-label">التصحيحات</span>
+        </a>
+        <a class="nav-item" routerLink="/research/timeline/1" routerLinkActive="active" (click)="closeMobileSidebar()">
+          <i class="bi bi-diagram-3"></i>
+          <span class="nav-label">الخط الزمني</span>
+        </a>
+      </div>
+
+      <!-- Committee -->
+      <div class="nav-section">
+        <div class="nav-section-title">اللجان</div>
+        <a class="nav-item" routerLink="/committee/workspace" routerLinkActive="active" (click)="closeMobileSidebar()">
+          <i class="bi bi-people"></i>
+          <span class="nav-label">مساحة اللجنة</span>
+        </a>
+        <a class="nav-item" routerLink="/committee/scheduler" routerLinkActive="active" (click)="closeMobileSidebar()">
+          <i class="bi bi-calendar-week"></i>
+          <span class="nav-label">جدول الاجتماعات</span>
+        </a>
+        <a class="nav-item" routerLink="/committee/studio/1" routerLinkActive="active" (click)="closeMobileSidebar()">
+          <i class="bi bi-camera-video"></i>
+          <span class="nav-label">استوديو الاجتماع</span>
+        </a>
+      </div>
+
+      <!-- Admin -->
+      <div class="nav-section">
+        <div class="nav-section-title">الإدارة</div>
+        <a class="nav-item" routerLink="/admin/analytics" routerLinkActive="active" (click)="closeMobileSidebar()">
+          <i class="bi bi-shield-check"></i>
+          <span class="nav-label">لوحة المسؤول</span>
+        </a>
+        <a class="nav-item" routerLink="/profile" routerLinkActive="active" (click)="closeMobileSidebar()">
+          <i class="bi bi-person-gear"></i>
+          <span class="nav-label">الملف الشخصي</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="theme-toggle" (click)="toggleTheme()">
+        <i class="bi" [class.bi-moon-stars]="!isDarkMode" [class.bi-sun]="isDarkMode"></i>
+        <span class="nav-label">{{ isDarkMode ? 'الوضع الفاتح' : 'الوضع الداكن' }}</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Header -->
+  <header class="app-header" [class.scrolled]="isScrolled">
+    <div class="header-left">
+      <!-- Mobile hamburger -->
+      <button class="icon-btn d-lg-none" (click)="openMobileSidebar()" id="mobile-sidebar-toggle">
+        <i class="bi bi-list"></i>
+      </button>
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb d-none d-md-flex" aria-label="breadcrumb">
+        <a href="/home">الرئيسية</a>
+        <span class="sep">‹</span>
+        <span>الأبحاث</span>
+        <span class="sep">‹</span>
+        <span class="current">{{ currentPageTitle }}</span>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <!-- Search trigger -->
+      <div class="search-trigger" (click)="openCommandPalette()" id="search-trigger" role="button" aria-label="البحث السريع">
+        <i class="bi bi-search"></i>
+        <span>البحث السريع...</span>
+        <kbd>Ctrl</kbd><kbd>K</kbd>
+      </div>
+
+      <!-- Dir toggle -->
+      <button class="icon-btn" (click)="toggleDir()" title="تبديل الاتجاه" id="dir-toggle">
+        <i class="bi bi-arrow-left-right"></i>
+      </button>
+
+      <!-- Notifications -->
+      <button class="icon-btn" (click)="goToNotifications()" id="notifications-btn">
+        <i class="bi bi-bell"></i>
+        <span class="badge-dot" *ngIf="unreadNotifications > 0"></span>
+      </button>
+
+      <!-- User Menu -->
+      <div class="user-menu" [matMenuTriggerFor]="userMenu" id="user-menu-trigger">
+        <div class="avatar">{{ userInitials }}</div>
+        <span class="name d-none d-md-inline">{{ userName }}</span>
+        <i class="bi bi-chevron-down d-none d-md-inline" style="font-size:12px;color:var(--text-secondary)"></i>
+      </div>
+      <mat-menu #userMenu="matMenu" class="glass-dropdown">
+        <button mat-menu-item routerLink="/profile">
+          <i class="bi bi-person" style="margin-left:8px"></i>
+          <span>الملف الشخصي</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <i class="bi bi-box-arrow-right" style="margin-left:8px"></i>
+          <span>تسجيل الخروج</span>
+        </button>
+      </mat-menu>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="app-main" id="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+<!-- Global Toast System -->
+<app-toast-system></app-toast-system>

@@ -1,0 +1,28 @@
+<!-- Filter Bar Component -->
+<div class="filter-bar">
+  <input
+    type="text"
+    class="form-input"
+    [placeholder]="'FILTER.SEARCH' | translate"
+    [(ngModel)]="searchQuery"
+    (input)="onSearch()"
+    style="width: 200px"
+  >
+
+  <ng-container *ngFor="let filter of activeFilters">
+    <span class="filter-chip">
+      {{ filter.label }}
+      <button (click)="removeFilter(filter)"><i class="bi bi-x"></i></button>
+    </span>
+  </ng-container>
+
+  <div style="flex: 1"></div>
+
+  <button class="btn btn-tertiary btn-sm" *ngIf="activeFilters.length > 0" (click)="clearAll()" style="color: var(--boc-danger)">
+    <i class="bi bi-x-circle"></i> {{ 'FILTER.CLEAR_ALL' | translate }}
+  </button>
+
+  <button class="btn btn-secondary btn-sm" (click)="openFilterDrawer()">
+    <i class="bi bi-funnel"></i> {{ 'FILTER.MORE' | translate }}
+  </button>
+</div>

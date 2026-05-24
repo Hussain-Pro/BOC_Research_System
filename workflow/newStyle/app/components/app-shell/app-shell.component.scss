@@ -1,0 +1,78 @@
+@import '../../styles/tokens';
+
+:host {
+  display: contents;
+}
+
+/* App Shell overrides handled in _layout.scss */
+.search-trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background: var(--boc-background);
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color var(--motion-fast), box-shadow var(--motion-fast);
+
+  &:hover { border-color: var(--border-color-hover); }
+
+  kbd {
+    background: var(--boc-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 1px 6px;
+    font-size: 11px;
+    font-family: var(--font-family-english);
+  }
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--motion-fast);
+
+  &:hover { background: rgba(15, 42, 56, 0.04); }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--boc-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+}
+
+/* Glass dropdown for Material menus */
+::ng-deep .glass-dropdown .mat-mdc-menu-content {
+  background: var(--boc-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elevation-3);
+  padding: var(--space-2) 0;
+}
+
+::ng-deep .glass-dropdown .mat-mdc-menu-item {
+  font-family: var(--font-family-arabic);
+  font-size: 14px;
+  min-height: 40px;
+
+  &:hover { background: rgba(15, 42, 56, 0.04); }
+}

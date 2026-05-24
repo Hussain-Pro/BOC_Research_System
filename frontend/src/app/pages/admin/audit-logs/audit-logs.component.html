@@ -1,29 +1,24 @@
 <div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
   <div class="container">
-    <boc-page-hero
-      title="سجل التدقيق الأمني"
-      subtitle="سجل شامل يعرض كل حركة وتغيير تم في النظام."
-      [breadcrumbs]="[{ label: 'الرئيسية', route: '/home' }, { label: 'سجل التدقيق' }]">
+    <div class="page-header"><div><h1 class="text-h1">سجل التدقيق الأمني</h1><p class="text-label">سجل شامل يعرض كل حركة وتغيير تم في النظام.</p></div>
       <button heroActions type="button" class="btn btn-outline-secondary btn-sm rounded-pill">
         <i class="bi bi-download me-1"></i> تصدير السجل (CSV)
       </button>
-    </boc-page-hero>
+    </div>
 
     <div class="row g-3 mb-4">
       <div class="col-md-4">
-        <boc-stat-card label="إجمالي السجلات" [value]="logs.length" icon="bi-journal-text"></boc-stat-card>
+        <div class="kpi-card"><div class="kpi-header"><span class="text-upper-label">إجمالي السجلات</span></div><div class="kpi-value">{{ logs.length }}</div></div>
       </div>
       <div class="col-md-4">
-        <boc-stat-card label="عمليات التعديل" [value]="1" icon="bi-pencil-square"
-                       iconBg="rgba(255, 193, 7, 0.15)" iconColor="var(--boc-warning)"></boc-stat-card>
+        <div class="kpi-card"><div class="kpi-header"><span class="text-upper-label">عمليات التعديل</span></div><div class="kpi-value">{{ 1 }}</div></div>
       </div>
       <div class="col-md-4">
-        <boc-stat-card label="تسجيلات الدخول" [value]="1" icon="bi-box-arrow-in-left"
-                       iconBg="rgba(23, 162, 184, 0.12)" iconColor="var(--boc-info)"></boc-stat-card>
+        <div class="kpi-card"><div class="kpi-header"><span class="text-upper-label">تسجيلات الدخول</span></div><div class="kpi-value">{{ 1 }}</div></div>
       </div>
     </div>
 
-    <boc-glass-card title="سجل الأحداث">
+    <div class="card mb-4"><div class="card-header"><span class="text-h3">سجل الأحداث</span></div><div class="card-body">
       <div class="row g-3 mb-4">
         <div class="col-md-4">
           <input type="date" class="form-control">
@@ -46,6 +41,7 @@
         [columnLabels]="columnLabels"
         [data]="logs">
       </boc-data-table>
-    </boc-glass-card>
+    </div></div>
   </div>
 </div>
+

@@ -12,9 +12,6 @@ import {
   ApexGrid,
   ApexNonAxisChartSeries
 } from 'ng-apexcharts';
-import { BocPageHeroComponent } from '../../../shared/boc-page-hero/boc-page-hero.component';
-import { BocStatCardComponent } from '../../../shared/boc-stat-card/boc-stat-card.component';
-import { BocGlassCardComponent } from '../../../shared/boc-glass-card/boc-glass-card.component';
 import { BocDataTableComponent } from '../../../shared/boc-data-table/boc-data-table.component';
 import { BocLayoutService } from '../../../services/boc-layout.service';
 
@@ -45,9 +42,6 @@ export type DonutChartOptions = {
     CommonModule,
     RouterModule,
     NgApexchartsModule,
-    BocPageHeroComponent,
-    BocStatCardComponent,
-    BocGlassCardComponent,
     BocDataTableComponent
   ],
   templateUrl: './analytics-dashboard.component.html',

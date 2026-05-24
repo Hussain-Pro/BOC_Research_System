@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -14,6 +14,9 @@ export class NavbarComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
+  @Output() sidebarToggled = new EventEmitter<boolean>();
+  isSidebarOpen = false;
+
   get isLoggedIn(): boolean {
     return this.authService.isAuthenticated();
   }
@@ -25,6 +28,11 @@ export class NavbarComponent {
   get userName(): string {
     const user = this.authService.currentUser();
     return user?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] || 'مستخدم النظام';
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+    this.sidebarToggled.emit(this.isSidebarOpen);
   }
 
   logout() {

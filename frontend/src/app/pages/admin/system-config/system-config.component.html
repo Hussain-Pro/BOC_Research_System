@@ -1,17 +1,14 @@
 <div class="container-fluid dashboard-bg min-vh-100 py-4" dir="rtl">
   <div class="container">
-    <boc-page-hero
-      title="إعدادات النظام"
-      subtitle="تكوين محددات النظام (SLA) والقوائم المنسدلة للأقسام العلمية والتخصصات."
-      [breadcrumbs]="[{ label: 'الرئيسية', route: '/home' }, { label: 'إعدادات النظام' }]">
+    <div class="page-header"><div><h1 class="text-h1">إعدادات النظام</h1><p class="text-label">تكوين محددات النظام (SLA) والقوائم المنسدلة للأقسام العلمية والتخصصات.</p></div>
       <button heroActions type="button" class="btn btn-primary-industrial btn-sm rounded-pill">
         <i class="bi bi-save me-1"></i> حفظ التغييرات
       </button>
-    </boc-page-hero>
+    </div>
 
     <div class="row g-4">
       <div class="col-md-5">
-        <boc-glass-card title="متغيرات SLA الأساسية">
+        <div class="card mb-4"><div class="card-header"><span class="text-h3">متغيرات SLA الأساسية</span></div><div class="card-body">
           <div class="mb-4">
             <label class="form-label fw-bold">الحد الأقصى لتقييم البحث (أيام)</label>
             <input type="number" class="form-control" [value]="slaDays">
@@ -28,11 +25,11 @@
             <label class="form-label fw-bold">فترة الاحتفاظ بالملفات المؤقتة (ساعات)</label>
             <input type="number" class="form-control" [value]="tempRetention">
           </div>
-        </boc-glass-card>
+        </div></div>
       </div>
 
       <div class="col-md-7">
-        <boc-glass-card title="إدارة قوائم النظام (Dictionaries)">
+        <div class="card mb-4"><div class="card-header"><span class="text-h3">إدارة قوائم النظام (Dictionaries)</span></div><div class="card-body">
           <ul class="nav nav-pills mb-4 config-tabs" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link active" type="button">أقسام BOC المتخصصة</button>
@@ -61,8 +58,9 @@
           <button type="button" class="btn btn-outline-primary mt-3 rounded-pill">
             <i class="bi bi-plus-circle me-1"></i> إضافة قسم جديد
           </button>
-        </boc-glass-card>
+        </div></div>
       </div>
     </div>
   </div>
 </div>
+

@@ -5,13 +5,11 @@ import { AuthService } from '../../services/auth.service';
 import { OnboardingService } from '../../services/onboarding.service';
 import { BocLayoutService } from '../../services/boc-layout.service';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { BocGlassCardComponent } from '../../shared/boc-glass-card/boc-glass-card.component';
-import { BocStatCardComponent } from '../../shared/boc-stat-card/boc-stat-card.component';
 
 @Component({
   selector: 'app-home-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgApexchartsModule, BocGlassCardComponent, BocStatCardComponent],
+  imports: [CommonModule, RouterModule, NgApexchartsModule],
   templateUrl: './home-dashboard.component.html',
   styleUrls: ['./home-dashboard.component.scss']
 })

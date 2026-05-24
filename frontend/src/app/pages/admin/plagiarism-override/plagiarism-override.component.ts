@@ -3,22 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ToastService } from '../../../services/toast.service';
 import { BocLayoutService } from '../../../services/boc-layout.service';
-import { BocPageHeroComponent } from '../../../shared/boc-page-hero/boc-page-hero.component';
-import { BocStatCardComponent } from '../../../shared/boc-stat-card/boc-stat-card.component';
-import { BocGlassCardComponent } from '../../../shared/boc-glass-card/boc-glass-card.component';
-import { BocEmptyStateComponent } from '../../../shared/boc-empty-state/boc-empty-state.component';
 
 @Component({
   selector: 'app-plagiarism-override',
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule,
-    BocPageHeroComponent,
-    BocStatCardComponent,
-    BocGlassCardComponent,
-    BocEmptyStateComponent
-  ],
+    RouterModule],
   templateUrl: './plagiarism-override.component.html',
   styleUrls: ['./plagiarism-override.component.scss']
 })
@@ -59,3 +50,4 @@ export class PlagiarismOverrideComponent implements OnInit {
     }
   }
 }
+
