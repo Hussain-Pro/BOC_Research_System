@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BOC.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+820b6607a5c078d6e762713ce7dece1aaa6a8b0e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9738d0c2fcfbe2cc1ee4660b3ec684cb67a8f94a")]
 [assembly: System.Reflection.AssemblyProductAttribute("BOC.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BOC.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -10,3 +10,15 @@ D:\WebApps\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\refint\BOC.D
 D:\WebApps\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\BOC.Domain.pdb
 D:\WebApps\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\ref\BOC.Domain.dll
 d:\WebApps\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\BOC.Domain.sourcelink.json
+E:\CursorProject\BOC_Research_System\BOC_Research_System\backend\BOC.Domain\bin\Debug\net10.0\BOC.Domain.deps.json
+E:\CursorProject\BOC_Research_System\BOC_Research_System\backend\BOC.Domain\bin\Debug\net10.0\BOC.Domain.dll
+E:\CursorProject\BOC_Research_System\BOC_Research_System\backend\BOC.Domain\bin\Debug\net10.0\BOC.Domain.pdb
+E:\CursorProject\BOC_Research_System\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\BOC.Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\CursorProject\BOC_Research_System\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\BOC.Domain.AssemblyInfoInputs.cache
+E:\CursorProject\BOC_Research_System\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\BOC.Domain.AssemblyInfo.cs
+E:\CursorProject\BOC_Research_System\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\BOC.Domain.csproj.CoreCompileInputs.cache
+E:\CursorProject\BOC_Research_System\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\BOC.Domain.sourcelink.json
+E:\CursorProject\BOC_Research_System\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\BOC.Domain.dll
+E:\CursorProject\BOC_Research_System\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\refint\BOC.Domain.dll
+E:\CursorProject\BOC_Research_System\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\BOC.Domain.pdb
+E:\CursorProject\BOC_Research_System\BOC_Research_System\backend\BOC.Domain\obj\Debug\net10.0\ref\BOC.Domain.dll

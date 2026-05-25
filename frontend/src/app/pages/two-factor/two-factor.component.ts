@@ -5,7 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
 import { BocAuthShellComponent } from '../../shared/boc-auth-shell/boc-auth-shell.component';
-import QRCode from 'qrcode';
+import * as QRCode from 'qrcode';
 
 @Component({
   selector: 'app-two-factor',
@@ -41,6 +41,14 @@ export class TwoFactorComponent implements OnInit {
       this.requiresSetup = state.requiresSetup || false;
       this.qrCodeUrl = state.qrCodeUrl || '';
       this.secret = state.secret || '';
+      
+      // Fallback: If qrCodeUrl is missing but secret is available, construct the otpauth URL
+      if (this.requiresSetup && !this.qrCodeUrl && this.secret) {
+        const issuer = encodeURIComponent('BOC_Research');
+        const account = encodeURIComponent(this.email);
+        this.qrCodeUrl = `otpauth://totp/${issuer}:${account}?secret=${this.secret}&issuer=${issuer}&algorithm=SHA1&digits=6&period=30`;
+      }
+
       if (this.requiresSetup && this.qrCodeUrl) {
         await this.generateQrCode();
       }
@@ -51,13 +59,26 @@ export class TwoFactorComponent implements OnInit {
 
   async generateQrCode() {
     try {
-      this.qrDataUrl = await QRCode.toDataURL(this.qrCodeUrl, {
+      console.log('Generating QR code with URL:', this.qrCodeUrl);
+      const qrLib: any = QRCode;
+      console.log('QRCode library import object:', qrLib);
+      
+      // Resolve toDataURL function from CommonJS / ESM wrapper
+      const toDataURLFn = qrLib?.toDataURL || qrLib?.default?.toDataURL || (typeof qrLib === 'function' ? qrLib : null);
+      
+      if (!toDataURLFn) {
+        throw new Error('QRCode.toDataURL function is not resolved from import.');
+      }
+
+      this.qrDataUrl = await toDataURLFn(this.qrCodeUrl, {
         width: 220,
         margin: 2,
         color: { dark: '#0F2A38', light: '#FFFFFF' },
         errorCorrectionLevel: 'M'
       });
-    } catch {
+      console.log('QR Code generated successfully. Length:', this.qrDataUrl?.length);
+    } catch (err) {
+      console.error('QR Code generation failed:', err);
       this.toastService.warning('تعذّر توليد رمز QR. يرجى إدخال الرمز يدوياً في التطبيق.');
     }
   }

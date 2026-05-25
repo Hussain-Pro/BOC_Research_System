@@ -32,6 +32,23 @@ public class DatabaseSeeder
         {
             await SeedUsersAsync();
         }
+        else
+        {
+            // Ensure requested users have their passwords updated to 123456
+            var evaluator = await _context.AppUsers.FirstOrDefaultAsync(u => u.Email == "evaluator@boc.oil.gov.iq");
+            if (evaluator != null)
+            {
+                evaluator.PasswordHash = _passwordHasher.HashPassword("123456");
+            }
+
+            var researcher = await _context.AppUsers.FirstOrDefaultAsync(u => u.Email == "researcher@boc.oil.gov.iq");
+            if (researcher != null)
+            {
+                researcher.PasswordHash = _passwordHasher.HashPassword("123456");
+            }
+
+            await _context.SaveChangesAsync();
+        }
         
         if (!await _context.ResearchCategories.AnyAsync())
         {
@@ -82,7 +99,7 @@ public class DatabaseSeeder
             FullName = "د. باحث عراقي",
             Email = "researcher@boc.oil.gov.iq",
             NormalizedEmail = "RESEARCHER@BOC.OIL.GOV.IQ",
-            PasswordHash = _passwordHasher.HashPassword("User@123"),
+            PasswordHash = _passwordHasher.HashPassword("123456"),
             RoleId = researcherRole!.Id,
             AccountStatus = AccountStatus.Active,
             IsEmailConfirmed = true,
@@ -97,7 +114,7 @@ public class DatabaseSeeder
             FullName = "أ. مقيم خبير",
             Email = "evaluator@boc.oil.gov.iq",
             NormalizedEmail = "EVALUATOR@BOC.OIL.GOV.IQ",
-            PasswordHash = _passwordHasher.HashPassword("User@123"),
+            PasswordHash = _passwordHasher.HashPassword("123456"),
             RoleId = evaluatorRole!.Id,
             AccountStatus = AccountStatus.Active,
             IsEmailConfirmed = true,
